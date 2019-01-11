@@ -7,7 +7,7 @@ import java.util.Objects;
 public class ContractBean implements Serializable {
     private long contractId; // Termina contratto
     private boolean isExipired; // Termina contratto
-    private LocalDate initDate; // Termina contratto
+    private LocalDate initDate;
     private LocalDate terminationDate; // Termina contratto
     private TypeOfPayment paymentMethod;
     private String lessorName; // Termina contratto
