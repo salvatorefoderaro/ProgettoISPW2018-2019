@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class ContractBean implements Serializable {
-    private long contractId;
-    private boolean isExipired;
-    private LocalDate initDate;
-    private LocalDate terminationDate;
+    private long contractId; // Termina contratto
+    private boolean isExipired; // Termina contratto
+    private LocalDate initDate; // Termina contratto
+    private LocalDate terminationDate; // Termina contratto
     private TypeOfPayment paymentMethod;
-    private String lessorName;
-    private String renterName;
+    private String lessorName; // Termina contratto
+    private String renterName; // Termina contratto
     private String lessorCF;
     private String renterCF;
     private int price;
@@ -24,14 +24,14 @@ public class ContractBean implements Serializable {
      * Successivamente si vanno a popolare i campi del bean tramite setter)
      */
     public ContractBean() {
-        this.contractId = this.hashCode();
-        this.initDate = LocalDate.now();
+        this.contractId = this.hashCode(); 
+        this.initDate = LocalDate.now(); 
         this.terminationDate = LocalDate.now();
         this.paymentMethod = TypeOfPayment.CREDIT_CARD;
         this.price= 0;
         this.frequencyOfPayment= 0;
-        this.lessorName = "";
-        this.renterName = "";
+        this.lessorName = ""; 
+        this.renterName = ""; 
         this.lessorCF = "";
         this.renterCF = "";
     }
