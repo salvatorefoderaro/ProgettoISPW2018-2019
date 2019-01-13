@@ -19,7 +19,6 @@ public class ContractBean implements Serializable {
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
 
     /**
-     * Default Constructor
      * We have default values
      * (usiamo valori di default per evitare di fare i controlli sui null dopo.
      * Successivamente si vanno a popolare i campi del bean tramite setter)
