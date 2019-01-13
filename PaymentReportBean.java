@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class PaymentReportBean implements Serializable {
     private long  paymentReportID;
     private Contract contractID;
-    private String renderName;
+    private String renterName;
     private Lessor lessorName;
     private int reportNumber;
     private String expirationReport;
