@@ -5,17 +5,18 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class ContractBean implements Serializable {
-    private long contractId; // Termina contratto
-    private boolean isExipired; // Termina contratto
+    private long contractId; 
+    private boolean isExipired;
     private LocalDate initDate;
-    private LocalDate terminationDate; // Termina contratto
+    private LocalDate terminationDate;
     private TypeOfPayment paymentMethod;
-    private String lessorName; // Termina contratto
-    private String renterName; // Termina contratto
+    private String lessorName;
+    private String renterName;
     private String lessorCF;
     private String renterCF;
     private int price;
     private int frequencyOfPayment;
+    private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
 
     /**
      * Default Constructor
