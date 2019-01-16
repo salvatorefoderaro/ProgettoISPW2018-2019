@@ -17,6 +17,7 @@ public class ContractBean implements Serializable {
     private String renterCF;
     private int price;
     private int frequencyOfPayment;
+    private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
     private List<OptionalService> serviceList;
 
     /**
