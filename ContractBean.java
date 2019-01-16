@@ -2,10 +2,11 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class ContractBean implements Serializable {
-    private long contractId; 
+    private long contractId;
     private boolean isExipired;
     private LocalDate initDate;
     private LocalDate terminationDate;
@@ -16,22 +17,23 @@ public class ContractBean implements Serializable {
     private String renterCF;
     private int price;
     private int frequencyOfPayment;
-    private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
+    private List<OptionalService> serviceList;
 
     /**
+     * Default Constructor
      * We have default values
      * (usiamo valori di default per evitare di fare i controlli sui null dopo.
      * Successivamente si vanno a popolare i campi del bean tramite setter)
      */
     public ContractBean() {
-        this.contractId = this.hashCode(); 
-        this.initDate = LocalDate.now(); 
+        this.contractId = this.hashCode();
+        this.initDate = LocalDate.now();
         this.terminationDate = LocalDate.now();
         this.paymentMethod = TypeOfPayment.CREDIT_CARD;
         this.price= 0;
         this.frequencyOfPayment= 0;
-        this.lessorName = ""; 
-        this.renterName = ""; 
+        this.lessorName = "";
+        this.renterName = "";
         this.lessorCF = "";
         this.renterCF = "";
     }
