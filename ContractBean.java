@@ -11,12 +11,12 @@ public class ContractBean implements Serializable {
     private LocalDate initDate;
     private LocalDate terminationDate;
     private TypeOfPayment paymentMethod;
-    private String lessorName;
+    private String tenantName;
     private String renterName;
-    private String lessorCF;
+    private String tenantCF;
     private String renterCF;
-    private int price;
-    private int frequencyOfPayment;
+    private int price; // Prezzo rata 
+    private int frequencyOfPayment; // Mesi 
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
     private List<OptionalService> serviceList;
 
