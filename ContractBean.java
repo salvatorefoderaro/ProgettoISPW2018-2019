@@ -2,21 +2,25 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ContractBean implements Serializable {
-    private long contractId; 
+    private long contractId;
     private boolean isExipired;
     private LocalDate initDate;
     private LocalDate terminationDate;
     private TypeOfPayment paymentMethod;
-    private String lessorName;
+    private String tenantName;
     private String renterName;
-    private String lessorCF;
+    private String tenantCF;
     private String renterCF;
-    private int price;
-    private int frequencyOfPayment;
+    private int grossPrice; // Prezzo rata con inclusi costi servizi 
+    private int netPrice ; // prezzo netto per l'affitto
+    private int frequencyOfPayment; // Mesi 
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
+    private List<OptionalService> serviceList;
 
     /**
      * Default Constructor
@@ -25,16 +29,18 @@ public class ContractBean implements Serializable {
      * Successivamente si vanno a popolare i campi del bean tramite setter)
      */
     public ContractBean() {
-        this.contractId = this.hashCode(); 
-        this.initDate = LocalDate.now(); 
+        this.contractId = this.hashCode();
+        this.initDate = LocalDate.now();
         this.terminationDate = LocalDate.now();
         this.paymentMethod = TypeOfPayment.CREDIT_CARD;
-        this.price= 0;
+        this.grossPrice= 0; //nizializzazione prezzo lordo
+        this.netPrice= 0; // inizializzazione prezzo netto
         this.frequencyOfPayment= 0;
-        this.lessorName = ""; 
-        this.renterName = ""; 
+        this.lessorName = "";
+        this.renterName = "";
         this.lessorCF = "";
         this.renterCF = "";
+        this.serviceList= new ArrayList<>();  //inizializzazione della lista
     }
 
     public int getFrequencyOfPayment() {
