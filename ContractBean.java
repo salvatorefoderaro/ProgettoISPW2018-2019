@@ -15,7 +15,8 @@ public class ContractBean implements Serializable {
     private String renterName;
     private String tenantCF;
     private String renterCF;
-    private int price; // Prezzo rata 
+    private int grossPrice; // Prezzo rata con inclussi costi servizi 
+    private int netPrice ; // prezzo netto per l'affitto
     private int frequencyOfPayment; // Mesi 
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
     private List<OptionalService> serviceList;
