@@ -32,12 +32,14 @@ public class ContractBean implements Serializable {
         this.initDate = LocalDate.now();
         this.terminationDate = LocalDate.now();
         this.paymentMethod = TypeOfPayment.CREDIT_CARD;
-        this.price= 0;
+        this.grossPrice= 0; //nizializzazione prezzo lordo
+        this.netPrice= 0; // inizializzazione prezzo netto
         this.frequencyOfPayment= 0;
         this.lessorName = "";
         this.renterName = "";
         this.lessorCF = "";
         this.renterCF = "";
+        this.serviceList= new ArrayList<>();  //inizializzazione della lista
     }
 
     public int getFrequencyOfPayment() {
