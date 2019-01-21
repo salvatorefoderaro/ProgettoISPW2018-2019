@@ -10,7 +10,10 @@ public class ContractCatalog {
      * Default constructor
      */
     protected ContractCatalog() {
+        this.contracts = new ArrayList<>();
     }
+
+    private List<ContractType> contracts;
 
     private static ContractCatalog contractCatalog;
 
@@ -18,8 +21,11 @@ public class ContractCatalog {
      * @return
      */
     public List<String> getAllContractTypes() {
-        // TODO implement here
-        return null;
+        List<String> contractnames = new ArrayList<>();
+
+        this.contracts.forEach(contractType -> contractnames.add(contractType.getName()));
+
+        return contractnames;
     }
 
     /**
@@ -27,8 +33,16 @@ public class ContractCatalog {
      * @return
      */
     public ContractType getContract(String name) {
-        // TODO implement here
+
+        for (int i = 0; i < this.contracts.size(); i++) {
+            if (this.contracts.get(i).getName().equals(name)) return this.contracts.get(i);
+        }
         return null;
+
+    }
+
+    public void addContratc(ContractType contractType) {
+        this.contracts.add(contractType);
     }
 
     /**

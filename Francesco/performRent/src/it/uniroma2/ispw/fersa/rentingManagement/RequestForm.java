@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.fersa.rentingManagement;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 
 /**
@@ -21,12 +22,7 @@ public class RequestForm {
     /**
      * 
      */
-    private LocalDate begin;
-
-    /**
-     * 
-     */
-    private LocalDate end;
+    private IntervalDate period;
 
     private Tenant tenant;
 
@@ -51,7 +47,13 @@ public class RequestForm {
      * @param begin
      * @param end
      */
-    public void setPeriod(LocalDate begin, LocalDate end) {
+    public void setPeriod(LocalDate begin, LocalDate end) throws PeriodException {
+        IntervalDate period = new IntervalDate(begin, end);
+
+        if (period.getNumMonths() > contractType.getMaxDuration() | period.getNumMonths() < contractType.getMinDuration()) throw new PeriodException();
+
+        this.period = period;
+
     }
 
     /**

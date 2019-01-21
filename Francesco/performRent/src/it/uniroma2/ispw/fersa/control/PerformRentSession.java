@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa.control;
 
+import it.uniroma2.ispw.fersa.boundary.performRentForm.Controller;
 import it.uniroma2.ispw.fersa.rentingManagement.*;
 
 
@@ -8,12 +9,12 @@ import java.time.LocalDate;
 /**
  * 
  */
-public class performRentSession {
+public class PerformRentSession {
 
     /**
      * Default constructor
      */
-    public performRentSession(Tenant tenant, Rentable rentable, EquippedApartment eApartment) {
+    public PerformRentSession(Tenant tenant, Rentable rentable, EquippedApartment eApartment) {
         this.tenant = tenant;
         this.rentable = rentable;
         this.eApartment = eApartment;
@@ -21,6 +22,12 @@ public class performRentSession {
         this.contractCatalog = ContractCatalog.getContractCatalogIstance();
 
         this.requestForm = new RequestForm(tenant, ((EquippedApartment) this.eApartment).getRenter(), rentable);
+    }
+
+    public PerformRentSession(Controller controller, Rentable rentable) {
+        this.rentable = rentable;
+        this.controller = controller;
+
     }
 
 
@@ -34,6 +41,7 @@ public class performRentSession {
 
     private ContractCatalog contractCatalog;
 
+    private Controller controller;
 
 
 

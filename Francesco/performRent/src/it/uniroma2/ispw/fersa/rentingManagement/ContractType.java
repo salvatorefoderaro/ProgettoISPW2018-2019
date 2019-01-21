@@ -8,7 +8,11 @@ public class ContractType {
     /**
      * Default constructor
      */
-    public ContractType() {
+    public ContractType(String name, String description, int minDuration, int maxDuration) {
+        this.name = name;
+        this.description = description;
+        this.minDuration = minDuration;
+        this.maxDuration = maxDuration;
     }
 
     /**
@@ -24,44 +28,39 @@ public class ContractType {
     /**
      * 
      */
-    private Integer minDuration;
+    private int minDuration;
 
     /**
      * 
      */
-    private Integer maxDuration;
+    private int maxDuration;
 
 
     /**
      * @return
      */
     public String getName() {
-        // TODO implement here
-        return "";
+        return this.name;
     }
 
     /**
      * @return
      */
-    public Integer getMinDuration() {
-        // TODO implement here
-        return null;
+    public int getMinDuration() {
+        return minDuration;
     }
 
     /**
      * @return
      */
-    public Integer getMaxDuration() {
-        // TODO implement here
-        return null;
+    public int getMaxDuration() {
+        return maxDuration;
     }
 
     /**
      * @return
      */
     public String getDescription() {
-        // TODO implement here
-        return "";
+        return description;
     }
-
 }
