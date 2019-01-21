@@ -52,8 +52,15 @@ public class performRentSession {
      * @param begin
      * @param end
      */
-    public void enterPeriod(LocalDate begin, LocalDate end) {
+    public void enterPeriod(LocalDate begin, LocalDate end) throws PeriodException {
+        try {
+            requestForm.setPeriod(begin, end);
+        }
+        catch (PeriodException exc) {
+
+        }
     }
+
 
     /**
      * 
