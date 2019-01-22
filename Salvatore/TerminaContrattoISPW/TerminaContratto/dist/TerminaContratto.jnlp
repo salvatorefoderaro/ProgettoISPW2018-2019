@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.security.policy=applet.policy "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="TerminaContratto.jar" size="48349" download="eager" />
+    <jar href="TerminaContratto.jar" size="47894" download="eager" />
     <jar href="lib/c3p0-0.9.1-pre6.jar" size="531005" download="eager" />
     <jar href="lib/jboss-common-jdbc-wrapper-src.jar" size="35342" download="eager" />
     <jar href="lib/jboss-common-jdbc-wrapper.jar" size="50184" download="eager" />

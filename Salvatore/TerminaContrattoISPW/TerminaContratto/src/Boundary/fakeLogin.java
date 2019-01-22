@@ -28,20 +28,20 @@ import javafx.stage.Stage;
  */
 public class fakeLogin {
     
-    @FXML private TextField IDValue;
-    @FXML private Button buttonLocatore;
-    @FXML private Button buttonLocatario;
+    @FXML private TextField ID;
+    @FXML private Button renterButton;
+    @FXML private Button tenantButton;
     
     
     public void initialize() throws IOException{
         try {
             Controller controllerProva = Controller.getInstance();
-            buttonLocatore.setDisable(false);
-            buttonLocatario.setDisable(false);
+            renterButton.setDisable(false);
+            tenantButton.setDisable(false);
         } catch (SQLException e) {
             
-            buttonLocatore.setDisable(true);
-            buttonLocatario.setDisable(true);
+            renterButton.setDisable(true);
+            tenantButton.setDisable(true);
             this.databaseConnectionError(); 
         }
     }
@@ -51,7 +51,7 @@ public class fakeLogin {
         
         Platform.runLater(() -> {
             // Creo lo stage
-            Stage stage = (Stage) buttonLocatore.getScene().getWindow();
+            Stage stage = (Stage) renterButton.getScene().getWindow();
             stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
             Stage newStage = new Stage();
             Pane comp = new Pane();
@@ -86,13 +86,13 @@ public class fakeLogin {
 }
     
     @FXML
-    private void setLocatore() throws IOException {
+    private void isRenter() throws IOException {
         
-        session.makeSession(IDValue.getText(), "Locatore");
-        Stage stage=(Stage)buttonLocatore.getScene().getWindow();
+        userSession.makeSession(ID.getText(), "Locatore");
+        Stage stage=(Stage)renterButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
-        Parent myNewScene = FXMLLoader.load(getClass().getResource("pannelloUtente.fxml"));
+        Parent myNewScene = FXMLLoader.load(getClass().getResource("userPanel.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("FERSA - Termina contratto - Pannello utente");
@@ -100,13 +100,13 @@ public class fakeLogin {
     }
     
     @FXML
-    private void setLocatario() throws IOException{
+    private void isTenant() throws IOException{
         
-        session.makeSession(IDValue.getText(), "Locatario");        
-        Stage stage=(Stage)buttonLocatore.getScene().getWindow();
+        userSession.makeSession(ID.getText(), "Locatario");        
+        Stage stage=(Stage)renterButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
-        Parent myNewScene = FXMLLoader.load(getClass().getResource("pannelloUtente.fxml"));
+        Parent myNewScene = FXMLLoader.load(getClass().getResource("userPanel.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("FERSA - Termina contratto - Pannello utente");

@@ -5,12 +5,12 @@
  */
 package Controller;
 
-import Bean.BeanNotifica;
-import Bean.ContrattoBean;
-import Bean.SegnalazionePagamentoBean;
-import Boundary.session;
-import DAO.JDBCContratto;
-import DAO.JDBCSegnalazionePagamento;
+import Bean.notificationBean;
+import Bean.contractBean;
+import Bean.paymentClaimBean;
+import Boundary.userSession;
+import DAO.contractJDBC;
+import DAO.paymentClaimJDBC;
 import DAO.databaseConnection;
 import Entity.Contratto;
 import Entity.SegnalazionePagamento;
@@ -30,8 +30,8 @@ public class Controller extends Observable implements Runnable {
     private  Map<Integer, SegnalazionePagamento> dictionarySegnalazionePagamento  = new HashMap<Integer, SegnalazionePagamento>();
     private  Map<Integer, Contratto> dictionaryContratto  = new HashMap<Integer, Contratto>();
     private Connection connection = null;
-    private JDBCSegnalazionePagamento jdbcSegnalazionePagamento;
-    private JDBCContratto jdbcContratto;
+    private paymentClaimJDBC jdbcSegnalazionePagamento;
+    private contractJDBC jdbcContratto;
     private static Controller controller_instance = null;
     
     private Controller()  throws SQLException{
@@ -45,18 +45,18 @@ public class Controller extends Observable implements Runnable {
         return controller_instance;
     }
     
-    public List<SegnalazionePagamentoBean> getSegnalazioniPagamento(String nickname, String type) throws SQLException{
+    public List<paymentClaimBean> getSegnalazioniPagamento(String nickname, String type) throws SQLException{
         
-    jdbcSegnalazionePagamento = new JDBCSegnalazionePagamento();
+    jdbcSegnalazionePagamento = new paymentClaimJDBC();
     
     List<SegnalazionePagamento> Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(nickname, type);
-    List<SegnalazionePagamentoBean> list = new LinkedList<SegnalazionePagamentoBean>();
+    List<paymentClaimBean> list = new LinkedList<paymentClaimBean>();
     
     for (SegnalazionePagamento temp : Result) {
         if (dictionarySegnalazionePagamento.get(temp.getClaimId()) == null){
             dictionarySegnalazionePagamento.put(temp.getClaimId(), temp);    
         }
-        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+        paymentClaimBean bean = new paymentClaimBean();
         bean.setClaimDeadline(temp.getClaimDeadline());
         bean.setClaimId(temp.getClaimId());
         bean.setClaimNumber(temp.getClaimNumber());
@@ -70,14 +70,14 @@ public class Controller extends Observable implements Runnable {
     return list;    
 }   
     
-    public List<ContrattoBean> getContratti(String renterNickname) throws SQLException{
+    public List<contractBean> getContratti(String renterNickname) throws SQLException{
         
-        JDBCContratto jdbcContratto = new JDBCContratto();
+        contractJDBC jdbcContratto = new contractJDBC();
         List<Contratto> Result = jdbcContratto.getContratti(renterNickname);
-        List<ContrattoBean> list = new LinkedList<>();
+        List<contractBean> list = new LinkedList<>();
         
         for (Contratto temp : Result) {
-            ContrattoBean bean = new ContrattoBean();
+            contractBean bean = new contractBean();
             bean.setContractId(temp.getContractId());
             bean.setTenantNickname(temp.getTenantNickname());
             bean.setRenterNickname(temp.getRenterNickname());
@@ -89,22 +89,22 @@ public class Controller extends Observable implements Runnable {
         return list;
     }
   
-    public void setContrattoArchiviato(SegnalazionePagamentoBean bean) throws SQLException{
+    public void setContrattoArchiviato(paymentClaimBean bean) throws SQLException{
         dictionarySegnalazionePagamento.get(bean.getClaimId()).getContratto().archiviaContratto();            
 }
     
-        public void setSegnalazioneNotificata(SegnalazionePagamentoBean bean) throws SQLException{
+        public void setSegnalazioneNotificata(paymentClaimBean bean) throws SQLException{
         dictionarySegnalazionePagamento.get(bean.getClaimId()).archiviaNotificaSegnalazione();
 }
         
-                public void setSegnalazionePagata(SegnalazionePagamentoBean bean) throws SQLException{
+                public void setSegnalazionePagata(paymentClaimBean bean) throws SQLException{
         dictionarySegnalazionePagamento.get(bean.getClaimId()).archiviaNotificaSegnalazione();
 }
     
-    public void inserisciSegnalazionePagamento(SegnalazionePagamentoBean bean) throws SQLException{
+    public void inserisciSegnalazionePagamento(paymentClaimBean bean) throws SQLException{
        
-        jdbcSegnalazionePagamento  = new JDBCSegnalazionePagamento();
-        jdbcContratto = new JDBCContratto();
+        jdbcSegnalazionePagamento  = new paymentClaimJDBC();
+        jdbcContratto = new contractJDBC();
         
         jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
         jdbcContratto.setContrattoSegnalato(bean.getContractId());
@@ -113,7 +113,7 @@ public class Controller extends Observable implements Runnable {
         dictionarySegnalazionePagamento.put(newSegnalazione.getClaimId(), newSegnalazione);
     }
     
-    public void incrementaSegnalazione(SegnalazionePagamentoBean bean)  throws SQLException{
+    public void incrementaSegnalazione(paymentClaimBean bean)  throws SQLException{
         //if (bean.getNumeroReclamo() == 3){
           //  dictionarySegnalazionePagamento.get(bean.getID()).archiviaSegnalazionePagamento();
         
@@ -133,7 +133,7 @@ public class Controller extends Observable implements Runnable {
         while(true){
             List<SegnalazionePagamento> Result = null;
                 try {
-                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(session.getSession().getUsername(), session.getSession().getType());
+                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(userSession.getSession().getUsername(), userSession.getSession().getType());
                 } catch (SQLException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -145,7 +145,7 @@ public class Controller extends Observable implements Runnable {
             
             if (!Result.isEmpty()){
                 count = Result.size();
-                BeanNotifica changes = new BeanNotifica();
+                notificationBean changes = new notificationBean();
                 changes.setNumeroNotifiche(count);
                 setChanged();
                 notifyObservers(changes);

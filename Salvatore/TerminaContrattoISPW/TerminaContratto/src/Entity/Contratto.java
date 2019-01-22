@@ -5,7 +5,7 @@
  */
 package Entity;
 
-import DAO.JDBCContratto;
+import DAO.contractJDBC;
 import java.sql.SQLException;
 
 /**
@@ -15,14 +15,14 @@ import java.sql.SQLException;
 public class Contratto {
     private int contractId;
     private int contractState;
-    private JDBCContratto jdbcContratto;
+    private contractJDBC jdbcContratto;
     private String tenantNickname;
     private String renterNickname;
     
     public Contratto (int contractId, int contractState, String tenantNickname, String renterNickname) throws SQLException{
         this.contractId = contractId;
         this.contractState = contractState;
-        this.jdbcContratto = new JDBCContratto();
+        this.jdbcContratto = new contractJDBC();
         this.tenantNickname = tenantNickname;
         this.renterNickname = renterNickname;
     }

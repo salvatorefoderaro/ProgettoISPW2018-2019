@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package Entity;
-import Bean.SegnalazionePagamentoBean;
-import DAO.JDBCSegnalazionePagamento;
+import Bean.paymentClaimBean;
+import DAO.paymentClaimJDBC;
 import java.sql.SQLException;
 /**
  *
@@ -20,7 +20,7 @@ public class SegnalazionePagamento {
     private String claimDeadline;
     private int claimState;
     private int claimNotified;
-    private JDBCSegnalazionePagamento jdbcSegnalazionePagamento;
+    private paymentClaimJDBC jdbcSegnalazionePagamento;
     
     public SegnalazionePagamento(int claimId, Contratto contractId, String renterNickname, Locatario tenantNickname, int claimNumber, String claimDeadline, int claimState, int claimNotified) throws SQLException{
         this.claimId = claimId;
@@ -31,7 +31,7 @@ public class SegnalazionePagamento {
         this.claimDeadline = claimDeadline;
         this.claimState = claimState;
         this.claimNotified = claimNotified;
-        this.jdbcSegnalazionePagamento = new JDBCSegnalazionePagamento();
+        this.jdbcSegnalazionePagamento = new paymentClaimJDBC();
     }
     
     public int getClaimId(){ return this.claimId; }
@@ -63,7 +63,7 @@ public class SegnalazionePagamento {
         this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.claimId);
     }
     
-    public void creaSegnalazionePagamento(SegnalazionePagamentoBean bean) throws SQLException{
+    public void creaSegnalazionePagamento(paymentClaimBean bean) throws SQLException{
        this.jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
     }
     

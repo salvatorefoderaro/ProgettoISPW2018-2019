@@ -5,7 +5,7 @@
  */
 package Entity;
 
-import DAO.JDBCLocatario;
+import DAO.tenantJDBC;
 import java.sql.SQLException;
 
 /**
@@ -16,13 +16,13 @@ public class Locatario {
     private int IDLocatario;
     private String nickname;
     private int SollecitiPagamento;
-    private JDBCLocatario jdbcLocatario;
+    private tenantJDBC jdbcLocatario;
     
     public Locatario (int IDLocatario, String nickname, int SollecitiPagamento) throws SQLException{
         this.IDLocatario = IDLocatario;
         this.nickname = nickname;
         this.SollecitiPagamento = SollecitiPagamento;
-        this.jdbcLocatario = new JDBCLocatario();
+        this.jdbcLocatario = new tenantJDBC();
     }
     
     public int getID(){
