@@ -4,6 +4,8 @@ import it.uniroma2.ispw.fersa.control.PerformRentSession;
 import it.uniroma2.ispw.fersa.rentingManagement.ContractCatalog;
 import it.uniroma2.ispw.fersa.rentingManagement.ContractType;
 import it.uniroma2.ispw.fersa.rentingManagement.Rentable;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTypeBean;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTypeIdBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
+import java.time.Duration;
 import java.util.List;
 
 
@@ -21,25 +24,25 @@ public class Controller {
 
 
 
-    public Controller() {
-
-        this.generatesContracts();
-        this.control = new PerformRentSession(this, new Rentable());
-    }
 
     public void initialize() {
-        setContratList();
+        this.generatesContracts(); //TODO Da togliere a implementazione conclusa
+        this.control = new PerformRentSession(null, null, null, this);
+        this.setContratList();
+
     }
 
-
     @FXML
-    BorderPane root;
-
-    @FXML
-    private ComboBox contractChoice;
+    private ComboBox contractBox;
 
     @FXML
     private Text contractDescription;
+
+    @FXML
+    private Text minDuration;
+
+    @FXML
+    private Text maxDuration;
 
     private PerformRentSession control;
     private final int NUM = 3;
@@ -52,18 +55,37 @@ public class Controller {
     }
 
     private void setContratList() {
-        List<String> contracts = ContractCatalog.getContractCatalogIstance().getAllContractTypes();
+        List<ContractTypeIdBean> contractsId = control.getAllContratcs();
+        ObservableList<String> contractsNames = FXCollections.observableArrayList();
 
-        contractChoice.setItems(FXCollections.observableArrayList(contracts));
+        contractsId.forEach(contractTypeIdBean -> contractsNames.add(contractTypeIdBean.getName()));
 
+        contractBox.setItems(contractsNames);
     }
 
-    public void getDescription() {
-        String contract = contractChoice.getValue().toString();
+    public void selectContract() {
 
-        ContractType contractType = ContractCatalog.getContractCatalogIstance().getContract(contract);
+        ContractTypeIdBean contractId = new ContractTypeIdBean(contractBox.getValue().toString());
 
-        contractDescription.setText("Description: " + contractType.getDescription() + "\nminDuration: " + contractType.getMinDuration() + "\nmaxDuration: " + contractType.getMaxDuration());
+        control.selectContract(contractId);
+    }
 
+    public void setContractDescription(ContractTypeBean contractInfo) {
+        contractDescription.setText(contractInfo.getDescription());
+        setDuration(minDuration, contractInfo.getMinDuration());
+        setDuration(maxDuration, contractInfo.getMaxDuration());
+    }
+
+    private void setDuration(Text durationText, int numOfMonths) {
+        switch (numOfMonths) {
+            case 0:
+                durationText.setText("nessun limite");
+                break;
+            case 1:
+                durationText.setText("1 mese");
+                break;
+            default:
+                durationText.setText(numOfMonths + " mesi");
+        }
     }
 }
