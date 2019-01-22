@@ -18,7 +18,7 @@ public class PerformRentSession {
     /**
      * Default constructor
      */
-    public PerformRentSession(Tenant tenant, Rentable rentable, EquippedApartment eApartmentcontrol, Controller controller) {
+    public PerformRentSession(Tenant tenant, Rentable rentable, EquippedApartment eApartment, Controller controller) {
         this.tenant = tenant;
         this.rentable = rentable;
         this.eApartment = eApartment;
@@ -31,6 +31,14 @@ public class PerformRentSession {
 
     public PerformRentSession(Controller controller) {
         this.controller = controller;
+
+        this.contractCatalog = ContractCatalog.getContractCatalogIstance();
+
+        this.requestForm = new RequestForm(null, null, null);
+
+        List<ContractTypeIdBean> contracts = getAllContratcs();
+
+        controller.setContratList(contracts);
 
     }
 
@@ -73,12 +81,12 @@ public class PerformRentSession {
      * @param begin
      * @param end
      */
-    public void enterPeriod(LocalDate begin, LocalDate end) throws PeriodException {
+    public void enterPeriod(LocalDate begin, LocalDate end) {
         try {
             requestForm.setPeriod(begin, end);
         }
         catch (PeriodException exc) {
-
+            controller.setPeriodError("Il periodo selezionato non è conforme alle specifiche del contratto selezionato");
         }
     }
 

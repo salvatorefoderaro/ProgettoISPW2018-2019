@@ -11,6 +11,7 @@ public class ContractCatalog {
      */
     protected ContractCatalog() {
         this.contracts = new ArrayList<>();
+        generatesContracts();
     }
 
     private List<ContractType> contracts;
@@ -41,7 +42,9 @@ public class ContractCatalog {
 
     }
 
-    public void addContratc(ContractType contractType) {
+
+    //MOCK
+    private void addContratc(ContractType contractType) {
         this.contracts.add(contractType);
     }
 
@@ -54,6 +57,12 @@ public class ContractCatalog {
         }
         else {
             return contractCatalog;
+        }
+    }
+
+    private void generatesContracts() {
+        for (int i = 0; i < 10; i++) {
+            this.addContratc(new ContractType("Contract " + (i + 1), "Description of contract " + (i + 1), i, 2 * (i + 1)));
         }
     }
 

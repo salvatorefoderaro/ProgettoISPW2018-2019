@@ -13,24 +13,16 @@ import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.List;
 
 
 public class Controller {
-
-
-
-
-    public void initialize() {
-        this.generatesContracts(); //TODO Da togliere a implementazione conclusa
-        this.control = new PerformRentSession(null, null, null, this);
-        this.setContratList();
-
-    }
 
     @FXML
     private ComboBox contractBox;
@@ -44,18 +36,20 @@ public class Controller {
     @FXML
     private Text maxDuration;
 
+    @FXML
+    private DatePicker beginDate;
+
+    @FXML
+    private DatePicker endDate;
+
+    @FXML
+    private Text errorText;
+
     private PerformRentSession control;
-    private final int NUM = 3;
 
-    private void generatesContracts() {
-        ContractCatalog catalog = ContractCatalog.getContractCatalogIstance();
-        for (int i = 0; i < this.NUM; i++) {
-            catalog.addContratc(new ContractType("Contract " + (i + 1), "Description of contract " + (i + 1), i, i + 6));
-        }
-    }
 
-    private void setContratList() {
-        List<ContractTypeIdBean> contractsId = control.getAllContratcs();
+    public void setContratList(List<ContractTypeIdBean> contractsId) {
+
         ObservableList<String> contractsNames = FXCollections.observableArrayList();
 
         contractsId.forEach(contractTypeIdBean -> contractsNames.add(contractTypeIdBean.getName()));
@@ -87,5 +81,39 @@ public class Controller {
             default:
                 durationText.setText(numOfMonths + " mesi");
         }
+    }
+
+    public void setControl(PerformRentSession control) {
+        if (this.control == null) this.control = control;
+    }
+
+    public void setPeriod() {
+
+        LocalDate begin = this.beginDate.getValue();
+        LocalDate end = this.endDate.getValue();
+
+        errorText.setText("");
+        if (begin == null || end == null) {
+            errorText.setText("Errore: inserire un periodo");
+            return;
+        }
+
+        if (begin.compareTo(LocalDate.now()) <= 0) {
+            errorText.setText("Errore: inserire una data successiva a oggi");
+            return;
+        }
+
+
+        if(end.compareTo(begin) <= 0 ) {
+            errorText.setText("Errore: periodo inserito non valido");
+            return;
+        }
+
+
+        this.control.enterPeriod(begin, end);
+    }
+
+    public void setPeriodError (String errorMessage) {
+        errorText.setText(errorMessage);
     }
 }

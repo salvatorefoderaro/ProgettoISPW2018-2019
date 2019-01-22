@@ -50,6 +50,8 @@ public class RequestForm {
     public void setPeriod(LocalDate begin, LocalDate end) throws PeriodException {
         IntervalDate period = new IntervalDate(begin, end);
 
+
+
         if (period.getNumMonths() > contractType.getMaxDuration() | period.getNumMonths() < contractType.getMinDuration()) throw new PeriodException();
 
         this.period = period;
