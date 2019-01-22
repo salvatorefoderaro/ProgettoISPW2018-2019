@@ -46,7 +46,7 @@ import javafx.scene.layout.Pane;
 
 public class pannelloUtente{
     
-private VBox as;
+private VBox rootVBox;
 private Controller controllerProva;
 @FXML private AnchorPane root;
 @FXML private Button closeButton;
@@ -62,86 +62,68 @@ public void initialize(){
 
 
     benvenuto.setText("Bentornato " + session.getSession().getUsername());
-    /*
-    control = new ControllerLogicoDati();
-    DataStore dataStore = DataStore.getInstance();
-    dataStore.addObserver(this); 
-
-    List<Integer> listID = new ArrayList<>();
-    List<BeanSegnalazionePagamento> itera = this.control.ottieniSegnalazioniPagamento();
-    for (int i = 0; i < itera.size(); i++) {
-
-        listID.add(itera.get(i).getID());
-
-        Label element1 = new Label();
-        Label element2 = new Label();
-        Label element3 = new Label();
-        Button element4 = new Button();
-
-        element1.setText("ID Segnalazione: " + Integer.toString(itera.get(i).getID()));		
-        element4.setMnemonicParsing(false);
-        element4.setText("Elimina segnalazione pagamento");
-        
-        // Elimina segnalazione pagamento
-        element4.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Node source = (Node)event.getSource() ;
-                Integer rowIndex = GridPane.getRowIndex(source);
-                element4.setDisable(true);
-                control.eliminaSegnalazionePagamento(listID.get(rowIndex));
-            }
-        }); 
-
-        element3.setText("Scadenza: " + Integer.toString(itera.get(i).getIDLocatario()));
-        element2.setText("ID Contratto: " + Integer.toString(itera.get(i).getStato()));
-
-        // Non serve metterlo in quanto l'ho già inserito all'interno dell'FXML
-        /*GridPane.setHalignment(element1, HPos.CENTER);
-        GridPane.setHalignment(element2, HPos.CENTER);
-        GridPane.setHalignment(element3, HPos.CENTER);
-        GridPane.setHalignment(element4, HPos.CENTER);*/
-
-/*      tabella.add(element1, 0, i);
-        tabella.add(element2, 1, i);
-        tabella.add(element3, 2, i);
-        tabella.add(element4, 3, i); */
         try {
             controllerProva = Controller.getInstance();
        }
         catch (SQLException e) {
             // TODO Auto-generated catch block
             System.out.println("Vedo l'errore");
-            this.connectionError(); 
+            this.databaseConnectionError(); 
         } 
     } 
 
-    @FXML
-    public void connectionError() {
+        @FXML
+    public void databaseConnectionError() {
         
+        Platform.runLater(new Runnable() {
+  @Override public void run() {
+        
+        // Creo lo stage
+        Stage stage = (Stage) visualizzaSegnalazioniButton.getScene().getWindow();
+        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
         Stage newStage = new Stage();
-        VBox comp = new VBox();
-        TextField nameField = new TextField("Name");
-        TextField phoneNumber = new TextField("Phone Number");
-                    Button element3 = new Button();
-           
-            element3.setText("Button");
-            element3.setMnemonicParsing(false);
-            comp.getChildren().add(element3);
-            
+        Pane comp = new Pane();
+        
+        // Inserisco gli elementi che mi interessano
+        Label nameField = new Label();
+        nameField.setLayoutX(128.0);
+        nameField.setLayoutY(21.0);
+        nameField.setText("Errore nella connessione con il database! ");
+        
 
-        comp.getChildren().add(nameField);
-        comp.getChildren().add(phoneNumber);
-            element3.setOnAction(new EventHandler<ActionEvent>() {
+        
+        Button close = new Button();
+        close.setLayoutX(219.0);
+        close.setLayoutY(125.0);
+        close.setText("Invia");
+        
+        // Mostro la finestra di popup
+        Scene stageScene = new Scene(comp, 500, 200);
+        newStage.setScene(stageScene);
+        comp.getChildren().addAll(nameField, close);
+        newStage.show();
+        
+        close.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                initialize();
-                newStage.close();
+                
+                try {
+                    Stage stage=(Stage) visualizzaSegnalazioniButton.getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setController(this);
+                    Parent myNewScene = loader.load(getClass().getResource("visualizzaSegnalazioni.fxml"));
+                    Scene scene = new Scene(myNewScene);
+                    stage.setScene(scene);
+                    stage.setTitle("FERSA - Termina contratto - Visualizza segnalazioni");
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(pannelloUtente.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
     });
-        Scene stageScene = new Scene(comp, 300, 300);
-        newStage.setScene(stageScene);
-        newStage.show();
+        
+  }
+});
 
 }
 
@@ -149,7 +131,6 @@ public void initialize(){
     public void newScene() throws IOException{
         Stage stage=(Stage) visualizzaSegnalazioniButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setController(this);
         Parent myNewScene = loader.load(getClass().getResource("visualizzaSegnalazioni.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
@@ -161,7 +142,6 @@ public void initialize(){
     public void newScene1() throws IOException{
         Stage stage=(Stage) visualizzaSegnalazioniButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setController(this);
         Parent myNewScene = loader.load(getClass().getResource("inoltraSegnalazioni.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);

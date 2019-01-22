@@ -12,20 +12,15 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,19 +40,16 @@ private VBox as;
 @FXML private ScrollPane principale;
 @FXML private Button pannelloUtenteButton;
 private String dataScadenza = null;
-private Controller controllerProva;
+private Controller controllerProva; 
 
 public void initialize(){
         
             try {
             controllerProva = Controller.getInstance();
             controllerProva.addObserver(this);
-
-        
         }
         catch (SQLException e) {
-            // TODO Auto-generated catch block
-            System.out.println("Eccezzione MYSQL presa dalla Boundary");
+    databaseConnectionError();
         } 
     
     List<Integer> IDSegnalazioni = new LinkedList<>();
@@ -65,12 +57,15 @@ public void initialize(){
     try {
         listaResult = controllerProva.getSegnalazioniPagamento(session.getSession().getId(), session.getSession().getType());
     } catch (SQLException ex) {
-        Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
+        databaseConnectionError();
     }
 
-    if (listaResult.size() == 0){
-        // Fare qualcosa se non ho risultati
-    } else {
+    if (listaResult == null){
+        // do something}
+    }else {
+          if (listaResult.isEmpty()){
+          
+          }else {
         for (int i = 0; i < listaResult.size(); i++) {
             
             IDSegnalazioni.add(listaResult.get(i).getID());
@@ -100,62 +95,59 @@ public void initialize(){
                         element3.setText("In attesa del locatario");
                         element3.setDisable(true);}
                     else{
-                    element3.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                        bean.setID(Result.getID());
-                        try {
-                            controllerProva.setSegnalazionePagata(bean);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        element3.setDisable(true);
-                    }
-                });                    
+                        element3.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                                bean.setID(Result.getID());
+                                try {
+                                    controllerProva.setSegnalazionePagata(bean);
+                                } catch (SQLException ex) {
+                                    databaseConnectionError();                        }
+                                element3.setDisable(true);
+                            }
+                        });
                     }
                     break;
                 
                 case 1:
                     if (session.getSession().getType() == "Locatore"){
-                    element3.setText("Reinoltra segnalazione");
-                    
-                    element3.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                        bean.setID(Result.getID());
-                        bean.setNumeroReclamo(Result.getNumeroReclamo());
-                        try {
-                            controllerProva.incrementaSegnalazione(bean);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        element3.setText("Reinoltra segnalazione");
+                        
+                        element3.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                                bean.setID(Result.getID());
+                                bean.setNumeroReclamo(Result.getNumeroReclamo());
+                                try {
+                                    controllerProva.incrementaSegnalazione(bean);
+                                } catch (SQLException ex) {
+                                    databaseConnectionError();                        }
+                                element3.setDisable(true);
+                            }
+                        });} else {
+                        element3.setText("In attesa del locatore");
                         element3.setDisable(true);
-                    }
-                });} else {
-                    element3.setText("In attesa del locatore");
-                    element3.setDisable(true);
                     }
                     break;
                     
                 case 2:
                     if(session.getSession().getType() == "Locatore"){
-                    element3.setText("Archivia contratto");
-                    
-                    element3.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                        bean.setID(Result.getID());
-                        try {
-                            controllerProva.setContrattoArchiviato(bean);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        element3.setDisable(true);
-                    }
-                });} else {
+                        element3.setText("Archivia contratto");
+                        
+                        element3.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                                bean.setID(Result.getID());
+                                try {
+                                    controllerProva.setContrattoArchiviato(bean);
+                                } catch (SQLException ex) {
+                                    databaseConnectionError();                        }
+                                element3.setDisable(true);
+                            }
+                        });} else {
                         element3.setText("In attesa del locatore");
                         element3.setDisable(true);
                     }
@@ -163,48 +155,95 @@ public void initialize(){
                     
                 case 3:
                     if (session.getSession().getType() == "Locatore"){
-                    element3.setText("Archivia contratto");
-                    element3.setDisable(true);
-                    
+                        element3.setText("Archivia contratto");
+                        element3.setDisable(true);
+                        
                     }else{
                         
-                    element3.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                        bean.setID(Result.getID());
-                        try {
-                            controllerProva.setSegnalazioneNotificata(bean);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        element3.setDisable(true);
-                    }
-                });
-                    element3.setText("Archivia notitica");
+                        element3.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                                bean.setID(Result.getID());
+                                try {
+                                    controllerProva.setSegnalazioneNotificata(bean);
+                                } catch (SQLException ex) {
+                                    databaseConnectionError();                        }
+                                element3.setDisable(true);
+                            }
+                        });
+                        element3.setText("Archivia notitica");
                     }
                     break;
                     
                 case 4:
                     if(session.getSession().getType() == "Locatore"){
-                    element3.setText("Archivia notifica");
-                    element3.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                        bean.setID(Result.getID());
-                        try {
-                            controllerProva.setSegnalazioneNotificata(bean);
-                        } catch (SQLException ex) {
-                            Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        element3.setText("Archivia notifica");
+                        element3.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                                bean.setID(Result.getID());
+                                try {
+                                    controllerProva.setSegnalazioneNotificata(bean);
+                                } catch (SQLException ex) {
+                                    databaseConnectionError();                        }
+                                element3.setDisable(true);
+                            }
+                        });                    } else {
+                        element3.setText("Conferma pagamento");
                         element3.setDisable(true);
                     }
-                });                    } else {
-                    element3.setText("Conferma pagamento");
-                    element3.setDisable(true);
-                    }
-            }}}}
+            }}}     // Fare qualcosa se non ho risultati
+    }}
+
+        @FXML
+    public void databaseConnectionError() {
+        
+        Platform.runLater(new Runnable() {
+  @Override public void run() {
+        
+        // Creo lo stage
+        Stage stage = (Stage) pannelloUtenteButton.getScene().getWindow();
+        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+        Stage newStage = new Stage();
+        Pane comp = new Pane();
+        
+        // Inserisco gli elementi che mi interessano
+        Label nameField = new Label();
+        nameField.setLayoutX(128.0);
+        nameField.setLayoutY(21.0);
+        nameField.setText("Errore nella connessione con il database! ");
+        
+        Button close = new Button();
+        close.setLayoutX(219.0);
+        close.setLayoutY(125.0);
+        close.setText("Invia");
+        
+        // Mostro la finestra di popup
+        Scene stageScene = new Scene(comp, 500, 200);
+        newStage.setScene(stageScene);
+        comp.getChildren().addAll(nameField, close);
+        newStage.show();
+        
+        close.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            try {
+                Stage stage = (Stage)close.getScene().getWindow();
+                stage.close();
+                newScene();
+            } catch (IOException ex) {
+                Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+        
+        
+  }
+});
+
+}
 
     @Override
     public void update(Observable o, Object arg) {
@@ -241,7 +280,6 @@ public void initialize(){
         controllerProva.deleteObserver(this);
         Stage stage=(Stage) pannelloUtenteButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setController(this);
         Parent myNewScene = loader.load(getClass().getResource("pannelloUtente.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
