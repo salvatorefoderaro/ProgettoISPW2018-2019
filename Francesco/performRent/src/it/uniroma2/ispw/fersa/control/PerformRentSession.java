@@ -2,9 +2,13 @@ package it.uniroma2.ispw.fersa.control;
 
 import it.uniroma2.ispw.fersa.boundary.performRentForm.Controller;
 import it.uniroma2.ispw.fersa.rentingManagement.*;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTypeBean;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTypeIdBean;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -14,18 +18,18 @@ public class PerformRentSession {
     /**
      * Default constructor
      */
-    public PerformRentSession(Tenant tenant, Rentable rentable, EquippedApartment eApartment) {
+    public PerformRentSession(Tenant tenant, Rentable rentable, EquippedApartment eApartmentcontrol, Controller controller) {
         this.tenant = tenant;
         this.rentable = rentable;
         this.eApartment = eApartment;
 
         this.contractCatalog = ContractCatalog.getContractCatalogIstance();
 
-        this.requestForm = new RequestForm(tenant, ((EquippedApartment) this.eApartment).getRenter(), rentable);
+        this.controller = controller;
+        this.requestForm = new RequestForm(tenant, null, rentable); //TODO Modificare il renter quando implementato
     }
 
-    public PerformRentSession(Controller controller, Rentable rentable) {
-        this.rentable = rentable;
+    public PerformRentSession(Controller controller) {
         this.controller = controller;
 
     }
@@ -44,16 +48,25 @@ public class PerformRentSession {
     private Controller controller;
 
 
+    public List<ContractTypeIdBean> getAllContratcs () {
+        List<String> contractsNames = contractCatalog.getAllContractTypes();
+        List<ContractTypeIdBean> contractsId = new ArrayList<>();
 
+        contractsNames.forEach(contractName -> contractsId.add(new ContractTypeIdBean(contractName)));
+
+       return contractsId;
+
+    }
 
     /**
      * @param name
      */
-    public void selectContract(String name) {
+    public void selectContract(ContractTypeIdBean contractId) {
         ContractType contractType;
 
-        contractType = contractCatalog.getContract(name);
+        contractType = contractCatalog.getContract(contractId.getName());
         requestForm.setContratcType(contractType);
+        controller.setContractDescription(new ContractTypeBean(contractType.getName(), contractType.getDescription(), contractType.getMinDuration(), contractType.getMaxDuration()));
     }
 
     /**
