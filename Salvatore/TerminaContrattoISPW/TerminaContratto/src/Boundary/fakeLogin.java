@@ -5,15 +5,22 @@
  */
 package Boundary;
 
+import Controller.Controller;
 import java.io.IOException;
-import java.net.URL;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -27,16 +34,71 @@ public class fakeLogin {
     @FXML private Button buttonLocatario;
     
     
-    public void initialize(){
-    
-        //buttonLocatore.getScene().getStylesheets().add(getClass().getResource("test.css").toExternalForm());
-        System.out.println(buttonLocatore.getScene());
+    public void initialize() throws IOException{
+        try {
+            Controller controllerProva = Controller.getInstance();
+            buttonLocatore.setDisable(false);
+            buttonLocatario.setDisable(false);
+        } catch (SQLException e) {
+            
+            buttonLocatore.setDisable(true);
+            buttonLocatario.setDisable(true);
+            System.out.println("Vedo l'errore");
+            this.databaseConnectionError(); 
+        }
     }
+    
+        @FXML
+    public void databaseConnectionError() {
+        
+        Platform.runLater(new Runnable() {
+  @Override public void run() {
+        
+        // Creo lo stage
+        Stage stage = (Stage) buttonLocatore.getScene().getWindow();
+        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+        Stage newStage = new Stage();
+        Pane comp = new Pane();
+        
+        // Inserisco gli elementi che mi interessano
+        Label nameField = new Label();
+        nameField.setLayoutX(128.0);
+        nameField.setLayoutY(21.0);
+        nameField.setText("Errore nella connessione con il database! ");
+        
+        Button close = new Button();
+        close.setLayoutX(219.0);
+        close.setLayoutY(125.0);
+        close.setText("Invia");
+        
+        // Mostro la finestra di popup
+        Scene stageScene = new Scene(comp, 500, 200);
+        newStage.setScene(stageScene);
+        comp.getChildren().addAll(nameField, close);
+        newStage.show();
+        
+        close.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+                Stage stage = (Stage)close.getScene().getWindow();
+            try {
+                stage.close();
+                initialize();
+            } catch (IOException ex) {
+                Logger.getLogger(fakeLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+        
+  }
+});
+
+}
     
     @FXML
     private void setLocatore() throws IOException {
-        session.makeSession("Pasquale", Integer.parseInt(IDValue.getText()), "Locatore");
         
+        session.makeSession("Pasquale", Integer.parseInt(IDValue.getText()), "Locatore");
         Stage stage=(Stage)buttonLocatore.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
@@ -49,9 +111,9 @@ public class fakeLogin {
     
     @FXML
     private void setLocatario() throws IOException{
-        session.makeSession("Pasquale", Integer.parseInt(IDValue.getText()), "Locatario");        
         
-                Stage stage=(Stage)buttonLocatore.getScene().getWindow();
+        session.makeSession("Pasquale", Integer.parseInt(IDValue.getText()), "Locatario");        
+        Stage stage=(Stage)buttonLocatore.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
         Parent myNewScene = loader.load(getClass().getResource("pannelloUtente.fxml"));

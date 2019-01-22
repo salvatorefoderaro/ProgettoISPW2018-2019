@@ -41,7 +41,6 @@ public class JDBCSegnalazionePagamento implements SegnalazionePagamentoDAO {
         jdbcLocatario = new JDBCLocatario();
         
         List<SegnalazionePagamento> listaSegnalazioni = new LinkedList<SegnalazionePagamento>();
-        try {
             String query;
             if (type == "Locatario"){
                 query = "select * from SegnalazioneContratto where Notified = 0 and IDLocatario = ?";
@@ -70,9 +69,7 @@ public class JDBCSegnalazionePagamento implements SegnalazionePagamentoDAO {
                 resultSet.close();
                 preparedStatement.close();
                  
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            
             return listaSegnalazioni;
     }
     
@@ -83,7 +80,6 @@ public class JDBCSegnalazionePagamento implements SegnalazionePagamentoDAO {
         JDBCLocatario jdbcLocatario = new JDBCLocatario();
         
         SegnalazionePagamento segnalazione = null;
-        try {
         String query = "select * from SegnalazioneContratto where IDContratto = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, ID);
@@ -105,9 +101,6 @@ public class JDBCSegnalazionePagamento implements SegnalazionePagamentoDAO {
                 resultSet.close();
                 preparedStatement.close();
                  
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
             return segnalazione;
     }
 

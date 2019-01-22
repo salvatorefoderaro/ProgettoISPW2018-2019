@@ -68,8 +68,7 @@ public void initialize(){
         
         }
         catch (SQLException e) {
-            // TODO Auto-generated catch block
-            System.out.println("Eccezzione MYSQL presa dalla Boundary");
+            databaseConnectionError();
         } 
     
     
@@ -78,15 +77,16 @@ public void initialize(){
         listaResult = controllerProva.getContratti(session.getSession().getId());
         // Devo prima mostrare tutti quanti i contratti attivi, quindi principlamente devo lavorare con questo
     } catch (SQLException ex) {
-        Logger.getLogger(inoltraSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
+            databaseConnectionError();
     }
     
     List<Integer> IDContratti = new LinkedList<>();
     
     // Devo eseguire questo su un ciclo, quindi per ogni elemento che voglio
     // Devo aggiungere un po di roba che ci stava anche prima
-    
-    if (listaResult.size() == 0){
+    if (listaResult == null){
+    }else{
+    if (listaResult.isEmpty()){
     } else {
         for (int i = 0; i < listaResult.size(); i++) {
             ContrattoBean Result = listaResult.get(i);
@@ -111,7 +111,6 @@ public void initialize(){
             element3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            System.out.println("SS + SS" + Result.getIDContratto() + " sss" + Result.getIDLocatario() + "\n");
             popup(Result.getIDContratto(), Result.getIDLocatario(), element3);
 
         }
@@ -119,7 +118,7 @@ public void initialize(){
 
             
         }
-    }
+    }}
 }
     @FXML
     private void newScene() throws IOException{
@@ -185,7 +184,7 @@ public void initialize(){
                 try {
                     controllerProva.testMakeBean(bean);
                 } catch (SQLException ex) {
-                    Logger.getLogger(inoltraSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
+                    databaseConnectionError();
                 }
                 element.setDisable(true);
                 dataScadenza = null;
@@ -206,6 +205,53 @@ public void initialize(){
 
 }
 
+            @FXML
+    public void databaseConnectionError() {
+        
+        Platform.runLater(new Runnable() {
+  @Override public void run() {
+        
+        // Creo lo stage
+        Stage stage = (Stage) pannelloUtenteButton.getScene().getWindow();
+        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+        Stage newStage = new Stage();
+        Pane comp = new Pane();
+        
+        // Inserisco gli elementi che mi interessano
+        Label nameField = new Label();
+        nameField.setLayoutX(128.0);
+        nameField.setLayoutY(21.0);
+        nameField.setText("Errore nella connessione con il database! ");
+        
+        Button close = new Button();
+        close.setLayoutX(219.0);
+        close.setLayoutY(125.0);
+        close.setText("Invia");
+        
+        // Mostro la finestra di popup
+        Scene stageScene = new Scene(comp, 500, 200);
+        newStage.setScene(stageScene);
+        comp.getChildren().addAll(nameField, close);
+        newStage.show();
+        
+        close.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            try {
+                Stage stage = (Stage)close.getScene().getWindow();
+                stage.close();
+                newScene();
+            } catch (IOException ex) {
+                Logger.getLogger(visualizzaSegnalazioni.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    });
+        
+        
+  }
+});
+
+}
 
 @Override
 public void update(Observable o, Object arg) {

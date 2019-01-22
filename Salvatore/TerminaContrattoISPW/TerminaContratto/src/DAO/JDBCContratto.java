@@ -34,7 +34,6 @@ public class JDBCContratto implements ContrattoDAO {
         
         
         List<Contratto> listaContratti = new LinkedList<>();
-        try {
         String query = "select * from Contratto where StatoContratto = 1";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setInt(1, ID);
@@ -51,16 +50,12 @@ public class JDBCContratto implements ContrattoDAO {
                 resultSet.close();
                 preparedStatement.close();
                  
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
             return listaContratti;
     }
     
     @Override
     public Contratto getContratto(int ID)  throws SQLException{
         Contratto contratto = null;
-        try {
                 String query = "SELECT * from Contratto where IDContratto = ?";
                 PreparedStatement preparedStatement = this.connection.prepareStatement(query);
                 preparedStatement.setString(1, Integer.toString(ID));
@@ -73,16 +68,11 @@ public class JDBCContratto implements ContrattoDAO {
                 }
                 resultSet.close();
                 preparedStatement.close();
-                 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
             return contratto;
     }
 
     @Override
     public void setContrattoArchiviato(int ID)  throws SQLException{
-        try {
             PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Contratto SET StatoContratto = 0 WHERE IDContratto = ?");
             preparedStatement.setString(1,  Integer.toString(ID));
             preparedStatement.executeUpdate();
@@ -93,23 +83,15 @@ public class JDBCContratto implements ContrattoDAO {
             preparedStatement1.executeUpdate();
             preparedStatement1.close();
             
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
     }
     
     @Override
     public void setContrattoSegnalato(int ID)  throws SQLException{
-        try {
             PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Contratto SET StatoContratto = 2 WHERE IDContratto = ?");
             preparedStatement.setString(1,  Integer.toString(ID));
             preparedStatement.executeUpdate();
             preparedStatement.close();
-        } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
     }
     
     public void closeConnection(){
