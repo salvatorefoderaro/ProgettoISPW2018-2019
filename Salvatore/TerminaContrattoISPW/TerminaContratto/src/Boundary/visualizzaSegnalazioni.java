@@ -44,62 +44,78 @@ private Controller controllerProva;
 
 public void initialize(){
         
-            try {
+        try {
             controllerProva = Controller.getInstance();
             controllerProva.addObserver(this);
         }
         catch (SQLException e) {
-    databaseConnectionError();
+            System.out.println("Ma allora?");
+            e.printStackTrace();
+            databaseConnectionError();
         } 
+    pannelloUtenteButton.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\"; -fx-text-fill: white; -fx-font-size: 16px;-fx-padding: 10;-fx-background-color: #007bff;");
+    principale.setStyle("-fx-background-color:transparent;");
     
     List<Integer> IDSegnalazioni = new LinkedList<>();
     List<SegnalazionePagamentoBean> listaResult = null;
+    
     try {
-        listaResult = controllerProva.getSegnalazioniPagamento(session.getSession().getId(), session.getSession().getType());
+        listaResult = controllerProva.getSegnalazioniPagamento(session.getSession().getUsername(), session.getSession().getType());
     } catch (SQLException ex) {
+            System.out.println("Ma allora?");
+            ex.printStackTrace();
         databaseConnectionError();
     }
 
     if (listaResult == null){
-        // do something}
+
     }else {
           if (listaResult.isEmpty()){
           
-          }else {
+        }else {
+              System.out.println("Dimensione dimensione: " + listaResult.size());
         for (int i = 0; i < listaResult.size(); i++) {
             
-            IDSegnalazioni.add(listaResult.get(i).getID());
+            IDSegnalazioni.add(listaResult.get(i).getClaimId());
             
             SegnalazionePagamentoBean Result = listaResult.get(i);
-            System.out.println(Result.getID());
+
+
             Label element0 = new Label();
-            element0.setText("ID Contratto: " + Result.getIDContratto());
+            element0.setText("ID Contratto: " + Result.getContractId());
             tabella.add(element0, 0, i);
 
             Label element1 = new Label();
-            element1.setText("Numero reclamo: " + Result.getNumeroReclamo());
+            element1.setText("Numero reclamo: " + Result.getClaimNumber());
             tabella.add(element1, 1, i);
 
             Label element2 = new Label();
-            element2.setText("Scadenza reclamo: " + Result.getScadenzaReclamo());
+            element2.setText("Scadenza reclamo: " + Result.getClaimDeadline());
             tabella.add(element2, 2, i);
+            
+            element0.setId("text-label");
+            element1.setId("text-label");
+            element2.setId("text-label");
+            
+           
 
             Button element3 = new Button();
-            element3.setText("Button");
+            element3.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: white;-fx-font-size: 14px; -fx-padding: 10;-fx-background-color: #6c757d;");
             element3.setMnemonicParsing(false);
             tabella.add(element3, 3, i);
             
-            switch(Result.getStato()){
+            switch(Result.getClaimState()){
                 case 0:
-                    if (session.getSession().getType() == "Locatore"){
+                    if ("Locatore".equals(session.getSession().getType())){
                         element3.setText("In attesa del locatario");
                         element3.setDisable(true);}
                     else{
+                        element3.setText("Conferma pagamento");
                         element3.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
                                 SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                                bean.setID(Result.getID());
+                                bean.setClaimId(Result.getClaimId());
                                 try {
                                     controllerProva.setSegnalazionePagata(bean);
                                 } catch (SQLException ex) {
@@ -111,21 +127,18 @@ public void initialize(){
                     break;
                 
                 case 1:
-                    if (session.getSession().getType() == "Locatore"){
+                    if ("Locatore".equals(session.getSession().getType())){
                         element3.setText("Reinoltra segnalazione");
                         
-                        element3.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                                bean.setID(Result.getID());
-                                bean.setNumeroReclamo(Result.getNumeroReclamo());
-                                try {
-                                    controllerProva.incrementaSegnalazione(bean);
-                                } catch (SQLException ex) {
-                                    databaseConnectionError();                        }
-                                element3.setDisable(true);
-                            }
+                        element3.setOnAction((ActionEvent event) -> {
+                            SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                            bean.setClaimId(Result.getClaimId());
+                            bean.setClaimNumber(Result.getClaimNumber());
+                            try {
+                                controllerProva.incrementaSegnalazione(bean);
+                            } catch (SQLException ex) {
+                                databaseConnectionError();                        }
+                            element3.setDisable(true);
                         });} else {
                         element3.setText("In attesa del locatore");
                         element3.setDisable(true);
@@ -133,20 +146,17 @@ public void initialize(){
                     break;
                     
                 case 2:
-                    if(session.getSession().getType() == "Locatore"){
+                    if("Locatore".equals(session.getSession().getType())){
                         element3.setText("Archivia contratto");
                         
-                        element3.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                                bean.setID(Result.getID());
-                                try {
-                                    controllerProva.setContrattoArchiviato(bean);
-                                } catch (SQLException ex) {
-                                    databaseConnectionError();                        }
-                                element3.setDisable(true);
-                            }
+                        element3.setOnAction((ActionEvent event) -> {
+                            SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                            bean.setClaimId(Result.getClaimId());
+                            try {
+                                controllerProva.setContrattoArchiviato(bean);
+                            } catch (SQLException ex) {
+                                databaseConnectionError();                        }
+                            element3.setDisable(true);
                         });} else {
                         element3.setText("In attesa del locatore");
                         element3.setDisable(true);
@@ -154,23 +164,20 @@ public void initialize(){
                     break;
                     
                 case 3:
-                    if (session.getSession().getType() == "Locatore"){
+                    if ("Locatore".equals(session.getSession().getType())){
                         element3.setText("Archivia contratto");
                         element3.setDisable(true);
                         
                     }else{
                         
-                        element3.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                                bean.setID(Result.getID());
-                                try {
-                                    controllerProva.setSegnalazioneNotificata(bean);
-                                } catch (SQLException ex) {
-                                    databaseConnectionError();                        }
-                                element3.setDisable(true);
-                            }
+                        element3.setOnAction((ActionEvent event) -> {
+                            SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+                            bean.setClaimId(Result.getClaimId());
+                            try {
+                                controllerProva.setSegnalazioneNotificata(bean);
+                            } catch (SQLException ex) {
+                                databaseConnectionError();                        }
+                            element3.setDisable(true);
                         });
                         element3.setText("Archivia notitica");
                     }
@@ -183,7 +190,7 @@ public void initialize(){
                             @Override
                             public void handle(ActionEvent event) {
                                 SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                                bean.setID(Result.getID());
+                                bean.setClaimId(Result.getClaimId());
                                 try {
                                     controllerProva.setSegnalazioneNotificata(bean);
                                 } catch (SQLException ex) {
@@ -239,7 +246,6 @@ public void initialize(){
         }
     });
         
-        
   }
 });
 
@@ -265,7 +271,7 @@ public void initialize(){
         Button close = new Button();
         close.setLayoutX(154.0);
         close.setLayoutY(99.0);
-        close.setText("Chiudi!");
+        close.setText("Chiudi");
 
         Scene stageScene = new Scene(comp, 368, 159);
         newStage.setScene(stageScene);

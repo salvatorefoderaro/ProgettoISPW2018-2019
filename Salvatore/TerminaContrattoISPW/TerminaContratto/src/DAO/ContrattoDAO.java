@@ -15,6 +15,6 @@ import java.sql.SQLException;
 public interface ContrattoDAO {
     public void setContrattoArchiviato(int ID) throws SQLException;
     public Contratto getContratto(int ID) throws SQLException;
-    public List<Contratto> getContratti(int ID) throws SQLException;
+    public List<Contratto> getContratti(String renterNickname) throws SQLException;
     public void setContrattoSegnalato(int ID) throws SQLException;
 }

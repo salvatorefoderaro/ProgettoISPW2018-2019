@@ -14,17 +14,23 @@ import java.sql.SQLException;
  */
 public class Locatario {
     private int IDLocatario;
+    private String nickname;
     private int SollecitiPagamento;
     private JDBCLocatario jdbcLocatario;
     
-    public Locatario (int IDLocatario, int SollecitiPagamento) throws SQLException{
+    public Locatario (int IDLocatario, String nickname, int SollecitiPagamento) throws SQLException{
         this.IDLocatario = IDLocatario;
+        this.nickname = nickname;
         this.SollecitiPagamento = SollecitiPagamento;
         this.jdbcLocatario = new JDBCLocatario();
     }
     
     public int getID(){
         return this.IDLocatario;
+    }
+    
+    public String getNickname(){
+        return this.nickname;
     }
     
     public void incrementaSollecitiPagamento()  throws SQLException{

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public interface SegnalazionePagamentoDAO {
      
     public void setSegnalazionePagamentoArchiviata(int ID)  throws SQLException;
-    public List<SegnalazionePagamento> getSegnalazioniPagamento(int IDUtente, String type)  throws SQLException;
+    public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname, String type)  throws SQLException;
     public void incrementaNumeroSegnalazione(int ID)  throws SQLException;
     public void setSegnalazionePagamentoNotificata(int ID)  throws SQLException;
     public void createSegnalazionePagamento(SegnalazionePagamentoBean bean)  throws SQLException;

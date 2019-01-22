@@ -45,71 +45,79 @@ public class Controller extends Observable implements Runnable {
         return controller_instance;
     }
     
-    public List<SegnalazionePagamentoBean> getSegnalazioniPagamento(int ID, String type) throws SQLException{
+    public List<SegnalazionePagamentoBean> getSegnalazioniPagamento(String nickname, String type) throws SQLException{
         
     jdbcSegnalazionePagamento = new JDBCSegnalazionePagamento();
     
-    List<SegnalazionePagamento> Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(ID, type);
-    System.out.println("\n\nLa dimensione è: " + Result.size());
+    List<SegnalazionePagamento> Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(nickname, type);
     List<SegnalazionePagamentoBean> list = new LinkedList<SegnalazionePagamentoBean>();
     
     for (SegnalazionePagamento temp : Result) {
-        if (dictionarySegnalazionePagamento.get(temp.getID()) == null){
-            dictionarySegnalazionePagamento.put(temp.getID(), temp);    
+        if (dictionarySegnalazionePagamento.get(temp.getClaimId()) == null){
+            dictionarySegnalazionePagamento.put(temp.getClaimId(), temp);    
         }
-        list.add(temp.makeBean());
+        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
+        bean.setClaimDeadline(temp.getClaimDeadline());
+        bean.setClaimId(temp.getClaimId());
+        bean.setClaimNumber(temp.getClaimNumber());
+        bean.setClaimState(temp.getClaimState());
+        bean.setContractId(temp.getContract().getContractId());
+        bean.setRenterNickname(nickname);
+        bean.setTenantNickname(temp.getTenantNickname().getNickname());
+        list.add(bean);
     }
     
     return list;    
 }   
     
-    public List<ContrattoBean> getContratti(int ID) throws SQLException{
+    public List<ContrattoBean> getContratti(String renterNickname) throws SQLException{
         
         JDBCContratto jdbcContratto = new JDBCContratto();
-        List<Contratto> Result = jdbcContratto.getContratti(ID);
+        List<Contratto> Result = jdbcContratto.getContratti(renterNickname);
         List<ContrattoBean> list = new LinkedList<>();
         
         for (Contratto temp : Result) {
             ContrattoBean bean = new ContrattoBean();
-            bean.setIDContratto(temp.getIDContratto());
-            bean.setIDLocatario(temp.getIDLocatario());
-            bean.setStatoContratto(temp.getStatoContratto());
+            bean.setContractId(temp.getContractId());
+            bean.setTenantNickname(temp.getTenantNickname());
+            bean.setRenterNickname(temp.getRenterNickname());
+            bean.setContractState(temp.getContractState());
             list.add(bean);
-            dictionaryContratto.put(temp.getIDContratto(), temp);
+            dictionaryContratto.put(temp.getContractId(), temp);
         }        
         
         return list;
     }
   
     public void setContrattoArchiviato(SegnalazionePagamentoBean bean) throws SQLException{
-        dictionarySegnalazionePagamento.get(bean.getID()).getContratto().archiviaContratto();            
+        dictionarySegnalazionePagamento.get(bean.getClaimId()).getContratto().archiviaContratto();            
 }
     
         public void setSegnalazioneNotificata(SegnalazionePagamentoBean bean) throws SQLException{
-        dictionarySegnalazionePagamento.get(bean.getID()).archiviaNotificaSegnalazione();
+        dictionarySegnalazionePagamento.get(bean.getClaimId()).archiviaNotificaSegnalazione();
 }
         
                 public void setSegnalazionePagata(SegnalazionePagamentoBean bean) throws SQLException{
-        dictionarySegnalazionePagamento.get(bean.getID()).archiviaNotificaSegnalazione();
+        dictionarySegnalazionePagamento.get(bean.getClaimId()).archiviaNotificaSegnalazione();
 }
     
-    public void testMakeBean(SegnalazionePagamentoBean bean) throws SQLException{
+    public void inserisciSegnalazionePagamento(SegnalazionePagamentoBean bean) throws SQLException{
        
         jdbcSegnalazionePagamento  = new JDBCSegnalazionePagamento();
         jdbcContratto = new JDBCContratto();
         
         jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
-        jdbcContratto.setContrattoSegnalato(bean.getIDContratto());
+        jdbcContratto.setContrattoSegnalato(bean.getContractId());
 
-        SegnalazionePagamento newSegnalazione = jdbcSegnalazionePagamento.getSegnalazionePagamento(bean.getIDContratto());
-        dictionarySegnalazionePagamento.put(newSegnalazione.getID(), newSegnalazione);
+        SegnalazionePagamento newSegnalazione = jdbcSegnalazionePagamento.getSegnalazionePagamento(bean.getContractId());
+        dictionarySegnalazionePagamento.put(newSegnalazione.getClaimId(), newSegnalazione);
     }
     
     public void incrementaSegnalazione(SegnalazionePagamentoBean bean)  throws SQLException{
         //if (bean.getNumeroReclamo() == 3){
           //  dictionarySegnalazionePagamento.get(bean.getID()).archiviaSegnalazionePagamento();
         
-            dictionarySegnalazionePagamento.get(bean.getID()).incrementaSegnalazionePagamento();
+            dictionarySegnalazionePagamento.get(bean.getClaimId()).incrementaSegnalazionePagamento();
         
     }
     
@@ -125,7 +133,7 @@ public class Controller extends Observable implements Runnable {
         while(true){
             List<SegnalazionePagamento> Result = null;
                 try {
-                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(session.getSession().getId(), session.getSession().getType());
+                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(session.getSession().getUsername(), session.getSession().getType());
                 } catch (SQLException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -135,7 +143,7 @@ public class Controller extends Observable implements Runnable {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             
-            if (Result.size() != 0){
+            if (!Result.isEmpty()){
                 count = Result.size();
                 BeanNotifica changes = new BeanNotifica();
                 changes.setNumeroNotifiche(count);

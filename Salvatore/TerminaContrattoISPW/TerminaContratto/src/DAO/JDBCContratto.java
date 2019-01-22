@@ -5,21 +5,13 @@
  */
 package DAO;
 
- 
 import Entity.Contratto;
-import Entity.Locatario;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
- 
-import Entity.SegnalazionePagamento;
-//import Bean.BeanTest;
-import javafx.fxml.FXMLLoader;
  
 public class JDBCContratto implements ContrattoDAO {
  
@@ -30,20 +22,21 @@ public class JDBCContratto implements ContrattoDAO {
     }
 
     @Override
-    public List<Contratto> getContratti(int ID)  throws SQLException{
+    public List<Contratto> getContratti(String renterNickname)  throws SQLException{
         
         
         List<Contratto> listaContratti = new LinkedList<>();
-        String query = "select * from Contratto where StatoContratto = 1";
+        String query = "select * from ActiveContract where renterNickname = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, ID);
+                preparedStatement.setString(1, renterNickname);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 // statement.setString(userId, userID);
                 while(resultSet.next()){
-                    Contratto contratto = new Contratto(Integer.parseInt(resultSet.getString("IDContratto")),
-                        Integer.parseInt(resultSet.getString("StatoContratto")),
-                    Integer.parseInt(resultSet.getString("IDLocatario")));
+                    Contratto contratto = new Contratto(Integer.parseInt(resultSet.getString("contractId")),
+                        Integer.parseInt(resultSet.getString("contractState")),
+                    resultSet.getString("tenantNickname"),
+                    resultSet.getString("renterNickname"));
                   
                     listaContratti.add(contratto);
                 }
@@ -56,15 +49,15 @@ public class JDBCContratto implements ContrattoDAO {
     @Override
     public Contratto getContratto(int ID)  throws SQLException{
         Contratto contratto = null;
-                String query = "SELECT * from Contratto where IDContratto = ?";
+                String query = "SELECT * from ActiveContract where contractId = ? and contractState = 0";
                 PreparedStatement preparedStatement = this.connection.prepareStatement(query);
                 preparedStatement.setString(1, Integer.toString(ID));
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
-                    contratto = new Contratto(Integer.parseInt(resultSet.getString("IDContratto")),
-                    Integer.parseInt(resultSet.getString("StatoContratto")), 
-                    Integer.parseInt(resultSet.getString("IDLocatario"))
-                    );
+                    contratto = new Contratto(Integer.parseInt(resultSet.getString("contractId")),
+                    Integer.parseInt(resultSet.getString("contractState")),
+                    resultSet.getString("tenantNickname"),
+                    resultSet.getString("renterNickname"));
                 }
                 resultSet.close();
                 preparedStatement.close();
@@ -78,7 +71,7 @@ public class JDBCContratto implements ContrattoDAO {
             preparedStatement.executeUpdate();
             preparedStatement.close();
             
-            PreparedStatement preparedStatement1 = this.connection.prepareStatement("UPDATE SegnalazioneContratto SET Stato = 3 WHERE IDContratto = ?");
+            PreparedStatement preparedStatement1 = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 3 WHERE contractId = ?");
             preparedStatement1.setString(1,  Integer.toString(ID));
             preparedStatement1.executeUpdate();
             preparedStatement1.close();
@@ -87,7 +80,7 @@ public class JDBCContratto implements ContrattoDAO {
     
     @Override
     public void setContrattoSegnalato(int ID)  throws SQLException{
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Contratto SET StatoContratto = 2 WHERE IDContratto = ?");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE ActiveContract SET contractState = 1 WHERE contractId = ?");
             preparedStatement.setString(1,  Integer.toString(ID));
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -100,7 +93,6 @@ public class JDBCContratto implements ContrattoDAO {
                   connection.close();
               }
             } catch (Exception e) { 
-                //do nothing
             }
     }
 }
