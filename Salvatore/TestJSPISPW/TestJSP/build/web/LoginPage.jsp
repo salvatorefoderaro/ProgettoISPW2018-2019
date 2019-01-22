@@ -5,6 +5,7 @@
 <%@ page import= "Controller.Controller, Bean.SegnalazionePagamentoBean" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.BeanSession"/>
+<jsp:setProperty property="*" name="sessionBean"/>
 
 <% 
     
@@ -74,7 +75,13 @@
     </div>
   </div>
 </nav>
-      
+    
+    <% if (sessionBean.getBoolean() == 1){
+        sessionBean.setFalseBoolean();
+    %>
+      <div class="alert alert-danger">
+          <center><strong>Errore nella comunicazione con il Database!</strong> Riprova per continuare.</center>
+</div> <% } %>
     	  <br>
 <div class="container">
      <form action="LoginPage.jsp" method="POST">

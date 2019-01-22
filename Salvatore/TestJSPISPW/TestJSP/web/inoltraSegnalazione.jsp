@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="Bean.ContrattoBean"%>
@@ -8,6 +9,11 @@
 <%@ page import= "Controller.Controller, Bean.SegnalazionePagamentoBean" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.BeanSession"/>
+<% if (sessionBean.getId() == 0){ %>
+    
+<jsp:forward page="LoginPage.jsp"/>
+
+<% } %>
 
 <% 
     sessionBean.setId(30);
@@ -33,36 +39,71 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-<%
+
+    
+    <%
         LocalDate today = LocalDate.now();
         System.out.println("Current date: " + today);
 
         //add 2 week to the current date
         LocalDate nextWeek = today.plus(1, ChronoUnit.WEEKS);   
 %>
-        
+        <script type='text/javascript'>
+$(function(){
+$('.input-group.date').datepicker({
+	format: "yyyy-mm-dd",
+    calendarWeeks: true,
+    startDate: "<%= (nextWeek) %>",
+    autoclose: true
+});  
+});
+</script>
     <title>Hello, world!</title>
             
   </head>
   <%
-    Controller controllerProva = Controller.getInstance(); 
+        Controller controllerProva = null;
+    try { controllerProva = Controller.getInstance();
+        } catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    
+    }
     
     if (request.getParameter("date") != null) {
         
                 SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                bean.setIDContratto(Integer.parseInt(request.getParameter("idContratto")));
-                bean.setIDLocatario(Integer.parseInt(request.getParameter("idLocatario")));
-                bean.setScadenzaReclamo(request.getParameter("dataScadenza"));
+                bean.setContractId(Integer.parseInt(request.getParameter("contractId")));
+                bean.setTenantNickname(request.getParameter("tenantUsername"));
+                bean.setClaimDeadline(request.getParameter("dataScadenza"));
                 
-                controllerProva.testMakeBean(bean);
+                try {controllerProva.inserisciSegnalazionePagamento(bean);
+        } catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+}
        
         out.print(request.getParameter("dataScadenza"));
         out.print(request.getParameter("idContratto"));
         out.print(request.getParameter("idLocatario"));
     }
 
-            List<ContrattoBean> listaResult = controllerProva.getContratti(sessionBean.getId());
+            List<ContrattoBean> listaResult = null;
+            try {
+            listaResult = controllerProva.getContratti(sessionBean.getNickname());
+        } catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
 
+        <%
+            
      %>
   <body>
       
@@ -81,20 +122,26 @@
 </nav>
       
     	  <br>
+          <% if(listaResult.isEmpty()){ %>
+          
+                    <div class="alert alert-info">
+              <center><strong>Nessuna segnalazione di pagamento presente!</strong></center>
+</div>
+          <% } else { %>
 <div class="container">
                 <%
     		for (ContrattoBean temp : listaResult) {
 		%>
     <form action="inoltraSegnalazione.jsp" name="myform" method="POST"><div class="row justify-content-md-center ">
     <div class="col-md">
-        <b>ID Contratto:</b> <%= temp.getIDContratto() %>
+        <b>ID Contratto:</b> <%= temp.getContractId() %>
     </div>
     <div class="col-md">
-        <b>ID Locatario:</b> <%= temp.getIDLocatario() %>
+        <b>ID Locatario:</b> <%= temp.getTenantNickname() %>
     </div>
       
     <div class="col-md">
-        <b>Stato contratto:</b> <%= temp.getStatoContratto() %>
+        <b>Stato contratto:</b> <%= temp.getContractState() %>
     </div>
       
     <div class="col-md">
@@ -109,15 +156,15 @@
     </div>
       
   </div>
-        <input type="hidden" id="custId" name="idContratto" value="<%= temp.getIDContratto() %>"> 
-        <input type="hidden" id="custId" name="idLocatario" value="<%= temp.getIDLocatario() %>"> 
+        <input type="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>"> 
+        <input type="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>"> 
 
     </form>
     <br>
                     <%
                 }
             %>
-</div>      
+</div>  <% } %>   
 
 
     

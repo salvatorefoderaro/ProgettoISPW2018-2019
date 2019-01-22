@@ -51,7 +51,7 @@
     	  <br>
 <div class="container">
 
-    <center>Bentornato <%= sessionBean.getUsername() %> <br>
+    <center>Bentornato <%= sessionBean.getNickname() %> <br>
         <a href="inoltraSegnalazione.jsp"><button type="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
         <a href="visualizzaSegnalazioni.jsp"><button type="sumbit" name="Locatario" class="btn btn-secondary btn-lg">Visualizza segnalazioni</button></a>
          </center>

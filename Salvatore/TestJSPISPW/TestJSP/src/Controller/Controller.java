@@ -8,6 +8,7 @@ package Controller;
 import Bean.BeanNotifica;
 import Bean.ContrattoBean;
 import Bean.SegnalazionePagamentoBean;
+import Boundary.session;
 import DAO.JDBCContratto;
 import DAO.JDBCSegnalazionePagamento;
 import DAO.databaseConnection;
@@ -23,7 +24,7 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Controller{
+public class Controller extends Observable implements Runnable {
     
     // Creo il dizionario, "accetta" un Intero come chiave, e segnalazione Pagamento come valore (oggetto)
     private  Map<Integer, SegnalazionePagamento> dictionarySegnalazionePagamento  = new HashMap<Integer, SegnalazionePagamento>();
@@ -119,5 +120,42 @@ public class Controller{
             dictionarySegnalazionePagamento.get(bean.getClaimId()).incrementaSegnalazionePagamento();
         
     }
-          
+    
+    @Override
+    public void run(){
+            try {
+                Thread.sleep(60000);
+            } catch (InterruptedException ex) {
+                jdbcSegnalazionePagamento.closeConnection();
+            }
+       
+        int count = 0;
+        while(true){
+            List<SegnalazionePagamento> Result = null;
+                try {
+                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(session.getSession().getUsername(), session.getSession().getType());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {    
+                    jdbcSegnalazionePagamento.checkSegnalazionePagamentoData();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            if (!Result.isEmpty()){
+                count = Result.size();
+                BeanNotifica changes = new BeanNotifica();
+                changes.setNumeroNotifiche(count);
+                setChanged();
+                notifyObservers(changes);
+            } 
+
+            try {
+                Thread.sleep(15000);
+            } catch (InterruptedException ex) {
+                jdbcSegnalazionePagamento.closeConnection();
+            }
+            }
+        }       
 }

@@ -45,7 +45,7 @@ $('.input-group.date').datepicker({
 <h1>Bootstrap datepicker</h1>
     <form action="bootstrapDatePicker.jsp" name="myform" method="POST">
 <div class="input-group date">
-        <input name="date" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        <input name="date" placeholder="Seleziona una data..." type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
        
        
 

@@ -12,23 +12,41 @@ package Bean;
 public class BeanSession 
 { 
     // static variable single_instance of type Singleton 
-    private static BeanSession singleSession = null;
-    private String username;
+    private String nickname;
     private int id;
     private String type;
-  
-    // variable of type String 
-    public String s; 
+    public int dbError; 
   
     // private constructor restricted to this class itself 
-    public  BeanSession() 
-    {
-        this.username = "";
-        this.id = 0;
+    public BeanSession() 
+    {}
+    
+    public String getNickname(){
+        return this.nickname;
     }
     
-    public String getUsername(){
-        return this.username;
+    public void setType(String type){
+        this.type = type;
+    }
+    
+    public void setTrueBoolean(){
+        this.dbError = 1;
+    }
+    
+    public void setFalseBoolean(){
+        this.dbError = 0;
+    }
+    
+    public int getBoolean(){
+        return this.dbError;
+    }
+    
+    public void setUsername(String username){
+        this.nickname = username;
+    }
+    
+    public void setId(int Id){
+        this.id = Id;
     }
     
     public int getId(){
@@ -39,17 +57,4 @@ public class BeanSession
         return this.type;
     }
     
-    public void setUsername(String username){
-        this.username = username;
-    }
-    
-    public void setId(int ID){
-        this.id = ID;
-    }
-    
-    public void setType(String type){
-        this.type = type;
-    }
-    
-
 }

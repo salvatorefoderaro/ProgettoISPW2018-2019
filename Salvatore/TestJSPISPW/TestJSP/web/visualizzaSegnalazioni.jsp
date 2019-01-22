@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -6,7 +7,7 @@
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.BeanSession"/>
 
-<% if (sessionBean.getId() == 0){ %>
+<% if (sessionBean.getId() == 1){ %>
     
 <jsp:forward page="LoginPage.jsp"/>
 
@@ -30,53 +31,108 @@
     <title>Hello, world!</title>
              
   </head>
-  <%
-    Controller controllerProva = Controller.getInstance(); %>
+  <% Controller controllerProva = null;
+      try{
+    controllerProva = Controller.getInstance();
+    } catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
     
-    <%
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    }
         
         if (request.getParameter("0") != null){
         
             SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-            bean.setID(Integer.parseInt(request.getParameter("id")));
-            controllerProva.setSegnalazionePagata(bean);
-        }
+            bean.setClaimId(Integer.parseInt(request.getParameter("id")));
+            try {controllerProva.setSegnalazionePagata(bean);
+    } catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    }
+}
+        
     if (request.getParameter("1") != null) {
        
         SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-        bean.setID(Integer.parseInt(request.getParameter("id")));
-        bean.setNumeroReclamo(Integer.parseInt(request.getParameter("numeroReclamo")));
+        bean.setClaimId(Integer.parseInt(request.getParameter("id")));
+        bean.setClaimNumber(Integer.parseInt(request.getParameter("numeroReclamo")));
+        try {
         controllerProva.incrementaSegnalazione(bean);
+        }
+        catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    }
+
 
 }
     if (request.getParameter("2") != null) {
        
         SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-        bean.setID(Integer.parseInt(request.getParameter("id")));
-        controllerProva.setContrattoArchiviato(bean);
+        bean.setClaimId(Integer.parseInt(request.getParameter("id")));
+        try {
+            controllerProva.setContrattoArchiviato(bean);
+        }      catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    }
 
 }
     
    if (request.getParameter("3") != null){
        
        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-       bean.setID(Integer.parseInt(request.getParameter("id")));
-        controllerProva.setSegnalazioneNotificata(bean);
-   }
+       bean.setClaimId(Integer.parseInt(request.getParameter("id")));
+        try {controllerProva.setSegnalazioneNotificata(bean);
+   }    catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    } }
         
            if (request.getParameter("4") != null){
        
        SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-       bean.setID(Integer.parseInt(request.getParameter("id")));
-        controllerProva.setSegnalazionePagata(bean);
+       bean.setClaimId(Integer.parseInt(request.getParameter("id")));
+        try {controllerProva.setSegnalazionePagata(bean);
 
-}
+}    catch (SQLException e){
+        sessionBean.setTrueBoolean(); %>
+    
+        <jsp:forward page="LoginPage.jsp"/>
+
+        <%
+    } }
 %>
     
     <%
+        List<SegnalazionePagamentoBean> listaResult = null;
     List<Integer> IDSegnalazioni = new LinkedList<>();
-    List<SegnalazionePagamentoBean> listaResult = controllerProva.getSegnalazioniPagamento(sessionBean.getId(), sessionBean.getType()); %>
-  <body>
+    try {
+        listaResult = controllerProva.getSegnalazioniPagamento(sessionBean.getNickname(), sessionBean.getType());
+} catch (SQLException e){ %>
+
+
+<jsp:forward page="LoginPage.jsp"/>
+
+<%
+} %>
+    
+    
+    <body>
       
       
 
@@ -95,33 +151,40 @@
 </nav>
       
     	  <br>
+          <% if (listaResult.isEmpty()){%> 
+          
+          <div class="alert alert-info">
+              <center><strong>Nessuna segnalazione di pagamento presente!</strong></center>
+</div>
+          
+          <%} else { %>
 <div class="container">
                 <%
     		for (SegnalazionePagamentoBean temp : listaResult) {
 		%>
     <form action="visualizzaSegnalazioni.jsp" name="myform" method="POST"><div class="row justify-content-md-center ">
     <div class="col-md">
-        <b>ID Contratto:</b> <%= temp.getIDContratto() %>
+        <b>ID Contratto:</b> <%= temp.getContractId() %>
     </div>
     <div class="col-md">
-        <b>Numero reclamo:</b> <%= temp.getNumeroReclamo() %>
+        <b>Numero reclamo:</b> <%= temp.getClaimNumber() %>
     </div>
       
     <div class="col-md">
-        <b>Scadenza reclamo:</b> <%= temp.getScadenzaReclamo() %>
+        <b>Scadenza reclamo:</b> <%= temp.getClaimDeadline() %>
     </div>
       
     <div class="col-md">
         
         <%
-            switch(temp.getStato()){
+            switch(temp.getClaimState()){
                 case 0: 
                     if(sessionBean.getType() == "Locatore"){
 %>
                     <button type="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
             <% } else { %> 
                     <button name ="0" type="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
-                             <input type="hidden" id="custId" name="id" value="<%= temp.getID() %>"> 
+                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
    
                     <% 
                         }
@@ -131,8 +194,8 @@
                 if(sessionBean.getType() == "Locatore"){
                 %>
         <input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
-        <input type="hidden" id="custId" name="id" value="<%= temp.getID() %>"> 
-         <input type="hidden" id="custId" name="numeroReclamo" value="<%= temp.getNumeroReclamo() %>"> 
+        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+         <input type="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>"> 
 
                 <%} else{ %>
         <input  type="submit" class="btn btn-info" value="In attesa del locatore" disabled>
@@ -144,7 +207,7 @@
                 if(sessionBean.getType() == "Locatore"){
                     %> 
         <input name = "2" type="submit" class="btn btn-info" value="Archivia contratto">
-        <input type="hidden" id="custId" name="id" value="<%= temp.getID() %>"> 
+        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
             <% }else {%>
                     <input  class="btn btn-info" value="In attesa del locatore" disabled>
 
@@ -159,7 +222,7 @@
 
                     %>
         <button type="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
-                                     <input type="hidden" id="custId" name="id" value="<%= temp.getID() %>"> 
+                                     <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
 
                     <% }else{ %>
                             <button type="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
@@ -170,7 +233,7 @@
 
         if(sessionBean.getType() == "Locatore"){ %>
                             <button type="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
-                             <input type="hidden" id="custId" name="id" value="<%= temp.getID() %>"> 
+                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
 
 <% }else { %>
                             <button type="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
@@ -191,7 +254,7 @@
                     <%
                 }
             %>
-</div>      
+</div>   <% } %>   
 
       
       <!-- Optional JavaScript -->
