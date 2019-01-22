@@ -67,6 +67,8 @@ public void initialize(){
        }
         catch (SQLException e) {
             // TODO Auto-generated catch block
+                        System.out.println("Ma allora?");
+            e.printStackTrace();
             System.out.println("Vedo l'errore");
             this.databaseConnectionError(); 
         } 

@@ -40,8 +40,8 @@ public class session
         return this.type;
     }
     
-    public static void makeSession(String name, int ID, String type){
-        singleSession = new session(name, ID, type);
+    public static void makeSession(String userName, String type){
+        singleSession = new session(userName, 0, type);
     }
     
     // static method to create instance of Singleton class 

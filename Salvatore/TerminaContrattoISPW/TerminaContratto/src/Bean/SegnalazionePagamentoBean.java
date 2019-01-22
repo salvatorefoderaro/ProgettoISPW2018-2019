@@ -10,28 +10,28 @@ package Bean;
  * @author root
  */
 public class SegnalazionePagamentoBean {
-    private int ID;
-    private int IDContratto;
-    private int IDLocatario;
-    private int IDLocatore;
-    private int NumeroReclamo;
-    private String ScadenzaReclamo;
-    private int Stato;
+    private int claimId;
+    private int contractId;
+    private String tenantNickname;
+    private String renterNickname;
+    private int claimNumber;
+    private String claimDeadline;
+    private int claimState;
     
-    public int getID(){return this.ID;}
-    public int getIDContratto(){return this.IDContratto;}
-    public int getIDLocatario(){return this.IDLocatario;}
-    public int getIDLocatore(){return this.IDLocatore;}
-    public int getNumeroReclamo(){return this.NumeroReclamo;}
-    public String getScadenzaReclamo(){return this.ScadenzaReclamo;}
-    public int getStato(){return this.Stato;}
+    public int getClaimId(){return this.claimId;}
+    public int getContractId(){return this.contractId;}
+    public String getTenantNickname(){return this.tenantNickname;}
+    public String getRenterNickname(){return this.renterNickname;}
+    public int getClaimNumber(){return this.claimNumber;}
+    public String getClaimDeadline(){return this.claimDeadline;}
+    public int getClaimState(){return this.claimState;}
     
-    public void setID(int ID){this.ID = ID;}
-    public void setIDContratto(int IDContratto){this.IDContratto = IDContratto;}
-    public void setIDLocatario(int IDLocatario){this.IDLocatario = IDLocatario;}
-    public void setIDLocatore(int IDLocatore){this.IDLocatore = IDLocatore;}
-    public void setNumeroReclamo(int NumeroReclamo){this.NumeroReclamo = NumeroReclamo;}
-    public void setScadenzaReclamo(String ScadenzaReclamo){this.ScadenzaReclamo = ScadenzaReclamo;}
-    public void setStato(int Stato){this.Stato = Stato;}
+    public void setClaimId(int ID){this.claimId = ID;}
+    public void setContractId(int contractId){this.contractId = contractId;}
+    public void setTenantNickname(String tenantNickname){this.tenantNickname = tenantNickname;}
+    public void setRenterNickname(String renterNickname){this.renterNickname = renterNickname;}
+    public void setClaimNumber(int claimNumber){this.claimNumber = claimNumber;}
+    public void setClaimDeadline(String claimDeadline){this.claimDeadline = claimDeadline;}
+    public void setClaimState(int claimState){this.claimState = claimState;}
 }
 

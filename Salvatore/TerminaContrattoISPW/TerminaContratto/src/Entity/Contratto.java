@@ -13,29 +13,31 @@ import java.sql.SQLException;
  * @author root
  */
 public class Contratto {
-    private int IDContratto;
-    private int StatoContratto;
+    private int contractId;
+    private int contractState;
     private JDBCContratto jdbcContratto;
-    private int IDLocatario;
-    private int IDLocatore;
+    private String tenantNickname;
+    private String renterNickname;
     
-    public Contratto (int IDcontratto, int StatoContratto, int Locatario) throws SQLException{
-        this.IDContratto = IDcontratto;
-        this.StatoContratto = StatoContratto;
+    public Contratto (int contractId, int contractState, String tenantNickname, String renterNickname) throws SQLException{
+        this.contractId = contractId;
+        this.contractState = contractState;
         this.jdbcContratto = new JDBCContratto();
-        this.IDLocatario = Locatario;
+        this.tenantNickname = tenantNickname;
+        this.renterNickname = renterNickname;
     }
     
-    public int getIDContratto(){ return this.IDContratto; } 
-    public int getStatoContratto(){ return this.StatoContratto; }
-    public int getIDLocatario(){ return this.IDLocatario; }
+    public int getContractId(){ return this.contractId; } 
+    public int getContractState(){ return this.contractState; }
+    public String getTenantNickname(){ return this.tenantNickname; }
+    public String getRenterNickname(){ return this.renterNickname; }
     
     public void archiviaContratto()  throws SQLException{
-        this.jdbcContratto.setContrattoArchiviato(this.IDContratto);
+        this.jdbcContratto.setContrattoArchiviato(this.contractId);
     }
     
     public void iMieiDati(){
-        System.out.println("Sono: " + Integer.toString(this.IDContratto) + " e " + Integer.toString(this.StatoContratto));
+
     }
     
 }

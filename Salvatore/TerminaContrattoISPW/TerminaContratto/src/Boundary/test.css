@@ -19,6 +19,14 @@
     -fx-background-color: #f4f4f4;
 }
 
+#text-label {
+    -fx-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    -fx-text-fill: black; 
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-background-color: #f4f4f4;
+}
+
 #buttonLocatario, #inoltraSegnalazioni {
     -fx-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     -fx-text-fill: white; 

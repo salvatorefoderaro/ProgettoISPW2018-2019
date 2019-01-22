@@ -14,5 +14,5 @@ import java.sql.SQLException;
  
 public interface LocatarioDAO {
     public void incrementaSollecitiPagamento(int ID) throws SQLException;
-    public Locatario getLocatario(int ID) throws SQLException;
+    public Locatario getLocatario(String tenantNickname) throws SQLException;
 }

@@ -9,27 +9,20 @@ import Bean.BeanNotifica;
 import Bean.ContrattoBean;
 import Bean.SegnalazionePagamentoBean;
 import Controller.Controller;
-import java.awt.Paint;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -38,13 +31,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.TextAlignment;
-
-
 
 public class inoltraSegnalazioni implements Observer{
     
@@ -74,7 +62,7 @@ public void initialize(){
     
     List<ContrattoBean> listaResult = null;
     try {
-        listaResult = controllerProva.getContratti(session.getSession().getId());
+        listaResult = controllerProva.getContratti(session.getSession().getUsername());
         // Devo prima mostrare tutti quanti i contratti attivi, quindi principlamente devo lavorare con questo
     } catch (SQLException ex) {
             databaseConnectionError();
@@ -91,15 +79,15 @@ public void initialize(){
         for (int i = 0; i < listaResult.size(); i++) {
             ContrattoBean Result = listaResult.get(i);
             Label element0 = new Label();
-            element0.setText("ID Contratto: " + Result.getIDContratto());
+            element0.setText("ID Contratto: " + Result.getContractId());
             tabella.add(element0, 0, i);
 
             Label element1 = new Label();
-            element1.setText("Numero reclamo: " + Result.getIDLocatario());
+            element1.setText("Numero reclamo: " + Result.getTenantNickname());
             tabella.add(element1, 1, i);
 
             Label element2 = new Label();
-            element2.setText("Scadenza reclamo: " + Result.getStatoContratto());
+            element2.setText("Scadenza reclamo: " + Result.getContractState());
             tabella.add(element2, 2, i);
             
             Button element3 = new Button();
@@ -111,7 +99,8 @@ public void initialize(){
             element3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            popup(Result.getIDContratto(), Result.getIDLocatario(), element3);
+                System.out.println(Result.getRenterNickname() + " Lovvedo");
+            popup(Result.getContractId(), Result.getTenantNickname(), Result.getRenterNickname(), element3);
 
         }
     });
@@ -135,7 +124,7 @@ public void initialize(){
     }
 
     @FXML
-    public void popup(int IDContratto, int IDLocatario, Button element) {
+    public void popup(long IDContratto, String tenantNickname, String renterNickname, Button element) {
         
         // Creo lo stage
         Stage stage = (Stage) tabella.getScene().getWindow();
@@ -177,12 +166,13 @@ public void initialize(){
                 dataScadenza = date1;
                 Button close = (Button)event.getSource() ;
                 SegnalazionePagamentoBean bean = new SegnalazionePagamentoBean();
-                bean.setIDContratto(IDContratto);
-                bean.setIDLocatario(IDLocatario);
-                bean.setScadenzaReclamo(dataScadenza);
+                bean.setContractId((int)IDContratto);
+                bean.setTenantNickname(tenantNickname);
+                bean.setRenterNickname(renterNickname);
+                bean.setClaimDeadline(dataScadenza);
                 
                 try {
-                    controllerProva.testMakeBean(bean);
+                    controllerProva.inserisciSegnalazionePagamento(bean);
                 } catch (SQLException ex) {
                     databaseConnectionError();
                 }

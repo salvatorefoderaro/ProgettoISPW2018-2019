@@ -24,7 +24,7 @@ public class databaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             if(dbConnection == null)
-                dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/ISPW?user=root&password=");
+                dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=root&password=");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

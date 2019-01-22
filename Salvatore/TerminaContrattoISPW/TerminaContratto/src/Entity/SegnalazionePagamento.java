@@ -12,72 +12,63 @@ import java.sql.SQLException;
  * @author root
  */
 public class SegnalazionePagamento {
-    private int ID;
-    private Contratto IDContratto;
-    private int IDLocatore;
-    private Locatario IDLocatario;
-    private int NumeroReclamo;
-    private String ScadenzaReclamo;
-    private int Stato;
-    private int Notified;
+    private int claimId;
+    private Contratto contractId;
+    private String renterNickname;
+    private Locatario tenantNickname;
+    private int claimNumber;
+    private String claimDeadline;
+    private int claimState;
+    private int claimNotified;
     private JDBCSegnalazionePagamento jdbcSegnalazionePagamento;
     
-    public SegnalazionePagamento(int ID, Contratto IDContratto, int IDLocatore, Locatario IDLocatario, int NumeroReclamo, String ScadenzaReclamo, int Stato, int Notified) throws SQLException{
-        this.ID = ID;
-        this.IDContratto= IDContratto;
-        this.IDLocatore = IDLocatore;
-        this.IDLocatario = IDLocatario;
-        this.NumeroReclamo = NumeroReclamo;
-        this.ScadenzaReclamo = ScadenzaReclamo;
-        this.Stato = Stato;
-        this.Notified = Notified;
+    public SegnalazionePagamento(int claimId, Contratto contractId, String renterNickname, Locatario tenantNickname, int claimNumber, String claimDeadline, int claimState, int claimNotified) throws SQLException{
+        this.claimId = claimId;
+        this.contractId= contractId;
+        this.renterNickname = renterNickname;
+        this.tenantNickname = tenantNickname;
+        this.claimNumber = claimNumber;
+        this.claimDeadline = claimDeadline;
+        this.claimState = claimState;
+        this.claimNotified = claimNotified;
         this.jdbcSegnalazionePagamento = new JDBCSegnalazionePagamento();
     }
     
-    public int getID(){
-        return this.ID;
-    }
+    public int getClaimId(){ return this.claimId; }
+    public Contratto getContract(){ return this.contractId; }
+    public String getRenterNickname(){ return this.renterNickname;}
+    public Locatario getTenantNickname(){ return this.tenantNickname;}
+    public int getClaimNumber(){ return this.claimNumber; }
+    public String getClaimDeadline(){ return this.claimDeadline; }
+    public int getClaimState(){ return this.claimState; }
+    public int getClaimNotified(){ return this.claimNotified; }
     
     public Contratto getContratto(){
-        return this.IDContratto;
+        return this.contractId;
     }
     
     public void archiviaSegnalazionePagamento()  throws SQLException{
-        this.jdbcSegnalazionePagamento.setSegnalazionePagamentoArchiviata(this.ID);
+        this.jdbcSegnalazionePagamento.setSegnalazionePagamentoArchiviata(this.claimId);
     }
     
     public void archiviaNotificaSegnalazione() throws SQLException{
-        this.jdbcSegnalazionePagamento.setSegnalazionePagamentoNotificata(this.ID);
+        this.jdbcSegnalazionePagamento.setSegnalazionePagamentoNotificata(this.claimId);
     }
     
     public void segnalazionePagamentoPagata() throws SQLException{
-        this.jdbcSegnalazionePagamento.setSegnalazionePagata(this.ID);
+        this.jdbcSegnalazionePagamento.setSegnalazionePagata(this.claimId);
     }
     
     public void incrementaSegnalazionePagamento() throws SQLException{
-        this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.ID);
+        this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.claimId);
     }
     
-    public void creaSegnalazionePagamento(){
-        //this.jdbcSegnalazionePagamento.createSegnalazionePagamento();
+    public void creaSegnalazionePagamento(SegnalazionePagamentoBean bean) throws SQLException{
+       this.jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
     }
     
     public void updateSegnalazionePagamento() throws SQLException{
-        this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.ID);
-    }
-        
-    public SegnalazionePagamentoBean makeBean(){
-        SegnalazionePagamentoBean Bean = new SegnalazionePagamentoBean();
-        
-        Bean.setID(this.ID);
-        Bean.setIDContratto(this.IDContratto.getIDContratto()); 
-        Bean.setIDLocatario(this.IDLocatario.getID());
-        Bean.setNumeroReclamo(this.NumeroReclamo);
-        Bean.setStato(this.Stato);
-        Bean.setScadenzaReclamo(this.ScadenzaReclamo);
-        Bean.setIDLocatore(this.IDLocatore);
-
-        return Bean;
+        this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.claimId);
     }
     
 }
