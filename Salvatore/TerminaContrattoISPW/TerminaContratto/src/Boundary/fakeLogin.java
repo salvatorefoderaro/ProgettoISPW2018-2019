@@ -61,11 +61,13 @@ public class fakeLogin {
             nameField.setLayoutX(128.0);
             nameField.setLayoutY(21.0);
             nameField.setText("Errore nella connessione con il database! ");
+            nameField.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: black;-fx-font-size: 14px;-fx-background-color: #f4f4f4;");
             
             Button close = new Button();
             close.setLayoutX(219.0);
             close.setLayoutY(125.0);
             close.setText("Invia");
+            close.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: white;-fx-font-size: 16px;-fx-padding: 10;-fx-background-color: #007bff;");
             
             // Mostro la finestra di popup
             Scene stageScene = new Scene(comp, 500, 200);
@@ -88,15 +90,13 @@ public class fakeLogin {
     @FXML
     private void isRenter() throws IOException {
         
-        userSession.makeSession(ID.getText(), "Locatore");
-        Stage stage=(Stage)renterButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setController(this);
-        Parent myNewScene = FXMLLoader.load(getClass().getResource("userPanel.fxml"));
-        Scene scene = new Scene(myNewScene);
-        stage.setScene(scene);
-        stage.setTitle("FERSA - Termina contratto - Pannello utente");
-        stage.show();
+        userSession.makeSession(ID.getText(), "Locatore");        
+        Stage st = (Stage)renterButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("userPanel.fxml"));
+        Parent root = loader.load();
+        st.setScene(new Scene(root));
+        st.show();
+        
     }
     
     @FXML

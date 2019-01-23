@@ -102,6 +102,8 @@ public void initialize(){
             public void handle(ActionEvent event) {
                 
                 try {
+                    
+                    
                     Stage stage=(Stage) seePaymentClaimButton.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
                     loader.setController(this);
@@ -123,13 +125,14 @@ public void initialize(){
 
     @FXML
     public void seePaymentClaim() throws IOException{
-        Stage stage=(Stage) seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        Parent myNewScene = loader.load(getClass().getResource("seePaymentClaim.fxml"));
-        Scene scene = new Scene(myNewScene);
-        stage.setScene(scene);
-        stage.setTitle("FERSA - Termina contratto - Visualizza segnalazioni");
-        stage.show();
+        
+        Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("seePaymentClaim.fxml"));
+        Parent root = loader.load();
+        st.setScene(new Scene(root));
+        st.show();
+        
+
     }
     
     @FXML

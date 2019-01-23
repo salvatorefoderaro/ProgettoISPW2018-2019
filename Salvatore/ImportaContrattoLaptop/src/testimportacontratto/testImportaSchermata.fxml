@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import java.net.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testimportacontratto.importaContrattoSchermata">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testimportacontratto.importaContrattoSchermata" >
     <stylesheets>
     <URL value="@test.css" />
   </stylesheets>
@@ -64,7 +64,7 @@
             <ImageView fx:id="immagine" fitHeight="150.0" fitWidth="150.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="textLabel2" layoutX="71.0" layoutY="222.0" prefHeight="16.0" prefWidth="74.0" text="Data inizio" />
             <Label fx:id="textLabel1" layoutX="266.0" layoutY="222.0" prefHeight="16.0" prefWidth="66.0" text="Data fine" />
-            <Label fx:id="textLabel" layoutX="193.0" layoutY="14.0" prefHeight="150.0" prefWidth="374.0" text="Label" />
+            <Label fx:id="descrizione" layoutX="193.0" layoutY="14.0" prefHeight="150.0" prefWidth="374.0" text="Label" />
             <TextField fx:id="locatarioNickname" layoutX="408.0" layoutY="247.0" prefHeight="26.0" prefWidth="170.0" />
             <Label fx:id="textLabel3" layoutX="430.0" layoutY="222.0" text="Nickname locatario" />
             <Button fx:id="bottone" layoutX="207.0" layoutY="304.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="185.0" text="Importa contratto" />

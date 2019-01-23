@@ -34,4 +34,10 @@ public class roomToRent implements rentable {
         return this.roomImage;
     }
     
+        @Override
+    public String getName(){ return this.roomName; }
+    
+    @Override 
+    public String getDescription(){ return this.roomDescription; }
+    
 }

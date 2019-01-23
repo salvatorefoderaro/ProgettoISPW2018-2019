@@ -5,6 +5,7 @@
  */
 package testimportacontratto;
 
+import Bean.rentableBean;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +32,7 @@ import javafx.stage.Stage;
 public class importaContrattoSchermata {
     
     @FXML ImageView immagine;
-    @FXML Label textLabel;
+    @FXML Label descrizione;
     @FXML Label textLabel1;
     @FXML Label textLabel2;
     @FXML DatePicker dataInizio;
@@ -39,17 +40,21 @@ public class importaContrattoSchermata {
     @FXML Button bottone;
     @FXML TextField locatarioNickname;
     
-        public void initialize() throws FileNotFoundException{
-        FileInputStream input = new FileInputStream("src/testimportacontratto/test.jpg");
+        public void initialize(rentableBean bean) throws FileNotFoundException{
+            
+        FileInputStream input = new FileInputStream(bean.getImage());
         Image toShow =  new Image(input);
         immagine.setImage(toShow);
+        descrizione.setText(bean.getDescription());
+        
+        System.out.println("\n\nwewewewewew\n\n");
         
         if(locatarioNickname.getText().isEmpty()){
             System.out.println("Mani in alto!");
         }
         
-        textLabel.setWrapText(true);
-        textLabel.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        // textLabel.setWrapText(true);
+        // textLabel.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     }
 }
 

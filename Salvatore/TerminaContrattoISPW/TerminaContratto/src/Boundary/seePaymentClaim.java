@@ -64,6 +64,9 @@ public void initialize(){
 
     }else {
           if (paymentClaimList.isEmpty()){
+              
+                      popupToUserPanel("Nessuna segnalazione di pagamento disponibile!");
+
           
         }else {
               System.out.println("Dimensione dimensione: " + paymentClaimList.size());

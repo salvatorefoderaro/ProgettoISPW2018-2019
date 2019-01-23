@@ -3,19 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/DAO/JDBCContratto.java</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/session.java</file>
+            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/createPaymentClaim.java</file>
+            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/userPanel.java</file>
+            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/userSession.java</file>
             <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/fakeLogin.java</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/main.java</file>
             <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/fakeLogin.fxml</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/visualizzaSegnalazioni.java</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/DAO/JDBCSegnalazionePagamento.java</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/inoltraSegnalazioni.java</file>
+            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/main.java</file>
             <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/test.css</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/visualizzaSegnalazioni.fxml</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/pannelloUtente.fxml</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/inoltraSegnalazioni.fxml</file>
-            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/DAO/JDBCLocatario.java</file>
+            <file>file:/home/salvatore/Scrivania/TerminaContrattoISPW/TerminaContratto/src/Boundary/seePaymentClaim.java</file>
         </group>
     </open-files>
 </project-private>

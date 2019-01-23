@@ -13,21 +13,20 @@
 <?import java.net.*?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.fakeLogin">
-        <stylesheets>
+    <stylesheets>
     <URL value="@test.css" />
-  </stylesheets>
+    </stylesheets>
     <children>
     <MenuBar style="-fx-background-color: #343a40; -fx-text-fill: red;" VBox.vgrow="NEVER">
-         <menus>
+        <menus>
             <Menu mnemonicParsing="false" text="FERSA">
-               <items>
- 
-               </items></Menu>
-         </menus>
+                <items>
+                </items>
+            </Menu>
+        </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-
             <Button fx:id="renterButton" layoutX="220.0" layoutY="150.0" mnemonicParsing="false" onAction="#isRenter" prefHeight="72.0" prefWidth="201.0" text="Locatore" />
             <Button fx:id="tenantButton" layoutX="220.0" layoutY="245.0" mnemonicParsing="false" onAction="#isTenant" prefHeight="72.0" prefWidth="201.0" text="Locatario" />
             <TextField fx:id="ID" layoutX="220.0" layoutY="91.0" prefHeight="26.0" prefWidth="201.0" />

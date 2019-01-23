@@ -16,12 +16,14 @@ public class main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception{
+        
+        Stage st = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fakeLogin.fxml"));
+        Parent root = loader.load();
+        st.setScene(new Scene(root, 640, 400));
+        st.show();
 
-        Parent root = FXMLLoader.load(getClass().getResource("fakeLogin.fxml"));
-       // primaryStage.setTitle("Registration Form FXML Application");
-        primaryStage.setScene(new Scene(root, 640, 400));
-        primaryStage.setTitle("FERSA - Termina contratto - Pannello utente");
-        primaryStage.show();
+
         
     }
 

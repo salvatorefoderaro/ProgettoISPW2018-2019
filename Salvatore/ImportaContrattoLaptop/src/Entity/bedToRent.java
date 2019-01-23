@@ -28,8 +28,11 @@ public class bedToRent implements rentable{
     }
     
     @Override
-    public String getImage(){
-        return this.bedImage;
-    }
+    public String getImage(){ return this.bedImage;}
     
+    @Override
+    public String getName(){ return this.bedName; }
+    
+    @Override 
+    public String getDescription(){ return this.bedDescription; }
 }

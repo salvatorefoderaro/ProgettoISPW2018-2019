@@ -37,9 +37,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
             String query;
             if ("Locatario".equals(type)){
                 query = "select * from paymentClaim where claimNotified = 0 and tenantNickname = ?";
-            }
-            
-            else {
+            } else {
                 query = "select * from paymentClaim where claimNotified = 0 and renterNickname = ?";
             }
 

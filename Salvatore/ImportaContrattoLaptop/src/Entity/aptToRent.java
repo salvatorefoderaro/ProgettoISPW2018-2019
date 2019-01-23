@@ -31,4 +31,14 @@ public class aptToRent implements rentable {
     public String getImage(){
         return this.aptImage;
     }
+    
+    public List<roomToRent> getRoom(){
+        return this.roomInApt;
+    }
+    
+        @Override
+    public String getName(){ return this.aptName; }
+    
+    @Override 
+    public String getDescription(){ return this.aptDescription; }
 }

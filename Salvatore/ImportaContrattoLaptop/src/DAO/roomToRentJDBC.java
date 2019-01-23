@@ -61,7 +61,7 @@ public class roomToRentJDBC implements roomToRentDAO {
         List<rentable> roomListRenter = new LinkedList<>();
         bedToRentJDBC bedList = new bedToRentJDBC();
         
-            String query = "select * from roomToRent where renterUsername = ?";
+            String query = "select * from roomToRent where renterNickname = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, renterUsername);

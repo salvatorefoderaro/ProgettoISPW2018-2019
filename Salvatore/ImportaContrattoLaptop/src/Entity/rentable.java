@@ -5,10 +5,14 @@
  */
 package Entity;
 
+import java.util.List;
+
 /**
  *
  * @author root
  */
 public interface  rentable {
-   String getImage();
+    String getName();
+    String getImage();
+    String getDescription();
 }

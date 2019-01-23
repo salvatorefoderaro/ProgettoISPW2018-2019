@@ -13,9 +13,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import java.net.*?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testimportacontratto.controller">
-  <children>
+      <stylesheets>
+    <URL value="@test.css" />
+  </stylesheets>
+    <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -57,24 +61,17 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane prefHeight="371.0" prefWidth="640.0">
+            <ScrollPane fx:id="scrollPane" prefHeight="371.0" prefWidth="640.0">
                <content>
-                  <GridPane prefHeight="262.0" prefWidth="639.0">
+                  <GridPane fx:id="table" prefHeight="262.0" prefWidth="639.0">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="151.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="290.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="198.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="97.0" minHeight="0.0" prefHeight="9.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="26.0" minHeight="0.0" prefHeight="17.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                     <children>
-                        <ImageView fx:id="image" fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="testBottone" mnemonicParsing="false" text="Importa contratto" GridPane.columnIndex="2" />
-                        <Label prefHeight="25.0" prefWidth="300.0" text="Nome appartamento | Tipo appartamento" GridPane.columnIndex="1" />
-                     </children>
+
                   </GridPane>
                </content>
             </ScrollPane>

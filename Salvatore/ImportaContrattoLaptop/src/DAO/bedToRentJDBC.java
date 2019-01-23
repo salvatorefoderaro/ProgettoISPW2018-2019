@@ -41,7 +41,7 @@ public class bedToRentJDBC implements bedToRentDAO {
                     rentableFactory factory = new rentableFactory();
                     rentable rentableObject = factory.getRentable(
                         resultSet.getInt("ID"),
-                        resultSet.getInt("aptID"),
+                        resultSet.getInt("roomID"),
                         resultSet.getString("name"),
                         resultSet.getString("description"),
                         resultSet.getString("image"),
@@ -66,7 +66,7 @@ public class bedToRentJDBC implements bedToRentDAO {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
                     bedToRent bed = new bedToRent(resultSet.getInt("ID"),
-                    resultSet.getInt("aptID"),
+                    resultSet.getInt("roomID"),
                     resultSet.getString("name"),
                     resultSet.getString("description"),
                     resultSet.getString("image")
