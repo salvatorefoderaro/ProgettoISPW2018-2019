@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/rentableJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/roomToRentJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/databaseConnection.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/bedToRentJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/Entity/rentableFactory.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/aptToRentDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/rentableDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/testimportacontratto/importaContrattoSchermata.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/Entity/rentable.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/aptToRentJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/bedToRentDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/Entity/roomToRent.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/DAO/roomToRentDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/Entity/aptToRent.java</file>
+            <file>file:/home/salvatore/Scrivania/TestImportaContratto/src/Entity/bedToRent.java</file>
+        </group>
+    </open-files>
+</project-private>
