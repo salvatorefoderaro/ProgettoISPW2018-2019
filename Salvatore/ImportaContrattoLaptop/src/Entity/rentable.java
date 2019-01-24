@@ -5,6 +5,7 @@
  */
 package Entity;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @author root
  */
 public interface  rentable {
-    String getName();
-    String getImage();
-    String getDescription();
+
+    int checkDate(String startDate, String endDate) throws SQLException;
+    List getInfo();
 }

@@ -67,7 +67,7 @@
             <Label fx:id="descrizione" layoutX="193.0" layoutY="14.0" prefHeight="150.0" prefWidth="374.0" text="Label" />
             <TextField fx:id="locatarioNickname" layoutX="408.0" layoutY="247.0" prefHeight="26.0" prefWidth="170.0" />
             <Label fx:id="textLabel3" layoutX="430.0" layoutY="222.0" text="Nickname locatario" />
-            <Button fx:id="bottone" layoutX="207.0" layoutY="304.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="185.0" text="Importa contratto" />
+            <Button fx:id="bottone" layoutX="207.0" layoutY="304.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="185.0" text="Importa contratto" onAction="#test" />
          </children>
     </AnchorPane>
   </children>

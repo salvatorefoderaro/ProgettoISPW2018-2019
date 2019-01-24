@@ -15,4 +15,5 @@ import java.sql.SQLException;
 public interface tenantDAO {
     public void incrementaSollecitiPagamento(int ID) throws SQLException;
     public Locatario getLocatario(String tenantNickname) throws SQLException;
+    public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname) throws SQLException;
 }

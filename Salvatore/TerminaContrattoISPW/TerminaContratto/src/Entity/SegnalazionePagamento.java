@@ -31,7 +31,7 @@ public class SegnalazionePagamento {
         this.claimDeadline = claimDeadline;
         this.claimState = claimState;
         this.claimNotified = claimNotified;
-        this.jdbcSegnalazionePagamento = new paymentClaimJDBC();
+        this.jdbcSegnalazionePagamento = paymentClaimJDBC.getInstance();
     }
     
     public int getClaimId(){ return this.claimId; }

@@ -8,6 +8,7 @@ package DAO;
 import Entity.aptToRent;
 import Entity.rentable;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,4 +17,7 @@ import java.util.List;
  */
 public interface aptToRentDAO {
     public List<rentable> aptListByRenter(String renterNickname)  throws SQLException;
+    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException;
+    public void aptSetNewAvaiabilityDate(int aptID, String date1, String date2, String date3, String date4) throws SQLException;
+
 }

@@ -15,6 +15,7 @@ import Entity.rentable;
 import Entity.rentableFactory;
 import Entity.roomToRent;
 import java.sql.Connection;
+import java.sql.DriverManager;
 
 /**
  *
@@ -22,9 +23,16 @@ import java.sql.Connection;
  */
 public class roomToRentJDBC implements roomToRentDAO {
     
-        Connection connection = null;
+    private Connection connection;
+    private static roomToRentJDBC instance = null;
+    
+    public static roomToRentJDBC getInstance()  throws SQLException {
+        if (instance == null)
+                instance = new roomToRentJDBC();
+        return instance;
+    }
  
-    public roomToRentJDBC() throws SQLException{
+    private roomToRentJDBC() throws SQLException{
         this.connection = databaseConnection.getConnection();
     }
     
@@ -32,7 +40,7 @@ public class roomToRentJDBC implements roomToRentDAO {
     public List<roomToRent> roomListByApartment(int apartmentID)  throws SQLException {
         
         List<roomToRent> roomListApartment = new LinkedList<>();
-        bedToRentJDBC bedList = new bedToRentJDBC();
+        bedToRentJDBC bedList = bedToRentJDBC.getInstance();
         
         String query = "select * from roomToRent where apartmentID = ?";
 
@@ -53,13 +61,73 @@ public class roomToRentJDBC implements roomToRentDAO {
                 preparedStatement.close();
                  
             return roomListApartment;
+    }   
+
+    
+@Override
+    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException{
+        
+        LinkedList<String> returnList = new LinkedList<>();
+
+        String query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE roomID = ? and ? >= startAvaiability and endAvaiability >= ? and type = 'room'";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, roomID);
+                preparedStatement.setString(2, startDate);
+                preparedStatement.setString(3, endDate);
+                
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next() == false) {
+                    resultSet.close();
+                    preparedStatement.close();
+                    return returnList;
+                }
+
+                returnList.add(resultSet.getString("startAvaiability"));
+                returnList.add(resultSet.getString("endAvaiability"));
+                resultSet.close();
+                preparedStatement.close();
+                return returnList;
+    }  
+    
+    @Override
+    public void roomSetNewAvaiabilityDate(int roomID, String date1, String date2, String date3, String date4) throws SQLException{
+        
+        
+        
+        String query ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (NULL, ?, NULL,?,?, 'room');";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, roomID);
+            preparedStatement.setString(2, date1);
+            preparedStatement.setString(3, date2);
+            
+                    String query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (NULL, ?, NULL,?,?, 'room');";
+        PreparedStatement preparedStatement1 = connection.prepareStatement(query1);
+            preparedStatement1.setInt(1, roomID);
+            preparedStatement1.setString(2, date3);
+            preparedStatement1.setString(3, date4);
+            
+           String query2 = "DELETE FROM avaiabilityCalendar WHERE roomID = ? and startAvaiability = ? and endAvaiability = ? and type = 'room'";
+         PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
+            preparedStatement2.setInt(1, roomID);
+            preparedStatement2.setString(2, date1);
+            preparedStatement2.setString(3, date4);
+                     
+            int resultSet = preparedStatement.executeUpdate();
+            int resultSet1 = preparedStatement1.executeUpdate();
+            int resultSet2 = preparedStatement2.executeUpdate();
+
+            preparedStatement.close();     
+            preparedStatement1.close();                       
+            preparedStatement2.close();                       
+
     }
     
 @Override
     public List<rentable> roomListByRenter(String renterUsername)  throws SQLException {
         
         List<rentable> roomListRenter = new LinkedList<>();
-        bedToRentJDBC bedList = new bedToRentJDBC();
+        bedToRentJDBC bedList = bedToRentJDBC.getInstance();
         
             String query = "select * from roomToRent where renterNickname = ?";
 

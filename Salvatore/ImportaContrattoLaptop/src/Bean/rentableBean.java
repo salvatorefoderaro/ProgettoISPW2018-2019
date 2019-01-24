@@ -14,14 +14,26 @@ public class rentableBean {
     private String name;
     private String description;
     private String image;
+    private int ID;
+    private String startDate;
+    private String endDate;
+    private String type;
     
     public rentableBean(){}
     
     public String getName(){ return this.name; }
     public String getDescription(){ return this.description; }
     public String getImage(){ return this.image; }
+    public String getStartDate(){ return this.startDate; }
+    public String getEndDate(){ return this.endDate; }       
+    public int getID(){ return this.ID; }
+    public String getType(){ return this.type; }
     
     public void setName(String name){ this.name = name; }
     public void setDescription(String description){ this.description = description; }
     public void setImage(String image){ this.image = image; }
+    public void setStartDate(String startDate){ this.startDate = startDate; }
+    public void setEndDate(String endDate){ this.endDate = endDate; }
+    public void setID(int ID){ this.ID = ID; }
+    public void setType(String type){ this.type = type; }
 }

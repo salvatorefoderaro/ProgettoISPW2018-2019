@@ -15,9 +15,16 @@ import java.util.List;
  
 public class contractJDBC implements contractDAO {
  
-    Connection connection = null;
+    private Connection connection = null;
+    private static contractJDBC instance = null;
+    
+    public static contractJDBC getInstance()  throws SQLException {
+        if (instance == null)
+                instance = new contractJDBC();
+        return instance;
+    }
  
-    public contractJDBC() throws SQLException{
+    private contractJDBC() throws SQLException{
         this.connection = databaseConnection.getConnection();
     }
 

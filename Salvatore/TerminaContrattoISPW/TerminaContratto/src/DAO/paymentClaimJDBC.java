@@ -19,19 +19,25 @@ import Entity.SegnalazionePagamento;
 public class paymentClaimJDBC implements paymentClaimDAO {
     
     Connection connection = null;
+    private static paymentClaimJDBC instance = null;
     
-    public paymentClaimJDBC() throws SQLException{
+    public static paymentClaimJDBC getInstance()  throws SQLException {
+        if (instance == null)
+                instance = new paymentClaimJDBC();
+        return instance;
+    }
+    
+    private paymentClaimJDBC() throws SQLException{
         this.connection = databaseConnection.getConnection();
     }
 
     @Override
     public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname, String type)  throws SQLException {
-        System.out.println("Il nome utente è: " + userNickname);
         contractJDBC jdbcContratto = null;
-        jdbcContratto = new contractJDBC();
+        jdbcContratto = contractJDBC.getInstance();
 
         tenantJDBC jdbcLocatario = null;
-        jdbcLocatario = new tenantJDBC();
+        jdbcLocatario = tenantJDBC.getInstance();
         
         List<SegnalazionePagamento> listaSegnalazioni = new LinkedList<SegnalazionePagamento>();
             String query;
@@ -67,8 +73,8 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     @Override
     public SegnalazionePagamento getSegnalazionePagamento(int ID)  throws SQLException{
         
-        contractJDBC jdbcContratto = new contractJDBC();
-        tenantJDBC jdbcLocatario = new tenantJDBC();
+        contractJDBC jdbcContratto = contractJDBC.getInstance();
+        tenantJDBC jdbcLocatario = tenantJDBC.getInstance();
         
         SegnalazionePagamento segnalazione = null;
         String query = "select * from paymentClaim where contractId = ?";

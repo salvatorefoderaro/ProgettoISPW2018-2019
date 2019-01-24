@@ -6,9 +6,12 @@
 package testimportacontratto;
 
 import Bean.rentableBean;
+import Control.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -39,23 +42,33 @@ public class importaContrattoSchermata {
     @FXML DatePicker dataFine;
     @FXML Button bottone;
     @FXML TextField locatarioNickname;
+    private rentableBean theBean;
     
         public void initialize(rentableBean bean) throws FileNotFoundException{
-            
+        
+        this.theBean = bean;
         FileInputStream input = new FileInputStream(bean.getImage());
         Image toShow =  new Image(input);
         immagine.setImage(toShow);
         descrizione.setText(bean.getDescription());
         
-        System.out.println("\n\nwewewewewew\n\n");
         
         if(locatarioNickname.getText().isEmpty()){
-            System.out.println("Mani in alto!");
+
+        }
+        
+        }
+        
+        public void test() throws SQLException{
+                System.out.println(dataInizio.getValue() + " " + dataFine.getValue());
+                controller testController = controller.getInstance();
+                theBean.setStartDate(dataInizio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                theBean.setEndDate(dataFine.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                testController.checkRentableDate(theBean);
         }
         
         // textLabel.setWrapText(true);
         // textLabel.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     }
-}
 
 

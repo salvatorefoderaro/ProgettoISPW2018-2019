@@ -5,6 +5,7 @@
  */
 package Boundary;
 
+import Bean.userSessionBean;
 import Bean.notificationBean;
 import Bean.contractBean;
 import Bean.paymentClaimBean;
@@ -24,7 +25,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Parent;
@@ -40,21 +40,17 @@ public class createPaymentClaim implements Observer{
 @FXML private Button userPanelButton;
 private String claimDeadline = null;
 private Controller controller = null;
+private userSessionBean userSession = null;
 
-public void initialize(){
-    
-    
-        try {
-        controller = Controller.getInstance();
-        controller.addObserver(this);
-        }
-        catch (SQLException e) {
-            popupToUserPanel("Errore nella connessione con il database!");
-        } 
+public void initialize(Controller parentController, userSessionBean bean){
+   
+    controller = parentController;
+    userSession = bean;
+    controller.addObserver(this);
        
     List<contractBean> contractBeanList = null;
     try {
-        contractBeanList = controller.getContratti(userSession.getSession().getUsername());
+        contractBeanList = controller.getContratti(userSession.getUsername());
         // Devo prima mostrare tutti quanti i contratti attivi, quindi principlamente devo lavorare con questo
     } catch (SQLException ex) {
         popupToUserPanel("Errore nella connessione con il database!");

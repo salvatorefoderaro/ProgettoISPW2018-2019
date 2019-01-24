@@ -7,9 +7,7 @@ package Entity;
 
 import DAO.bedToRentJDBC;
 import DAO.roomToRentJDBC;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,13 +24,13 @@ public class rentableFactory {
         }	
         
         if(type.equalsIgnoreCase("apt")){
-            roomToRentJDBC getRoomList = new roomToRentJDBC();
+            roomToRentJDBC getRoomList = roomToRentJDBC.getInstance();
             List<roomToRent> roomList = getRoomList.roomListByApartment(ID);
             return new aptToRent(aptID, name, description, image, roomList);
             
          
         } else if(type.equalsIgnoreCase("room")){
-            bedToRentJDBC getBedList = new bedToRentJDBC();
+            bedToRentJDBC getBedList = bedToRentJDBC.getInstance();
             List<bedToRent> bedList = getBedList.bedListByRoom(ID);
             return new roomToRent(aptID, ID, name, description, image, bedList);
          

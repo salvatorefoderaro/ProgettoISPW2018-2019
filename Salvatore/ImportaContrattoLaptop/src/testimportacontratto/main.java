@@ -15,9 +15,9 @@ public class main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception{
+        
 
         Parent root = FXMLLoader.load(getClass().getResource("testImportaContratto.fxml"));
-       // primaryStage.setTitle("Registration Form FXML Application");
         primaryStage.setScene(new Scene(root, 640, 400));
         primaryStage.setTitle("FERSA - Termina contratto - Pannello utente");
         primaryStage.show();

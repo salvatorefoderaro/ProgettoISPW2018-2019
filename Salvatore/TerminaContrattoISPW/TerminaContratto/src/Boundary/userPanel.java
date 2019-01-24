@@ -5,6 +5,7 @@
  */
 package Boundary;
 
+import Bean.userSessionBean;
 import Bean.paymentClaimBean;
 import Controller.Controller;
 import Entity.Locatario;
@@ -49,28 +50,20 @@ public class userPanel{
 private Controller controller;
 @FXML private Button seePaymentClaimButton;
 @FXML private Label welcomeText;
+private userSessionBean userSession;
 
-
-public void initialize(){
-    
-
-
-    welcomeText.setText("Bentornato " + userSession.getSession().getUsername());
-        try {
-            controller = Controller.getInstance();
-       }
-        catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            this.databaseConnectionError(); 
-        } 
+    public void initialize(Controller parentController, userSessionBean session){
+        
+        userSession = session;
+        this.controller = parentController;    
+        welcomeText.setText("Bentornato " + this.userSession.getUsername() + parentController);
     } 
 
-        @FXML
+    @FXML
     public void databaseConnectionError() {
         
-        Platform.runLater(new Runnable() {
-  @Override public void run() {
+    Platform.runLater(new Runnable() {
+        @Override public void run() {
         
         // Creo lo stage
         Stage stage = (Stage) seePaymentClaimButton.getScene().getWindow();
@@ -83,8 +76,6 @@ public void initialize(){
         nameField.setLayoutX(128.0);
         nameField.setLayoutY(21.0);
         nameField.setText("Errore nella connessione con il database! ");
-        
-
         
         Button close = new Button();
         close.setLayoutX(219.0);
@@ -99,11 +90,8 @@ public void initialize(){
         
         close.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                
+            public void handle(ActionEvent event) {               
                 try {
-                    
-                    
                     Stage stage=(Stage) seePaymentClaimButton.getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader();
                     loader.setController(this);
@@ -116,11 +104,9 @@ public void initialize(){
                     Logger.getLogger(userPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
-    });
-        
+    });       
   }
         });
-
 }
 
     @FXML
@@ -129,34 +115,43 @@ public void initialize(){
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("seePaymentClaim.fxml"));
         Parent root = loader.load();
-        st.setScene(new Scene(root));
-        st.show();
         
+        seePaymentClaim controllerGraphic = loader.<seePaymentClaim>getController();
+        controllerGraphic.initialize(this.controller, this.userSession);
 
+        Scene scene = new Scene(root, 640, 400);
+        st.setScene(scene);
+        st.setTitle("My App");
+        st.show();
     }
     
     @FXML
-    public void createPaymentClaim() throws IOException{
-        Stage stage=(Stage) seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        Parent myNewScene = loader.load(getClass().getResource("createPaymentClaim.fxml"));
-        Scene scene = new Scene(myNewScene);
-        stage.setScene(scene);
-        stage.setTitle("FERSA - Termina contratto - Inoltra segnalazioni");
-        stage.show();
+    public void createPaymentClaim() throws IOException{        
+        Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createPaymentClaim.fxml"));
+        Parent root = loader.load();
+        
+        createPaymentClaim controllerGraphic = loader.<createPaymentClaim>getController();
+        controllerGraphic.initialize(this.controller, this.userSession);
+
+        Scene scene = new Scene(root, 640, 400);
+        st.setScene(scene);
+        st.setTitle("My App");
+        st.show();
     }
     
     @FXML
     public void login() throws IOException{
-        System.out.println("clickeD");
-        Stage stage=(Stage) seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setController(this);
+        Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fakeLogin.fxml"));
+        Parent root = loader.load();
+        
+        fakeLogin controllerGraphic = loader.<fakeLogin>getController();
+        controllerGraphic.initialize();
 
-        Parent myNewScene = loader.load(getClass().getResource("fakeLogin.fxml"));
-        Scene scene = new Scene(myNewScene);
-        stage.setScene(scene);
-        stage.setTitle("FERSA - Termina contratto - Inoltra segnalazioni");
-        stage.show();
+        Scene scene = new Scene(root, 640, 400);
+        st.setScene(scene);
+        st.setTitle("My App");
+        st.show();
     }
 }

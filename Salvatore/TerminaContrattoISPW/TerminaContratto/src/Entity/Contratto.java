@@ -22,7 +22,7 @@ public class Contratto {
     public Contratto (int contractId, int contractState, String tenantNickname, String renterNickname) throws SQLException{
         this.contractId = contractId;
         this.contractState = contractState;
-        this.jdbcContratto = new contractJDBC();
+        this.jdbcContratto = contractJDBC.getInstance();
         this.tenantNickname = tenantNickname;
         this.renterNickname = renterNickname;
     }

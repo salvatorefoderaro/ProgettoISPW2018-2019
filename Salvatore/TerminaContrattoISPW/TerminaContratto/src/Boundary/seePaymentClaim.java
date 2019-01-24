@@ -5,6 +5,7 @@
  */
 package Boundary;
 
+import Bean.userSessionBean;
 import Bean.notificationBean;
 import Bean.paymentClaimBean;
 import Controller.Controller;
@@ -18,7 +19,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,23 +36,22 @@ public class seePaymentClaim implements Observer {
 @FXML private ScrollPane scrollPane;
 @FXML private Button userPanelButton;
 private Controller claimDeadline; 
+private userSessionBean userSession = null;
 
-public void initialize(){
-        
-        try {
-            claimDeadline = Controller.getInstance();
-            claimDeadline.addObserver(this);
-        }
-        catch (SQLException e) {
-            popupToUserPanel("Errore nella connessione con il database!");
-        } 
+
+public void initialize(Controller parentController, userSessionBean session){
+
+    this.claimDeadline = parentController;
+            userSession = session;
+            this.claimDeadline.addObserver(this);
+
     userPanelButton.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\"; -fx-text-fill: white; -fx-font-size: 16px;-fx-padding: 10;-fx-background-color: #007bff;");
     scrollPane.setStyle("-fx-background-color:transparent;");
     
     List<paymentClaimBean> paymentClaimList = null;
     
     try {
-        paymentClaimList = claimDeadline.getSegnalazioniPagamento(userSession.getSession().getUsername(), userSession.getSession().getType());
+        paymentClaimList = claimDeadline.getSegnalazioniPagamento(this.userSession.getUsername(), this.userSession.getType());
     } catch (SQLException ex) {
             ex.printStackTrace();
         popupToUserPanel("Errore nella connessione con il database!");
@@ -99,7 +98,7 @@ public void initialize(){
             
             switch(paymentClaimBean.getClaimState()){
                 case 0:
-                    if ("Locatore".equals(userSession.getSession().getType())){
+                    if ("Locatore".equals(this.userSession.getType())){
                         element3.setText("In attesa del locatario");
                         element3.setDisable(true);}
                     else{
@@ -120,7 +119,7 @@ public void initialize(){
                     break;
                 
                 case 1:
-                    if ("Locatore".equals(userSession.getSession().getType())){
+                    if ("Locatore".equals(this.userSession.getType())){
                         element3.setText("Reinoltra segnalazione");
                         
                         element3.setOnAction((ActionEvent event) -> {
@@ -139,7 +138,7 @@ public void initialize(){
                     break;
                     
                 case 2:
-                    if("Locatore".equals(userSession.getSession().getType())){
+                    if("Locatore".equals(this.userSession.getType())){
                         element3.setText("Archivia contratto");
                         
                         element3.setOnAction((ActionEvent event) -> {
@@ -157,7 +156,7 @@ public void initialize(){
                     break;
                     
                 case 3:
-                    if ("Locatore".equals(userSession.getSession().getType())){
+                    if ("Locatore".equals(this.userSession.getType())){
                         element3.setText("Archivia contratto");
                         element3.setDisable(true);
                         
@@ -177,7 +176,7 @@ public void initialize(){
                     break;
                     
                 case 4:
-                    if(userSession.getSession().getType() == "Locatore"){
+                    if(this.userSession.getType() == "Locatore"){
                         element3.setText("Archivia notifica");
                         element3.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -201,7 +200,7 @@ public void initialize(){
     public void popupToUserPanel(String text) {
         
         Platform.runLater(new Runnable() {
-  @Override public void run() {
+        @Override public void run() {
         
         // Creo lo stage
         Stage stage = (Stage) userPanelButton.getScene().getWindow();
@@ -277,7 +276,7 @@ public void initialize(){
 
     @FXML
     private void userPanel() throws IOException{
-        claimDeadline.deleteObserver(this);
+        this.claimDeadline.deleteObserver(this);
         Stage stage=(Stage) userPanelButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         Parent myNewScene = loader.load(getClass().getResource("userPanel.fxml"));
@@ -288,7 +287,7 @@ public void initialize(){
     }
         @FXML
     private void login() throws IOException{
-        claimDeadline.deleteObserver(this);
+        this.claimDeadline.deleteObserver(this);
         Stage stage=(Stage) userPanelButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         Parent myNewScene = loader.load(getClass().getResource("login.fxml"));
