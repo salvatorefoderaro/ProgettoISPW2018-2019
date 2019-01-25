@@ -11,6 +11,5 @@ import Bean.contractBean;
 import java.sql.SQLException;
 
 public interface contractDAO {
-
-    public void createContract(contractBean bean)  throws SQLException;
+    public void createContract(contractBean bean) throws SQLException;
 }

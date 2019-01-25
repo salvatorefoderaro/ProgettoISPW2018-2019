@@ -11,7 +11,6 @@ import Bean.renterBean;
 import Bean.tenantBean;
 import Boundary.testException;
 import DAO.*;
-import Entity.Locatario;
 import Entity.rentable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,20 +47,19 @@ public class controller {
             dictionaryAptToRent.get(bean.getID()).checkDate(bean.getStartDate(), bean.getEndDate());        
         }
     }
-
-    public void createContract(contractBean bean) throws  SQLException{
-        contractJDBC.getInstance().createContract(bean);
- }
-
- public renterBean renterLogin(renterBean renter) throws SQLException, testException {
-        return renterJDBC.getInstance().login(renter.getNickname(), renter.getPassword());
-    }
     
-  public tenantBean checkNickname(rentableBean bean) throws SQLException, testException{
-       Locatario tenant = tenantJDBC.getInstance().getLocatario(bean.getTenantNickname());
-        return tenant.makeBean();
-    }
-    
+  public tenantBean checkTenantNickname(rentableBean bean) throws SQLException, testException{
+       return tenantJDBC.getInstance().getLocatario(bean.getTenantNickname()).makeBean();
+  }
+
+  public void createContract(contractBean contract) throws SQLException {
+      contractJDBC.getInstance().createContract(contract);
+  }
+
+  public void loginLocatore(renterBean renter) throws SQLException, testException {
+        renterJDBC.getInstance().getLocatore(renter.getNickname(), renter.getPassword());
+
+  }
     public List<rentableBean> getRentableFromUser(String nickname) throws SQLException{
     
         roomToRentJDBC getRoom = roomToRentJDBC.getInstance();

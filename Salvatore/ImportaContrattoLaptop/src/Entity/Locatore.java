@@ -6,8 +6,12 @@
 package Entity;
 
 import DAO.renterJDBC;
-
+import DAO.tenantJDBC;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,15 +19,21 @@ import java.sql.SQLException;
  */
 public class Locatore {
     
-    private int ID;
+    private int IDLocatore;
     private String nickname;
     private renterJDBC jdbcLocatario;
     private String CF;
 
     public Locatore (int IDLocatario, String nickname, String CF) throws SQLException{
-        this.ID = IDLocatario;
+        this.IDLocatore = IDLocatario;
         this.nickname = nickname;
-        this.jdbcLocatario = renterJDBC.getInstance();
         this.CF = CF;
-    }
+        this.jdbcLocatario = renterJDBC.getInstance();
+    }    
+
+
+
+
+    
+    
 }

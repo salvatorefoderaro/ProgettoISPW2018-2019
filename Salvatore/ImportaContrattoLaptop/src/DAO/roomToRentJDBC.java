@@ -128,21 +128,20 @@ public class roomToRentJDBC implements roomToRentDAO {
         List<rentable> roomListRenter = new LinkedList<>();
         bedToRentJDBC bedList = bedToRentJDBC.getInstance();
         
-            String query = "select * from roomToRent where renterNickname = ? and roomID IN (SELECT roomID from avaiabilityCalendar WHERE roomID = ?)";
+            String query = "select * from roomToRent where renterNickname = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, renterUsername);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while(resultSet.next()){
-                    rentableFactory rentableFactory = new rentableFactory();
-                    rentable rentableObject = rentableFactory.getRentable(resultSet.getInt("ID"),
-                            resultSet.getInt("apartmentID"),
-                            resultSet.getString("name"),
-                            resultSet.getString("description"),
-                            resultSet.getString("image"),
-                            "room" );
-
-                    roomListRenter.add(rentableObject);
+            preparedStatement.setString(1, renterUsername);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                rentableFactory rentableFactory = new rentableFactory();
+                rentable rentableObject = rentableFactory.getRentable(resultSet.getInt("ID"),
+                        resultSet.getInt("apartmentID"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getString("image"),
+                        "room" );
+                roomListRenter.add(rentableObject);
                 }
                 resultSet.close();
                 preparedStatement.close();

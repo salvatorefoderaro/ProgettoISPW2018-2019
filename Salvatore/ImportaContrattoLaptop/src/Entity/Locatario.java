@@ -20,27 +20,26 @@ import java.util.logging.Logger;
 public class Locatario {
     private int ID;
     private String nickname;
+    private int sollecitiPagamento;
     private String CF;
-    private int SollecitiPagamento;
     private tenantJDBC jdbcLocatario;
     
-    public Locatario (int ID, String nickname, int SollecitiPagamento, String CF) throws SQLException{
-        this.ID = ID;
+    public Locatario (int IDLocatario, String nickname, int SollecitiPagamento, String CF) throws SQLException{
+        this.ID = IDLocatario;
         this.nickname = nickname;
-        this.SollecitiPagamento = SollecitiPagamento;
-        this.jdbcLocatario = tenantJDBC.getInstance();
+        this.sollecitiPagamento = SollecitiPagamento;
         this.CF = CF;
+        this.jdbcLocatario = tenantJDBC.getInstance();
     }
 
     public tenantBean makeBean(){
-        tenantBean testBean = new tenantBean();
-        testBean.setCF(this.CF);
-        testBean.setID(this.ID);
-        testBean.setNickname(this.nickname);
-        testBean.setSollecitiPagamento(this.SollecitiPagamento);
-        return testBean;
+        tenantBean bean = new tenantBean();
+        bean.setNickname(this.nickname);
+        bean.setID(this.ID);
+        bean.setCF(this.CF);
+        return bean;
     }
-    
+
     public int getID(){
         return this.ID;
     }
@@ -49,10 +48,5 @@ public class Locatario {
         return this.nickname;
     }
 
-    public String getCF(){ return this.CF; }
-    
-    public void incrementaSollecitiPagamento()  throws SQLException{
-        this.jdbcLocatario.incrementaSollecitiPagamento(this.ID);
-    }   
     
 }

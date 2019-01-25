@@ -1,62 +1,61 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Boundary;
 
-import Bean.rentableBean;
 import Bean.renterBean;
 import Control.controller;
-import DAO.aptToRentJDBC;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import java.util.List;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class loginController {
 
-    @FXML
-    TextField nickname;
-    @FXML
-    TextField password;
-    @FXML
-    Button loginButton;
-    @FXML
-    ScrollPane scrollPane;
+    @FXML private Button loginButton;
+    @FXML private TextField nickname;
+    @FXML private TextField password;
     private controller parentController;
     private renterBean loggedUser;
 
-    public void initialize() throws SQLException {
-        parentController = new controller();
-    }
+    public void test() throws IOException {
 
-    public void login() throws SQLException, IOException {
-        renterBean renter = new renterBean();
-        renter.setNickname(nickname.getText());
-        renter.setPassword(password.getText());
+        renterBean loginBean = new renterBean();
+
+        loginBean.setNickname(nickname.getText());
+        if (nickname.getText().isEmpty()){
+            popup("Inserire un valore valido per il Nickname!");
+            return;
+        }
+
+        loginBean.setPassword(password.getText());
+        if (password.getText().isEmpty()){
+            popup("Inserire un valido per la Password!");
+            return;
+        }
 
         try {
-           loggedUser = parentController.renterLogin(renter);
+            parentController = new controller();
+        } catch (SQLException e) {
+            popup("Errore nella connessione con il Database!");
+            return;
+        }
+        try {
+            parentController.loginLocatore(loginBean);
         } catch (testException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            popup("Errore nella connessione con il Database!");
             return;
         }
 
@@ -64,12 +63,55 @@ public class loginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("testImportaContratto.fxml"));
         Parent root = loader.load();
         graphicController controller = loader.<graphicController>getController();
-
-        controller.initialize(parentController, loggedUser);
+        controller.initialize(loggedUser, parentController);
 
         Scene scene = new Scene(root, 704, 437);
         st.setScene(scene);
         st.setTitle("My App");
         st.show();
+
+
     }
+
+    @FXML
+    public void popup(String text) {
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+                Stage newStage = new Stage();
+                Pane comp = new Pane();
+
+                Label nameField = new Label();
+                nameField.setWrapText(true);
+                nameField.setLayoutX(128.0);
+                nameField.setLayoutY(21.0);
+                nameField.setText(text);
+
+                Button close = new Button();
+                close.setLayoutX(219.0);
+                close.setLayoutY(125.0);
+                close.setText("Chiudi");
+
+                Scene stageScene = new Scene(comp, 500, 200);
+                newStage.setScene(stageScene);
+                comp.getChildren().addAll(nameField, close);
+                newStage.show();
+
+                close.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Stage stage = (Stage)close.getScene().getWindow();
+                        stage.close();
+
+                    }
+                });
+
+            }
+        });
+
+    }
+
 }

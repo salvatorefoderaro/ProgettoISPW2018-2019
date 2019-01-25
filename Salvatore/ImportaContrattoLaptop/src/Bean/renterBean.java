@@ -1,6 +1,5 @@
 package Bean;
 
-
 public class renterBean {
 
     private int ID;
@@ -10,7 +9,7 @@ public class renterBean {
 
     public void setID(int ID){ this.ID = ID; }
     public void setNickname(String nickname){ this.nickname = nickname; }
-    public void setCF(String CF){ this.CF = CF; };
+    public void setCF(String CF){ this.CF = CF; }
     public void setPassword(String password){ this.password = password; }
 
     public int getID(){ return this.ID; }

@@ -69,11 +69,10 @@
             <TextField fx:id="locatarioNickname" layoutX="471.0" layoutY="209.0" prefHeight="26.0" prefWidth="170.0" />
             <Label fx:id="textLabel3" layoutX="493.0" layoutY="188.0" text="Nickname locatario" />
             <Button fx:id="bottone" layoutX="207.0" layoutY="351.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="185.0" text="Importa contratto" onAction="#test" />
-            <TextField fx:id="prezzoRata" layoutX="122.0" layoutY="290.0" prefHeight="26.0" prefWidth="170.0" />
-            <TextField fx:id="prezzoNetto" layoutX="354.0" layoutY="290.0" prefHeight="26.0" prefWidth="166.0" />
              <Label layoutX="124.0" layoutY="267.0" text="Pretto rata + costi servizi" />
-             <Label layoutX="411.0" layoutY="267.0" text="Prezzo netto" />
-         </children>
+             <Label layoutX="411.0" layoutY="267.0" text="Prezzo netto" /> </children>
+             <TextField fx:id="prezzoRata" layoutX="122.0" layoutY="290.0" prefHeight="26.0" prefWidth="170.0" />
+             <TextField fx:id="rataPiuServizi" layoutX="354.0" layoutY="290.0" prefHeight="26.0" prefWidth="166.0" />
     </AnchorPane>
   </children>
 </VBox>

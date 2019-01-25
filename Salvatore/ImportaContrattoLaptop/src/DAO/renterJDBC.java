@@ -5,9 +5,10 @@
  */
 package DAO;
 
-import Bean.renterBean;
 import Boundary.testException;
 import Entity.Locatario;
+import Entity.Locatore;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,32 +27,28 @@ public class renterJDBC implements renterDAO {
                 instance = new renterJDBC();
         return instance;
     }
+ 
+    private renterJDBC() throws SQLException{
+        this.connection = databaseConnection.getConnection();
+    }
 
-    public renterBean login(String username, String password) throws SQLException, testException {
-
-        renterBean renter = new renterBean();
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from renter where renterNickname = ? and renterPassword = ?");
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
+    @Override
+    public Locatore getLocatore(String renterNickname, String renterPassword) throws SQLException, testException {
+        Locatario locatario = null;
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from renter WHERE renterNickname = ? and renterPassword = ?");
+        preparedStatement.setString(1, renterNickname);
+        preparedStatement.setString(2, renterPassword);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next() == false){
             resultSet.close();
             preparedStatement.close();
             throw new testException("Errore! Nessun utente associato al nickname indicato!");
         } else {
-            renter.setNickname(resultSet.getString("renterNickname"));
-            renter.setID(resultSet.getInt("renterID"));
-            renter.setCF(resultSet.getString("renterCF"));
+            Locatore locatore = new Locatore(resultSet.getInt("renterID"), resultSet.getString("renterNickname"), resultSet.getString("renterCF"));
             resultSet.close();
             preparedStatement.close();
-            return renter;
+            return locatore;
         }
-
-    };
-
-
-    private renterJDBC() throws SQLException{
-        this.connection = databaseConnection.getConnection();
     }
 
 

@@ -196,7 +196,7 @@ public void initialize(Controller parentController, userSessionBean session){
             }}}     // Fare qualcosa se non ho risultati
     }}
 
-        @FXML
+    @FXML
     public void popupToUserPanel(String text) {
         
         Platform.runLater(new Runnable() {

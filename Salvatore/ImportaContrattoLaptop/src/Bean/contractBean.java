@@ -1,24 +1,17 @@
 package Bean;
 
+import Entity.OptionalService;
+import Entity.TypeOfPayment;
 
-
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import Entity.optionalService;
-import Entity.typeOfPayment;
 import java.util.List;
 
-/**
- * di fatto è un bean che ha l'unico scopo di contenere le informazioni
- * È  importante che non ci siano setter! I parametri si definiscono tutti nel costruttore.
- */
-public class contractBean implements Serializable {
+public class contractBean {
     private int contractId; // importante!
     private boolean isExipired;
     private LocalDate initDate; // importante!
     private LocalDate terminationDate; // importante!
-    private typeOfPayment paymentMethod; // importante!
+    private TypeOfPayment paymentMethod; // importante!
     private String tenantNickname; // importante!
     private String renterNickname;// importante!
     private String tenantCF;
@@ -27,13 +20,14 @@ public class contractBean implements Serializable {
     private int netPrice; // prezzo netto per l'affitto
     private int frequencyOfPayment; // Mesi
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
-    private List<optionalService> serviceList; // importante!
+    private List<OptionalService> serviceList; // importante!
 
 
     public contractBean(int contractId, boolean isExpired, LocalDate initDate, LocalDate terminationDate,
-                    typeOfPayment paymentMethod, String tenantName, String renterName, String tenantCF,
+                    TypeOfPayment paymentMethod, String tenantName, String renterName, String tenantCF,
                     String renterCF, int grossPrice, int netPrice, int frequencyOfPayment, boolean reported,
-                    List<optionalService> serviceList) {
+                    List<OptionalService> serviceList) {
+
         this.contractId = contractId;
         this.isExipired = isExpired;
         this.initDate = initDate;
@@ -50,7 +44,7 @@ public class contractBean implements Serializable {
         this.serviceList = serviceList;
     }
 
-    public int  getContractId() {
+    public int getContractId() {
         return contractId;
     }
 
@@ -66,7 +60,7 @@ public class contractBean implements Serializable {
         return terminationDate;
     }
 
-    public typeOfPayment getPaymentMethod() {
+    public TypeOfPayment getPaymentMethod() {
         return paymentMethod;
     }
 
@@ -100,36 +94,5 @@ public class contractBean implements Serializable {
 
     public boolean isReported() {
         return reported;
-    }
-
-    /**
-     * non posso usare direttamente clone() perché farebbe una shallow copy e ritornerebbe l'indirizzo della lista
-     * e chiunque potrebbe mofdificarla dall'esterno!!
-     * @return List <OptionalService>
-     */
-    public List<optionalService> getServiceList() {
-        List<optionalService> deepCopy = new ArrayList<>(serviceList);
-        //  deepCopy.addAll(serviceList);
-        return deepCopy;
-    }
-
-    @Override
-    public String toString() {
-        return "Contract{" +
-                "contractId=" + contractId +
-                ", isExipired=" + isExipired +
-                ", initDate=" + initDate +
-                ", terminationDate=" + terminationDate +
-                ", paymentMethod=" + paymentMethod +
-                ", tenantNickname='" + tenantNickname + '\'' +
-                ", renterNickname='" + renterNickname + '\'' +
-                ", tenantCF='" + tenantCF + '\'' +
-                ", renterCF='" + renterCF + '\'' +
-                ", grossPrice=" + grossPrice +
-                ", netPrice=" + netPrice +
-                ", frequencyOfPayment=" + frequencyOfPayment +
-                ", reported=" + reported +
-                ", serviceList=" + serviceList +
-                '}';
     }
 }

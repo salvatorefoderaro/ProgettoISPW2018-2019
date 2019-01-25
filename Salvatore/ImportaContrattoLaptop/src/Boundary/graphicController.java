@@ -11,6 +11,8 @@ import Control.controller;
 import DAO.aptToRentJDBC;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
@@ -38,16 +41,16 @@ public class graphicController {
     @FXML ScrollPane scrollPane;
     private List<rentableBean> test = null;
     private controller parentController;
-    private renterBean loggedUser;
-    
-    public void initialize(controller parentController, renterBean loggedUser) throws FileNotFoundException{
+    private renterBean loggedRenter;
+
+    public void initialize(renterBean loggedRenter, controller parentController) throws FileNotFoundException{
 
         this.parentController = parentController;
-        this.loggedUser = loggedUser;
+        this.loggedRenter = loggedRenter;
         try {
-            test = this.parentController.getRentableFromUser(loggedUser.getNickname());
+            test = parentController.getRentableFromUser("asd");
         } catch (SQLException e) {
-            e.printStackTrace();
+            popup("Errore nella connessione con il database!");
         }
         scrollPane.setStyle("-fx-background-color:transparent;");
         
@@ -99,14 +102,14 @@ public class graphicController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("testImportaSchermata.fxml"));
                 Parent root = loader.load();
                 importaContrattoSchermata controller = loader.<importaContrattoSchermata>getController();
-
+                
                 rentableBean bean = new rentableBean();
                 bean.setID(Integer.parseInt(fakeBeanID.getText()));
                 bean.setDescription(fakeBeanDescription.getText());
                 bean.setName(fakeBeanName.getText());
                 bean.setImage(fakeBeanImage.getText());
                 bean.setType(fakeBeanType.getText());
-                controller.initialize(bean, parentController, loggedUser);
+                controller.initialize(bean, parentController, loggedRenter);
                 
                 Scene scene = new Scene(root, 704, 437);
                 st.setScene(scene);
@@ -119,5 +122,43 @@ public class graphicController {
     });
 
         }
+    }
+
+    @FXML
+    public void popup(String text) {
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+
+                Stage stage = (Stage) testBottone.getScene().getWindow();
+                stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+                Stage newStage = new Stage();
+                Pane comp = new Pane();
+
+                Label nameField = new Label();
+                nameField.setWrapText(true);
+                nameField.setLayoutX(128.0);
+                nameField.setLayoutY(21.0);
+                nameField.setText(text);
+
+                Button close = new Button();
+                close.setLayoutX(219.0);
+                close.setLayoutY(125.0);
+                close.setText("Chiudi");
+
+                Scene stageScene = new Scene(comp, 500, 200);
+                newStage.setScene(stageScene);
+                comp.getChildren().addAll(nameField, close);
+                newStage.show();
+
+                close.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            Stage stage = (Stage)close.getScene().getWindow();
+                            stage.close();
+                        }
+                    });
+                }
+        });
     }
 }

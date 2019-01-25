@@ -26,15 +26,7 @@ public class tenantJDBC implements tenantDAO {
     private tenantJDBC() throws SQLException{
         this.connection = databaseConnection.getConnection();
     }
-    
-    @Override
-    public void incrementaSollecitiPagamento(int ID)  throws SQLException{
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Locatario SET SollecitiPagamento = SollecitiPagamento + 1 WHERE IDLocatario = ?");
-            preparedStatement.setString(1,  Integer.toString(ID));
-            preparedStatement.executeUpdate();
-            preparedStatement.close();     
-}
-    
+
     @Override
     public Locatario getLocatario(String tenantNickname) throws SQLException, testException {
         Locatario locatario = null;
