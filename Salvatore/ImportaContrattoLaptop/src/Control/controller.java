@@ -5,13 +5,13 @@
  */
 package Control;
 
+import Bean.contractBean;
 import Bean.rentableBean;
+import Bean.renterBean;
+import Bean.tenantBean;
 import Boundary.testException;
-import DAO.aptToRentJDBC;
-import DAO.bedToRentJDBC;
-import DAO.databaseConnection;
-import DAO.roomToRentJDBC;
-import DAO.tenantJDBC;
+import DAO.*;
+import Entity.Locatario;
 import Entity.rentable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,14 +48,19 @@ public class controller {
             dictionaryAptToRent.get(bean.getID()).checkDate(bean.getStartDate(), bean.getEndDate());        
         }
     }
+
+    public void createContract(contractBean bean) throws  SQLException{
+        contractJDBC.getInstance().createContract(bean);
+ }
+
+ public renterBean renterLogin(renterBean renter) throws SQLException, testException {
+        return renterJDBC.getInstance().login(renter.getNickname(), renter.getPassword());
+    }
     
-  public void checkNickname(rentableBean bean) throws SQLException, testException{
-       if (tenantJDBC.getInstance().getLocatario(bean.getTenantNickname()) == 0){
-           System.out.println("Not found!");
-       } else {
-           System.out.println("Found!");
-        }
-    } 
+  public tenantBean checkNickname(rentableBean bean) throws SQLException, testException{
+       Locatario tenant = tenantJDBC.getInstance().getLocatario(bean.getTenantNickname());
+        return tenant.makeBean();
+    }
     
     public List<rentableBean> getRentableFromUser(String nickname) throws SQLException{
     

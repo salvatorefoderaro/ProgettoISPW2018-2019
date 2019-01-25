@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="1) Passaggio ad IntelliJ&#10;2) Mezza implementazione del Login&#10;&#10;Da fare:&#10;1) Gestione delle eccezzioni dovute al DB nella Boundary&#10;2) Gestione delle eccezzioni per 0 risultati nella lista iniziale degli appartamenti">
+      <change afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/JavaFXApp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/description.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ImportaContrattoLaptop.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/graphicController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/graphicController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/importaContrattoSchermata$1$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/importaContrattoSchermata$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/importaContrattoSchermata.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/testException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Boundary/testImportaSchermata.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/DAO/renterDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/DAO/renterJDBC.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/DAO/tenantDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/DAO/tenantJDBC.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Entity/Locatario.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/classes/Entity/Locatore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Bean/contractBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Bean/renterBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Bean/tenantBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/importaContrattoSchermata.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/loginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/loginTest.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/test.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/testException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Boundary/testImportaSchermata.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/contractDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/contractJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/renterDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/renterJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/tenantDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/tenantJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Locatario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Locatore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/optionalService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/typeOfPayment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/artifacts/JavaFXApp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/artifacts/JavaFXApp2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/description.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/JavaFxApplication.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/TerminaContrattoLaptop.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/applet.policy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/built-jar.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Bean/contractBean.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Bean/notificationBean.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Bean/paymentClaimBean.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Bean/userSessionBean.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/createPaymentClaim$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/createPaymentClaim$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/createPaymentClaim$3$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/createPaymentClaim$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/createPaymentClaim.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/createPaymentClaim.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/fakeLogin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/fakeLogin.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/seePaymentClaim$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/seePaymentClaim$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/seePaymentClaim$3$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/seePaymentClaim$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/seePaymentClaim.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/seePaymentClaim.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/userPanel$1$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/userPanel$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/userPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Boundary/userPanel.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Controller/Controller.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/contractDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/contractJDBC.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/paymentClaimDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/paymentClaimJDBC.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/renterDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/renterJDBC.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/tenantDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/tenantJDBC.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Entity/Contratto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Entity/Locatario.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Entity/Locatore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Entity/SegnalazionePagamento.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/Entity/user.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/css/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/TerminaContratto.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/TerminaContratto.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/TerminaContratto.jnlp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/lib/c3p0-0.9.1-pre6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/lib/jboss-common-jdbc-wrapper-src.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/lib/jboss-common-jdbc-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/lib/protobuf-java-3.6.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/lib/slf4j-api-1.6.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/manifest.mf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/Boundary/createPaymentClaim.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/Boundary/fakeLogin.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/Boundary/seePaymentClaim.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/Boundary/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/Boundary/userPanel.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/sample/sample.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/out/production/JavaFxApplication/src/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Bean/contractBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Bean/notificationBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Bean/paymentClaimBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Bean/userSessionBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/createPaymentClaim.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/createPaymentClaim.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/fakeLogin.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/fakeLogin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/seePaymentClaim.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/seePaymentClaim.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/userPanel.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Boundary/userPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Controller/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/contractDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/contractJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/paymentClaimDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/paymentClaimJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/renterDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/renterJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/tenantDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/tenantJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Entity/Contratto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Entity/Locatario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Entity/Locatore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Entity/user.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/sample/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/sample/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/sample/sample.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/src/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/artifacts/TestJSPISPW_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/TestJSPISPW.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/src/build.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/databaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Entity/SegnalazionePagamento.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/web/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Control/controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Control/controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/aptToRentJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/aptToRentJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/bedToRentJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/bedToRentJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/roomToRentJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/roomToRentJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/graphicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Boundary/graphicController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/importaContrattoSchermata.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Boundary/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/test.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Boundary/test.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/test.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Boundary/test.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/testImportaContratto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/Boundary/testImportaContratto.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testimportacontratto/testImportaSchermata.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Boundary/testImportaContratto.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/LoginPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/LoginPage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/conf/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/META-INF/context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/RiassuntoLogin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/RiassuntoLogin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/.netbeans_automatic_build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/.netbeans_update_resources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/BeanNotifica.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/BeanSession.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/ContrattoBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/SegnalazionePagamentoBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Controller/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/ContrattoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/JDBCContratto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/JDBCLocatario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/JDBCSegnalazionePagamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/LocatarioDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/SegnalazionePagamentoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/databaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/DAO/databaseConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Entity/Contratto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Entity/Locatario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Entity/SegnalazionePagamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/LoginBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/UtendeDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/Utente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/lib/mysql-connector-java-8.0.13.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/dist/lib/mysql-connector-java-8.0.13.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/bootstrapDatePicker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/bootstrapDatePicker.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap-theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap-theme.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap-theme.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap-theme.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/bootstrap.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/inoltraSegnalazione.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/inoltraSegnalazione.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/js/npm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/js/npm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/libs/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/libs/jquery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/pannelloUtente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/pannelloUtente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/visualizzaSegnalazioni.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/out/artifacts/TestJSPISPW_war_exploded/visualizzaSegnalazioni.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/dist/TestJSP.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/ant-deploy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/build-impl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/genfiles.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/private/private.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/private/private.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/project.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Bean/BeanNotifica.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Bean/BeanNotifica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Bean/ContrattoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Bean/ContrattoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Bean/SegnalazionePagamentoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Bean/SegnalazionePagamentoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/fakeLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/fakeLogin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/fakeLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/fakeLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/inoltraSegnalazioni.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/inoltraSegnalazioni.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/inoltraSegnalazioni.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/inoltraSegnalazioni.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/pannelloUtente.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/pannelloUtente.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/pannelloUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/pannelloUtente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/session.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/test.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/build/classes/src/test.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/visualizzaSegnalazioni.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/visualizzaSegnalazioni.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/visualizzaSegnalazioni.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/visualizzaSegnalazioni.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/ContrattoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/ContrattoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/JDBCContratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/JDBCContratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/JDBCLocatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/JDBCLocatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/JDBCSegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/JDBCSegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/LocatarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/LocatarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/SegnalazionePagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/SegnalazionePagamentoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/databaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/DAO/databaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Entity/Contratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Entity/Contratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Entity/Locatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Entity/Locatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Entity/SegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Entity/SegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/conf/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/BeanNotifica.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/BeanNotifica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/BeanSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/BeanSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/ContrattoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/ContrattoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/SegnalazionePagamentoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/SegnalazionePagamentoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/ContrattoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/ContrattoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/JDBCContratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/JDBCContratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/JDBCLocatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/JDBCLocatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/JDBCSegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/JDBCSegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/LocatarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/LocatarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/SegnalazionePagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/SegnalazionePagamentoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/databaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/databaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Entity/Contratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Entity/Contratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Entity/Locatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Entity/Locatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Entity/SegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TerminaContrattoLaptop/src/Entity/SegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/LoginBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/LoginBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/UtendeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/UtendeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/Utente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/LoginPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/LoginPage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/META-INF/context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/RiassuntoLogin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/RiassuntoLogin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/bootstrapDatePicker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/bootstrapDatePicker.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/inoltraSegnalazione.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/inoltraSegnalazione.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/js/npm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/js/npm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/libs/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/libs/jquery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/pannelloUtente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/pannelloUtente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/visualizzaSegnalazioni.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/visualizzaSegnalazioni.jsp" afterDir="false" />
+    </list>
+    <ignored path="JavaFxApplication.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties converted="true" />
+    <breakpoint_rules converted="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="JavaFxApplication" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/importaContrattoSchermata.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="116" column="25" selection-start-line="116" selection-start-column="25" selection-end-line="116" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DAO/aptToRentJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="98" column="136" selection-start-line="98" selection-start-column="136" selection-end-line="98" selection-end-column="136" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/bedToRentJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="125" column="125" selection-start-line="125" selection-start-column="125" selection-end-line="125" selection-end-column="125" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/roomToRentJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="130" column="149" selection-start-line="130" selection-start-column="92" selection-end-line="130" selection-end-column="149" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/renterJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/graphicController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="47" column="85" selection-start-line="47" selection-start-column="85" selection-end-line="47" selection-end-column="85" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="14" column="71" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Control/controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/loginController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="53" column="45" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+              <folding>
+                <element signature="e#1912#1939#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/testImportaContratto.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="644">
+              <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>IDLocatario</find>
+      <find>OptionalService</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>ID</replace>
+    </replaceStrings>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Entity/typeOfPayment.java" />
+        <option value="$PROJECT_DIR$/src/Entity/optionalService.java" />
+        <option value="$PROJECT_DIR$/src/DAO/tenantDAO.java" />
+        <option value="$PROJECT_DIR$/src/Bean/tenantBean.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Locatario.java" />
+        <option value="$PROJECT_DIR$/src/Bean/contractBean.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/testImportaSchermata.fxml" />
+        <option value="$PROJECT_DIR$/src/Entity/Locatore.java" />
+        <option value="$PROJECT_DIR$/src/DAO/tenantJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/contractDAO.java" />
+        <option value="$PROJECT_DIR$/src/DAO/contractJDBC.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/importaContrattoSchermata.java" />
+        <option value="$PROJECT_DIR$/src/DAO/renterDAO.java" />
+        <option value="$PROJECT_DIR$/src/DAO/renterJDBC.java" />
+        <option value="$PROJECT_DIR$/src/Bean/renterBean.java" />
+        <option value="$PROJECT_DIR$/src/Control/controller.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/loginTest.fxml" />
+        <option value="$PROJECT_DIR$/src/Boundary/main.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/loginController.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/graphicController.java" />
+        <option value="$PROJECT_DIR$/src/DAO/roomToRentJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/bedToRentJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/aptToRentJDBC.java" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="27" />
+    <option name="width" value="1137" />
+    <option name="height" value="658" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Bean" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Boundary" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Control" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DAO" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="OverrideImplement.combined" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548422490771" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Scaricati/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13.jar!/" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Boundary" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.main">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="sample.Main" />
+      <module name="ImportaContrattoLaptop" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Boundary.main" />
+      <module name="ImportaContrattoLaptop" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Boundary.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+      <created>1359379246138</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1359379246138</updated>
+      <workItem from="1359379250712" duration="1302000" />
+      <workItem from="1548408642588" duration="6326000" />
+      <workItem from="1548417422256" duration="4911000" />
+    </task>
+    <task id="LOCAL-00001" summary="Passaggio ad IntelliJ">
+      <created>1548406753563</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1548406753563</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="12539000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="27" width="1283" height="741" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.19401778" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Favorites" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32954547" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32954547" />
+      <window_info anchor="bottom" id="Application Servers" order="7" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32954547" />
+      <window_info anchor="bottom" id="Problems" order="9" />
+      <window_info anchor="bottom" id="Changes" order="10" />
+      <window_info anchor="bottom" id="Profiler" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" weight="0.32954547" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32954547" />
+      <window_info anchor="bottom" id="Terminal" order="14" weight="0.32954547" />
+      <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="16" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="JetGradle" order="3" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.08892482" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info anchor="right" id="Maven" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <MESSAGE value="Passaggio ad IntelliJ" />
+    <MESSAGE value="1) Passaggio ad IntelliJ&#10;2) Mezza implementazione del Login&#10;&#10;Da fare:&#10;1) Gestione delle eccezzioni dovute al DB nella Boundary&#10;2) Gestione delle eccezzioni per 0 risultati nella lista iniziale degli appartamenti" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Passaggio ad IntelliJ&#10;2) Mezza implementazione del Login&#10;&#10;Da fare:&#10;1) Gestione delle eccezzioni dovute al DB nella Boundary&#10;2) Gestione delle eccezzioni per 0 risultati nella lista iniziale degli appartamenti" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nbproject/project.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testimportacontratto/graphicController.java" />
+    <entry file="file://$PROJECT_DIR$/src/Entity/typeOfPayment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#184#185#0" expanded="true" />
+            <element signature="e#218#219#0" expanded="true" />
+            <element signature="e#246#247#0" expanded="true" />
+            <element signature="e#279#280#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/optionalService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="50" selection-start-line="40" selection-start-column="50" selection-end-line="40" selection-end-column="50" />
+          <folding>
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#529#530#0" expanded="true" />
+            <element signature="e#570#571#0" expanded="true" />
+            <element signature="e#606#607#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/roomToRentDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/aptToRent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/databaseConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/test.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/tenantDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bean/rentableBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/testImportaSchermata.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1065">
+          <caret line="71" column="22" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="22" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Locatore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Locatario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/bedToRentDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="24" lean-forward="true" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/jdk1.8.0_201/src.zip!/java/text/DateFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/jdk1.8.0_201/src.zip!/java/text/Format.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="156" selection-start-line="156" selection-end-line="156" />
+          <folding>
+            <element signature="e#5629#5630#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bean/contractBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="39" column="64" selection-start-line="39" selection-start-column="64" selection-end-line="39" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#4279#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/contractDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="14" column="31" selection-start-line="14" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/aptToRentDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bean/tenantBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="19" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/renterDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/tenantJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="40" column="8" selection-start-line="39" selection-end-line="52" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bean/renterBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="55" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/loginTest.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-450">
+          <caret line="12" column="150" selection-start-line="12" selection-start-column="150" selection-end-line="12" selection-end-column="150" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Control/controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/testImportaContratto.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/importaContrattoSchermata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="116" column="25" selection-start-line="116" selection-start-column="25" selection-end-line="116" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="14" column="71" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/renterJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/loginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="53" column="45" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+          <folding>
+            <element signature="e#1912#1939#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/graphicController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="47" column="85" selection-start-line="47" selection-start-column="85" selection-end-line="47" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/roomToRentJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="130" column="149" selection-start-line="130" selection-start-column="92" selection-end-line="130" selection-end-column="149" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/bedToRentJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="125" column="125" selection-start-line="125" selection-start-column="125" selection-end-line="125" selection-end-column="125" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/aptToRentJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="98" column="136" selection-start-line="98" selection-start-column="136" selection-end-line="98" selection-end-column="136" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>JavaFXApp</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8 (2)</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>ImportaContrattoLaptop</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

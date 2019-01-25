@@ -36,13 +36,13 @@ public class aptToRentJDBC implements aptToRentDAO {
     @Override
     public void aptSetNewAvaiabilityDate(int aptID, String date1, String date2, String date3, String date4) throws SQLException{
 
-        String query ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'room');";
+        String query ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL, DATE_ADD(?, -interval 1 day), DATE_ADD(?, interval 1 day), 'room');";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, aptID);
         preparedStatement.setString(2, date1);
         preparedStatement.setString(3, date2);
 
-        String query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'room');";
+        String query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL, DATE_ADD(?, -interval 1 day), DATE_ADD(?, interval 1 day), 'room');";
         PreparedStatement preparedStatement1 = connection.prepareStatement(query1);
         preparedStatement1.setInt(1, aptID);
         preparedStatement1.setString(2, date3);
@@ -96,7 +96,7 @@ public class aptToRentJDBC implements aptToRentDAO {
         List<rentable> aptListRenter = new LinkedList<>();
         roomToRentJDBC RoomList = roomToRentJDBC.getInstance();
         
-        String query = "select * from aptToRent where renterNickname = ?";
+        String query = "select * from aptToRent where renterNickname = ? and aptID IN (SELECT aptID from avaiabilityCalendar WHERE aptID = ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, renterNickname);

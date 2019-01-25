@@ -1,7 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Bean/contractBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Bean/renterBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Bean/tenantBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Boundary/loginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/contractDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/contractJDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Entity/optionalService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Entity/typeOfPayment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/artifacts/TestJSPISPW_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/TestJSPISPW.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestJSPISPW/web/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Control/controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/Control/controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/aptToRentJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/aptToRentJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/bedToRentJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/bedToRentJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/roomToRentJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/DAO/roomToRentJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/graphicController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/importaContrattoSchermata.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/test.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/test.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/testImportaContratto.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ImportaContrattoLaptop/src/testimportacontratto/testImportaSchermata.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/LoginPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/LoginPage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/conf/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/META-INF/context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/RiassuntoLogin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/RiassuntoLogin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/.netbeans_automatic_build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/.netbeans_update_resources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/BeanNotifica.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/BeanSession.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/ContrattoBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Bean/SegnalazionePagamentoBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Controller/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/ContrattoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/JDBCContratto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/JDBCLocatario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/JDBCSegnalazionePagamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/LocatarioDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/SegnalazionePagamentoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/DAO/databaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Entity/Contratto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Entity/Locatario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/Entity/SegnalazionePagamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/LoginBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/UtendeDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/classes/loginexample/Utente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/lib/mysql-connector-java-8.0.13.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/bootstrapDatePicker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/bootstrapDatePicker.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap-theme.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap-theme.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/bootstrap.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/inoltraSegnalazione.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/inoltraSegnalazione.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/js/npm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/js/npm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/libs/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/libs/jquery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/pannelloUtente.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/pannelloUtente.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/build/web/visualizzaSegnalazioni.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/web/visualizzaSegnalazioni.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/dist/TestJSP.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/ant-deploy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/build-impl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/genfiles.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/private/private.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/private/private.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/project.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/nbproject/project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Bean/BeanNotifica.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Bean/BeanNotifica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Bean/ContrattoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Bean/ContrattoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Bean/SegnalazionePagamentoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Bean/SegnalazionePagamentoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/fakeLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/fakeLogin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/fakeLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/fakeLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/inoltraSegnalazioni.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/inoltraSegnalazioni.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/inoltraSegnalazioni.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/inoltraSegnalazioni.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/pannelloUtente.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/pannelloUtente.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/pannelloUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/pannelloUtente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/session.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/test.css" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/test.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/visualizzaSegnalazioni.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/visualizzaSegnalazioni.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Boundary/visualizzaSegnalazioni.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Boundary/visualizzaSegnalazioni.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/ContrattoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/ContrattoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/JDBCContratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/JDBCContratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/JDBCLocatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/JDBCLocatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/JDBCSegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/JDBCSegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/LocatarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/LocatarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/SegnalazionePagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/SegnalazionePagamentoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/DAO/databaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/DAO/databaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Entity/Contratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Entity/Contratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Entity/Locatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Entity/Locatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/Entity/SegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/Entity/SegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/conf/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/BeanNotifica.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/BeanNotifica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/BeanSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/BeanSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/ContrattoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/ContrattoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Bean/SegnalazionePagamentoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Bean/SegnalazionePagamentoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/ContrattoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/ContrattoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/JDBCContratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/JDBCContratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/JDBCLocatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/JDBCLocatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/JDBCSegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/JDBCSegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/LocatarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/LocatarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/SegnalazionePagamentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/SegnalazionePagamentoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/DAO/databaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/DAO/databaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Entity/Contratto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Entity/Contratto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Entity/Locatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Entity/Locatario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/Entity/SegnalazionePagamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/Entity/SegnalazionePagamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/LoginBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/LoginBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/UtendeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/UtendeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/src/java/loginexample/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TestJSPISPW/src/java/loginexample/Utente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/LoginPage.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/META-INF/context.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/RiassuntoLogin.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/bootstrapDatePicker.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap-theme.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/inoltraSegnalazione.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/js/npm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/libs/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/pannelloUtente.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestJSPISPW/TestJSP/web/visualizzaSegnalazioni.jsp" beforeDir="false" />
+    </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -56,7 +218,103 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/seePaymentClaim.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="276" selection-start-line="276" selection-end-line="286" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/contractDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="19" column="1" lean-forward="true" selection-end-line="19" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="73" selection-start-line="73" selection-end-line="85" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#4538#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/createPaymentClaim.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1335">
+              <caret line="106" column="171" selection-start-line="106" selection-start-column="171" selection-end-line="106" selection-end-column="207" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Contratto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bean/contractBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/createPaymentClaim.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -96,7 +354,46 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Bean" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Boundary" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DAO" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -110,7 +407,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548422834603" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548422491061" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
@@ -246,7 +543,7 @@
     <option name="totallyTimeSpent" value="4427000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1283" height="741" extended-state="7" />
+    <frame x="0" y="27" width="1283" height="741" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.27728376" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -308,6 +605,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

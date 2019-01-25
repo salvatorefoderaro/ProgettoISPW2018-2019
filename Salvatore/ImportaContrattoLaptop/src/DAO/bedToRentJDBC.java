@@ -123,7 +123,7 @@ public class bedToRentJDBC implements bedToRentDAO {
         
         List<bedToRent> bedListRoom = new LinkedList<bedToRent>();
         
-        String query = "select * from bedToRent where roomID = ?";
+        String query = "select * from bedToRent where roomID = ? and bedID (SELECT bedID from avaiabilityCalendar WHERE bedID = ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, Integer.toString(roomID));
