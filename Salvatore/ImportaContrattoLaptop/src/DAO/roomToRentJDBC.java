@@ -5,17 +5,16 @@
  */
 package DAO;
 
+import Boundary.testException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import Entity.bedToRent;
 import Entity.rentable;
 import Entity.rentableFactory;
 import Entity.roomToRent;
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 /**
  *
@@ -65,7 +64,7 @@ public class roomToRentJDBC implements roomToRentDAO {
 
     
 @Override
-    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException{
+    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException, testException {
         
         LinkedList<String> returnList = new LinkedList<>();
 
@@ -80,7 +79,7 @@ public class roomToRentJDBC implements roomToRentDAO {
                 if (resultSet.next() == false) {
                     resultSet.close();
                     preparedStatement.close();
-                    return returnList;
+                    throw new testException("La risorsa non è disponibile per la data indicata!");
                 }
 
                 returnList.add(resultSet.getString("startAvaiability"));

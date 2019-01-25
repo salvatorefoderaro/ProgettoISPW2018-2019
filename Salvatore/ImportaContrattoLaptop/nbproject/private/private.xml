@@ -4,22 +4,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Entity/rentableFactory.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/testimportacontratto/controller.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/testimportacontratto/testImportaContratto.fxml</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Boundary/main.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Boundary/importaContrattoSchermata.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Entity/bedToRent.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Entity/roomToRent.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/testimportacontratto/test.css</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/aptToRentDAO.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/databaseConnection.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Entity/rentable.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Entity/aptToRent.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/testimportacontratto/main.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Boundary/testImportaSchermata.fxml</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Bean/rentableBean.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/roomToRentJDBC.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/testimportacontratto/importaContrattoSchermata.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Control/controller.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Boundary/testImportaContratto.fxml</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/bedToRentJDBC.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/roomToRentDAO.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/bedToRentDAO.java</file>
             <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/DAO/aptToRentJDBC.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/testimportacontratto/testImportaSchermata.fxml</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Boundary/test.css</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/src/Boundary/graphicController.java</file>
         </group>
     </open-files>
 </project-private>

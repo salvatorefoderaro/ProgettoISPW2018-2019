@@ -27,8 +27,7 @@ public class rentableFactory {
             roomToRentJDBC getRoomList = roomToRentJDBC.getInstance();
             List<roomToRent> roomList = getRoomList.roomListByApartment(ID);
             return new aptToRent(aptID, name, description, image, roomList);
-            
-         
+
         } else if(type.equalsIgnoreCase("room")){
             bedToRentJDBC getBedList = bedToRentJDBC.getInstance();
             List<bedToRent> bedList = getBedList.bedListByRoom(ID);

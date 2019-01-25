@@ -107,6 +107,7 @@ public class bedToRentJDBC implements bedToRentDAO {
                 if (resultSet.next() == false) {
                     resultSet.close();
                     preparedStatement.close();
+                    System.out.println("Vuoto!");
                     return returnList;
                 }
 

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ImportaContrattoLaptop.jar" size="52882" download="eager" />
+    <jar href="ImportaContrattoLaptop.jar" size="60639" download="eager" />
     <jar href="lib/c3p0-0.9.1-pre6.jar" size="531005" download="eager" />
     <jar href="lib/jboss-common-jdbc-wrapper-src.jar" size="35342" download="eager" />
     <jar href="lib/jboss-common-jdbc-wrapper.jar" size="50184" download="eager" />
@@ -16,6 +16,6 @@
     <jar href="lib/protobuf-java-3.6.1.jar" size="1421323" download="eager" />
     <jar href="lib/slf4j-api-1.6.1.jar" size="25496" download="eager" />
   </resources>
-  <jfx:javafx-desc  width="800" height="600" main-class="testimportacontratto.main"  name="ImportaContrattoLaptop" />
+  <jfx:javafx-desc  width="800" height="600" main-class="Boundary.main"  name="ImportaContrattoLaptop" />
   <update check="always"/>
 </jnlp>

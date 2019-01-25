@@ -18,6 +18,7 @@ public class rentableBean {
     private String startDate;
     private String endDate;
     private String type;
+    private String tenantNickname;
     
     public rentableBean(){}
     
@@ -28,6 +29,7 @@ public class rentableBean {
     public String getEndDate(){ return this.endDate; }       
     public int getID(){ return this.ID; }
     public String getType(){ return this.type; }
+    public String getTenantNickname(){ return this.tenantNickname; }
     
     public void setName(String name){ this.name = name; }
     public void setDescription(String description){ this.description = description; }
@@ -36,4 +38,5 @@ public class rentableBean {
     public void setEndDate(String endDate){ this.endDate = endDate; }
     public void setID(int ID){ this.ID = ID; }
     public void setType(String type){ this.type = type; }
+    public void setTenantnNickname(String tenantNickname){ this.tenantNickname = tenantNickname; }
 }
