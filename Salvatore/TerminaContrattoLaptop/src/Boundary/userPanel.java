@@ -76,17 +76,28 @@ private userSessionBean userSession;
         nameField.setLayoutX(128.0);
         nameField.setLayoutY(21.0);
         nameField.setText("Errore nella connessione con il database! ");
-        
-        Button close = new Button();
-        close.setLayoutX(219.0);
-        close.setLayoutY(125.0);
-        close.setText("Invia");
-        
-        // Mostro la finestra di popup
-        Scene stageScene = new Scene(comp, 500, 200);
-        newStage.setScene(stageScene);
-        comp.getChildren().addAll(nameField, close);
-        newStage.show();
+
+            Button close = new Button();
+            close.setLayoutX(70.0);
+            close.setLayoutY(135.0);
+            close.setText("Torna al login");
+
+            Button exit = new Button();
+            exit.setLayoutX(318.0);
+            exit.setLayoutY(135.0);
+            exit.setText("Esci");
+
+            Scene stageScene = new Scene(comp, 500, 200);
+            newStage.setScene(stageScene);
+            comp.getChildren().addAll(nameField, close, exit);
+            newStage.show();
+
+            exit.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    System.exit(0);
+                }
+            });
         
         close.setOnAction(new EventHandler<ActionEvent>() {
             @Override

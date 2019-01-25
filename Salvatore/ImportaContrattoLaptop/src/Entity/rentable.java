@@ -5,7 +5,7 @@
  */
 package Entity;
 
-import Boundary.testException;
+import Boundary.emptyResultException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface  rentable {
 
-    int checkDate(String startDate, String endDate) throws SQLException, testException;
+    int checkDate(String startDate, String endDate) throws SQLException, emptyResultException;
     List getInfo();
 }

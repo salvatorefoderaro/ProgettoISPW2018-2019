@@ -79,7 +79,6 @@ public class aptToRentJDBC implements aptToRentDAO {
                 if (resultSet.next() == false) {
                     resultSet.close();
                     preparedStatement.close();
-                    System.out.println("Vuoto!");
                     return returnList;
                 }
 

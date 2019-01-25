@@ -33,7 +33,7 @@ public class contractJDBC implements contractDAO {
         
         
         List<Contratto> listaContratti = new LinkedList<>();
-        String query = "select * from ActiveContract where renterNickname = ?";
+        String query = "select * from ActiveContract where renterNickname = ? and reported = 0";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, renterNickname);
 
@@ -56,7 +56,7 @@ public class contractJDBC implements contractDAO {
     @Override
     public Contratto getContratto(int ID)  throws SQLException{
         Contratto contratto = null;
-                String query = "SELECT * from ActiveContract where contractId = ? and contractState = 0";
+                String query = "SELECT * from ActiveContract where contractId = ? and reported = 0";
                 PreparedStatement preparedStatement = this.connection.prepareStatement(query);
                 preparedStatement.setString(1, Integer.toString(ID));
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -73,7 +73,7 @@ public class contractJDBC implements contractDAO {
 
     @Override
     public void setContrattoArchiviato(int ID)  throws SQLException{
-            PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO FiledContract (contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, contractState) SELECT contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, contractState FROM ActiveContract WHERE contractId = ?; DELETE FROM ActiveContract WHERE contractId = ?;");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO FiledContract (contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported) SELECT contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported FROM ActiveContract WHERE contractId = ?; DELETE FROM ActiveContract WHERE contractId = ?;");
             preparedStatement.setString(1,  Integer.toString(ID));
             preparedStatement.executeUpdate();
             preparedStatement.close();

@@ -5,8 +5,9 @@
  */
 package DAO;
 
-import Boundary.testException;
-import Entity.Locatario;
+import Boundary.emptyResultException;
+import Entity.Tenant;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,20 +29,20 @@ public class tenantJDBC implements tenantDAO {
     }
 
     @Override
-    public Locatario getLocatario(String tenantNickname) throws SQLException, testException {
-        Locatario locatario = null;
+    public Tenant getLocatario(String tenantNickname) throws SQLException, emptyResultException {
+        Tenant tenant = null;
         PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from tenant where tenantNickname = ?");
         preparedStatement.setString(1, tenantNickname);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next() == false){
             resultSet.close();
             preparedStatement.close();  
-            throw new testException("Errore! Nessun utente associato al nickname indicato!");
+            throw new emptyResultException("Errore! Nessun utente associato al nickname indicato!");
         } else {
-            locatario = new Locatario(resultSet.getInt("tenantID"), resultSet.getString("tenantNickname"), resultSet.getInt("tenantPaymentClaimNumber"), resultSet.getString("tenantCF"));
+            tenant = new Tenant(resultSet.getInt("tenantID"), resultSet.getString("tenantNickname"), resultSet.getInt("tenantPaymentClaimNumber"), resultSet.getString("tenantCF"));
             resultSet.close();
             preparedStatement.close();  
-            return locatario;
+            return tenant;
         }
     }
     

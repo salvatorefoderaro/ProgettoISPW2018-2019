@@ -15,10 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class loginController {
 
@@ -51,8 +49,8 @@ public class loginController {
             return;
         }
         try {
-            parentController.loginLocatore(loginBean);
-        } catch (testException e) {
+            loggedUser = parentController.loginLocatore(loginBean);
+        } catch (emptyResultException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             popup("Errore nella connessione con il Database!");
@@ -60,9 +58,10 @@ public class loginController {
         }
 
         Stage st = (Stage) loginButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("testImportaContratto.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("seeRentable.fxml"));
         Parent root = loader.load();
-        graphicController controller = loader.<graphicController>getController();
+        seeRentable controller = loader.<seeRentable>getController();
+
         controller.initialize(loggedUser, parentController);
 
         Scene scene = new Scene(root, 704, 437);
@@ -73,9 +72,7 @@ public class loginController {
 
     }
 
-    @FXML
     public void popup(String text) {
-
         Platform.runLater(new Runnable() {
             @Override public void run() {
 
@@ -91,27 +88,37 @@ public class loginController {
                 nameField.setText(text);
 
                 Button close = new Button();
-                close.setLayoutX(219.0);
-                close.setLayoutY(125.0);
-                close.setText("Chiudi");
+                close.setLayoutX(70.0);
+                close.setLayoutY(135.0);
+                close.setText("Torna al login");
 
                 Scene stageScene = new Scene(comp, 500, 200);
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);
                 newStage.show();
 
+                Button exit = new Button();
+                exit.setLayoutX(318.0);
+                exit.setLayoutY(135.0);
+                exit.setText("Esci");
+                comp.getChildren().addAll(exit);
+
+                exit.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.exit(0);
+                    }
+                });
+
                 close.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         Stage stage = (Stage)close.getScene().getWindow();
                         stage.close();
-
                     }
                 });
-
             }
         });
-
     }
 
 }

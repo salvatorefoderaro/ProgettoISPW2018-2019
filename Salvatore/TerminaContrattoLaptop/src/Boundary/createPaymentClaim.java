@@ -210,16 +210,27 @@ public void initialize(Controller parentController, userSessionBean bean){
         nameField.setText(text);
         
         Button close = new Button();
-        close.setLayoutX(219.0);
-        close.setLayoutY(125.0);
-        close.setText("Chiudi");
+      close.setLayoutX(70.0);
+      close.setLayoutY(135.0);
+      close.setText("Torna al login");
+
+      Button exit = new Button();
+      exit.setLayoutX(318.0);
+      exit.setLayoutY(135.0);
+      exit.setText("Esci");
         
-        // Mostro la finestra di popup
         Scene stageScene = new Scene(comp, 500, 200);
         newStage.setScene(stageScene);
-        comp.getChildren().addAll(nameField, close);
+        comp.getChildren().addAll(nameField, close, exit);
         newStage.show();
-        
+
+      exit.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+              System.exit(0);
+          }
+      });
+
         close.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {

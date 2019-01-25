@@ -6,7 +6,7 @@
 package DAO;
 
  
-import Boundary.testException;
+import Boundary.emptyResultException;
 import Entity.roomToRent;
 import Entity.rentable;
 import java.util.List;
@@ -17,6 +17,6 @@ import java.util.LinkedList;
 public interface roomToRentDAO {
     public List<roomToRent> roomListByApartment(int apartmentID)  throws SQLException;
     public List<rentable> roomListByRenter(String renterUsername)  throws SQLException;
-    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException, testException;
+    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException, emptyResultException;
     public void roomSetNewAvaiabilityDate(int roomID, String date1, String date2, String date3, String date4) throws SQLException;
 }

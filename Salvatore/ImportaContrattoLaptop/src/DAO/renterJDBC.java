@@ -5,18 +5,16 @@
  */
 package DAO;
 
-import Boundary.testException;
-import Entity.Locatario;
-import Entity.Locatore;
+import Boundary.emptyResultException;
+import Entity.Tenant;
+import Entity.Renter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
- 
- 
+
+
 public class renterJDBC implements renterDAO {
     
     Connection connection = null;
@@ -33,8 +31,8 @@ public class renterJDBC implements renterDAO {
     }
 
     @Override
-    public Locatore getLocatore(String renterNickname, String renterPassword) throws SQLException, testException {
-        Locatario locatario = null;
+    public Renter getLocatore(String renterNickname, String renterPassword) throws SQLException, emptyResultException {
+        Tenant tenant = null;
         PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from renter WHERE renterNickname = ? and renterPassword = ?");
         preparedStatement.setString(1, renterNickname);
         preparedStatement.setString(2, renterPassword);
@@ -42,12 +40,12 @@ public class renterJDBC implements renterDAO {
         if (resultSet.next() == false){
             resultSet.close();
             preparedStatement.close();
-            throw new testException("Errore! Nessun utente associato al nickname indicato!");
+            throw new emptyResultException("Errore! Nessun utente associato al nickname indicato!");
         } else {
-            Locatore locatore = new Locatore(resultSet.getInt("renterID"), resultSet.getString("renterNickname"), resultSet.getString("renterCF"));
+            Renter renter = new Renter(resultSet.getInt("renterID"), resultSet.getString("renterNickname"), resultSet.getString("renterCF"));
             resultSet.close();
             preparedStatement.close();
-            return locatore;
+            return renter;
         }
     }
 

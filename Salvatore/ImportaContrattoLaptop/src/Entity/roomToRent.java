@@ -5,7 +5,7 @@
  */
 package Entity;
 
-import Boundary.testException;
+import Boundary.emptyResultException;
 import DAO.roomToRentJDBC;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class roomToRent implements rentable {
     }
 
     @Override
-    public int checkDate(String startDate, String endDate) throws SQLException, testException {
+    public int checkDate(String startDate, String endDate) throws SQLException, emptyResultException {
         List<String> dateInterval = this.JDBC.checkDate(this.roomID, startDate, endDate);
         if(!dateInterval.isEmpty()){
         for (int i = 0; i < this.bedInRoom.size(); i++) {

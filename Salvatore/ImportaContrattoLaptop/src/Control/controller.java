@@ -9,7 +9,7 @@ import Bean.contractBean;
 import Bean.rentableBean;
 import Bean.renterBean;
 import Bean.tenantBean;
-import Boundary.testException;
+import Boundary.emptyResultException;
 import DAO.*;
 import Entity.rentable;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  *
@@ -37,7 +36,7 @@ public class controller {
         databaseConnection.getConnection();
     }
     
-    public void checkRentableDate(rentableBean bean) throws SQLException, testException{
+    public void checkRentableDate(rentableBean bean) throws SQLException, emptyResultException {
         if ("roomToRent".equals(bean.getType())){
             System.out.println(bean.getStartDate() + bean.getEndDate());
             dictionaryRoomToRent.get(bean.getID()).checkDate(bean.getStartDate(), bean.getEndDate());
@@ -48,7 +47,7 @@ public class controller {
         }
     }
     
-  public tenantBean checkTenantNickname(rentableBean bean) throws SQLException, testException{
+  public tenantBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResultException {
        return tenantJDBC.getInstance().getLocatario(bean.getTenantNickname()).makeBean();
   }
 
@@ -56,11 +55,11 @@ public class controller {
       contractJDBC.getInstance().createContract(contract);
   }
 
-  public void loginLocatore(renterBean renter) throws SQLException, testException {
-        renterJDBC.getInstance().getLocatore(renter.getNickname(), renter.getPassword());
+  public renterBean loginLocatore(renterBean renter) throws SQLException, emptyResultException {
+        return renterJDBC.getInstance().getLocatore(renter.getNickname(), renter.getPassword()).makeBean();
 
   }
-    public List<rentableBean> getRentableFromUser(String nickname) throws SQLException{
+    public List<rentableBean> getRentableFromUser(String nickname) throws SQLException {
     
         roomToRentJDBC getRoom = roomToRentJDBC.getInstance();
         aptToRentJDBC getApt = aptToRentJDBC.getInstance();
@@ -69,6 +68,9 @@ public class controller {
         List<rentable> rentableList = new ArrayList<rentable>(getRoom.roomListByRenter(nickname));
         rentableList.addAll(getBed.bedListByRenter(nickname));
         rentableList.addAll(getApt.aptListByRenter(nickname));
+
+        System.out.println(rentableList.size());
+        System.out.println(rentableList.isEmpty());
                 
         List<rentableBean> list = new LinkedList<>();
     

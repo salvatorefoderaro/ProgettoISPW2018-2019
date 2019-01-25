@@ -5,11 +5,10 @@
  */
 package DAO;
 
-import Boundary.testException;
-import Entity.Locatore;
+import Boundary.emptyResultException;
+import Entity.Renter;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
@@ -17,5 +16,5 @@ import java.util.List;
  */
 public interface renterDAO {
 
-    Locatore getLocatore(String renterNickname, String renterPassword) throws SQLException, testException;
+    Renter getLocatore(String renterNickname, String renterPassword) throws SQLException, emptyResultException;
 }

@@ -6,11 +6,11 @@
 package DAO;
 
  
-import Boundary.testException;
-import Entity.Locatario;
+import Boundary.emptyResultException;
+import Entity.Tenant;
 
 import java.sql.SQLException;
  
 public interface tenantDAO {
-    public Locatario getLocatario(String tenantNickname) throws SQLException, testException;
+    public Tenant getLocatario(String tenantNickname) throws SQLException, emptyResultException;
 }
