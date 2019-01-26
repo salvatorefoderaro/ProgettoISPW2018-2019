@@ -7,11 +7,9 @@ package DAO;
 
 import Bean.rentableBean;
 import Bean.renterBean;
-import Boundary.emptyResultException;
-import Entity.aptToRent;
-import Entity.rentable;
+import Exceptions.emptyResult;
+
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,8 +18,6 @@ import java.util.List;
  */
 public interface aptToRentDAO {
     void aptSetNewAvaiabilityDate(rentableBean bean) throws SQLException;
-
-    rentableBean checkDate(rentableBean bean) throws SQLException, emptyResultException;
-
-    public List<rentableBean> aptListByRenter(renterBean renter)  throws SQLException;
+    rentableBean checkDate(rentableBean bean) throws SQLException, emptyResult;
+    List<rentableBean> aptListByRenter(renterBean renter)  throws SQLException;
 }

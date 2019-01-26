@@ -12,6 +12,7 @@ import Control.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import Exceptions.emptyResult;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,26 +47,24 @@ public class seeRentable {
         this.parentController = parentController;
         this.loggedRenter = loggedRenter;
         try {
-            this.test = this.parentController.getRentableFromUser(this.loggedRenter);
+            try {
+                this.test = this.parentController.getRentableFromUser(this.loggedRenter);
+            } catch (Exceptions.emptyResult emptyResult) {
+                popup("Nessuna risorsa al momento disponibile!", true);
+            }
         } catch (SQLException e) {
-            /*System.out.println(e.getStackTrace());
             popup("Errore nella connessione con il database!", false);
-            return; */
-            e.printStackTrace();
+            return;
         }
-        System.out.print(test.size());
 
 
         if (this.test.isEmpty()){
             popup("Nessuna risorsa affittabile da mostrare!", true);
         } else {
 
-
             scrollPane.setStyle("-fx-background-color:transparent;");
 
             for (int i = 0; i < test.size(); i++) {
-
-                System.out.println("L'id è " + test.get(i).getID());
 
                 Label fakeBeanID = new Label();
                 fakeBeanID.setText(Integer.toString(test.get(i).getID()));

@@ -2,6 +2,7 @@ package Boundary;
 
 import Bean.renterBean;
 import Control.controller;
+import Exceptions.emptyResult;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -50,7 +50,7 @@ public class loginController {
         }
         try {
             loggedUser = parentController.loginLocatore(loginBean);
-        } catch (emptyResultException e) {
+        } catch (emptyResult e) {
             popup("Nome utente e/o password errati!");
             return;
         } catch (SQLException e) {

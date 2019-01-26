@@ -7,7 +7,7 @@ package DAO;
 
 import Bean.rentableBean;
 import Bean.renterBean;
-import Boundary.emptyResultException;
+import Exceptions.emptyResult;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,16 +24,22 @@ public class roomToRentJDBC implements roomToRentDAO {
     private Connection connection;
     private static roomToRentJDBC instance = null;
     
-    public static roomToRentJDBC getInstance()  throws SQLException {
+    public static roomToRentJDBC getInstance(String type)  throws SQLException {
         if (instance == null)
-                instance = new roomToRentJDBC();
+                instance = new roomToRentJDBC(type);
         return instance;
     }
  
-    private roomToRentJDBC() throws SQLException{
-        this.connection = databaseConnection.getConnection();
+    private roomToRentJDBC(String type) throws SQLException{
+        if(type == "user") {
+            this.connection = databaseConnection.getConnectionUser();
+        } else {
+            this.connection = databaseConnection.getConnectionAdmin();
+        }
     }
-    
+
+    public Connection getConnection(){  return this.connection; }
+
     @Override
     public List<rentableBean> roomListByApartment(rentableBean bean)  throws SQLException {
         
@@ -62,7 +68,7 @@ public class roomToRentJDBC implements roomToRentDAO {
 
     
 @Override
-    public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResultException {
+    public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResult {
         LinkedList<String> returnList = new LinkedList<>();
         rentableBean result = new rentableBean();
         String query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE roomID = ? and ? >= startAvaiability and endAvaiability >= ? and type = 'room'";
@@ -78,7 +84,7 @@ public class roomToRentJDBC implements roomToRentDAO {
                     result.setNewStartAvaiabilityDate(null);
                     resultSet.close();
                     preparedStatement.close();
-                    throw new emptyResultException("La risorsa non è disponibile per la data indicata!");
+                    throw new emptyResult("La risorsa non è disponibile per la data indicata!");
                 }
 
                 result.setNewStartAvaiabilityDate(resultSet.getString("startAvaiability"));
@@ -123,7 +129,6 @@ public class roomToRentJDBC implements roomToRentDAO {
     public List<rentableBean> roomListByRenter(renterBean renter)  throws SQLException {
 
         List<rentableBean> roomListRenter = new LinkedList<>();
-        bedToRentJDBC bedList = bedToRentJDBC.getInstance();
 
             String query = "select * from roomToRent where renterNickname = ? and ID in (Select roomID from avaiabilityCalendar)";
 

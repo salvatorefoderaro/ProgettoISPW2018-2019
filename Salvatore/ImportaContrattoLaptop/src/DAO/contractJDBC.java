@@ -16,16 +16,22 @@ public class contractJDBC implements contractDAO {
  
     private Connection connection = null;
     private static contractJDBC instance = null;
-    
-    public static contractJDBC getInstance()  throws SQLException {
+
+    public static contractJDBC getInstance(String type)  throws SQLException {
         if (instance == null)
-                instance = new contractJDBC();
+                instance = new contractJDBC(type);
         return instance;
     }
  
-    private contractJDBC() throws SQLException {
-        this.connection = databaseConnection.getConnection();
+    private contractJDBC(String type) throws SQLException {
+        if(type == "user") {
+            this.connection = databaseConnection.getConnectionUser();
+        } else {
+            this.connection = databaseConnection.getConnectionAdmin();
+        }
     }
+
+    public Connection getConnection(){  return this.connection; }
 
     @Override
     public void createContract(contractBean bean) throws SQLException {

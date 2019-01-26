@@ -5,8 +5,6 @@
  */
 package Entity;
 
-import Boundary.emptyResultException;
-import DAO.bedToRentJDBC;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ public class bedToRent implements rentable{
 
 
     @Override
-    public int checkDate(String startDate, String endDate) throws SQLException, emptyResultException {
+    public int checkDate(String startDate, String endDate) throws SQLException {
         return 0;
     }
 

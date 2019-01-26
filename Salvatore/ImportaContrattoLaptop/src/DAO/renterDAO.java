@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Boundary.emptyResultException;
+import Exceptions.emptyResult;
 import Entity.Renter;
 
 import java.sql.SQLException;
@@ -15,6 +15,5 @@ import java.sql.SQLException;
  * @author root
  */
 public interface renterDAO {
-
-    Renter getLocatore(String renterNickname, String renterPassword) throws SQLException, emptyResultException;
+    Renter getLocatore(String renterNickname, String renterPassword) throws SQLException, emptyResult;
 }

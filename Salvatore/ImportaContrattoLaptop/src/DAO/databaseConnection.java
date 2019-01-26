@@ -15,23 +15,36 @@ import java.sql.SQLException;
  */
 public class databaseConnection {
     
-    private static Connection dbConnection = null;
+    private static Connection dbConnectionUser = null;
+    private static Connection dbConnectionAdmin = null;
     
     private databaseConnection() throws SQLException{}
 
     
-        public static Connection getConnection() throws SQLException{
+        public static Connection getConnectionUser() throws SQLException{
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            if(dbConnection == null)
-                dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=root&password=");
+            if(dbConnectionUser == null)
+                dbConnectionUser = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=root&password=");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
              
         }         
-            return dbConnection;
+            return dbConnectionUser;
+        }
+
+        public static Connection getConnectionAdmin() throws SQLException{
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            if(dbConnectionAdmin == null)
+                dbConnectionAdmin = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=testAdmin&password=Foderaro95");
+                dbConnectionAdmin.setAutoCommit(false);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
 
         }
+        return dbConnectionAdmin;
     }
+}
 

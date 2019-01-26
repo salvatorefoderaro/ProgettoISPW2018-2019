@@ -7,7 +7,7 @@ package DAO;
 
 import Bean.rentableBean;
 import Bean.renterBean;
-import Boundary.emptyResultException;
+import Exceptions.emptyResult;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,19 +21,25 @@ import java.util.List;
  * @author root
  */
 public class aptToRentJDBC implements aptToRentDAO {
-    
-    Connection connection = null;
+
+    private Connection connection = null;
     private static aptToRentJDBC instance = null;
-    
-    public static aptToRentJDBC getInstance()  throws SQLException {
+
+    public static aptToRentJDBC getInstance(String type)  throws SQLException {
         if (instance == null)
-                instance = new aptToRentJDBC();
+                instance = new aptToRentJDBC(type);
         return instance;
     }
  
-    private aptToRentJDBC() throws SQLException{
-        this.connection = databaseConnection.getConnection();
-    }
+    private aptToRentJDBC(String type) throws SQLException{
+        if(type == "user") {
+            this.connection = databaseConnection.getConnectionUser();
+        } else {
+            this.connection = databaseConnection.getConnectionAdmin();
+        }
+   }
+
+    public Connection getConnection(){  return this.connection; }
 
     @Override
     public void aptSetNewAvaiabilityDate(rentableBean bean) throws SQLException{
@@ -66,7 +72,7 @@ public class aptToRentJDBC implements aptToRentDAO {
 }
     
 @Override
-    public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResultException {
+    public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResult {
         System.out.println("Ricevo: "+  bean.getStartDate() + " " + bean.getEndDate() + " " + bean.getID());
         LinkedList<String> returnList = new LinkedList<>();
         rentableBean resultBean = new rentableBean();
@@ -82,7 +88,7 @@ public class aptToRentJDBC implements aptToRentDAO {
                 if (resultSet.next() == false) {
                     resultSet.close();
                     preparedStatement.close();
-                    throw new emptyResultException("La risorsa non è disponibile per la data indicata!");
+                    throw new emptyResult("La risorsa non è disponibile per la data indicata!");
                 }
 
                 resultBean.setNewStartAvaiabilityDate(resultSet.getString("startAvaiability"));
@@ -96,8 +102,7 @@ public class aptToRentJDBC implements aptToRentDAO {
     public List<rentableBean> aptListByRenter(renterBean renter)  throws SQLException {
         
         List<rentableBean> aptListRenter = new LinkedList<>();
-        roomToRentJDBC RoomList = roomToRentJDBC.getInstance();
-        
+
         String query = "select * from aptToRent where renterNickname = ? and ID in (Select aptID from avaiabilityCalendar)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -120,4 +125,6 @@ public class aptToRentJDBC implements aptToRentDAO {
                  
             return aptListRenter;
     }
+
+
 }

@@ -5,9 +5,6 @@
  */
 package Entity;
 
-import Bean.rentableBean;
-import Boundary.emptyResultException;
-import DAO.aptToRentJDBC;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +33,7 @@ public class aptToRent implements rentable {
     }
 
     @Override
-    public int checkDate(String startDate, String endDate) throws SQLException, emptyResultException {
+    public int checkDate(String startDate, String endDate) throws SQLException {
        // this.JDBC.checkDate(this.aptID, startDate, endDate);
         return 0;
     }

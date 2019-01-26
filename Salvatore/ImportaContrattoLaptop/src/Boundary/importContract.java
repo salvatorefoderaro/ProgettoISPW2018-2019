@@ -10,12 +10,16 @@ import Bean.rentableBean;
 import Bean.renterBean;
 import Bean.tenantBean;
 import Control.controller;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
+import Exceptions.dbConnection;
+import Exceptions.emptyResult;
+import Exceptions.transactionError;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -59,6 +63,8 @@ public class importContract {
     this.loggedUser = loggedUser;
     this.parentController = parentController;
     this.theBean = bean;
+
+    bottone.setId("aButton");
     FileInputStream input = new FileInputStream(bean.getImage());
     Image toShow =  new Image(input);
     immagine.setImage(toShow);
@@ -74,6 +80,7 @@ public class importContract {
         tenant.setCF("test");
 
         if (dataInizio.getValue() == null){
+            popup("Inserire un valore valido per la data di inizio del contratto!", false);
             return;
         }
         
@@ -100,36 +107,40 @@ public class importContract {
         theBean.setStartDate(dataInizio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         theBean.setEndDate(dataFine.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         theBean.setTenantnNickname(locatarioNickname.getText());
-        
+
         try {
             tenant = this.parentController.checkTenantNickname(this.theBean);
-        } catch (emptyResultException ex) {
-            popup(ex.getMessage(), false);
-            return;
         } catch (SQLException e) {
-            e.printStackTrace();
-            popup("Errore nella connessione con il database", true);
+            popup("Errore nell'esecuzione della richiesta!", true);
+        } catch (Exceptions.emptyResult emptyResult) {
+            popup("Nessun utente associato al nickname indicato!", false);
+            return;
         }
+
 
         try {
             this.parentController.checkRentableDate(theBean);
-        } catch (emptyResultException ex) {
-            popup(ex.getMessage(), false);
+        } catch (Exceptions.emptyResult emptyResult) {
+            popup("La risorsa non è disponibile per il periodo indicato!", false);
             return;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            popup("Errore nella connessione con il database", true);
+        } catch (Exceptions.transactionError transactionError) {
+            popup("Errore nell'esecuzione dell'operazione!", true);
+            return;
+        } catch (Exceptions.dbConnection dbConnection) {
+            popup("Errore nella connessione con il database!", true);
+            return;
         }
 
+
+        contractBean contract = new contractBean(0, false, dataInizio.getValue(), dataFine.getValue(), null, tenant.getNickname(), loggedUser.getNickname(), tenant.getCF(), loggedUser.getCF(), Integer.parseInt(rataPiuServizi.getText()), Integer.parseInt(prezzoRata.getText()), 0, false, null);
         try {
-            contractBean contract = new contractBean(0, false, dataInizio.getValue(), dataFine.getValue(), null, tenant.getNickname(), loggedUser.getNickname(), tenant.getCF(), loggedUser.getCF(), Integer.parseInt(rataPiuServizi.getText()), Integer.parseInt(prezzoRata.getText()), 0, false, null);
             parentController.createContract(contract);
-        } catch (NumberFormatException ex){
-            return;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            popup("Errore nella connessione con il database", true);
+        } catch (Exceptions.transactionError transactionError) {
+            popup("Errore nell'esecuzione della richiesta!", true);
+        } catch (Exceptions.dbConnection dbConnection) {
+            popup("Errore nella connessione con il database!", true);
         }
+
     }
     
     @FXML
@@ -217,6 +228,4 @@ public class importContract {
         });
 
 }
-    
-    
- }
+}

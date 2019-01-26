@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Exceptions;
 
+/**
+ *
+ * @author root
+ */
+public class transactionError extends Exception {
 
-import Bean.contractBean;
+    public transactionError(String message){
+        super(message);
+    }
 
-import java.sql.SQLException;
-
-public interface contractDAO {
-    void createContract(contractBean bean) throws SQLException;
 }

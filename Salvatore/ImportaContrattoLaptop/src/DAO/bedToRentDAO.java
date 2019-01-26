@@ -19,6 +19,6 @@ public interface bedToRentDAO {
 
     void bedSetNewAvaiabilityDate(rentableBean bean) throws SQLException;
     rentableBean checkDate(rentableBean bean) throws SQLException;
-    public List<rentableBean> bedListByRoom(rentableBean bean)  throws SQLException;
-    public List<rentableBean> bedListByRenter(renterBean renter)  throws SQLException;
+    List<rentableBean> bedListByRoom(rentableBean bean)  throws SQLException;
+    List<rentableBean> bedListByRenter(renterBean renter)  throws SQLException;
 }
