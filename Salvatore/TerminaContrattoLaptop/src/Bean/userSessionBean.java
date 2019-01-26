@@ -16,14 +16,16 @@ public class userSessionBean
     private int id;
     private String type;
     private int paymentClaim;
+    private String password;
   
     // private constructor restricted to this class itself 
-    public userSessionBean(String nickname, int id, String type, int paymentClaim)
+    public userSessionBean(String nickname, int id, String type, int paymentClaim, String password)
     { 
         this.nickname = nickname;
         this.id = id;
         this.type = type;
         this.paymentClaim = paymentClaim;
+        this.password = password;
     }
     
     public String getNickname(){
@@ -39,4 +41,7 @@ public class userSessionBean
     }
 
     public int getPaymentClaim(){ return this.paymentClaim; }
+
+    public String getPassword(){ return this.password; }
+
 }

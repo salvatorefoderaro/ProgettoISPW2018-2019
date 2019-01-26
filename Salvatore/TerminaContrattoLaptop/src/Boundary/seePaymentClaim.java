@@ -11,6 +11,7 @@ import Bean.paymentClaimBean;
 import Controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;
@@ -53,27 +54,16 @@ public void initialize(Controller parentController, userSessionBean session){
     try {
         paymentClaimList = claimDeadline.getSegnalazioniPagamento(userSession);
     } catch (SQLException ex) {
-            ex.printStackTrace();
-        popupToUserPanel("Errore nella connessione con il database!");
+        popupToDestination("Errore nella connessione con il database!", false);
+        return;
+    } catch (Exceptions.emptyResult emptyResult) {
+        popupToDestination("Nessuna segnalazione di pagamento disponibile al momento!", true);
+        return;
     }
 
-    if (paymentClaimList == null){
-        
-        popupToUserPanel("Nessuna segnalazione di pagamento disponibile!");
-
-    }else {
-          if (paymentClaimList.isEmpty()){
-              
-                      popupToUserPanel("Nessuna segnalazione di pagamento disponibile!");
-
-          
-        }else {
-              System.out.println("Dimensione dimensione: " + paymentClaimList.size());
         for (int i = 0; i < paymentClaimList.size(); i++) {
-            
-            
-            paymentClaimBean paymentClaimBean = paymentClaimList.get(i);
 
+            paymentClaimBean paymentClaimBean = paymentClaimList.get(i);
 
             Label element0 = new Label();
             element0.setText("ID Contratto: " + paymentClaimBean.getContractId());
@@ -98,7 +88,7 @@ public void initialize(Controller parentController, userSessionBean session){
             
             switch(paymentClaimBean.getClaimState()){
                 case 0:
-                    if ("Locatore".equals(this.userSession.getType())){
+                    if ("renter".equals(this.userSession.getType())){
                         element3.setText("In attesa del locatario");
                         element3.setDisable(true);}
                     else{
@@ -110,8 +100,11 @@ public void initialize(Controller parentController, userSessionBean session){
                                 bean.setClaimId(paymentClaimBean.getClaimId());
                                 try {
                                     claimDeadline.setSegnalazionePagata(bean);
-                                } catch (SQLException ex) {
-                                    popupToUserPanel("Errore nella connessione con il database!");                        }
+                                } catch (Exceptions.dbConnection dbConnection) {
+                                    popupToDestination("Errore nella connessione con il database!", false);
+                                } catch (Exceptions.transactionError transactionError) {
+                                    popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                }
                                 element3.setDisable(true);
                             }
                         });
@@ -119,7 +112,7 @@ public void initialize(Controller parentController, userSessionBean session){
                     break;
                 
                 case 1:
-                    if ("Locatore".equals(this.userSession.getType())){
+                    if ("renter".equals(this.userSession.getType())){
                         element3.setText("Reinoltra segnalazione");
                         
                         element3.setOnAction((ActionEvent event) -> {
@@ -128,9 +121,12 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimNumber(paymentClaimBean.getClaimNumber());
                             try {
                                 claimDeadline.incrementaSegnalazione(bean);
-                            } catch (SQLException ex) {
-                                popupToUserPanel("Errore nella connessione con il database!");                        }
-                                element3.setDisable(true);
+                            } catch (Exceptions.dbConnection dbConnection) {
+                                popupToDestination("Errore nella connessione con il database!", false);
+                            } catch (Exceptions.transactionError transactionError) {
+                                popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                            }
+                            element3.setDisable(true);
                         });} else {
                         element3.setText("In attesa del locatore");
                         element3.setDisable(true);
@@ -138,7 +134,7 @@ public void initialize(Controller parentController, userSessionBean session){
                     break;
                     
                 case 2:
-                    if("Locatore".equals(this.userSession.getType())){
+                    if("renter".equals(this.userSession.getType())){
                         element3.setText("Archivia contratto");
                         
                         element3.setOnAction((ActionEvent event) -> {
@@ -146,9 +142,12 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             try {
                                 claimDeadline.setContrattoArchiviato(bean);
-                            } catch (SQLException ex) {
-                                popupToUserPanel("Errore nella connessione con il database!");                        }
-                                element3.setDisable(true);
+                            }  catch (Exceptions.dbConnection dbConnection) {
+                                popupToDestination("Errore nella connessione con il database!", false);
+                            } catch (Exceptions.transactionError transactionError) {
+                                popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                            }
+                            element3.setDisable(true);
                         });} else {
                         element3.setText("In attesa del locatore");
                         element3.setDisable(true);
@@ -156,7 +155,7 @@ public void initialize(Controller parentController, userSessionBean session){
                     break;
                     
                 case 3:
-                    if ("Locatore".equals(this.userSession.getType())){
+                    if ("renter".equals(this.userSession.getType())){
                         element3.setText("Archivia contratto");
                         element3.setDisable(true);
                         
@@ -167,8 +166,13 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             try {
                                 claimDeadline.setSegnalazioneNotificata(bean);
-                            } catch (SQLException ex) {
-                                popupToUserPanel("Errore nella connessione con il database!");                        }
+                            } catch (Exceptions.dbConnection dbConnection) {
+                                popupToDestination("Errore nella connessione con il database!",false );
+                            } catch (Exceptions.transactionError transactionError) {
+                                popupToDestination("Errore nell'esecuzione dell'operazione!",false);
+                            } catch (SQLException e) {
+                                popupToDestination("Errore nella connessione con il database!", false);
+                            }
                             element3.setDisable(true);
                         });
                         element3.setText("Archivia notitica");
@@ -176,7 +180,7 @@ public void initialize(Controller parentController, userSessionBean session){
                     break;
                     
                 case 4:
-                    if(this.userSession.getType() == "Locatore"){
+                    if(this.userSession.getType() == "renter"){
                         element3.setText("Archivia notifica");
                         element3.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -185,30 +189,34 @@ public void initialize(Controller parentController, userSessionBean session){
                                 bean.setClaimId(paymentClaimBean.getClaimId());
                                 try {
                                     claimDeadline.setSegnalazioneNotificata(bean);
-                                } catch (SQLException ex) {
-                                    popupToUserPanel("Errore nella connessione con il database!");                        }
+                                }  catch (Exceptions.dbConnection dbConnection) {
+                                    popupToDestination("Errore nella connessione con il database!", false);
+                                } catch (Exceptions.transactionError transactionError) {
+                                    popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                } catch (SQLException e) {
+                                    popupToDestination("Errore nella connessione con il database!", false);
+                                }
                                 element3.setDisable(true);
                             }
                         });                    } else {
                         element3.setText("Conferma pagamento");
                         element3.setDisable(true);
                     }
-            }}}     // Fare qualcosa se non ho risultati
-    }}
+            }}     // Fare qualcosa se non ho risultati
+
+    }
 
     @FXML
-    public void popupToUserPanel(String text) {
+    public void popupToDestination(String text, boolean panelDestination) {
         
         Platform.runLater(new Runnable() {
         @Override public void run() {
         
-        // Creo lo stage
         Stage stage = (Stage) userPanelButton.getScene().getWindow();
         stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
         Stage newStage = new Stage();
         Pane comp = new Pane();
         
-        // Inserisco gli elementi che mi interessano
         Label nameField = new Label();
         nameField.setWrapText(true);
         nameField.setLayoutX(128.0);
@@ -218,15 +226,22 @@ public void initialize(Controller parentController, userSessionBean session){
             Button close = new Button();
             close.setLayoutX(70.0);
             close.setLayoutY(135.0);
-            close.setText("Torna al login");
+            if (panelDestination) {
+                close.setText("Torna al pannello utente");
+            } else {
+                close.setText("Torna al login");
+            }
+            close.setId("aButton");
 
             Button exit = new Button();
             exit.setLayoutX(318.0);
             exit.setLayoutY(135.0);
             exit.setText("Esci");
+            exit.setId("anotherButton");
 
             Scene stageScene = new Scene(comp, 500, 200);
             newStage.setScene(stageScene);
+            stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             comp.getChildren().addAll(nameField, close, exit);
             newStage.show();
 
@@ -243,7 +258,11 @@ public void initialize(Controller parentController, userSessionBean session){
             try {
                 Stage stage = (Stage)close.getScene().getWindow();
                 stage.close();
-                userPanel();
+                if (panelDestination) {
+                    userPanel();
+                }else {
+                    login();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(seePaymentClaim.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -288,7 +307,14 @@ public void initialize(Controller parentController, userSessionBean session){
         this.claimDeadline.deleteObserver(this);
         Stage stage=(Stage) userPanelButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        Parent myNewScene = loader.load(getClass().getResource("userPanel.fxml"));
+
+        Parent myNewScene = null;
+        if(userSession.getType().equals("renter")) {
+            myNewScene = loader.load(getClass().getResource("userPanelRenter.fxml"));
+        } else {
+            myNewScene = loader.load(getClass().getResource("userPanelRenter.fxml"));
+        }
+
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("FERSA - Termina contratto - Pannello utente");

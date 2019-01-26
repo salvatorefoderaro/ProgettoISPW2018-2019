@@ -9,13 +9,15 @@ package DAO;
 import Bean.contractBean;
 import Bean.userSessionBean;
 import Entity.Contratto;
+import Exceptions.emptyResult;
+
 import java.util.List;
 
 import java.sql.SQLException;
  
 public interface contractDAO {
     contractBean getContratto(contractBean bean)  throws SQLException;
-    List<contractBean> getContratti(userSessionBean user)  throws SQLException;
+    List<contractBean> getContratti(userSessionBean user) throws SQLException, emptyResult;
     void setContrattoArchiviato(contractBean bean)  throws SQLException;
     void setContrattoSegnalato(contractBean bean)  throws SQLException;
 }

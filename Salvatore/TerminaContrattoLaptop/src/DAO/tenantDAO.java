@@ -14,6 +14,7 @@ import Entity.SegnalazionePagamento;
 import java.sql.SQLException;
  
 public interface tenantDAO {
-    public void incrementaSollecitiPagamento(int ID) throws SQLException;
+
+    void incrementaSollecitiPagamento(userSessionBean session)  throws SQLException;
     userSessionBean getLocatario(userSessionBean session) throws SQLException;
 }

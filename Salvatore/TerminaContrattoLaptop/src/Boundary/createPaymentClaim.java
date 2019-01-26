@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Boundary;
 
 import Bean.userSessionBean;
@@ -53,14 +48,14 @@ public void initialize(Controller parentController, userSessionBean bean){
         contractBeanList = controller.getContratti(userSession);
         // Devo prima mostrare tutti quanti i contratti attivi, quindi principlamente devo lavorare con questo
     } catch (SQLException ex) {
-        popupToUserPanel("Errore nella connessione con il database!");
+        popupToDestination("Errore nella connessione con il database!", false);
+        return;
+    } catch (Exceptions.emptyResult emptyResult) {
+        popupToDestination("Nessun contratto al momento disponibile!", true);
+        return;
     }
 
-    if (contractBeanList == null){
-        popupToUserPanel("Nessun contratto al momento segnalabile!");
-    }else{
-    if (contractBeanList.isEmpty()){
-    } else {
+
         for (int i = 0; i < contractBeanList.size(); i++) {
             contractBean contractBean = contractBeanList.get(i);
             Label element0 = new Label();
@@ -88,16 +83,22 @@ public void initialize(Controller parentController, userSessionBean bean){
         }
     });
     }
-}}
+
 }
     @FXML
     private void userPanel() throws IOException{
         Stage stage=(Stage) userPanelButton.getScene().getWindow();
-                controller.deleteObserver(this);
-
+        controller.deleteObserver(this);
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
-        Parent myNewScene = loader.load(getClass().getResource("userPanel.fxml"));
+
+        Parent myNewScene = null;
+        if(userSession.getType().equals("renter")) {
+            myNewScene = loader.load(getClass().getResource("userPanelRenter.fxml"));
+        } else {
+            myNewScene = loader.load(getClass().getResource("userPanelRenter.fxml"));
+        }
+
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("FERSA - Termina contratto - Pannello utente");
@@ -110,7 +111,7 @@ public void initialize(Controller parentController, userSessionBean bean){
 
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
-        Parent myNewScene = loader.load(getClass().getResource("fakeLogin.fxml"));
+        Parent myNewScene = loader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle("FERSA - Termina contratto - Pannello utente");
@@ -120,13 +121,11 @@ public void initialize(Controller parentController, userSessionBean bean){
     @FXML
     public void popup(long IDContratto, String tenantNickname, String renterNickname, Button element) {
         
-        // Creo lo stage
         Stage stage = (Stage) gridPane.getScene().getWindow();
         stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
         Stage newStage = new Stage();
         Pane comp = new Pane();
         
-        // Inserisco gli elementi che mi interessano
         Label nameField = new Label();
         nameField.setLayoutX(128.0);
         nameField.setLayoutY(21.0);
@@ -142,9 +141,11 @@ public void initialize(Controller parentController, userSessionBean bean){
         close.setLayoutX(219.0);
         close.setLayoutY(125.0);
         close.setText("Invia");
+        close.setId("aButton");
         
         // Mostro la finestra di popup
         Scene stageScene = new Scene(comp, 500, 200);
+        stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         newStage.setScene(stageScene);
         comp.getChildren().addAll(dataa, nameField, close);
         newStage.show();
@@ -168,7 +169,14 @@ public void initialize(Controller parentController, userSessionBean bean){
                 try {
                     controller.inserisciSegnalazionePagamento(bean);
                 } catch (SQLException ex) {
-                    popupToUserPanel("Errore nella connessione con il database!");
+                    popupToDestination("Errore nella connessione con il database!", false);
+                    return;
+                } catch (Exceptions.transactionError transactionError) {
+                    popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                    return;
+                } catch (Exceptions.dbConnection dbConnection) {
+                    popupToDestination("Errore nella connessione con il database!", false);
+                    return;
                 }
                 element.setDisable(true);
                 claimDeadline = null;
@@ -190,7 +198,7 @@ public void initialize(Controller parentController, userSessionBean bean){
 }
 
             @FXML
-    public void popupToUserPanel(String text) {
+    public void popupToDestination(String text, boolean destination) {
         
         Platform.runLater(new Runnable() {
   @Override public void run() {
@@ -210,15 +218,21 @@ public void initialize(Controller parentController, userSessionBean bean){
         Button close = new Button();
       close.setLayoutX(70.0);
       close.setLayoutY(135.0);
-      close.setText("Torna al login");
+      if (destination) {
+          close.setText("Torna al pannello utente!");
+      } else {
+          close.setText("Torna al login!");
+      }close.setId("aButton");
 
       Button exit = new Button();
       exit.setLayoutX(318.0);
       exit.setLayoutY(135.0);
       exit.setText("Esci");
+      exit.setId("anotherButton");
         
         Scene stageScene = new Scene(comp, 500, 200);
-        newStage.setScene(stageScene);
+      stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+      newStage.setScene(stageScene);
         comp.getChildren().addAll(nameField, close, exit);
         newStage.show();
 
@@ -235,7 +249,11 @@ public void initialize(Controller parentController, userSessionBean bean){
             try {
                 Stage stage = (Stage)close.getScene().getWindow();
                 stage.close();
-                userPanel();
+                if (destination) {
+                    userPanel();
+                } else {
+                    login();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(seePaymentClaim.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -275,7 +293,5 @@ public void update(Observable o, Object arg) {
         comp.getChildren().addAll(nameField, close);
         newStage.show();
     });
-}    
-    
-    
+}
 }

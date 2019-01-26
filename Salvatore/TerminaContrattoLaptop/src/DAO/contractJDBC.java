@@ -8,6 +8,8 @@ package DAO;
 import Bean.contractBean;
 import Bean.userSessionBean;
 import Entity.Contratto;
+import Exceptions.emptyResult;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,18 +22,25 @@ public class contractJDBC implements contractDAO {
     private Connection connection = null;
     private static contractJDBC instance = null;
     
-    public static contractJDBC getInstance()  throws SQLException {
+    public static contractJDBC getInstance(String type)  throws SQLException {
         if (instance == null)
-                instance = new contractJDBC();
+                instance = new contractJDBC(type);
         return instance;
     }
  
-    private contractJDBC() throws SQLException{
-        this.connection = databaseConnection.getConnection();
+    private contractJDBC(String type) throws SQLException{
+        if(type == "user") {
+            this.connection = databaseConnection.getConnectionUser();
+        }
+        if(type == "admin"){
+            this.connection = databaseConnection.getConnectionAdmin();
+        }
     }
 
+    public Connection getConnection() { return connection; }
+
     @Override
-    public List<contractBean> getContratti(userSessionBean user)  throws SQLException{
+    public List<contractBean> getContratti(userSessionBean user) throws SQLException, emptyResult {
         
         
         List<contractBean> listBean = new LinkedList<>();
@@ -41,6 +50,11 @@ public class contractJDBC implements contractDAO {
 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 // statement.setString(userId, userID);
+        if (resultSet.next() == false){
+            resultSet.close();
+            preparedStatement.close();
+            throw new emptyResult("Errore! Nessun utente associato al nickname indicato!");
+        }else {
                 while(resultSet.next()){
                     contractBean bean = new contractBean();
                     bean.setContractId(resultSet.getInt("contractId"));
@@ -54,6 +68,7 @@ public class contractJDBC implements contractDAO {
                 preparedStatement.close();
                  
             return listBean;
+    }
     }
     
     @Override

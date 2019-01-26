@@ -11,6 +11,8 @@ import java.util.List;
 
 import Bean.userSessionBean;
 import Entity.SegnalazionePagamento;
+import Exceptions.emptyResult;
+
 import java.sql.SQLException;
  
 public interface paymentClaimDAO {
@@ -20,7 +22,7 @@ public interface paymentClaimDAO {
 
      void createSegnalazionePagamento(paymentClaimBean bean)  throws SQLException;
 
-    List<paymentClaimBean> getSegnalazioniPagamento(userSessionBean bean)  throws SQLException;
+    List<paymentClaimBean> getSegnalazioniPagamento(userSessionBean bean) throws SQLException, emptyResult;
 
 
     void setSegnalazionePagata(paymentClaimBean bean)  throws SQLException;
@@ -29,5 +31,5 @@ public interface paymentClaimDAO {
 
     void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException;
 
-    public void checkSegnalazionePagamentoData() throws SQLException;
+     void checkSegnalazionePagamentoData() throws SQLException;
 }
