@@ -45,14 +45,18 @@ public class seeRentable {
 
         this.parentController = parentController;
         this.loggedRenter = loggedRenter;
-        System.out.println(this.parentController + " " + this.loggedRenter);
         try {
-            this.test = this.parentController.getRentableFromUser(this.loggedRenter.getNickname());
-            System.out.print(test.size());
+            this.test = this.parentController.getRentableFromUser(this.loggedRenter);
         } catch (SQLException e) {
-            popup("Errore nella connessione con il database!", false); }
+            /*System.out.println(e.getStackTrace());
+            popup("Errore nella connessione con il database!", false);
+            return; */
+            e.printStackTrace();
+        }
+        System.out.print(test.size());
 
-        if (test.isEmpty()){
+
+        if (this.test.isEmpty()){
             popup("Nessuna risorsa affittabile da mostrare!", true);
         } else {
 
@@ -60,6 +64,8 @@ public class seeRentable {
             scrollPane.setStyle("-fx-background-color:transparent;");
 
             for (int i = 0; i < test.size(); i++) {
+
+                System.out.println("L'id è " + test.get(i).getID());
 
                 Label fakeBeanID = new Label();
                 fakeBeanID.setText(Integer.toString(test.get(i).getID()));

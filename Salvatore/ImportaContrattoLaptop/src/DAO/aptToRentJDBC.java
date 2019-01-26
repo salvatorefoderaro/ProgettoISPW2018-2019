@@ -5,8 +5,10 @@
  */
 package DAO;
 
-import Entity.rentable;
-import Entity.rentableFactory;
+import Bean.rentableBean;
+import Bean.renterBean;
+import Boundary.emptyResultException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,25 +36,25 @@ public class aptToRentJDBC implements aptToRentDAO {
     }
 
     @Override
-    public void aptSetNewAvaiabilityDate(int aptID, String date1, String date2, String date3, String date4) throws SQLException{
+    public void aptSetNewAvaiabilityDate(rentableBean bean) throws SQLException{
 
-        String query ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'room');";
+        String query ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'apt');";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, aptID);
-        preparedStatement.setString(2, date1);
-        preparedStatement.setString(3, date2);
+        preparedStatement.setInt(1, bean.getID());
+        preparedStatement.setString(2, bean.getNewStartAvaiabilityDate());
+        preparedStatement.setString(3, bean.getStartDate());
 
-        String query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'room');";
+        String query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'apt');";
         PreparedStatement preparedStatement1 = connection.prepareStatement(query1);
-        preparedStatement1.setInt(1, aptID);
-        preparedStatement1.setString(2, date3);
-        preparedStatement1.setString(3, date4);
+        preparedStatement1.setInt(1, bean.getID());
+        preparedStatement1.setString(2, bean.getEndDate());
+        preparedStatement1.setString(3, bean.getNewEndAvaiabilityDate());
 
         String query2 = "DELETE FROM avaiabilityCalendar WHERE aptID = ? and startAvaiability = ? and endAvaiability = ? and type = 'apt'";
         PreparedStatement preparedStatement2 = connection.prepareStatement(query2);
-        preparedStatement2.setInt(1, aptID);
-        preparedStatement2.setString(2, date1);
-        preparedStatement2.setString(3, date4);
+        preparedStatement2.setInt(1, bean.getID());
+        preparedStatement2.setString(2, bean.getNewStartAvaiabilityDate());
+        preparedStatement2.setString(3, bean.getNewEndAvaiabilityDate());
 
         int resultSet = preparedStatement.executeUpdate();
         int resultSet1 = preparedStatement1.executeUpdate();
@@ -64,52 +66,54 @@ public class aptToRentJDBC implements aptToRentDAO {
 }
     
 @Override
-    public LinkedList<String> checkDate(int aptID, String startDate, String endDate) throws SQLException{
-        
+    public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResultException {
+        System.out.println("Ricevo: "+  bean.getStartDate() + " " + bean.getEndDate() + " " + bean.getID());
         LinkedList<String> returnList = new LinkedList<>();
+        rentableBean resultBean = new rentableBean();
 
-        String query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE aptID = ? and ? >= startAvaiability and endAvaiability >= ? and type = 'apt'";
+        String query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE aptID = ? and CAST(? as Date) >= startAvaiability and endAvaiability >= CAST(? as Date) and type = 'apt'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, aptID);
-                preparedStatement.setString(2, startDate);
-                preparedStatement.setString(3, endDate);
+                preparedStatement.setInt(1, bean.getID());
+                preparedStatement.setString(2, bean.getStartDate());
+                preparedStatement.setString(3, bean.getEndDate());
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next() == false) {
                     resultSet.close();
                     preparedStatement.close();
-                    return returnList;
+                    throw new emptyResultException("La risorsa non è disponibile per la data indicata!");
                 }
 
-                returnList.add(resultSet.getString("startAvaiability"));
-                returnList.add(resultSet.getString("endAvaiability"));
+                resultBean.setNewStartAvaiabilityDate(resultSet.getString("startAvaiability"));
+                resultBean.setNewEndAvaiabilityDate(resultSet.getString("endAvaiability"));
                 resultSet.close();
                 preparedStatement.close();
-                return returnList;
+                return resultBean;
     } 
     
     @Override
-    public List<rentable> aptListByRenter(String renterNickname)  throws SQLException {
+    public List<rentableBean> aptListByRenter(renterBean renter)  throws SQLException {
         
-        List<rentable> aptListRenter = new LinkedList<>();
+        List<rentableBean> aptListRenter = new LinkedList<>();
         roomToRentJDBC RoomList = roomToRentJDBC.getInstance();
         
-        String query = "select * from aptToRent where renterNickname = ?";
+        String query = "select * from aptToRent where renterNickname = ? and ID in (Select aptID from avaiabilityCalendar)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, renterNickname);
+                preparedStatement.setString(1, renter.getNickname());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
-                    rentableFactory factory = new rentableFactory();
-                    rentable rentableObject = factory.getRentable(
-                            resultSet.getInt("ID"),
-                            resultSet.getInt("ID"),
-                            resultSet.getString("name"),
-                            resultSet.getString("description"),
-                            resultSet.getString("image"),
-                            "apt");
-                    aptListRenter.add(rentableObject);
+
+                    rentableBean rentable = new rentableBean();
+                    rentable.setID(resultSet.getInt("ID"));
+                    rentable.setAptID(resultSet.getInt("ID"));
+                    rentable.setName(resultSet.getString("name"));
+                    rentable.setDescription(resultSet.getString("description"));
+                    rentable.setImage(resultSet.getString("image"));
+                    rentable.setType("apt");
+                    aptListRenter.add(rentable);
+
                 }
                 resultSet.close();
                 preparedStatement.close();

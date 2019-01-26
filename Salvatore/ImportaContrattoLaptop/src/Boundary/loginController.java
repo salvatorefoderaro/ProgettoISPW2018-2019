@@ -51,7 +51,8 @@ public class loginController {
         try {
             loggedUser = parentController.loginLocatore(loginBean);
         } catch (emptyResultException e) {
-            e.printStackTrace();
+            popup("Nome utente e/o password errati!");
+            return;
         } catch (SQLException e) {
             popup("Errore nella connessione con il Database!");
             return;

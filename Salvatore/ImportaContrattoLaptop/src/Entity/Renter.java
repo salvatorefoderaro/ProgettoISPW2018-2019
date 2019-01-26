@@ -22,14 +22,12 @@ public class Renter {
     
     private int IDLocatore;
     private String nickname;
-    private renterJDBC jdbcLocatario;
     private String CF;
 
     public Renter(int IDLocatario, String nickname, String CF) throws SQLException{
         this.IDLocatore = IDLocatario;
         this.nickname = nickname;
         this.CF = CF;
-        this.jdbcLocatario = renterJDBC.getInstance();
     }
 
     public renterBean makeBean(){
@@ -40,9 +38,4 @@ public class Renter {
                return bean;
     }
 
-
-
-
-    
-    
 }

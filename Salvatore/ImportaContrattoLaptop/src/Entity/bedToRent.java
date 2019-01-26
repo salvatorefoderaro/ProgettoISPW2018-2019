@@ -22,28 +22,22 @@ public class bedToRent implements rentable{
     private String bedName;
     private String bedDescription;
     private String bedImage;
-    private bedToRentJDBC JDBC;
-    
+
     public bedToRent(int roomID, int bedID, String bedName, String bedDescription, String bedImage) throws SQLException{
         this.roomID = roomID;
         this.bedID = bedID;
         this.bedName = bedName;
         this.bedDescription = bedDescription;
         this.bedImage = bedImage;
-        this.JDBC = bedToRentJDBC.getInstance();
     }
+
 
     @Override
     public int checkDate(String startDate, String endDate) throws SQLException, emptyResultException {
-        List<String> dateInterval = this.JDBC.checkDate(this.bedID, startDate, endDate);
-        if(!dateInterval.isEmpty()){
-            this.JDBC.bedSetNewAvaiabilityDate(this.bedID, dateInterval.get(0), startDate, endDate, dateInterval.get(1));
-        } else {
-            System.out.println("La risorsa non è disponibile per la data indicata!");
-        }
         return 0;
     }
-        @Override
+
+    @Override
         public List getInfo() {
         List renterInfo = new ArrayList();
         renterInfo.add(this.bedID);

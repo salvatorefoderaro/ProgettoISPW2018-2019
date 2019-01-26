@@ -29,7 +29,6 @@ public class Tenant {
         this.nickname = nickname;
         this.sollecitiPagamento = SollecitiPagamento;
         this.CF = CF;
-        this.jdbcLocatario = tenantJDBC.getInstance();
     }
 
     public tenantBean makeBean(){

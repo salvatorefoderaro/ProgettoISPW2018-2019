@@ -5,6 +5,7 @@
  */
 package Entity;
 
+import Bean.rentableBean;
 import Boundary.emptyResultException;
 import DAO.aptToRentJDBC;
 import java.sql.SQLException;
@@ -21,15 +22,13 @@ public class aptToRent implements rentable {
     private String aptDescription;
     private String aptImage;
     private List<roomToRent> roomInApt;
-    private aptToRentJDBC JDBC;
-    
+
     public aptToRent(int aptID, String aptName, String aptDescription, String aptImage, List<roomToRent> roomList) throws SQLException{
         this.aptID = aptID;
         this.aptName = aptName;
         this.aptDescription = aptDescription;
         this.aptImage = aptImage;
         this.roomInApt = roomList;
-        this.JDBC = aptToRentJDBC.getInstance();
     }
     
     public List<roomToRent> getRoom(){
@@ -38,7 +37,7 @@ public class aptToRent implements rentable {
 
     @Override
     public int checkDate(String startDate, String endDate) throws SQLException, emptyResultException {
-        this.JDBC.checkDate(this.aptID, startDate, endDate);
+       // this.JDBC.checkDate(this.aptID, startDate, endDate);
         return 0;
     }
     

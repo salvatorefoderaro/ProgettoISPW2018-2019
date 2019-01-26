@@ -5,6 +5,9 @@
  */
 package DAO;
 
+import Bean.rentableBean;
+import Bean.renterBean;
+import Boundary.emptyResultException;
 import Entity.aptToRent;
 import Entity.rentable;
 import java.sql.SQLException;
@@ -16,8 +19,9 @@ import java.util.List;
  * @author root
  */
 public interface aptToRentDAO {
-    public List<rentable> aptListByRenter(String renterNickname)  throws SQLException;
-    public LinkedList<String> checkDate(int roomID, String startDate, String endDate) throws SQLException;
-    public void aptSetNewAvaiabilityDate(int aptID, String date1, String date2, String date3, String date4) throws SQLException;
+    void aptSetNewAvaiabilityDate(rentableBean bean) throws SQLException;
 
+    rentableBean checkDate(rentableBean bean) throws SQLException, emptyResultException;
+
+    public List<rentableBean> aptListByRenter(renterBean renter)  throws SQLException;
 }

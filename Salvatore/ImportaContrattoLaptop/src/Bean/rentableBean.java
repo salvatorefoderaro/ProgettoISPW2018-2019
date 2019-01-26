@@ -19,6 +19,11 @@ public class rentableBean {
     private String endDate;
     private String type;
     private String tenantNickname;
+    private int roomID;
+    private int aptID;
+    private int bedID;
+    private String newStartAvaiabilityDate;
+    private String newEndAvaiabilityDate;
     
     public rentableBean(){}
     
@@ -28,6 +33,11 @@ public class rentableBean {
     public String getStartDate(){ return this.startDate; }
     public String getEndDate(){ return this.endDate; }       
     public int getID(){ return this.ID; }
+    public int getRoomID(){ return this.roomID; }
+    public int getAptID(){ return this.aptID; }
+    public int getBedID(){ return this.bedID; }
+    public String getNewStartAvaiabilityDate(){ return this.newStartAvaiabilityDate; }
+    public String getNewEndAvaiabilityDate(){ return this.newEndAvaiabilityDate; }
     public String getType(){ return this.type; }
     public String getTenantNickname(){ return this.tenantNickname; }
     
@@ -37,6 +47,11 @@ public class rentableBean {
     public void setStartDate(String startDate){ this.startDate = startDate; }
     public void setEndDate(String endDate){ this.endDate = endDate; }
     public void setID(int ID){ this.ID = ID; }
+    public void setRoomID(int roomID){ this.roomID = roomID; }
+    public void setAptID(int aptID){ this.aptID = aptID; }
+    public void setBedID(int bedID){ this.bedID = bedID; }
+    public void setNewStartAvaiabilityDate(String newStartAvaiabilityDate){ this.newStartAvaiabilityDate = newStartAvaiabilityDate; }
+    public void setNewEndAvaiabilityDate(String newEndAvaiabilityDate){ this.newEndAvaiabilityDate = newEndAvaiabilityDate; }
     public void setType(String type){ this.type = type; }
     public void setTenantnNickname(String tenantNickname){ this.tenantNickname = tenantNickname; }
 }

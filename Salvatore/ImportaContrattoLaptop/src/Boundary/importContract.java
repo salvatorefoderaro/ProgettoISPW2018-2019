@@ -67,12 +67,7 @@ public class importContract {
     
     public void test(){
 
-        loggedUser = new renterBean();
         tenant = new tenantBean();
-
-        loggedUser.setNickname("test");
-        loggedUser.setID(10);
-        loggedUser.setCF("test");
 
         tenant.setNickname("test");
         tenant.setID(10);
@@ -102,8 +97,8 @@ public class importContract {
             return;
         }
         
-        theBean.setStartDate(dataInizio.getValue().plusDays(-1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        theBean.setEndDate(dataFine.getValue().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        theBean.setStartDate(dataInizio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        theBean.setEndDate(dataFine.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         theBean.setTenantnNickname(locatarioNickname.getText());
         
         try {
@@ -112,6 +107,7 @@ public class importContract {
             popup(ex.getMessage(), false);
             return;
         } catch (SQLException e) {
+            e.printStackTrace();
             popup("Errore nella connessione con il database", true);
         }
 
@@ -121,6 +117,7 @@ public class importContract {
             popup(ex.getMessage(), false);
             return;
         } catch (SQLException e) {
+            e.printStackTrace();
             popup("Errore nella connessione con il database", true);
         }
 
@@ -130,6 +127,7 @@ public class importContract {
         } catch (NumberFormatException ex){
             return;
         } catch (SQLException e) {
+            e.printStackTrace();
             popup("Errore nella connessione con il database", true);
         }
     }
