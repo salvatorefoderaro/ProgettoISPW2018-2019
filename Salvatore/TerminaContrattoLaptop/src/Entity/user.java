@@ -14,6 +14,5 @@ import java.util.List;
 public interface user {
     
     List getInfo();
-    List<SegnalazionePagamento> getSegnalazioniPagamento();
-    
+
 }

@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Bean.userSessionBean;
 import Entity.Locatario;
 import Entity.SegnalazionePagamento;
 import java.sql.Connection;
@@ -39,53 +40,22 @@ public class tenantJDBC implements tenantDAO {
             preparedStatement.close();     
 }
     
-        @Override
-    public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname)  throws SQLException {
-        contractJDBC jdbcContratto = null;
-        jdbcContratto =contractJDBC.getInstance();
 
-        tenantJDBC jdbcLocatario = null;
-        jdbcLocatario = new tenantJDBC();
-        
-        List<SegnalazionePagamento> listaSegnalazioni = new LinkedList<SegnalazionePagamento>();
-            String query = "select * from paymentClaim where claimNotified = 0 and tenantNickname = ?";
- 
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, userNickname);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while(resultSet.next()){
-                    SegnalazionePagamento segnalazione = new SegnalazionePagamento(
-                    Integer.parseInt(resultSet.getString("claimId")),
-                    jdbcContratto.getContratto(Integer.parseInt(resultSet.getString("contractId"))),
-                    resultSet.getString("renterNickname"),
-                    jdbcLocatario.getLocatario(resultSet.getString("tenantNickname")),
-                    Integer.parseInt(resultSet.getString("claimNumber")),
-                    resultSet.getString("claimDeadline"),
-                    Integer.parseInt(resultSet.getString("claimState")),
-                    Integer.parseInt(resultSet.getString("claimNotified"))
-                    );
-                    listaSegnalazioni.add(segnalazione);
-                }
-                resultSet.close();
-                preparedStatement.close();
-                      
-            return listaSegnalazioni;
-    }
 
     @Override
-    public Locatario getLocatario(String tenantNickname) throws SQLException {
+    public userSessionBean getLocatario(userSessionBean session) throws SQLException {
         Locatario locatario = null;
         PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from tenant where tenantNickname = ?");
-        preparedStatement.setString(1, tenantNickname);
+        preparedStatement.setString(1, session.getNickname());
         ResultSet resultSet = preparedStatement.executeQuery();
+        userSessionBean tenant = null;
         while(resultSet.next()){
-            locatario = new Locatario(Integer.parseInt(resultSet.getString("tenantId")), resultSet.getString("tenantNickname"),
-            Integer.parseInt(resultSet.getString("tenantPaymentClaimNumber")));
+            tenant = new userSessionBean(resultSet.getString("tenantNickname"), resultSet.getInt("tenantID"), "tenant", resultSet.getInt("tenantPaymentClaimNumber"));
         }
         resultSet.close();
         preparedStatement.close();    
 
-        return locatario;
+        return tenant;
     }
     
     public void closeConnection(){

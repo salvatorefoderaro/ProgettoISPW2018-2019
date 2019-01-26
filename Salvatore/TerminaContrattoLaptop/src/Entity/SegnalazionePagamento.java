@@ -20,8 +20,7 @@ public class SegnalazionePagamento {
     private String claimDeadline;
     private int claimState;
     private int claimNotified;
-    private paymentClaimJDBC jdbcSegnalazionePagamento;
-    
+
     public SegnalazionePagamento(int claimId, Contratto contractId, String renterNickname, Locatario tenantNickname, int claimNumber, String claimDeadline, int claimState, int claimNotified) throws SQLException{
         this.claimId = claimId;
         this.contractId= contractId;
@@ -31,7 +30,6 @@ public class SegnalazionePagamento {
         this.claimDeadline = claimDeadline;
         this.claimState = claimState;
         this.claimNotified = claimNotified;
-        this.jdbcSegnalazionePagamento = paymentClaimJDBC.getInstance();
     }
     
     public int getClaimId(){ return this.claimId; }
@@ -42,33 +40,22 @@ public class SegnalazionePagamento {
     public String getClaimDeadline(){ return this.claimDeadline; }
     public int getClaimState(){ return this.claimState; }
     public int getClaimNotified(){ return this.claimNotified; }
+
+    public paymentClaimBean makeBean(){
+        paymentClaimBean bean = new paymentClaimBean();
+        bean.setClaimDeadline(this.claimDeadline);
+        bean.setClaimNumber(this.claimNumber);
+        bean.setTenantNickname(this.tenantNickname.getNickname());
+        bean.setRenterNickname(this.renterNickname);
+        bean.setClaimId(this.claimId);
+        bean.setClaimState(this.claimState);
+        bean.setClaimNotified(this.claimNotified);
+        return bean;
+    }
     
     public Contratto getContratto(){
         return this.contractId;
     }
-    
-    public void archiviaSegnalazionePagamento()  throws SQLException{
-        this.jdbcSegnalazionePagamento.setSegnalazionePagamentoArchiviata(this.claimId);
-    }
-    
-    public void archiviaNotificaSegnalazione() throws SQLException{
-        this.jdbcSegnalazionePagamento.setSegnalazionePagamentoNotificata(this.claimId);
-    }
-    
-    public void segnalazionePagamentoPagata() throws SQLException{
-        this.jdbcSegnalazionePagamento.setSegnalazionePagata(this.claimId);
-    }
-    
-    public void incrementaSegnalazionePagamento() throws SQLException{
-        this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.claimId);
-    }
-    
-    public void creaSegnalazionePagamento(paymentClaimBean bean) throws SQLException{
-       this.jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
-    }
-    
-    public void updateSegnalazionePagamento() throws SQLException{
-        this.jdbcSegnalazionePagamento.incrementaNumeroSegnalazione(this.claimId);
-    }
+
     
 }

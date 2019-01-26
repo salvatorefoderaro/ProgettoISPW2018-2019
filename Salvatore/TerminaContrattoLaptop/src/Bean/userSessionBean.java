@@ -12,20 +12,22 @@ package Bean;
 public class userSessionBean 
 { 
     // static variable single_instance of type Singleton 
-    private String username;
+    private String nickname;
     private int id;
     private String type;
+    private int paymentClaim;
   
     // private constructor restricted to this class itself 
-    public userSessionBean(String username, int id, String type) 
+    public userSessionBean(String nickname, int id, String type, int paymentClaim)
     { 
-        this.username = username;
+        this.nickname = nickname;
         this.id = id;
         this.type = type;
+        this.paymentClaim = paymentClaim;
     }
     
-    public String getUsername(){
-        return this.username;
+    public String getNickname(){
+        return this.nickname;
     }
     
     public int getId(){
@@ -35,4 +37,6 @@ public class userSessionBean
     public String getType(){
         return this.type;
     }
+
+    public int getPaymentClaim(){ return this.paymentClaim; }
 }

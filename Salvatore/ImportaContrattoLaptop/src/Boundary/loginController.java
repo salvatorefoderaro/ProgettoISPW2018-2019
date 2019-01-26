@@ -92,8 +92,11 @@ public class loginController {
                 close.setLayoutX(70.0);
                 close.setLayoutY(135.0);
                 close.setText("Torna al login");
+                close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
+                stageScene.getStylesheets().add(getClass().getResource("test.css").toExternalForm());
+
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);
                 newStage.show();
@@ -102,6 +105,8 @@ public class loginController {
                 exit.setLayoutX(318.0);
                 exit.setLayoutY(135.0);
                 exit.setText("Esci");
+                exit.setId("anotherButton");
+
                 comp.getChildren().addAll(exit);
 
                 exit.setOnAction(new EventHandler<ActionEvent>() {

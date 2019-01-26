@@ -153,13 +153,17 @@ public class importContract {
         close.setLayoutX(219.0);
         close.setLayoutY(125.0);
         close.setText("Chiudi");
-        
+        close.setId("aButton");
+
         Scene stageScene = new Scene(comp, 500, 200);
         newStage.setScene(stageScene);
         comp.getChildren().addAll(nameField, close);
         newStage.show();
 
-        if(!backToPanel){
+        stageScene.getStylesheets().add(getClass().getResource("../Resource/test.css").toExternalForm());
+
+
+            if(!backToPanel){
         close.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -178,8 +182,10 @@ public class importContract {
             exit.setLayoutY(135.0);
             exit.setText("Esci");
             comp.getChildren().addAll(exit);
+            exit.setId("anotherButton");
 
-            exit.setOnAction(new EventHandler<ActionEvent>() {
+
+                exit.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     System.exit(0);

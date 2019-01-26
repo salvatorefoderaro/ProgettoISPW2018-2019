@@ -6,43 +6,21 @@
 package Boundary;
 
 import Bean.userSessionBean;
-import Bean.paymentClaimBean;
 import Controller.Controller;
-import Entity.Locatario;
-import java.util.Observable;
-import java.util.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import java.awt.event.MouseEvent;
-import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+
 import java.io.IOException;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class userPanel{
@@ -56,7 +34,7 @@ private userSessionBean userSession;
         
         userSession = session;
         this.controller = parentController;    
-        welcomeText.setText("Bentornato " + this.userSession.getUsername() + parentController);
+        welcomeText.setText("Bentornato " + this.userSession.getNickname() + parentController);
     } 
 
     @FXML

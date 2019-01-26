@@ -12,10 +12,9 @@ import Bean.userSessionBean;
 import DAO.contractJDBC;
 import DAO.paymentClaimJDBC;
 import DAO.databaseConnection;
-import Entity.Contratto;
-import Entity.Locatore;
-import Entity.SegnalazionePagamento;
-import Entity.user;
+import DAO.tenantJDBC;
+import Entity.*;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -43,82 +42,78 @@ public class Controller extends Observable implements Runnable {
         
         user newUser = new Locatore(10, "Pasquale");
         loggedUser = newUser;
-        userSessionBean bean = new userSessionBean("Pasquale", 10, newUser.getClass().getSimpleName());
+        userSessionBean bean = new userSessionBean("Pasquale", 10, newUser.getClass().getSimpleName(), 0);
         
         return bean;
     }
     
-    public List<paymentClaimBean> getSegnalazioniPagamento(String nickname, String type) throws SQLException{
-        
-    List<SegnalazionePagamento> Result = loggedUser.getSegnalazioniPagamento();
-    System.out.println(Result.size());
-    List<paymentClaimBean> list = new LinkedList<paymentClaimBean>();
-    
-    for (SegnalazionePagamento temp : Result) {
-        if (dictionarySegnalazionePagamento.get(temp.getClaimId()) == null){
-            dictionarySegnalazionePagamento.put(temp.getClaimId(), temp);    
+    public List<paymentClaimBean> getSegnalazioniPagamento(userSessionBean bean) throws SQLException{
+        List<paymentClaimBean> Result = paymentClaimJDBC.getInstance().getSegnalazioniPagamento(bean);
+
+        for (paymentClaimBean temp : Result) {
+            if (dictionarySegnalazionePagamento.get(temp.getClaimId()) == null){
+                Contratto trueContract = null;
+                if (dictionaryContratto.get(temp.getContractId()) == null){
+                    contractBean contract = new contractBean();
+                    contract.setContractId(temp.getContractId());
+                    contract = contractJDBC.getInstance().getContratto(contract);
+                    trueContract = new Contratto(contract.getContractId(), contract.getContractState(), contract.getTenantNickname(), contract.getRenterNickname());
+                    dictionaryContratto.put(temp.getContractId(), trueContract);
+                } else {
+                    trueContract = dictionaryContratto.get(temp.getClaimId());
+                }
+
+                userSessionBean user = new userSessionBean(temp.getTenantNickname(), 0, "tenant", 0);
+                user = tenantJDBC.getInstance().getLocatario(user);
+                Locatario trueTenant = new Locatario(user.getId(), user.getNickname(), user.getPaymentClaim());
+                SegnalazionePagamento claim = new SegnalazionePagamento(temp.getClaimId(), trueContract, temp.getRenterNickname(), trueTenant, temp.getClaimNumber(), temp.getClaimDeadline(), temp.getClaimState(), temp.getClaimNotified());
+                dictionarySegnalazionePagamento.put(temp.getClaimId(), claim);
+            }
         }
-        paymentClaimBean bean = new paymentClaimBean();
-        bean.setClaimDeadline(temp.getClaimDeadline());
-        bean.setClaimId(temp.getClaimId());
-        bean.setClaimNumber(temp.getClaimNumber());
-        bean.setClaimState(temp.getClaimState());
-        bean.setContractId(temp.getContract().getContractId());
-        bean.setRenterNickname(nickname);
-        bean.setTenantNickname(temp.getTenantNickname().getNickname());
-        list.add(bean);
-    }
-    
-    return list;    
-}   
-    
-    public List<contractBean> getContratti(String renterNickname) throws SQLException{
-        
+    return Result;
+}
+
+    public List<contractBean> getContratti(userSessionBean user) throws SQLException{
+
         contractJDBC jdbcContratto = contractJDBC.getInstance();
-        List<Contratto> Result = jdbcContratto.getContratti(renterNickname);
-        List<contractBean> list = new LinkedList<>();
-        
-        for (Contratto temp : Result) {
-            contractBean bean = new contractBean();
-            bean.setContractId(temp.getContractId());
-            bean.setTenantNickname(temp.getTenantNickname());
-            bean.setRenterNickname(temp.getRenterNickname());
-            bean.setContractState(temp.getContractState());
-            list.add(bean);
-            dictionaryContratto.put(temp.getContractId(), temp);
+        List<contractBean> Result = jdbcContratto.getContratti(user);
+
+        for (contractBean temp : Result) {
+            Contratto contract = new Contratto(temp.getContractId(), temp.getContractState(), temp.getTenantNickname(), temp.getRenterNickname());
+            contractBean bean = contract.makeBean();
+            dictionaryContratto.put(temp.getContractId(), contract);
         }        
         
-        return list;
+        return Result;
     }
   
     public void setContrattoArchiviato(paymentClaimBean bean) throws SQLException{
-        dictionarySegnalazionePagamento.get(bean.getClaimId()).getContratto().archiviaContratto();            
+        contractJDBC.getInstance().setContrattoArchiviato(dictionarySegnalazionePagamento.get(bean.getClaimId()).getContract().makeBean());
 }
     
         public void setSegnalazioneNotificata(paymentClaimBean bean) throws SQLException{
-        dictionarySegnalazionePagamento.get(bean.getClaimId()).archiviaNotificaSegnalazione();
+
+            paymentClaimJDBC.getInstance().setSegnalazionePagamentoNotificata(dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean());
 }
-        
-                public void setSegnalazionePagata(paymentClaimBean bean) throws SQLException{
-        dictionarySegnalazionePagamento.get(bean.getClaimId()).archiviaNotificaSegnalazione();
+
+        public void setSegnalazionePagata(paymentClaimBean bean) throws SQLException{
+            paymentClaimJDBC.getInstance().setSegnalazionePagamentoNotificata(dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean());
 }
-    
+
     public void inserisciSegnalazionePagamento(paymentClaimBean bean) throws SQLException{
-       
+
         jdbcSegnalazionePagamento  = paymentClaimJDBC.getInstance();
         jdbcContratto = contractJDBC.getInstance();
-        
-        jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
-        jdbcContratto.setContrattoSegnalato(bean.getContractId());
 
-        SegnalazionePagamento newSegnalazione = jdbcSegnalazionePagamento.getSegnalazionePagamento(bean.getContractId());
-        dictionarySegnalazionePagamento.put(newSegnalazione.getClaimId(), newSegnalazione);
+        jdbcSegnalazionePagamento.createSegnalazionePagamento(bean);
+        jdbcContratto.setContrattoSegnalato(dictionaryContratto.get(bean.getContractId()).makeBean());
+
+        //SegnalazionePagamento newSegnalazione = jdbcSegnalazionePagamento.getSegnalazionePagamento(bean.getContractId());
+        //dictionarySegnalazionePagamento.put(newSegnalazione.getClaimId(), newSegnalazione);
     }
-    
+
     public void incrementaSegnalazione(paymentClaimBean bean)  throws SQLException{
-        //if (bean.getNumeroReclamo() == 3){
-          //  dictionarySegnalazionePagamento.get(bean.getID()).archiviaSegnalazionePagamento();
-            dictionarySegnalazionePagamento.get(bean.getClaimId()).incrementaSegnalazionePagamento();
+        paymentClaimJDBC.getInstance().incrementaNumeroSegnalazione(dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean());
     }
     
     @Override
@@ -133,7 +128,7 @@ public class Controller extends Observable implements Runnable {
         while(true){
             List<SegnalazionePagamento> Result = null;
                 try {
-                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(userSessionBean.getSession().getUsername(), userSessionBean.getSession().getType());
+                    Result = jdbcSegnalazionePagamento.getSegnalazioniPagamento(userSessionBean.getSession().getNickname(), userSessionBean.getSession().getType());
                 } catch (SQLException ex) {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }

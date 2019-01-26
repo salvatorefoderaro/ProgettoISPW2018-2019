@@ -156,8 +156,11 @@ public class seeRentable {
                 close.setLayoutX(219.0);
                 close.setLayoutY(125.0);
                 close.setText("Chiudi");
+                close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
+                stageScene.getStylesheets().add(getClass().getResource("../Resource/").toExternalForm());
+
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);
                 newStage.show();
@@ -181,6 +184,7 @@ public class seeRentable {
                     exit.setLayoutY(135.0);
                     exit.setText("Esci");
                     comp.getChildren().addAll(exit);
+                    exit.setId("anotherButton");
 
                     exit.setOnAction(new EventHandler<ActionEvent>() {
                         @Override

@@ -6,6 +6,7 @@
 package DAO;
 
  
+import Bean.userSessionBean;
 import Entity.Locatario;
 import java.util.List;
  
@@ -14,6 +15,5 @@ import java.sql.SQLException;
  
 public interface tenantDAO {
     public void incrementaSollecitiPagamento(int ID) throws SQLException;
-    public Locatario getLocatario(String tenantNickname) throws SQLException;
-    public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname) throws SQLException;
+    userSessionBean getLocatario(userSessionBean session) throws SQLException;
 }

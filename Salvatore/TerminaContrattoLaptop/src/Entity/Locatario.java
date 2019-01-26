@@ -20,13 +20,11 @@ public class Locatario implements user {
     private int IDLocatario;
     private String nickname;
     private int SollecitiPagamento;
-    private tenantJDBC jdbcLocatario;
-    
+
     public Locatario (int IDLocatario, String nickname, int SollecitiPagamento) throws SQLException{
         this.IDLocatario = IDLocatario;
         this.nickname = nickname;
         this.SollecitiPagamento = SollecitiPagamento;
-        this.jdbcLocatario = tenantJDBC.getInstance();
     }
     
     public int getID(){
@@ -37,9 +35,7 @@ public class Locatario implements user {
         return this.nickname;
     }
     
-    public void incrementaSollecitiPagamento()  throws SQLException{
-        this.jdbcLocatario.incrementaSollecitiPagamento(this.IDLocatario);
-    }
+
 
     @Override
     public List getInfo() {
@@ -50,14 +46,6 @@ public class Locatario implements user {
         return renterInfo;
     }
     
-    @Override
-    public List<SegnalazionePagamento> getSegnalazioniPagamento() {
-        try {
-            return this.jdbcLocatario.getSegnalazioniPagamento(this.nickname);
-        } catch (SQLException ex) {
-            Logger.getLogger(Locatore.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }    
+
     
 }

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,12 +54,12 @@ public class fakeLogin {
     public void databaseConnectionError() {
         
         Platform.runLater(() -> {
-            // Creo lo stage
+
             Stage stage = (Stage) renterButton.getScene().getWindow();
             stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
             Stage newStage = new Stage();
             Pane comp = new Pane();
-            
+
             // Inserisco gli elementi che mi interessano
             Label nameField = new Label();
             nameField.setLayoutX(128.0);
@@ -67,15 +68,29 @@ public class fakeLogin {
             nameField.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: black;-fx-font-size: 14px;-fx-background-color: #f4f4f4;");
             
             Button close = new Button();
-            close.setLayoutX(219.0);
-            close.setLayoutY(125.0);
-            close.setText("Invia");
-            close.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: white;-fx-font-size: 16px;-fx-padding: 10;-fx-background-color: #007bff;");
-            
+            close.setLayoutX(70.0);
+            close.setLayoutY(135.0);
+            close.setText("Torna al login");
+            close.setId("aButton");
+
+            Button exit = new Button();
+            exit.setLayoutX(318.0);
+            exit.setLayoutY(135.0);
+            exit.setText("Esci");
+            exit.setId("anotherButton");
+
+            exit.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    System.exit(0);
+                }
+            });
+
             // Mostro la finestra di popup
             Scene stageScene = new Scene(comp, 500, 200);
+            stageScene.getStylesheets().add(getClass().getResource("test.css").toExternalForm());
             newStage.setScene(stageScene);
-            comp.getChildren().addAll(nameField, close);
+            comp.getChildren().addAll(nameField, close, exit);
             newStage.show();
             
             close.setOnAction((ActionEvent event) -> {

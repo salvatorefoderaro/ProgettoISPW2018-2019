@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
+import Bean.userSessionBean;
 import Entity.SegnalazionePagamento;
 //import Bean.BeanTest;
  
@@ -32,80 +34,46 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname, String type)  throws SQLException {
-        contractJDBC jdbcContratto = null;
-        jdbcContratto = contractJDBC.getInstance();
+    public List<paymentClaimBean> getSegnalazioniPagamento(userSessionBean bean)  throws SQLException {
 
-        tenantJDBC jdbcLocatario = null;
-        jdbcLocatario = tenantJDBC.getInstance();
         
-        List<SegnalazionePagamento> listaSegnalazioni = new LinkedList<SegnalazionePagamento>();
+        List<paymentClaimBean> listaSegnalazioni = new LinkedList<>();
             String query;
-            if ("Locatario".equals(type)){
+            if ("Locatario".equals(bean.getType())){
                 query = "select * from paymentClaim where claimNotified = 0 and tenantNickname = ?";
             } else {
                 query = "select * from paymentClaim where claimNotified = 0 and renterNickname = ?";
             }
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, userNickname);
+                preparedStatement.setString(1, bean.getNickname());
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while(resultSet.next()){
-                    SegnalazionePagamento segnalazione = new SegnalazionePagamento(
-                    Integer.parseInt(resultSet.getString("claimId")),
-                    jdbcContratto.getContratto(Integer.parseInt(resultSet.getString("contractId"))),
-                    resultSet.getString("renterNickname"),
-                    jdbcLocatario.getLocatario(resultSet.getString("tenantNickname")),
-                    Integer.parseInt(resultSet.getString("claimNumber")),
-                    resultSet.getString("claimDeadline"),
-                    Integer.parseInt(resultSet.getString("claimState")),
-                    Integer.parseInt(resultSet.getString("claimNotified"))
-                    );
-                    listaSegnalazioni.add(segnalazione);
+                    paymentClaimBean paymentBean = new paymentClaimBean();
+                    paymentBean.setClaimId(resultSet.getInt("claimId"));
+                    paymentBean.setContractId(resultSet.getInt("contractId"));
+                    paymentBean.setRenterNickname(resultSet.getString("renterNickname"));
+                    paymentBean.setTenantNickname(resultSet.getString("tenantNickname"));
+                    paymentBean.setClaimNumber(resultSet.getInt("claimNumber"));
+                    paymentBean.setClaimDeadline(resultSet.getString("claimDeadline"));
+                    paymentBean.setClaimState(resultSet.getInt("claimState"));
+                    paymentBean.setClaimNotified(resultSet.getInt("claimNotified"));
+
+                    listaSegnalazioni.add(paymentBean);
                 }
                 resultSet.close();
                 preparedStatement.close();
-                 
-            
+
             return listaSegnalazioni;
     }
     
-    @Override
-    public SegnalazionePagamento getSegnalazionePagamento(int ID)  throws SQLException{
-        
-        contractJDBC jdbcContratto = contractJDBC.getInstance();
-        tenantJDBC jdbcLocatario = tenantJDBC.getInstance();
-        
-        SegnalazionePagamento segnalazione = null;
-        String query = "select * from paymentClaim where contractId = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, ID);
 
-                ResultSet resultSet = preparedStatement.executeQuery();
-                // statement.setString(userId, userID);
-                while(resultSet.next()){
-                    segnalazione = new SegnalazionePagamento(
-                    Integer.parseInt(resultSet.getString("claimId")),
-                    jdbcContratto.getContratto(Integer.parseInt(resultSet.getString("contractId"))),
-                    resultSet.getString("renterNickname"),
-                    jdbcLocatario.getLocatario(resultSet.getString("tenantNickname")),
-                    Integer.parseInt(resultSet.getString("claimNumber")),
-                    resultSet.getString("claimDeadline"),
-                    Integer.parseInt(resultSet.getString("claimState")),
-                    Integer.parseInt(resultSet.getString("claimNotified"))
-                    );
-                }
-                resultSet.close();
-                preparedStatement.close();
-                 
-            return segnalazione;
-    }
 
     @Override
-    public void incrementaNumeroSegnalazione(int ID) throws SQLException {
+    public void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException {
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimNumber = claimNumber + 1, claimState = 0, claimDeadline = DATE_ADD(CURDATE(), interval 14 day)  WHERE claimId = ?");
-            preparedStatement.setString(1,  Integer.toString(ID));
+            preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -131,10 +99,10 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void setSegnalazionePagata(int ID)  throws SQLException{
+    public void setSegnalazionePagata(paymentClaimBean bean)  throws SQLException{
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 4  WHERE claimId = ?");
-            preparedStatement.setString(1,  Integer.toString(ID));
+            preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -144,10 +112,10 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public void setSegnalazionePagamentoArchiviata(int ID) throws SQLException {
+    public void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException {
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 2 WHERE claimId = ?");
-            preparedStatement.setString(1,  Integer.toString(ID));
+            preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -157,10 +125,10 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void setSegnalazionePagamentoNotificata(int ID) throws SQLException {
+    public void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException {
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimNotified = 1 WHERE claimId = ?");
-            preparedStatement.setString(1,  Integer.toString(ID));
+            preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {

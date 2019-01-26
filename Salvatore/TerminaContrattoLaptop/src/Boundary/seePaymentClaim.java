@@ -51,7 +51,7 @@ public void initialize(Controller parentController, userSessionBean session){
     List<paymentClaimBean> paymentClaimList = null;
     
     try {
-        paymentClaimList = claimDeadline.getSegnalazioniPagamento(this.userSession.getUsername(), this.userSession.getType());
+        paymentClaimList = claimDeadline.getSegnalazioniPagamento(userSession);
     } catch (SQLException ex) {
             ex.printStackTrace();
         popupToUserPanel("Errore nella connessione con il database!");

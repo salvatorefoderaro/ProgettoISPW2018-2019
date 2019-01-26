@@ -5,6 +5,7 @@
  */
 package Entity;
 
+import Bean.contractBean;
 import DAO.contractJDBC;
 import java.sql.SQLException;
 
@@ -15,14 +16,12 @@ import java.sql.SQLException;
 public class Contratto {
     private int contractId;
     private int contractState;
-    private contractJDBC jdbcContratto;
     private String tenantNickname;
     private String renterNickname;
     
     public Contratto (int contractId, int contractState, String tenantNickname, String renterNickname) throws SQLException{
         this.contractId = contractId;
         this.contractState = contractState;
-        this.jdbcContratto = contractJDBC.getInstance();
         this.tenantNickname = tenantNickname;
         this.renterNickname = renterNickname;
     }
@@ -31,9 +30,14 @@ public class Contratto {
     public int getContractState(){ return this.contractState; }
     public String getTenantNickname(){ return this.tenantNickname; }
     public String getRenterNickname(){ return this.renterNickname; }
-    
-    public void archiviaContratto()  throws SQLException{
-        this.jdbcContratto.setContrattoArchiviato(this.contractId);
+
+    public contractBean makeBean(){
+        contractBean bean = new contractBean();
+        bean.setTenantNickname(this.tenantNickname);
+        bean.setRenterNickname(this.renterNickname);
+        bean.setContractState(this.contractState);
+        bean.setContractId(this.contractId);
+        return bean;
     }
     
     public void iMieiDati(){

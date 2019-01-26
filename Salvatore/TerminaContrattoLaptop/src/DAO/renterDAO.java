@@ -14,6 +14,5 @@ import java.util.List;
  * @author root
  */
 public interface renterDAO {
-        public List<SegnalazionePagamento> getSegnalazioniPagamento(String userNickname)  throws SQLException;
-    
+
 }

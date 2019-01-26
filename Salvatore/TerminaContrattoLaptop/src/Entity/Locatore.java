@@ -21,13 +21,11 @@ public class Locatore implements user {
     
     private int IDLocatore;
     private String nickname;
-    private renterJDBC jdbcLocatario;
 
     public Locatore (int IDLocatario, String nickname) throws SQLException{
         this.IDLocatore = IDLocatario;
         this.nickname = nickname;
-        this.jdbcLocatario = renterJDBC.getInstance();
-    }    
+    }
 
     @Override
     public List getInfo() {
@@ -37,15 +35,7 @@ public class Locatore implements user {
         return renterInfo;
     }
 
-    @Override
-    public List<SegnalazionePagamento> getSegnalazioniPagamento() {
-        try {
-            return this.jdbcLocatario.getSegnalazioniPagamento(this.nickname);
-        } catch (SQLException ex) {
-            Logger.getLogger(Locatore.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
+
     
     
 }

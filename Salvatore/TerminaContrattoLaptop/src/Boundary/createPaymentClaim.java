@@ -50,14 +50,12 @@ public void initialize(Controller parentController, userSessionBean bean){
        
     List<contractBean> contractBeanList = null;
     try {
-        contractBeanList = controller.getContratti(userSession.getUsername());
+        contractBeanList = controller.getContratti(userSession);
         // Devo prima mostrare tutti quanti i contratti attivi, quindi principlamente devo lavorare con questo
     } catch (SQLException ex) {
         popupToUserPanel("Errore nella connessione con il database!");
     }
-        
-    // Devo eseguire questo su un ciclo, quindi per ogni elemento che voglio
-    // Devo aggiungere un po di roba che ci stava anche prima
+
     if (contractBeanList == null){
         popupToUserPanel("Nessun contratto al momento segnalabile!");
     }else{

@@ -6,15 +6,16 @@
 package DAO;
 
  
+import Bean.contractBean;
+import Bean.userSessionBean;
 import Entity.Contratto;
 import java.util.List;
- 
-import Entity.SegnalazionePagamento;
+
 import java.sql.SQLException;
  
 public interface contractDAO {
-    public void setContrattoArchiviato(int ID) throws SQLException;
-    public Contratto getContratto(int ID) throws SQLException;
-    public List<Contratto> getContratti(String renterNickname) throws SQLException;
-    public void setContrattoSegnalato(int ID) throws SQLException;
+    contractBean getContratto(contractBean bean)  throws SQLException;
+    List<contractBean> getContratti(userSessionBean user)  throws SQLException;
+    void setContrattoArchiviato(contractBean bean)  throws SQLException;
+    void setContrattoSegnalato(contractBean bean)  throws SQLException;
 }

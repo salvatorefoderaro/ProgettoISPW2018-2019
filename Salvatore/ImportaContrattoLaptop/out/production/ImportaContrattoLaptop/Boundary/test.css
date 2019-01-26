@@ -1,4 +1,4 @@
-#bottone, #testBottone {
+#bottone, #testBottone, #aButton {
     -fx-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     -fx-text-fill: white; 
     -fx-font-size: 16px;
@@ -22,7 +22,7 @@
     -fx-background-color: #f4f4f4;
 }
 
-#buttonLocatario, #inoltraSegnalazioni {
+#buttonLocatario, #inoltraSegnalazioni, #anotherButton{
     -fx-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     -fx-text-fill: white; 
     -fx-font-size: 16px;

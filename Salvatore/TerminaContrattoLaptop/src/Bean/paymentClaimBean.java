@@ -17,6 +17,7 @@ public class paymentClaimBean {
     private int claimNumber;
     private String claimDeadline;
     private int claimState;
+    private int claimNotified;
     
     public int getClaimId(){return this.claimId;}
     public int getContractId(){return this.contractId;}
@@ -25,7 +26,8 @@ public class paymentClaimBean {
     public int getClaimNumber(){return this.claimNumber;}
     public String getClaimDeadline(){return this.claimDeadline;}
     public int getClaimState(){return this.claimState;}
-    
+    public int getClaimNotified(){return this.claimNotified;}
+
     public void setClaimId(int ID){this.claimId = ID;}
     public void setContractId(int contractId){this.contractId = contractId;}
     public void setTenantNickname(String tenantNickname){this.tenantNickname = tenantNickname;}
@@ -33,5 +35,6 @@ public class paymentClaimBean {
     public void setClaimNumber(int claimNumber){this.claimNumber = claimNumber;}
     public void setClaimDeadline(String claimDeadline){this.claimDeadline = claimDeadline;}
     public void setClaimState(int claimState){this.claimState = claimState;}
+    public void setClaimNotified(int claimNotified){this.claimNotified = claimNotified; }
 }
 
