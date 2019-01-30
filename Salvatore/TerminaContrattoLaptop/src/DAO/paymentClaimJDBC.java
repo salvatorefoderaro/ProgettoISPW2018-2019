@@ -47,6 +47,8 @@ public class paymentClaimJDBC implements paymentClaimDAO {
         
     List<paymentClaimBean> claimsList = new LinkedList<>();
             String query;
+
+            // String SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Contract.claimReported = 0
             if (TypeOfUser.TENANT == bean.getUserType()){
                 query = "select * from paymentClaim where claimNotified = 0 and tenantNickname = ?";
             } else {
