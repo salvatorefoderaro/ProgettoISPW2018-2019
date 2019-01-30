@@ -1,6 +1,7 @@
 package Controller;
 
 import Bean.contractBean;
+import Bean.notificationBean;
 import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.*;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
-public class Controller extends Observable {
+public class Controller extends Observable implements Runnable {
     
     private  Map<Integer, PaymentClaim> dictionarySegnalazionePagamento  = new HashMap<Integer, PaymentClaim>();
     private  Map<Integer, Contract> dictionaryContratto  = new HashMap<Integer, Contract>();
@@ -136,36 +137,44 @@ public class Controller extends Observable {
         }
     }
 
-    /*@Override
-    public void run(){
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException ex) {
-                paymentClaimJDBC.getInstance("user").closeConnection();
-            }
-       
-        int count = 0;
+    public void checkNotifications(){
+        List<paymentClaimBean> Result = null;
+        try {
+            Result = paymentClaimJDBC.getInstance("user").getPaymentClaims(loggedUser);
+        } catch (SQLException ex ) {
+
+        } catch (Exceptions.emptyResult emptyResult) {
+            emptyResult.printStackTrace();
+        }
+
+        if (!Result.isEmpty()){
+            int count = Result.size();
+            notificationBean changes = new notificationBean();
+            changes.setNotificationsNumber(count);
+            setChanged();
+            notifyObservers(changes);
+        }
+    }
+
+    public void checkPaymentClaimDateScadenza(){
+        try {
+            paymentClaimJDBC.getInstance("user").checkPaymentClaimDate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void run() {
+
         while(true){
-            List<PaymentClaim> Result = null;
-                try {
-                    Result = paymentClaimJDBC.getInstance("user").getPaymentClaims(loggedUser);
-                } catch (SQLException ex ) {
-            }
-
-
-            if (!Result.isEmpty()){
-                count = Result.size();
-                notificationBean changes = new notificationBean();
-                changes.setNotificationsNumber(count);
-                setChanged();
-                notifyObservers(changes);
-            } 
-
+            checkNotifications();
+            checkPaymentClaimDateScadenza();
             try {
                 Thread.sleep(15000);
-            } catch (InterruptedException ex) {
-                paymentClaimJDBC.getInstance("user").closeConnection();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-    }*/
+    }
 }

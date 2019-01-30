@@ -31,5 +31,6 @@ public interface paymentClaimDAO {
 
     void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException;
 
-     void checkSegnalazionePagamentoData() throws SQLException;
+
+    void checkPaymentClaimDate() throws SQLException;
 }

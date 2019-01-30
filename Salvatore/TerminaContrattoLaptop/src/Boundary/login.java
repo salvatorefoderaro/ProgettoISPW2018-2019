@@ -148,7 +148,10 @@ public class login {
             e.printStackTrace();
         }
         userPanelRenter controller = loader.<userPanelRenter>getController();
+
         controller.initialize(this.controller, user);
+        Thread t1 = new Thread(this.controller);
+        t1.start();
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
@@ -170,6 +173,10 @@ public class login {
         }
         userPanelTenant controller = loader.<userPanelTenant>getController();
         controller.initialize(this.controller, user);
+
+        controller.initialize(this.controller, user);
+        Thread t1 = new Thread(this.controller);
+        t1.start();
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);

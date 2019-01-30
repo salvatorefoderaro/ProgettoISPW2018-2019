@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -27,9 +28,7 @@ class jUnity {
     @Test
     @DisplayName("Test Login")
     void testLogin() throws SQLException, emptyResult {
-        userSessionBean testBean = new userSessionBean("giuseppe", 22, TypeOfUser.TENANT, 0, "Foderaro95", null);
-        List<paymentClaimBean> result = paymentClaimJDBC.getInstance("user").getSegnalazioniPagamento(testBean);
-        assertEquals(1, result.size());
+        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
     @Test

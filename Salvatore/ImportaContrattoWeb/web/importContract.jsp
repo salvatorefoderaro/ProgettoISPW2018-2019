@@ -1,23 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.SQLException"%>
-<%@ page import="Bean.rentableBean" %>
-<%@ page import="Bean.tenantBean" %>
 <%@ page import="Bean.contractBean" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="Bean.userBean" %>
 
-<jsp:useBean id="sessionBean" scope="session" class="Bean.renterBean"/>
+<jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
 
 <%
 
     if (sessionBean.getNickname() == null){
-        response.sendRedirect("LoginPage.jsp?error=makeLogin");
+        response.sendRedirect("index.jsp?error=makeLogin");
         return;
     }
 
     if (toRent.getName() == null){
-        response.sendRedirect("LoginPage.jsp?error=makeLogin");
+        response.sendRedirect("index.jsp?error=makeLogin");
         return;
     }
 
@@ -37,19 +36,18 @@
         return;
     }
 
-    if (localStartDate.until(localEndDate).getDays() <= 180){
+    if (localEndDate.isAfter(localStartDate.plusDays(180))){
         session.setAttribute("wrongDaysIntervalMax", "");
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
 
-
-        tenantBean tenant = null;
+        userBean tenant = null;
     try {
         tenant = sessionBean.getController().checkTenantNickname(toRent);
     } catch (SQLException e) {
-        response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+        response.sendRedirect("index.jsp?error=databaseConnection");
         e.printStackTrace();
         return;
     } catch (Exceptions.emptyResult emptyResult) {
@@ -67,19 +65,8 @@
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        response.sendRedirect("LoginPage.jsp?error=databaseConnection");
-        return;
-    }catch (Exceptions.transactionError transactionError) {
-
-        session.setAttribute("transactionError", "");
-        String destination = "importContract.jsp";
-        response.sendRedirect(response.encodeRedirectURL(destination));
-        return;
-
     }
-    contractBean contract = null;
+        contractBean contract = null;
     if (tenant != null) {
         contract = new contractBean(0, false, LocalDate.parse(toRent.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(toRent.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), null, tenant.getNickname(), sessionBean.getNickname(), tenant.getCF(), sessionBean.getCF(), Integer.parseInt(request.getParameter("rataPiuServizi")), Integer.parseInt(request.getParameter("prezzoRata")), 0, false, null);
     }
@@ -87,14 +74,9 @@
 
         sessionBean.getController().createContract(contract);
 
-    } catch (SQLException e) {
+    } catch (Exceptions.dbConnection e) {
 
-        response.sendRedirect("LoginPage.jsp?error=databaseConnection");
-        return;
-
-    }     catch (Exceptions.dbConnection e) {
-
-    response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+    response.sendRedirect("index.jsp?error=databaseConnection");
     return;
 
     }catch (Exceptions.transactionError transactionError) {
@@ -150,8 +132,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="#">Pannello utente</a>
-            <a class="nav-item nav-link" href="#"> Login</a>
+            <a class="nav-item nav-link" href="seeRentable.jsp">Pannello utente</a>
+            <a class="nav-item nav-link" href="index.jsp"> Login</a>
             <a class="nav-item nav-link active" href="#">Importa contratto <span class="sr-only">(current)</span></a>
         </div>
     </div>
@@ -160,6 +142,7 @@
 <br>
 
 <div class="container .text-center" style="margin: 0px auto;">
+    <center>
     <%
     if (session.getAttribute("transactionError") != null) { %>
 
@@ -209,7 +192,7 @@
 
     <div class="row">
         <div class="col-5 .text-center">
-            <img class="img-rounded img-responsive" style="max-width:80%" src="${pageContext.request.contextPath}/<%= toRent.getImage()%>">
+            <img class="img-rounded img-responsive" style="max-width:80%" src="data:image/jpeg;base64,<%=toRent.getImage()%>">
         </div>
         <div class="col-7 .text-center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus quam pellentesque nec nam aliquam sem et tortor consequat. Fermentum iaculis eu non diam phasellus vestibulum lorem sed risus. Condimentum lacinia quis vel eros donec. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Turpis in eu mi bibendum. Et sollicitudin ac orci phasellus. Aliquet nec ullamcorper sit amet risus nullam. Urna porttitor rhoncus dolor purus. Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Sem et tortor consequat id porta nibh venenatis. Mi eget mauris pharetra et ultrices neque ornare. Euismod in pellentesque massa placerat duis ultricies lacus. Amet consectetur adipiscing elit pellentesque. Consequat id porta nibh venenatis. Ultrices eros in cursus turpis.
@@ -266,6 +249,7 @@
         </div>
     </div>
 </form>
+</center>
 </div>
 
 </body>

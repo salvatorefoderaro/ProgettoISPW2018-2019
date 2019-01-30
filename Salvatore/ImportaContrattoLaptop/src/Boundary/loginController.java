@@ -1,6 +1,7 @@
 package Boundary;
 
 import Bean.renterBean;
+import Bean.userBean;
 import Control.controller;
 import Exceptions.emptyResult;
 import javafx.application.Platform;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -22,13 +24,13 @@ public class loginController {
 
     @FXML private Button loginButton;
     @FXML private TextField nickname;
-    @FXML private TextField password;
+    @FXML private PasswordField password;
     private controller parentController;
-    private renterBean loggedUser;
+    private userBean loggedUser;
 
     public void test() throws IOException {
 
-        renterBean loginBean = new renterBean();
+        userBean loginBean = new userBean();
 
         loginBean.setNickname(nickname.getText());
         if (nickname.getText().isEmpty()){

@@ -47,7 +47,7 @@ public void initialize(Controller parentController, userSessionBean session){
     userSession = session;
     this.claimDeadline.addObserver(this);
 
-    userPanelButton.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\"; -fx-text-fill: white; -fx-font-size: 16px;-fx-padding: 10;-fx-background-color: #007bff;");
+    userPanelButton.setId("tenantButton");
     scrollPane.setStyle("-fx-background-color:transparent;");
     
     List<paymentClaimBean> paymentClaimList = null;
@@ -216,24 +216,28 @@ public void initialize(Controller parentController, userSessionBean session){
         
         Label nameField = new Label();
         nameField.setWrapText(true);
-        nameField.setLayoutX(128.0);
-        nameField.setLayoutY(21.0);
+        nameField.setLayoutX(49.0);
+        nameField.setLayoutY(30.0);
+        nameField.prefWidth(408.0);
+        nameField.prefHeight(97);
         nameField.setId("text-label");
         nameField.setText(text);
         
             Button close = new Button();
-            close.setLayoutX(70.0);
-            close.setLayoutY(135.0);
+            close.setLayoutX(219.0);
+            close.setLayoutY(150.0);
             if (panelDestination) {
                 close.setText("Torna al pannello utente");
+                close.setLayoutX(250.0);
+                close.setLayoutY(151.0);
             } else {
                 close.setText("Torna al login");
             }
             close.setId("aButton");
 
             Button exit = new Button();
-            exit.setLayoutX(318.0);
-            exit.setLayoutY(135.0);
+            exit.setLayoutX(104.0);
+            exit.setLayoutY(151.0);
             exit.setText("Esci");
             exit.setId("anotherButton");
 

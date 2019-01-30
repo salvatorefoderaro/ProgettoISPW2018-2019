@@ -14,7 +14,7 @@
 
 <%
     if (sessionBean.getId() == 0){
-    response.sendRedirect("LoginPage.jsp?error=makeLogin");
+    response.sendRedirect("index.jsp?error=makeLogin");
     return;
 } %>
 
@@ -51,7 +51,7 @@
 </jsp:forward>
 
 <% return; } catch (Exceptions.dbConnection dbConnection) {
-                response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+                response.sendRedirect("index.jsp?error=databaseConnection");
                 return;
             }
     String destination ="visualizzaSegnalazioni.jsp";
@@ -67,7 +67,7 @@
         try {
             parentController.incrementaSegnalazione(bean);
         } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+            response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.transactionError transactionError) { %>
 
@@ -83,7 +83,7 @@
         try {
             parentController.setContrattoArchiviato(bean);
         } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+            response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.transactionError transactionError) { %>
 
@@ -104,7 +104,7 @@
        try {
            parentController.setSegnalazioneNotificata(bean);
        } catch (Exceptions.dbConnection dbConnection) {
-           response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+           response.sendRedirect("index.jsp?error=databaseConnection");
            return;
        } catch (Exceptions.transactionError transactionError) {
   %>
@@ -132,7 +132,7 @@
                 </jsp:forward>
 
 <% return; } catch (Exceptions.dbConnection dbConnection) {
-               response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+               response.sendRedirect("index.jsp?error=databaseConnection");
                return;
            }
     String destination ="visualizzaSegnalazioni.jsp";
@@ -153,7 +153,7 @@
             </jsp:forward>
 
       <% return; } catch (SQLException e) {
-          response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+          response.sendRedirect("index.jsp?error=databaseConnection");
           return;
       }
 
@@ -171,10 +171,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" href="#">Pannello utente</a>
+        <a class="nav-item nav-link" href="pannelloUtente.jsp">Pannello utente</a>
         <a class="nav-item nav-link active" href="#">Visualizza segnalazioni  <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Inoltra segnalazione</a>
-        <a class="nav-item nav-link" href="#">Login</a>
+        <a class="nav-item nav-link" href="inoltraSegnalazione.jsp">Inoltra segnalazione</a>
+        <a class="nav-item nav-link" href="index.jsp">Login</a>
     </div>
   </div>
 </nav>
@@ -182,7 +182,7 @@
     	  <br>
 
 <div class="container">
-
+<center>
         <%
     if (session.getAttribute("success") != null) { %>
 
@@ -284,7 +284,7 @@
                     <%
                 }
             %>
-</div>
+</center></div>
 
       
       <!-- Optional JavaScript -->

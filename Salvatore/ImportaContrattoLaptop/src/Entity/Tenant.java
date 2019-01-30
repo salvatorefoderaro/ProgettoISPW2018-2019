@@ -6,12 +6,8 @@
 package Entity;
 
 import Bean.tenantBean;
-import DAO.tenantJDBC;
+
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +18,7 @@ public class Tenant {
     private String nickname;
     private int sollecitiPagamento;
     private String CF;
-    private tenantJDBC jdbcLocatario;
-    
+
     public Tenant(int IDLocatario, String nickname, int SollecitiPagamento, String CF) throws SQLException{
         this.ID = IDLocatario;
         this.nickname = nickname;

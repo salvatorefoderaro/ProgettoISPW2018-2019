@@ -5,6 +5,10 @@
  */
 package Bean;
 
+import Entity.TypeOfRentable;
+
+import java.awt.*;
+
 /**
  *
  * @author root
@@ -17,13 +21,15 @@ public class rentableBean {
     private int ID;
     private String startDate;
     private String endDate;
-    private String type;
+    private TypeOfRentable type;
     private String tenantNickname;
     private int roomID;
     private int aptID;
     private int bedID;
     private String newStartAvaiabilityDate;
     private String newEndAvaiabilityDate;
+    private Image image1;
+    private TypeOfRentable type1;
     
     public rentableBean(){}
     
@@ -38,8 +44,10 @@ public class rentableBean {
     public int getBedID(){ return this.bedID; }
     public String getNewStartAvaiabilityDate(){ return this.newStartAvaiabilityDate; }
     public String getNewEndAvaiabilityDate(){ return this.newEndAvaiabilityDate; }
-    public String getType(){ return this.type; }
+    public TypeOfRentable getType(){ return this.type; }
     public String getTenantNickname(){ return this.tenantNickname; }
+    public Image getImage1(){ return this.image1; }
+    public TypeOfRentable getType1(){ return this.type1; }
     
     public void setName(String name){ this.name = name; }
     public void setDescription(String description){ this.description = description; }
@@ -52,6 +60,8 @@ public class rentableBean {
     public void setBedID(int bedID){ this.bedID = bedID; }
     public void setNewStartAvaiabilityDate(String newStartAvaiabilityDate){ this.newStartAvaiabilityDate = newStartAvaiabilityDate; }
     public void setNewEndAvaiabilityDate(String newEndAvaiabilityDate){ this.newEndAvaiabilityDate = newEndAvaiabilityDate; }
-    public void setType(String type){ this.type = type; }
+    public void setType(TypeOfRentable type){ this.type = type; }
     public void setTenantnNickname(String tenantNickname){ this.tenantNickname = tenantNickname; }
+    public void setImage1(Image image){ this.image1 = image; }
+    public void setType1(TypeOfRentable type){this.type1 = type; }
 }

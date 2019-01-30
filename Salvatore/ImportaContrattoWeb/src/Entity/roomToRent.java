@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author root
  */
-public class roomToRent implements rentable {
+public class roomToRent {
     private long aptID;
     private int roomID;
     private String roomName;
@@ -28,17 +28,5 @@ public class roomToRent implements rentable {
         this.roomImage = roomImage;
         this.bedInRoom = bedList;
     }
-
-
-    @Override
-    public int checkDate(String startDate, String endDate) throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public List getInfo() {
-        return null;
-    }
-
 
 }

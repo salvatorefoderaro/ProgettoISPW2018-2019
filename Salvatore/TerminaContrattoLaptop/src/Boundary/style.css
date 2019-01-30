@@ -44,3 +44,7 @@
     -fx-background-color: #343a40;
     -fx-text-fill: white;
 }
+
+.scroll-pane{
+    -fx-background-color:transparent;
+}

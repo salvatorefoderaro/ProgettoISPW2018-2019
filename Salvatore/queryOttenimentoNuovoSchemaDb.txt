@@ -1,0 +1,3 @@
+SELECT * FROM RoomToRent as Room WHERE
+Room.id IN (Select features.roomToRentId FROM RentalFeatures as features WHERE features.id IN (Select renterFeaturesId FROM AvailabilityCalendar) AND
+features.aptToRentId IN (Select id FROM AptToRent as Apt WHERE Apt.renterNickname = "Giovanni"));

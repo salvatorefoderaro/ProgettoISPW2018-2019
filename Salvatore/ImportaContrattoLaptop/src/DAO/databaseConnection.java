@@ -26,10 +26,8 @@ public class databaseConnection {
             Class.forName("com.mysql.jdbc.Driver");
             if(dbConnectionUser == null)
                 dbConnectionUser = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=root&password=");
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-             
         }         
             return dbConnectionUser;
         }
@@ -42,7 +40,6 @@ public class databaseConnection {
                 dbConnectionAdmin.setAutoCommit(false);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-
         }
         return dbConnectionAdmin;
     }

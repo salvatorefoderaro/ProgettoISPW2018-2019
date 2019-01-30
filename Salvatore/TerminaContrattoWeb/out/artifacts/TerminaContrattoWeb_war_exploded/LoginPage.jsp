@@ -2,13 +2,14 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import= "Controller.Controller, Bean.userSessionBean" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="Entity.TypeOfUser" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <% 
     
     if (request.getParameter("login") != null) {
-        userSessionBean login = new userSessionBean(request.getParameter("nickname"), 1, "", 0, request.getParameter("password"), null);
+        userSessionBean login = new userSessionBean(request.getParameter("nickname"), 1, TypeOfUser.NOTLOGGED, 0, request.getParameter("password"), null);
         try {
             Controller controller = new Controller();
             login = controller.login(login);
@@ -73,7 +74,7 @@
 
     	  <br>
 <div class="container">
-
+<center>
 <%
 
     if (session.getAttribute("emptyResult") != null) { %>
@@ -116,22 +117,17 @@
         } %>
 
      <form action="LoginPage.jsp" method="POST">
-         <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">ID Utente</span>
-  </div>
-  <input type="text" name="idUtente" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-</div>
-                  <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-default">Nome Utente</span>
-  </div>
-  <input type="text" name="nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-   <input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+<div class="input-group mb-3">
+             <div class="input-group-prepend">
+                 <span class="input-group-text" id="inputGroup-sizing-default">Nome utente e Password</span>
+             </div>
+             <input type="text" name="nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+             <input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
 
-                  </div>
-         <button type="sumbit" name="login" class="btn btn-primary btn-lg">Login</button>
+         </div>
+         <button type="sumbit" name="login" class="btn btn-primary btn-lg">Login</button></center>
      </form>
+    </center>
 </div>      
 
       

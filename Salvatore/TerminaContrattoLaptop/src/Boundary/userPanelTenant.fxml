@@ -21,7 +21,7 @@
             <Menu mnemonicParsing="false" text="FERSA">
                <items>
                   <MenuItem mnemonicParsing="false" text="Login" onAction="#login"/>
-
+                   <MenuItem mnemonicParsing="false" text="Visualizza segnalazioni pagamento" onAction="#seePaymentClaim" />
                </items></Menu>
          </menus>
     </MenuBar>

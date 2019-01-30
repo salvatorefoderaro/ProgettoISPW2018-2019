@@ -35,6 +35,7 @@ public class contractJDBC implements contractDAO {
 
     @Override
     public void createContract(contractBean bean) throws SQLException {
+        System.out.println(bean.getTenantNickname());
         PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO ActiveContract (isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported) VALUES (0, ?, ?, 0, ?, ?, ?, ?, ?, ?, 0, NULL, false)");
         preparedStatement.setString(1, bean.getInitDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         preparedStatement.setString(2, bean.getTerminationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));

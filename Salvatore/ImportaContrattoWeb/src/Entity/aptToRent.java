@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author root
  */
-public class aptToRent implements rentable {
+public class aptToRent {
     private int aptID;
     private String aptName;
     private String aptDescription;
@@ -27,24 +27,5 @@ public class aptToRent implements rentable {
         this.aptImage = aptImage;
         this.roomInApt = roomList;
     }
-    
-    public List<roomToRent> getRoom(){
-        return this.roomInApt;
-    }
 
-    @Override
-    public int checkDate(String startDate, String endDate) throws SQLException {
-       // this.JDBC.checkDate(this.aptID, startDate, endDate);
-        return 0;
-    }
-    
-    @Override
-    public List getInfo() {
-        List renterInfo = new ArrayList();
-        renterInfo.add(this.aptID);
-        renterInfo.add(this.aptName);
-        renterInfo.add(this.aptDescription);
-        renterInfo.add(this.aptImage);
-        return renterInfo;
-    }
 }

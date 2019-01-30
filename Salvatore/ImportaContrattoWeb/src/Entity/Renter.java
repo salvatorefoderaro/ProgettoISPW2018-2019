@@ -6,13 +6,8 @@
 package Entity;
 
 import Bean.renterBean;
-import DAO.renterJDBC;
-import DAO.tenantJDBC;
+
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,12 +25,5 @@ public class Renter {
         this.CF = CF;
     }
 
-    public renterBean makeBean(){
-               renterBean bean = new renterBean();
-               bean.setID(this.IDLocatore);
-               bean.setNickname(this.nickname);
-               bean.setCF(this.CF);
-               return bean;
-    }
 
 }

@@ -18,7 +18,7 @@
 
 <%     if (sessionBean.getId() == 0){
 
-    response.sendRedirect("LoginPage.jsp?error=makeLogin");
+    response.sendRedirect("index.jsp?error=makeLogin");
 
 } %>
 
@@ -80,7 +80,7 @@
         try {
             controllerProva.inserisciSegnalazionePagamento(bean);
         } catch (SQLException | dbConnection e) {
-            response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+            response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.transactionError transactionError) { %>
 
@@ -89,7 +89,7 @@
             </jsp:forward>
 
             <%
-            }
+            return;}
             %>
 
         <jsp:forward page="pannelloUtente.jsp">
@@ -97,7 +97,7 @@
         </jsp:forward>
 
     <%
-        }
+        return; }
       %>
 
   <body>
@@ -109,10 +109,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-              <a class="nav-item nav-link " href="#">Pannello utente</a>
-              <a class="nav-item nav-link active" href="#">Visualizza segnalazioni  <span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link " href="#">Inoltra segnalazione</a>
-              <a class="nav-item nav-link" href="#">Login</a>
+              <a class="nav-item nav-link " href="pannelloUtente.jsp">Pannello utente</a>
+              <a class="nav-item nav-link active" href="visualizzaSegnalazioni.jsp">Visualizza segnalazioni  <span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link " href="inoltraSegnalazione.jsp">Inoltra segnalazione</a>
+              <a class="nav-item nav-link" href="index.jsp">Login</a>
           </div>
       </div>
   </nav>
@@ -132,6 +132,7 @@
               } %>
 
 <div class="container">
+    <center>
                 <%
     if (session.getAttribute("wrongDate") != null) { %>
 
@@ -177,7 +178,7 @@
                     <%
                 }
             %>
-</div>
+    </center></div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

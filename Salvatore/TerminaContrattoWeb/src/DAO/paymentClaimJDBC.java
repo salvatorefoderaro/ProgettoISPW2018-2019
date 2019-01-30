@@ -130,7 +130,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void checkSegnalazionePagamentoData() throws SQLException{
+    public void checkPaymentClaimDate() throws SQLException{
         PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymenyClaim SET claimState = 1 WHERE claimDeadline < CURDATE() and claimNumber != 3");
         preparedStatement.executeUpdate();
         preparedStatement.close();

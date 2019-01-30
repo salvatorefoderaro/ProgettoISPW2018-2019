@@ -8,12 +8,13 @@
 <%@ page import="Exceptions.transactionError" %>
 <%@ page import="Exceptions.dbConnection" %>
 <%@ page import="Exceptions.emptyResult" %>
+<%@ page import="Entity.TypeOfUser" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
     if (sessionBean.getId() == 0){
-    response.sendRedirect("LoginPage.jsp?error=makeLogin");
+    response.sendRedirect("index.jsp?error=makeLogin");
     return;
 } %>
 
@@ -36,8 +37,6 @@
              
   </head>
   <% Controller parentController = sessionBean.getController();
-        System.out.println(sessionBean.getNickname() + " " + sessionBean.getType() + " " + sessionBean.getId());
-
         paymentClaimBean bean = new paymentClaimBean();
         
         if (request.getParameter("0") != null){
@@ -52,7 +51,7 @@
 </jsp:forward>
 
 <% return; } catch (Exceptions.dbConnection dbConnection) {
-                response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+                response.sendRedirect("index.jsp?error=databaseConnection");
                 return;
             }
     String destination ="visualizzaSegnalazioni.jsp";
@@ -68,7 +67,7 @@
         try {
             parentController.incrementaSegnalazione(bean);
         } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+            response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.transactionError transactionError) { %>
 
@@ -84,7 +83,7 @@
         try {
             parentController.setContrattoArchiviato(bean);
         } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+            response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.transactionError transactionError) { %>
 
@@ -105,7 +104,7 @@
        try {
            parentController.setSegnalazioneNotificata(bean);
        } catch (Exceptions.dbConnection dbConnection) {
-           response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+           response.sendRedirect("index.jsp?error=databaseConnection");
            return;
        } catch (Exceptions.transactionError transactionError) {
   %>
@@ -133,7 +132,7 @@
                 </jsp:forward>
 
 <% return; } catch (Exceptions.dbConnection dbConnection) {
-               response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+               response.sendRedirect("index.jsp?error=databaseConnection");
                return;
            }
     String destination ="visualizzaSegnalazioni.jsp";
@@ -154,7 +153,7 @@
             </jsp:forward>
 
       <% return; } catch (SQLException e) {
-          response.sendRedirect("LoginPage.jsp?error=databaseConnection");
+          response.sendRedirect("index.jsp?error=databaseConnection");
           return;
       }
 
@@ -172,10 +171,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" href="#">Pannello utente</a>
+        <a class="nav-item nav-link" href="pannelloUtente.jsp">Pannello utente</a>
         <a class="nav-item nav-link active" href="#">Visualizza segnalazioni  <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Inoltra segnalazione</a>
-        <a class="nav-item nav-link" href="#">Login</a>
+        <a class="nav-item nav-link" href="inoltraSegnalazione.jsp">Inoltra segnalazione</a>
+        <a class="nav-item nav-link" href="index.jsp">Login</a>
     </div>
   </div>
 </nav>
@@ -183,7 +182,7 @@
     	  <br>
 
 <div class="container">
-
+<center>
         <%
     if (session.getAttribute("success") != null) { %>
 
@@ -215,7 +214,7 @@
         <%
             switch(temp.getClaimState()){
                 case 0: 
-                    if(sessionBean.getType() == "Locatore"){
+                    if(sessionBean.getType() == TypeOfUser.RENTER){
 %>
                     <button type="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
             <% } else { %> 
@@ -227,7 +226,7 @@
                     break;
                 
                 case 1:
-                if(sessionBean.getType() == "Locatore"){
+                if(sessionBean.getType() == TypeOfUser.RENTER){
                 %>
         <input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
         <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
@@ -240,7 +239,7 @@
                     break;
                     
                 case 2:                        
-                if(sessionBean.getType() == "Locatore"){
+                if(sessionBean.getType() == TypeOfUser.RENTER){
                     %> 
         <input name = "2" type="submit" class="btn btn-info" value="Archivia contratto">
         <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
@@ -252,7 +251,7 @@
                     
                 case 3:
 
-                   if(sessionBean.getType() == "Locatario"){
+                   if(sessionBean.getType() == TypeOfUser.RENTER){
 
 
 
@@ -267,19 +266,14 @@
             
         case 4:
 
-        if(sessionBean.getType() == "Locatore"){ %>
+        if(sessionBean.getType() == TypeOfUser.RENTER){ %>
                             <button type="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
                              <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
 
 <% }else { %>
                             <button type="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
-
-
 <% }
-
 }
-           
-
         %>
         
             
@@ -290,7 +284,7 @@
                     <%
                 }
             %>
-</div>
+</center></div>
 
       
       <!-- Optional JavaScript -->

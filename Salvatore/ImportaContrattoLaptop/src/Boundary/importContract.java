@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Boundary;
 
-import Bean.contractBean;
-import Bean.rentableBean;
-import Bean.renterBean;
-import Bean.tenantBean;
+import Bean.*;
 import Control.controller;
-
-import java.io.FileInputStream;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import Exceptions.dbConnection;
-import Exceptions.emptyResult;
-import Exceptions.transactionError;
+import Entity.TypeOfUser;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,15 +21,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/**
- *
- * @author root
- */
 public class importContract {
     
     @FXML private ImageView immagine;
@@ -57,23 +41,24 @@ public class importContract {
 
     private rentableBean theBean;
     private controller parentController;
-    private renterBean loggedUser;
-    private tenantBean tenant;
+    private userBean loggedUser;
+    private userBean tenant;
     
-    public void initialize(rentableBean bean, controller parentController, renterBean loggedUser) throws FileNotFoundException{
+    public void initialize(rentableBean bean, controller parentController, userBean loggedUser) throws FileNotFoundException{
         this.loggedUser = loggedUser;
         this.parentController = parentController;
         this.theBean = bean;
 
         bottone.setId("aButton");
-        Image toShow = new Image(getClass().getClassLoader().getResourceAsStream(theBean.getImage()));
-        immagine.setImage(toShow);
+        immagine.setImage(SwingFXUtils.toFXImage((BufferedImage) theBean.getImage1(), null));
         descrizione.setText(bean.getDescription());
     }
     
     public void test(){
 
-        tenant = new tenantBean();
+        userBean tenant1 = new userBean();
+        tenant1.setTypeUSer(TypeOfUser.TENANT);
+        tenant = new userBean();
 
         if (dataInizio.getValue() == null){
             popup("Inserire un valore valido per la data di inizio del contratto!", false);
@@ -87,18 +72,20 @@ public class importContract {
 
         if (dataInizio.getValue().isBefore(LocalDate.now()) || dataFine.getValue().isBefore(LocalDate.now())){
             popup("Non è possibile selezionare una data nel passato!", false);
+            return;
         }
 
         if (dataInizio.getValue().isAfter(dataFine.getValue())){
             popup("Inserire un intervallo di date corretto!", false);
+            return;
         }
 
-        if (dataInizio.getValue().until(dataFine.getValue()).getDays() <= 30){
+        if (dataInizio.getValue().isBefore(dataFine.getValue().minusDays(30))){
             popup("L'intervallo minimo per il contratto è di 30 giorni!", false);
             return;
         }
 
-        if (dataInizio.getValue().until(dataFine.getValue()).getDays() > 180){
+        if (dataFine.getValue().isAfter(dataInizio.getValue().plusDays(180))){
             popup("L'intervallo massimo per il contratto è di 180 giorni!", false);
             return;
         }
@@ -125,7 +112,9 @@ public class importContract {
         try {
             tenant = this.parentController.checkTenantNickname(this.theBean);
         } catch (SQLException e) {
+            e.printStackTrace();
             popup("Errore nell'esecuzione della richiesta!", true);
+            return;
         } catch (Exceptions.emptyResult emptyResult) {
             popup("Nessun utente associato al nickname indicato!", false);
             return;
@@ -144,17 +133,19 @@ public class importContract {
             return;
         }
 
-        contractBean contract = new contractBean(0, false, dataInizio.getValue(), dataFine.getValue(), null, tenant.getNickname(), loggedUser.getNickname(), tenant.getCF(), loggedUser.getCF(), Integer.parseInt(rataPiuServizi.getText()), Integer.parseInt(prezzoRata.getText()), 0, false, null);
+        contractBean contract = new contractBean(0, false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(), loggedUser.getNickname(), tenant.getCF(), loggedUser.getCF(), Integer.parseInt(rataPiuServizi.getText()), Integer.parseInt(prezzoRata.getText()), 0, false, null);
         try {
             parentController.createContract(contract);
         } catch (Exceptions.transactionError transactionError) {
             popup("Errore nell'esecuzione della richiesta!", true);
+            return;
         } catch (Exceptions.dbConnection dbConnection) {
             popup("Errore nella connessione con il database!", true);
+            return;
         }
 
         popup("Inserimento effettuato correttamente!", true); // Devo ritornare al pannello utente, non al Login
-
+        return;
     }
     
     @FXML
@@ -163,79 +154,99 @@ public class importContract {
         Platform.runLater(new Runnable() {
         @Override public void run() {
         
-        Stage stage = (Stage) bottone.getScene().getWindow();
-        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
-        Stage newStage = new Stage();
-        Pane comp = new Pane();
-        
-        Label nameField = new Label();
-        nameField.setWrapText(true);
-        nameField.setLayoutX(128.0);
-        nameField.setLayoutY(21.0);
-        nameField.setText(text);
-        
-        Button close = new Button();
-        close.setLayoutX(219.0);
-        close.setLayoutY(125.0);
-        close.setText("Chiudi");
-        close.setId("aButton");
+            Stage stage = (Stage) bottone.getScene().getWindow();
+            stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+            Stage newStage = new Stage();
+            Pane comp = new Pane();
 
-        Scene stageScene = new Scene(comp, 500, 200);
-        newStage.setScene(stageScene);
-        comp.getChildren().addAll(nameField, close);
-        newStage.show();
+            Label nameField = new Label();
+            nameField.setWrapText(true);
+            nameField.setLayoutX(128.0);
+            nameField.setLayoutY(21.0);
+            nameField.setText(text);
 
-            if(!backToPanel){
-                close.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Stage stage = (Stage)close.getScene().getWindow();
-                    stage.close();
-                }
-            });
+            Button close = new Button();
+            close.setLayoutX(219.0);
+            close.setLayoutY(125.0);
+            close.setText("Chiudi");
+            close.setId("aButton");
 
-        } else {
+            Scene stageScene = new Scene(comp, 500, 200);
+            newStage.setScene(stageScene);
+            comp.getChildren().addAll(nameField, close);
+            newStage.show();
 
-            close.setLayoutX(70.0);
-            close.setLayoutY(135.0);
-            close.setText("Torna al login");
-
-            Button exit = new Button();
-            exit.setLayoutX(318.0);
-            exit.setLayoutY(135.0);
-            exit.setText("Esci");
-            comp.getChildren().addAll(exit);
-            exit.setId("anotherButton");
-                exit.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    System.exit(0);
-                }
-            });
-
-            close.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Stage st = (Stage) bottone.getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("loginController.fxml"));
-                    Parent root = null;
-                    try {
-                        root = loader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if(!backToPanel){
+                    close.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Stage stage = (Stage)close.getScene().getWindow();
+                        stage.close();
                     }
+                });
 
-                    Scene scene = new Scene(root, 704, 437);
-                    st.setScene(scene);
-                    st.setTitle("My App");
-                    st.show();
+            } else {
 
-                }
-            });
+                close.setLayoutX(70.0);
+                close.setLayoutY(135.0);
+                close.setText("Torna al login");
 
+                Button exit = new Button();
+                exit.setLayoutX(318.0);
+                exit.setLayoutY(135.0);
+                exit.setText("Esci");
+                comp.getChildren().addAll(exit);
+                exit.setId("anotherButton");
+                    exit.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.exit(0);
+                    }
+                });
+
+                close.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        backToLogin();
+                    }
+                });
+            }
         }
-  }
-        });
-
+    });
 }
+
+    @FXML
+    public void backToLogin(){
+        Stage st = (Stage) dataInizio.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginController.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(root, 704, 437);
+        st.setScene(scene);
+        st.setTitle("My App");
+        st.show();
+    }
+
+    /*@FXML
+    public void backToUserPanel(){
+        Stage st = (Stage) dataInizio.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginController.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(root, 704, 437);
+        st.setScene(scene);
+        st.setTitle("My App");
+        st.show();
+    }*/
+
 }

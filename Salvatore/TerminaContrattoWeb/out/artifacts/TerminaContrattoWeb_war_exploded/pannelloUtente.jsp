@@ -2,13 +2,35 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import= "Controller.Controller, Bean.userSessionBean" %>
+<%@ page import="Entity.TypeOfUser" %>
+<%@ page import="java.util.TimerTask" %>
+<%@ page import="java.util.Timer" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.sql.SQLException" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
+
+    int initialDelay = 10000; // start after 30 seconds
+    int period = 5000;        // repeat every 5 seconds
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+        public void run() {
+            try {
+                Controller controller = new Controller();
+                controller.checkPaymentClaimDateScadenza();
+            } catch (SQLException e) {
+                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " - Errore nella connessione al database");
+            }
+        }
+    };
+    timer.scheduleAtFixedRate(task, initialDelay, period);
+
     if (sessionBean.getId() == 0){
 
-        response.sendRedirect("LoginPage.jsp?error=makeLogin");
+        response.sendRedirect("index.jsp?error=makeLogin");
 
     } %>
 
@@ -42,16 +64,16 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
         <a class="nav-item nav-link active" href="#">Pannello utente <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Visualizza segnalazioni</a>
-        <a class="nav-item nav-link" href="#">Inoltra segnalazione</a>
-        <a class="nav-item nav-link" href="#">Login</a>
+        <a class="nav-item nav-link" href="visualizzaSegnalazioni.jsp">Visualizza segnalazioni</a>
+        <a class="nav-item nav-link" href="inoltraSegnalazione.jsp">Inoltra segnalazione</a>
+        <a class="nav-item nav-link" href="index.jsp">Login</a>
     </div>
   </div>
 </nav>
       
     	  <br>
 <div class="container">
-
+<center>
     <%
 
         if (request.getParameter("success") != null) { %>
@@ -89,11 +111,15 @@
 
     <% } %>
 
-    <center>Bentornato <%= sessionBean.getNickname() %> <br>
+Bentornato <%= sessionBean.getNickname() %> <br>
+
+        <% if(sessionBean.getType() == TypeOfUser.RENTER){  %>
         <a href="inoltraSegnalazione.jsp"><button type="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
+        <% } %>
+
         <a href="visualizzaSegnalazioni.jsp"><button type="sumbit" name="Locatario" class="btn btn-secondary btn-lg">Visualizza segnalazioni</button></a>
          </center>
-     </form>
+
 </div>      
 
       

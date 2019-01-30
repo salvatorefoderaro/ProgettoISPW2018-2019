@@ -15,19 +15,12 @@ import java.time.format.DateTimeFormatter;
 public class contractJDBC implements contractDAO {
  
     private Connection connection = null;
-    private static contractJDBC instanceUser = null;
-    private static contractJDBC instanceAdmin = null;
+    private static contractJDBC instance = null;
 
     public static contractJDBC getInstance(String type)  throws SQLException {
-        if (type == "user"){
-            if (instanceUser == null)
-                instanceUser = new contractJDBC("user");
-            return instanceUser;
-        } else {
-            if (instanceAdmin == null)
-                instanceAdmin = new contractJDBC("admin");
-            return instanceAdmin;
-        }
+        if (instance == null)
+                instance = new contractJDBC(type);
+        return instance;
     }
  
     private contractJDBC(String type) throws SQLException {

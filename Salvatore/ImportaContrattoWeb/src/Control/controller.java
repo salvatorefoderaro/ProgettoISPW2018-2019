@@ -1,9 +1,7 @@
 package Control;
 
-import Bean.contractBean;
-import Bean.rentableBean;
-import Bean.renterBean;
-import Bean.tenantBean;
+import Bean.*;
+import Entity.TypeOfRentable;
 import Exceptions.dbConnection;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
@@ -19,8 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class controller {
-    
-    private static controller controller_instance = null;
+
     private Map<Integer, roomToRent> dictionaryRoomToRent  = new HashMap<>();
     private Map<Integer, bedToRent> dictionaryBedToRent = new HashMap<>();
     private Map<Integer, aptToRent> dictionaryAptToRent = new HashMap<>();
@@ -28,114 +25,152 @@ public class controller {
     public controller()  throws SQLException{
         databaseConnection.getConnectionUser();
     }
-    
-    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, dbConnection, SQLException {
-        rentableBean newDateBean;
-        if ("room".equals(bean.getType())){
 
-                newDateBean = roomToRentJDBC.getInstance("admin").checkDate(bean);
+    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, dbConnection {
+        rentableBean newDateBean;
+        if (TypeOfRentable.ROOM == bean.getType()){
+            try {
+                bean.setType1(TypeOfRentable.ROOM);
+                newDateBean = rentableJDBC.getInstance("admin").checkDate(bean);
                 bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
                 bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
-                bean.setRoomID(bean.getRoomID());
-                List<rentableBean> bedList = bedToRentJDBC.getInstance("admin").bedListByRoom(bean);
-                for (rentableBean tempBed : bedList) {
-                    bean.setBedID(tempBed.getID());
-                    bedToRentJDBC.getInstance("admin").bedSetNewAvaiabilityDate(bean);
-                }
-                roomToRentJDBC.getInstance("admin").roomSetNewAvaiabilityDate(bean);
 
+                for (rentableBean tempBed : rentableJDBC.getInstance("admin").bedListByRoom(bean)) {
+                    bean.setBedID(tempBed.getID());
+                    bean.setType1(TypeOfRentable.BED);
+                    rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                }
+                bean.setType1(TypeOfRentable.ROOM);
+                rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                databaseConnection.getConnectionAdmin().commit();
+            } catch (SQLException e1) {
+                try {
+                    databaseConnection.getConnectionAdmin().rollback();
+                } catch (SQLException e) {
+                    throw new dbConnection("Errore nella connessione con il database!");
+                }
+                throw new transactionError("");
             }
-         else if ("bed".equals(bean.getType())){
-            newDateBean = bedToRentJDBC.getInstance("admin").checkDate(bean);
-            bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
-            bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
-            bedToRentJDBC.getInstance("admin").bedSetNewAvaiabilityDate(bean);
+
+        } else if (TypeOfRentable.BED == bean.getType()){
+
+            try {
+                bean.setType1(TypeOfRentable.BED);
+                newDateBean = rentableJDBC.getInstance("admin").checkDate(bean);
+                bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
+                bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
+                rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                databaseConnection.getConnectionAdmin().commit();
+            } catch (SQLException e1) {
+                try {
+                    databaseConnection.getConnectionAdmin().rollback();
+                } catch (SQLException e) {
+                    throw new dbConnection("Errore nella connessione con il database!");
+                }
+                throw new transactionError("");
+            }
 
         } else {
 
-            newDateBean = aptToRentJDBC.getInstance("admin").checkDate(bean);
-            bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
-            bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
-
-            List<rentableBean> roomList = roomToRentJDBC.getInstance("admin").roomListByApartment(bean);
-
-                for(rentableBean tempRoom : roomList){
-                        bean.setRoomID(tempRoom.getRoomID());
-                        List<rentableBean> bedList = bedToRentJDBC.getInstance("admin").bedListByRoom(bean);
-
-                    for (rentableBean tempBed: bedList){
+            try {
+                bean.setType1(TypeOfRentable.APARTMENT);
+                newDateBean = rentableJDBC.getInstance("admin").checkDate(bean);
+                bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
+                bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
+                for(rentableBean tempRoom : rentableJDBC.getInstance("admin").roomListByApartment(bean)){
+                    for (rentableBean tempBed: rentableJDBC.getInstance("admin").bedListByRoom(bean)){
                         bean.setBedID(tempBed.getID());
-                        bedToRentJDBC.getInstance("admin").bedSetNewAvaiabilityDate(bean);
+                        bean.setType1(TypeOfRentable.BED);
+                        rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
                     }
                     bean.setRoomID(tempRoom.getRoomID());
-                    roomToRentJDBC.getInstance("admin").roomSetNewAvaiabilityDate(bean);
+                    bean.setType1(TypeOfRentable.ROOM);
+                    rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
                 }
-                aptToRentJDBC.getInstance("admin").aptSetNewAvaiabilityDate(bean);
+                bean.setType1(TypeOfRentable.APARTMENT);
+                rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                databaseConnection.getConnectionAdmin().commit();
+            } catch (SQLException e1) {
+                try {
+                    databaseConnection.getConnectionAdmin().rollback();
+                } catch (SQLException e) {
+                    throw new dbConnection("Errore nella connessione con il database!");
+                }
+                throw new transactionError("");
+            }
         }
     }
 
-    
-  public tenantBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResult {
+    public userBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResult {
+        return userJDBC.getInstance("user").getLocatario(bean);
+    }
 
-       return tenantJDBC.getInstance("user").getLocatario(bean.getTenantNickname()).makeBean();
-  }
+    public void createContract(contractBean contract) throws dbConnection, transactionError {
+        try {
+            contractJDBC.getInstance("admin").createContract(contract);
+            databaseConnection.getConnectionAdmin().commit();
+        } catch (SQLException e1) {
+            try {
+                databaseConnection.getConnectionAdmin().rollback();
+            } catch (SQLException e) {
+                throw new dbConnection("Errore nella connessione con il database!");
+            }
+            throw new transactionError("");
+        }
+    }
 
-  public void createContract(contractBean contract) throws dbConnection, transactionError, SQLException {
-          contractJDBC.getInstance("admin").createContract(contract);
-  }
+    public userBean loginRenter(userBean renter) throws SQLException, emptyResult {
+        return userJDBC.getInstance("user").getLocatore(renter);
+    }
 
-  public renterBean loginLocatore(renterBean renter) throws SQLException, emptyResult {
-        return renterJDBC.getInstance("user").getLocatore(renter.getNickname(), renter.getPassword()).makeBean();
+    public List<rentableBean> getRentableFromUser(userBean renterNickname) throws SQLException, emptyResult {
 
-  }
-    public List<rentableBean> getRentableFromUser(renterBean renterNickname) throws SQLException, emptyResult {
-
-        roomToRentJDBC getRoom = roomToRentJDBC.getInstance("user");
-        aptToRentJDBC getApt = aptToRentJDBC.getInstance("user");
-        bedToRentJDBC getBed = bedToRentJDBC.getInstance("user");
-
-        List<rentableBean> rentableList = new ArrayList<>(getRoom.roomListByRenter(renterNickname));
-        rentableList.addAll(getBed.bedListByRenter(renterNickname));
-        rentableList.addAll(getApt.aptListByRenter(renterNickname));
+        renterNickname.setTypeRequest(TypeOfRentable.ROOM);
+        List<rentableBean> rentableList = new ArrayList<>(rentableJDBC.getInstance("user").rentableListByRenter(renterNickname));
+        renterNickname.setTypeRequest(TypeOfRentable.APARTMENT);
+        rentableList.addAll(rentableJDBC.getInstance("user").rentableListByRenter(renterNickname));
+        renterNickname.setTypeRequest(TypeOfRentable.BED);
+        rentableList.addAll(rentableJDBC.getInstance("user").rentableListByRenter(renterNickname));
 
         if(rentableList.isEmpty()){
             throw new emptyResult("Errore! Nessun utente associato al nickname indicato!");
         }
 
-    for (rentableBean temp : rentableList) {
+        for (rentableBean temp : rentableList) {
+            if (TypeOfRentable.BED == temp.getType()){
+                if (dictionaryBedToRent.get(temp.getID()) == null){
 
-        if ("bed".equals(temp.getType())){
-            if (dictionaryBedToRent.get(temp.getID()) == null){
-                bedToRent bed = new bedToRent(temp.getRoomID(), temp.getBedID(), temp.getName(), temp.getDescription(), temp.getImage());
-                dictionaryBedToRent.put(temp.getID(), bed);
-            }
-        } else if ("room".equals(temp.getType())){
-            if (dictionaryRoomToRent.get(temp.getID()) == null){
-
-                List<rentableBean> bedInRoom = bedToRentJDBC.getInstance("user").bedListByRoom(temp);
-                List<bedToRent> trueBedInRoom = new LinkedList<>();
-
-                for(rentableBean bedBean : bedInRoom){
-                    trueBedInRoom.add(dictionaryBedToRent.get(bedBean.getID()));
+                    bedToRent bed = new bedToRent(temp.getRoomID(), temp.getBedID(), temp.getName(), temp.getDescription(), temp.getImage());
+                    dictionaryBedToRent.put(temp.getID(), bed);
                 }
-                roomToRent room = new roomToRent(temp.getAptID(), temp.getRoomID(), temp.getName(), temp.getDescription(), temp.getImage(), trueBedInRoom);
-                dictionaryRoomToRent.put(temp.getID(), room);
-            }
-        }  else {
-            if (dictionaryAptToRent.get(temp.getID()) == null) {
+            } else if (TypeOfRentable.ROOM == temp.getType()){
+                if (dictionaryRoomToRent.get(temp.getID()) == null){
 
-                List<rentableBean> roomInApt = roomToRentJDBC.getInstance("user").roomListByApartment(temp);
-                List<roomToRent> trueRoomInApt = new LinkedList<>();
+                    temp.setType1(TypeOfRentable.BED);
+                    List<rentableBean> bedInRoom = rentableJDBC.getInstance("user").bedListByRoom(temp);
+                    List<bedToRent> trueBedInRoom = new LinkedList<>();
 
-                for (rentableBean roomBean : roomInApt) {
-                    trueRoomInApt.add(dictionaryRoomToRent.get(roomBean.getID()));
+                    for(rentableBean bedBean : bedInRoom){
+                        trueBedInRoom.add(dictionaryBedToRent.get(bedBean.getID()));
+                    }
+                    roomToRent room = new roomToRent(temp.getAptID(), temp.getRoomID(), temp.getName(), temp.getDescription(), temp.getImage(), trueBedInRoom);
+                    dictionaryRoomToRent.put(temp.getID(), room);
                 }
-                aptToRent apt = new aptToRent(temp.getAptID(), temp.getName(), temp.getDescription(), temp.getImage(), trueRoomInApt);
-                dictionaryAptToRent.put(temp.getID(), apt);
+            }  else {
+                if (dictionaryAptToRent.get(temp.getID()) == null) {
+
+                    temp.setType1(TypeOfRentable.ROOM);
+                    List<rentableBean> roomInApt = rentableJDBC.getInstance("user").roomListByApartment(temp);
+                    List<roomToRent> trueRoomInApt = new LinkedList<>();
+
+                    for (rentableBean roomBean : roomInApt) {
+                        trueRoomInApt.add(dictionaryRoomToRent.get(roomBean.getID()));
+                    }
+                    aptToRent apt = new aptToRent(temp.getAptID(), temp.getName(), temp.getDescription(), temp.getImage(), trueRoomInApt);
+                    dictionaryAptToRent.put(temp.getID(), apt);
+                }
             }
         }
-    }
         return rentableList;
-
     }
 }

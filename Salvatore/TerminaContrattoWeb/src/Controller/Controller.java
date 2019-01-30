@@ -2,6 +2,7 @@
 package Controller;
 
 import Bean.contractBean;
+import Bean.notificationBean;
 import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.*;
@@ -137,5 +138,13 @@ public class Controller {
             throw new dbConnection("");
         }
 
+    }
+
+    public void checkPaymentClaimDateScadenza(){
+        try {
+            paymentClaimJDBC.getInstance("user").checkPaymentClaimDate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

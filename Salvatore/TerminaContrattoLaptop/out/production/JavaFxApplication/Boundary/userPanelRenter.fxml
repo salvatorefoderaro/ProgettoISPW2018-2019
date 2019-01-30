@@ -17,10 +17,12 @@
     <children>
     <MenuBar style="-fx-background-color: #343a40; -fx-text-fill: red;" VBox.vgrow="NEVER">
          <menus>
-            <Menu mnemonicParsing="false" text="FERSA">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Login" onAction="#login"/>
-               </items></Menu>
+             <Menu mnemonicParsing="false" text="FERSA">
+                 <items>
+                     <MenuItem mnemonicParsing="false" text="Login" onAction="#login"/>
+                     <MenuItem mnemonicParsing="false" text="Visualizza segnalazioni pagamento" onAction="#seePaymentClaim" />
+                     <MenuItem mnemonicParsing="false" text="Inoltra segnalazione pagamento" onAction="#createPaymentClaim" />
+                 </items></Menu>
          </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">

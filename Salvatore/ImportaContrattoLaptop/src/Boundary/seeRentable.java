@@ -2,10 +2,14 @@ package Boundary;
 
 import Bean.rentableBean;
 import Bean.renterBean;
+import Bean.userBean;
 import Control.controller;
+
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;
@@ -23,7 +27,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class seeRentable {
@@ -32,10 +35,9 @@ public class seeRentable {
     @FXML ScrollPane scrollPane;
     private List<rentableBean> test;
     private controller parentController;
-    private renterBean loggedRenter;
-    private rentableBean selectedRentable;
+    private userBean loggedRenter;
 
-    public void initialize(renterBean loggedRenter, controller parentController) throws FileNotFoundException{
+    public void initialize(userBean loggedRenter, controller parentController) throws FileNotFoundException{
 
         this.parentController = parentController;
         this.loggedRenter = loggedRenter;
@@ -57,37 +59,12 @@ public class seeRentable {
             scrollPane.setStyle("-fx-background-color:transparent;");
             for (int i = 0; i < test.size(); i++) {
 
-                Label fakeBeanID = new Label();
-                fakeBeanID.setText(Integer.toString(test.get(i).getID()));
-
-                Label fakeBeanAptID = new Label();
-                fakeBeanID.setText(Integer.toString(test.get(i).getAptID()));
-
-                Label fakeBeanRoomID = new Label();
-                fakeBeanID.setText(Integer.toString(test.get(i).getRoomID()));
-
-                Label fakeBeanBedID = new Label();
-                fakeBeanID.setText(Integer.toString(test.get(i).getBedID()));
-
-                Label fakeBeanName = new Label();
-                fakeBeanName.setText(test.get(i).getName());
-
-                Label fakeBeanDescription = new Label();
-                fakeBeanDescription.setText(test.get(i).getDescription());
-
-                Label fakeBeanImage = new Label();
-                fakeBeanImage.setText(test.get(i).getImage());
-
-                Label fakeBeanType = new Label();
-                fakeBeanType.setText(test.get(i).getType());
-
                 ImageView photo = new ImageView();
                 photo.setFitHeight(125.0);
                 photo.setFitWidth(125.0);
                 photo.setPickOnBounds(true);
                 photo.setPreserveRatio(true);
-                Image toShow = new Image(getClass().getClassLoader().getResourceAsStream(test.get(i).getImage()));
-                photo.setImage(toShow);
+                photo.setImage(SwingFXUtils.toFXImage((BufferedImage) test.get(i).getImage1(), null));
                 table.add(photo, 0, i);
 
                 Label rentableInfo = new Label();
@@ -112,7 +89,7 @@ public class seeRentable {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("importContract.fxml"));
                             Parent root = loader.load();
                             importContract controller = loader.<importContract>getController();
-
+                            System.out.println(test.get(finalI).getType());
                             controller.initialize(test.get(finalI), parentController, loggedRenter);
 
                             Scene scene = new Scene(root, 704, 437);
@@ -189,23 +166,28 @@ public class seeRentable {
                     close.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            Stage st = (Stage) scrollPane.getScene().getWindow();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("loginController.fxml"));
-                            Parent root = null;
-                            try {
-                                root = loader.load();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            Scene scene = new Scene(root, 704, 437);
-                            st.setScene(scene);
-                            st.setTitle("My App");
-                            st.show();
+                            backToLogin();
                         }
                     });
                 }
             }
         });
+    }
+
+    @FXML
+    public void backToLogin(){
+        Stage st = (Stage) scrollPane.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginController.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(root, 704, 437);
+        st.setScene(scene);
+        st.setTitle("My App");
+        st.show();
     }
 }

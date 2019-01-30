@@ -39,6 +39,7 @@ public class databaseConnection {
             Class.forName("com.mysql.jdbc.Driver");
             if(dbConnectionAdmin == null)
                 dbConnectionAdmin = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=testAdmin&password=Foderaro95");
+                dbConnectionAdmin.setAutoCommit(false);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
 
