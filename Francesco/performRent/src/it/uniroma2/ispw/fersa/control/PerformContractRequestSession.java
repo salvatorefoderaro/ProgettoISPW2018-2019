@@ -105,7 +105,7 @@ public class PerformContractRequestSession {
         return new ResponseBean(ResponseEnum.OK, "Servizi inseriti correttamente");
     }
 
-    public ContractRequestBean getSummary() {
+    public ContractRequestInfoBean getSummary() {
 
         List<Service> services = this.contractRequest.getServices();
 
@@ -114,9 +114,26 @@ public class PerformContractRequestSession {
         services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
                 service.getDescriprion(), service.getPrice())));
 
-        return new ContractRequestBean(this.contractRequest.getContractName(), this.contractRequest.getRentableName(),
+        return new ContractRequestInfoBean(this.contractRequest.getContractName(), this.contractRequest.getRentableName(),
                 this.contractRequest.getStartDate(), this.contractRequest.getEndDate(), this.contractRequest.getRentablePrice(),
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal());
+    }
+
+    public ResponseBean sendRequest() {
+        List<Service> services = this.contractRequest.getServices();
+
+        int length = services.size();
+
+        int serviceIds[] =  new int[length];
+
+        for (int i = 0; i < length; i++) {
+            serviceIds[i] = services.get(i).getId();
+        }
+        ContractRequestBean contractRequestBean = new ContractRequestBean(this.contractRequest.getRenterNickname(), this.contractRequest.getTenantNickname(), this.rentalFeaturesId, this.contractRequest.getContractId(), this.contractRequest.getStartDate(), this.contractRequest.getEndDate(), this.contractRequest.getRentablePrice(), this.contractRequest.getDeposit(), serviceIds);
+
+        ContractRequestDAO.getInstance().insertNewRequest(contractRequestBean);
+
+        return new ResponseBean(ResponseEnum.OK, "La richiesta è stata inserita correttamene!");
     }
 
 

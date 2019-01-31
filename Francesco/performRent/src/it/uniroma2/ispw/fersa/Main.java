@@ -22,7 +22,7 @@ public class Main extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Contract Request Form");
 
-        PerformContractRequestSession control = new PerformContractRequestSession("francesco", 1, 1 );
+        PerformContractRequestSession control = new PerformContractRequestSession("carlo", 1, 1 );
 
         PerformContractRequestBoundary boundary = loader.getController();
         boundary.setModel(control);

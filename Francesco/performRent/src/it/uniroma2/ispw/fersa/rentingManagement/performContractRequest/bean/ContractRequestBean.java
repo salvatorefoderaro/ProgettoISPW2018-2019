@@ -1,36 +1,45 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class ContractRequestBean {
-
-    private String contractName;
-    private String rentableName;
+    private String renterNickname;
+    private String tenantNickname;
+    private int rentalFeatureId;
+    private int contractTypeId;
     private LocalDate startDate;
     private LocalDate endDate;
     private int rentablePrice;
     private int deposit;
-    private List<ServiceBean> services;
-    private int total;
+    private int serviceIds[];
 
-    public ContractRequestBean(String contractName, String rentableName, LocalDate startDate, LocalDate endDate, int rentablePrice, int deposit, List<ServiceBean> services, int total) {
-        this.contractName = contractName;
-        this.rentableName = rentableName;
+
+    public ContractRequestBean(String renterNickname, String tenantNickname, int rentalFeatureId,int contractTypeId, LocalDate startDate, LocalDate endDate, int rentablePrice, int deposit, int serviceIds[]){
+        this.renterNickname = renterNickname;
+        this.tenantNickname = tenantNickname;
+        this.rentalFeatureId = rentalFeatureId;
+        this.contractTypeId = contractTypeId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.rentablePrice = rentablePrice;
         this.deposit = deposit;
-        this.services = services;
-        this.total = total;
+        this.serviceIds = serviceIds;
     }
 
-    public String getContractName() {
-        return contractName;
+    public String getRenterNickname() {
+        return renterNickname;
     }
 
-    public String getRentableName() {
-        return rentableName;
+    public String getTenantNickname() {
+        return tenantNickname;
+    }
+
+    public int getRentalFeatureId() {
+        return rentalFeatureId;
+    }
+
+    public int getContractTypeId() {
+        return contractTypeId;
     }
 
     public LocalDate getStartDate() {
@@ -49,11 +58,7 @@ public class ContractRequestBean {
         return deposit;
     }
 
-    public List<ServiceBean> getServices() {
-        return services;
-    }
-
-    public int getTotal() {
-        return this.total;
+    public int[] getServiceIds() {
+        return serviceIds;
     }
 }

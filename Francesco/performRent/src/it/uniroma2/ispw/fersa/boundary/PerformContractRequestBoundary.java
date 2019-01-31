@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,13 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -256,9 +253,21 @@ public class PerformContractRequestBoundary {
         }
     }
 
+    public void sendRequest(){
+
+        ResponseBean responseBean = this.control.sendRequest();
+
+        showPopUp(responseBean.getMessage());
+
+        System.exit(0);
+
+
+
+    }
+
     public void confirmRequest() {
 
-        ContractRequestBean contractRequestBean = this.control.getSummary();
+        ContractRequestInfoBean contractRequestInfoBean = this.control.getSummary();
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -268,9 +277,11 @@ public class PerformContractRequestBoundary {
             ContractSummary contractSummary = loader.getController();
 
             Stage stage = new Stage();
+            stage.setTitle("Riepilogo richiesta");
 
-            contractSummary.initializeText(contractRequestBean);
+            contractSummary.initializeText(contractRequestInfoBean);
             contractSummary.setStage(stage);
+            contractSummary.setPerformContractRequestBoundary(this);
 
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setScene(new Scene(root));

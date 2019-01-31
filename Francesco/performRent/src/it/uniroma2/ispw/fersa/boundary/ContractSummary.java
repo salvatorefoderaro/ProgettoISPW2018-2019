@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.boundary;
 
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ContractRequestBean;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ContractRequestInfoBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -17,27 +17,33 @@ public class ContractSummary {
 
     private Stage stage;
 
+    private PerformContractRequestBoundary performContractRequestBoundary;
+
     public void initialize(){
         this.contractSummary.setWrapText(true);
     }
 
-    public void initializeText(ContractRequestBean contractRequestBean) {
-        this.title.setText(contractRequestBean.getRentableName());
+    public void initializeText(ContractRequestInfoBean contractRequestInfoBean) {
+        this.title.setText(contractRequestInfoBean.getRentableName());
 
-        this.contractSummary.appendText("Tipologia contratto: " + contractRequestBean.getContractName() + '\n');
-        this.contractSummary.appendText("Data di inizio: " + contractRequestBean.getStartDate() + '\n');
-        this.contractSummary.appendText("Data di conclusione: " + contractRequestBean.getEndDate() + '\n');
-        this.contractSummary.appendText("Prezzo di affitto: " + contractRequestBean.getRentablePrice() + "€ al mese\n");
-        this.contractSummary.appendText("Deposito cauzionale: "+ contractRequestBean.getDeposit() + "€\n");
+        this.contractSummary.appendText("Tipologia contratto: " + contractRequestInfoBean.getContractName() + '\n');
+        this.contractSummary.appendText("Data di inizio: " + contractRequestInfoBean.getStartDate() + '\n');
+        this.contractSummary.appendText("Data di conclusione: " + contractRequestInfoBean.getEndDate() + '\n');
+        this.contractSummary.appendText("Prezzo di affitto: " + contractRequestInfoBean.getRentablePrice() + "€ al mese\n");
+        this.contractSummary.appendText("Deposito cauzionale: "+ contractRequestInfoBean.getDeposit() + "€\n");
         this.contractSummary.appendText("Servizi aggiuntivi: ");
 
-        if (contractRequestBean.getServices().size() == 0) this.contractSummary.appendText("nessun servizio selezionato\n");
+        if (contractRequestInfoBean.getServices().size() == 0) this.contractSummary.appendText("nessun servizio selezionato\n");
         else {
             this.contractSummary.appendText("\n");
-            contractRequestBean.getServices().forEach(serviceBean ->
+            contractRequestInfoBean.getServices().forEach(serviceBean ->
                     this.contractSummary.appendText("\t- " + serviceBean.getName() + ": " + serviceBean.getPrice() + "€\n"));
         }
-        this.contractSummary.appendText("Totale: " + contractRequestBean.getTotal() + '€');
+        this.contractSummary.appendText("Totale: " + contractRequestInfoBean.getTotal() + '€');
+    }
+
+    public void setPerformContractRequestBoundary (PerformContractRequestBoundary performContractRequestBoundary) {
+        this.performContractRequestBoundary = performContractRequestBoundary;
     }
 
     public void setStage(Stage stage) {
@@ -49,7 +55,7 @@ public class ContractSummary {
     }
 
     public void sendRequest(){
-        if (this.stage != null) stage.close();
+        this.performContractRequestBoundary.sendRequest();
     }
 
 

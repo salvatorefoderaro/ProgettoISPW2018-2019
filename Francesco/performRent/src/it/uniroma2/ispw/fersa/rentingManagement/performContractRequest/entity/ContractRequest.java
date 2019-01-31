@@ -47,6 +47,14 @@ public class ContractRequest {
         return this.rentable.getName();
     }
 
+    public String getRenterNickname() {
+        return renterNickname;
+    }
+
+    public String getTenantNickname() {
+        return tenantNickname;
+    }
+
     public LocalDate getStartDate() {
         return this.intervalDate.getBeginDate();
     }
@@ -65,6 +73,10 @@ public class ContractRequest {
 
     public List<Service> getServices() {
         return services;
+    }
+
+    public int getContractId() {
+        return this.contractType.getContractTypeId();
     }
 
     public int getTotal() {
