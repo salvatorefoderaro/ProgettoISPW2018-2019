@@ -39,7 +39,7 @@ public class PerformContractRequestSession {
     public RentableInfoBean makeNewRequest() {
         this.rentalFeatures = RentalFeaturesDAO.getInstance().getRentalFeatures(this.rentalFeaturesId);
 
-        List<String> intervalDates = new ArrayList<String>();
+        List<String> intervalDates = new ArrayList<>();
 
         rentalFeatures.getAvaibility().forEach(intervalDate -> intervalDates.add(intervalDate.toString()));
 
@@ -63,7 +63,7 @@ public class PerformContractRequestSession {
 
     public List<ServiceBean> getAllServices(){
         List<Service> services = ServiceDAO.getInstance().getAllServices(this.apartmentId);
-        List<ServiceBean> serviceBeans = new ArrayList<ServiceBean>();
+        List<ServiceBean> serviceBeans = new ArrayList<>();
         services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId() ,service.getName(), service.getDescriprion(), service.getPrice())));
         return serviceBeans;
     }
@@ -85,7 +85,7 @@ public class PerformContractRequestSession {
         }
 
         try {
-            this.contractRequest.insertPeriod(start, end);
+            this.contractRequest.insertPeriod(new IntervalDate(start, end));
         } catch (PeriodException e) {
             return new ResponseBean(ResponseEnum.ERROR, e.toString());
         }
@@ -103,6 +103,20 @@ public class PerformContractRequestSession {
         this.contractRequest.setServices(services);
 
         return new ResponseBean(ResponseEnum.OK, "Servizi inseriti correttamente");
+    }
+
+    public ContractRequestBean getSummary() {
+
+        List<Service> services = this.contractRequest.getServices();
+
+        List<ServiceBean> serviceBeans = new ArrayList<>();
+
+        services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
+                service.getDescriprion(), service.getPrice())));
+
+        return new ContractRequestBean(this.contractRequest.getContractName(), this.contractRequest.getRentableName(),
+                this.contractRequest.getStartDate(), this.contractRequest.getEndDate(), this.contractRequest.getRentablePrice(),
+                this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal());
     }
 
 

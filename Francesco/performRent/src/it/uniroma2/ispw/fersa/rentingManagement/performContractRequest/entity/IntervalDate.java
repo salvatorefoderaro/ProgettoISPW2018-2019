@@ -21,8 +21,8 @@ public class IntervalDate {
         return endDate;
     }
 
-    public int getNumMonths() {
-        return (int) Period.between(this.beginDate, this.endDate.plusDays(1)).toTotalMonths(); //Period.between(begin(inclusive), end(exclusive))
+    public double getNumMonths() {
+        return  Period.between(this.beginDate, this.endDate.plusDays(1)).toTotalMonths(); //Period.between(begin(inclusive), end(exclusive))
     }
 
     @Override

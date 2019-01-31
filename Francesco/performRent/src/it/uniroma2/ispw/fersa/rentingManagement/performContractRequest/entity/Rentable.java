@@ -1,7 +1,5 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity;
 
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Rentable {

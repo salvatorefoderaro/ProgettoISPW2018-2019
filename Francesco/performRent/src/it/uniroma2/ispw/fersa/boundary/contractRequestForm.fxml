@@ -38,7 +38,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button mnemonicParsing="false" text="Submit Contract Request" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#confirmRequest" text="Submit Contract Request" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>

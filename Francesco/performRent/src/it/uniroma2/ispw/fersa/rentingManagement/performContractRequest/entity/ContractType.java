@@ -11,7 +11,7 @@ public class ContractType {
     private int maxDuration;
 
     public ContractType(int contractTypeId, String name, String description, int minDuration, int maxDuration) {
-        this.contractTypeId = this.contractTypeId;
+        this.contractTypeId = contractTypeId;
         this.name = name;
         this.description = description;
         this.minDuration = minDuration;
@@ -38,8 +38,8 @@ public class ContractType {
         return maxDuration;
     }
 
-    public boolean checkPeriod(LocalDate start, LocalDate end) {
-        int period = (int) Period.between(start, end.plusDays(1)).toTotalMonths();
+    public boolean checkPeriod(IntervalDate intervalDate) {
+        int period = (int) intervalDate.getNumMonths();
 
         return period < minDuration | period > maxDuration;
     }

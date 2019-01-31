@@ -1,10 +1,7 @@
 package it.uniroma2.ispw.fersa.boundary;
 
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ContractTypeBean;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.RentableInfoBean;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ResponseBean;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ServiceBean;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ResponseEnum;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,7 +58,7 @@ public class PerformContractRequestBoundary {
     private DatePicker endDate;
 
     @FXML
-    private List<CheckBox> serviceCheckBoxes = new ArrayList<CheckBox>();
+    private List<CheckBox> serviceCheckBoxes = new ArrayList<>();
 
     private PerformContractRequestSession control;
 
@@ -215,7 +212,7 @@ public class PerformContractRequestBoundary {
 
     }
 
-    public void insertServices() {
+    private void insertServices() {
         List<ServiceBean> serviceBeans = new ArrayList<>();
 
         for (int i = 0; i < this.serviceCheckBoxes.size(); i++) {
@@ -231,7 +228,7 @@ public class PerformContractRequestBoundary {
         }
     }
 
-    public void showPopUp(String messageText) {
+    private void showPopUp(String messageText) {
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -257,9 +254,36 @@ public class PerformContractRequestBoundary {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void confirmRequest() {
 
+        ContractRequestBean contractRequestBean = this.control.getSummary();
 
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("contractSummary.fxml"));
+            Parent root = loader.load();
+
+            ContractSummary contractSummary = loader.getController();
+
+            Stage stage = new Stage();
+
+            contractSummary.initializeText(contractRequestBean);
+            contractSummary.setStage(stage);
+
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setScene(new Scene(root));
+
+            window.setDisable(true);
+
+            stage.showAndWait();
+
+            window.setDisable(false);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
