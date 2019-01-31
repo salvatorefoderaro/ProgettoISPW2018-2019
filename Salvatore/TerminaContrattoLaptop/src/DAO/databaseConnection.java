@@ -26,7 +26,7 @@ public class databaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             if (dbConnectionUser == null)
-                dbConnectionUser = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=root&password=");
+                dbConnectionUser = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class databaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             if (dbConnectionAdmin == null)
-                dbConnectionAdmin = DriverManager.getConnection("jdbc:mysql://localhost:8000/FERSA?user=testAdmin&password=Foderaro95");
+                dbConnectionAdmin = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
 

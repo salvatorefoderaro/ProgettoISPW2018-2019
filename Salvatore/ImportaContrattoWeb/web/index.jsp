@@ -11,9 +11,6 @@
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 
 <%
-
-
-
     if (request.getParameter("login") != null) {
 
         userBean login = new userBean();
@@ -31,6 +28,7 @@
             sessionBean.setController(parentController);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error");
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("databaseConnectionError", "");
@@ -38,7 +36,7 @@
 
 
         } catch (Exceptions.emptyResult emptyResult) {
-
+            System.out.println("Error");
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("emptyResult", "");

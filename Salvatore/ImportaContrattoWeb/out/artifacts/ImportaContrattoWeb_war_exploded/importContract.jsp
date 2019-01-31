@@ -66,11 +66,37 @@
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
+
+        toRent.setTenantnNickname(request.getParameter("tenantNickname"));
+        toRent.setEndDate(request.getParameter("endDate"));
+        toRent.setStartDate(request.getParameter("startDate"));
+
         contractBean contract = null;
     if (tenant != null) {
-        contract = new contractBean(0, false, LocalDate.parse(toRent.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(toRent.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), null, tenant.getNickname(), sessionBean.getNickname(), tenant.getCF(), sessionBean.getCF(), Integer.parseInt(request.getParameter("rataPiuServizi")), Integer.parseInt(request.getParameter("prezzoRata")), 0, false, null);
-    }
-    try {
+        contract = new contractBean(
+                0,
+                toRent.getID(),
+                false,
+                LocalDate.parse(request.getParameter("startDate"), DateTimeFormatter.ofPattern ("yyyy-MM-dd" )),
+                LocalDate.parse(request.getParameter("endDate"), DateTimeFormatter.ofPattern ("yyyy-MM-dd" )),
+                null,
+                request.getParameter("tenantNickname"),
+                sessionBean.getNickname(),
+                request.getParameter("locatoreNome"),
+                request.getParameter("locatarioNome"),
+                request.getParameter("locatarioCF"),
+                request.getParameter("locatoreCF"),
+                request.getParameter("locatoreIndirizzo"),
+                request.getParameter("locatarioIndirizzo"),
+                request.getParameter("locatoreCognome"),
+                request.getParameter("locatarioCognome"),
+                0,
+                Integer.parseInt(request.getParameter("contractPrezzo")),
+                0,
+                false,
+                null,
+                toRent.getType());
+        } try {
 
         sessionBean.getController().createContract(contract);
 
@@ -85,7 +111,6 @@
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
-
     }
 
 %>
@@ -211,29 +236,55 @@
                 <input name="endDate" placeholder="Data fine contratto.." type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ></i></span>
             </div>    </div>
         <div class="col .text-center">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Nome utente</span>
-                </div>
-                <input name="tenantNickname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-            </div>    </div>
+                <input placeholder="Nickname locatario" name="tenantNickname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+       </div>
     </div>
+
+    <br>
 
     <div class="row">
         <div class="col .text-center">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Prezzo rata + servizi</span>
-                </div>
-                <input name ="rataPiuServizi"type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-            </div>    </div>
+            <input type="text" class="form-control" id="usr" placeholder="Nome locatario" required>
+    </div>
         <div class="col .text-center" >
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Prezzo netto rata</span>
-                </div>
-                <input type="number" name="prezzoRata" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-            </div>    </div>
+            <input type="text" class="form-control" id="usr" placeholder="Cognome locatario" required>
+         </div>
+        <div class="col .text-center" >
+            <input type="text" class="form-control" id="usr" placeholder="Codice fiscale locatario" required>
+        </div>
+        <div class="col .text-center" >
+            <input type="text" class="form-control" id="usr" placeholder="Indirizzo locatario" required>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col .text-center">
+            <input type="text" class="form-control" id="usr" placeholder="Nome locatore" required>
+        </div>
+        <div class="col .text-center" >
+            <input type="text" class="form-control" id="usr" placeholder="Cognome locatore" required>
+        </div>
+        <div class="col .text-center" >
+            <input type="text" class="form-control" id="usr" placeholder="Codice fiscale locatore" required>
+        </div>
+        <div class="col .text-center" >
+            <input type="text" class="form-control" id="usr" placeholder="Indirizzo locatore" required>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col .text-center">
+        </div>
+        <div class="col .text-center" >
+            <input type="number" class="form-control" id="usr" placeholder="Prezzo" required>
+        </div>
+        <div class="col .text-center" >
+            <input type="number" class="form-control" id="usr" placeholder="Deposito" required>
+        </div>
+        <div class="col .text-center" >
+        </div>
     </div>
 
     <input type="hidden" name="rentableID" value="<%= request.getParameter("rentableID") %>" />
@@ -242,7 +293,7 @@
     <input type="hidden" name="rentableImage" value="<%= request.getParameter("rentableImage") %>" />
     <input type="hidden" name="rentableType" value="<%= request.getParameter("rentableType") %>" />
 
-
+    <br>
     <div class="row">
         <div class="col .text-center" >
             <button type="sumbit" name="trueImportContract" class="btn btn-primary btn-lg">Importa contratto</button>

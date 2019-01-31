@@ -1,24 +1,13 @@
 package DAO;
 
 import Bean.rentableBean;
-import Bean.renterBean;
 import Bean.userBean;
-import Entity.Renter;
-import Entity.Tenant;
 import Entity.TypeOfUser;
 import Exceptions.emptyResult;
-
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
-import Entity.TypeOfRentable;
-
-import javax.imageio.ImageIO;
 
 public class userJDBC {
 
@@ -40,7 +29,7 @@ public class userJDBC {
     }
 
     public userBean getLocatore(userBean sessionBean) throws SQLException, emptyResult {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from renter WHERE renterNickname = ? and renterPassword = ?");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from RentingUser WHERE nickname = ? and password = SHA2(?, 256) and type ='RENTER'");
         preparedStatement.setString(1, sessionBean.getNickname());
         preparedStatement.setString(2, sessionBean.getPassword());
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -51,9 +40,8 @@ public class userJDBC {
         } else {
             resultSet.next();
             userBean user = new userBean();
-            user.setID(resultSet.getInt("renterID"));
-            user.setNickname(resultSet.getString("renterNickname"));
-            user.setCF(resultSet.getString("renterCF"));
+            user.setID(resultSet.getInt("id"));
+            user.setNickname(resultSet.getString("nickname"));
             user.setTypeUSer(TypeOfUser.RENTER);
             resultSet.close();
             preparedStatement.close();
@@ -62,7 +50,8 @@ public class userJDBC {
     }
 
     public userBean getLocatario(rentableBean bean) throws SQLException, emptyResult {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from tenant where tenantNickname = ?");
+        System.out.println(bean.getTenantNickname());
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from RentingUser where nickname = ? and type = 'TENANT'");
         preparedStatement.setString(1, bean.getTenantNickname());
         ResultSet resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
@@ -72,10 +61,9 @@ public class userJDBC {
         } else {
             resultSet.next();
             userBean tenant = new userBean();
-            tenant.setID(resultSet.getInt("tenantID"));
-            tenant.setNickname(resultSet.getString("tenantNickname"));
-            tenant.setClaimNumber(resultSet.getInt("tenantPaymanetClaimNumber"));
-            tenant.setCF(resultSet.getString("tenantCF"));
+            tenant.setID(resultSet.getInt("id"));
+            tenant.setNickname(resultSet.getString("nickname"));
+            tenant.setClaimNumber(resultSet.getInt("paymentClaim"));
             tenant.setTypeUSer(TypeOfUser.TENANT);
             resultSet.close();
             preparedStatement.close();

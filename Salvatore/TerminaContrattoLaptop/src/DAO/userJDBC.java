@@ -32,7 +32,7 @@ public class userJDBC implements userDAO {
     @Override
     public userSessionBean login(userSessionBean bean) throws SQLException, emptyResult {
 
-        PreparedStatement preparedStatement = this.connection.prepareStatement("Select * from ((SELECT renterID as ID, renterNickname as Nickname, renterPassword as Password, 0 AS PaymentClaim, renterCF as CF, 'renter' as tableName  FROM renter) UNION (SELECT tenantID as ID, tenantNickname as Nickname, tenantPassword as Password, tenantPaymentClaimNumber as PaymentClaim, tenantCF as CF, 'tenant' as tableName FROM tenant)) AS loginTable where Nickname=? and Password=?");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from RentingUser WHERE nickname = ? and password = SHA2(?, 256)");
         preparedStatement.setString(1, bean.getNickname());
         preparedStatement.setString(2, bean.getPassword());
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -43,18 +43,17 @@ public class userJDBC implements userDAO {
         } else {
             userSessionBean loggedUser = null;
             while(resultSet.next()){
-                loggedUser = new userSessionBean(resultSet.getString("Nickname"), resultSet.getInt("ID"), TypeOfUser.getType(resultSet.getString("tableName")), resultSet.getInt("paymentClaim"), "");
+                loggedUser = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), TypeOfUser.getType(resultSet.getString("type")), resultSet.getInt("paymentClaim"), "");
             }
             resultSet.close();
             preparedStatement.close();
             return loggedUser;
         }
-
     }
 
     @Override
     public void incrementaSollecitiPagamento(userSessionBean session)  throws SQLException{
-        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Locatario SET SollecitiPagamento = SollecitiPagamento + 1 WHERE IDLocatario = ?");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE RentingUser SET paymentClaim = paymentClaim + 1 WHERE id = ?");
         preparedStatement.setInt(1, session.getId());
         preparedStatement.executeUpdate();
         preparedStatement.close();
@@ -62,16 +61,15 @@ public class userJDBC implements userDAO {
 
     @Override
     public userSessionBean getTenant(userSessionBean session) throws SQLException {
-        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from tenant where tenantNickname = ?");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * from RentingUser where nickname = ?");
         preparedStatement.setString(1, session.getNickname());
         ResultSet resultSet = preparedStatement.executeQuery();
         userSessionBean tenant = null;
         while(resultSet.next()){
-            tenant = new userSessionBean(resultSet.getString("tenantNickname"), resultSet.getInt("tenantID"), TypeOfUser.TENANT, resultSet.getInt("tenantPaymentClaimNumber"), "");
+            tenant = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), TypeOfUser.TENANT, resultSet.getInt("paymentClaim"), "");
         }
         resultSet.close();
         preparedStatement.close();
-
         return tenant;
     }
 

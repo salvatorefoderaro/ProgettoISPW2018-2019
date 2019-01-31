@@ -4,6 +4,7 @@ import Bean.contractBean;
 import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.paymentClaimJDBC;
+import DAO.userJDBC;
 import Entity.TypeOfUser;
 import Exceptions.emptyResult;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +32,13 @@ public class testLogin {
     void testSegnalazioni() throws SQLException, emptyResult {
         TypeOfUser a = TypeOfUser.NOTLOGGED;
         System.out.println(TypeOfUser.getType(""));
+    }
+
+    @Test
+    @DisplayName("Test login new")
+    void testLoginNEw() throws SQLException, emptyResult {
+        userSessionBean testBean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, "giuseppe");
+        userJDBC.getInstance("admin").login(testBean);
     }
 
 }

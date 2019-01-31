@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import Entity.OptionalService;
+import Entity.TypeOfPayment;
 import Entity.TypeOfUser;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -29,15 +33,20 @@ public class importContract {
     
     @FXML private ImageView immagine;
     @FXML Label descrizione;
-    @FXML Label textLabel1;
-    @FXML Label textLabel2;
-    @FXML Label textLabel3;
     @FXML DatePicker dataInizio;
     @FXML DatePicker dataFine;
     @FXML Button bottone;
     @FXML TextField locatarioNickname;
-    @FXML TextField prezzoRata;
-    @FXML TextField rataPiuServizi;
+    @FXML TextField locatarioNome;
+    @FXML TextField locatarioCognome;
+    @FXML TextField locatarioCF;
+    @FXML TextField locatarioIndirizzo;
+    @FXML TextField locatoreNome;
+    @FXML TextField locatoreCognome;
+    @FXML TextField locatoreCF;
+    @FXML TextField locatoreIndirizzo;
+    @FXML TextField contractPrezzo;
+    @FXML TextField contractDeposito;
 
     private rentableBean theBean;
     private controller parentController;
@@ -94,16 +103,6 @@ public class importContract {
             popup("Inserire un nome valido per il nickname del locatario!", false);
             return;
         }
-
-        if (prezzoRata.getText().isEmpty()){
-            popup("Inserire un valore valido per la rata!", false);
-            return;
-        }
-
-        if (rataPiuServizi.getText().isEmpty()){
-            popup("Inserire un valore valido per la rata!!", false);
-            return;
-        }
         
         theBean.setStartDate(dataInizio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         theBean.setEndDate(dataFine.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -133,7 +132,11 @@ public class importContract {
             return;
         }
 
-        contractBean contract = new contractBean(0, false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(), loggedUser.getNickname(), tenant.getCF(), loggedUser.getCF(), Integer.parseInt(rataPiuServizi.getText()), Integer.parseInt(prezzoRata.getText()), 0, false, null);
+        contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
+                loggedUser.getNickname(), locatoreNome.getText(), locatarioNome.getText(),
+                locatarioCF.getText(), locatoreCF.getText(), locatoreIndirizzo.getText(),
+                locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false, null, theBean.getType(), Integer.parseInt(contractDeposito.getText()));
+
         try {
             parentController.createContract(contract);
         } catch (Exceptions.transactionError transactionError) {
@@ -144,7 +147,7 @@ public class importContract {
             return;
         }
 
-        popup("Inserimento effettuato correttamente!", true); // Devo ritornare al pannello utente, non al Login
+        popup("Inserimento effettuato correttamente!", true);
         return;
     }
     

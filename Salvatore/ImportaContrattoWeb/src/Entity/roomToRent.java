@@ -8,10 +8,6 @@ package Entity;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author root
- */
 public class roomToRent {
     private long aptID;
     private int roomID;

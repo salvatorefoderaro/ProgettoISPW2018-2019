@@ -1,10 +1,8 @@
 package DAO;
 
 import Bean.rentableBean;
-import Bean.renterBean;
 import Bean.userBean;
 import Exceptions.emptyResult;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import Entity.TypeOfRentable;
-
 import javax.imageio.ImageIO;
 
 public class rentableJDBC {
@@ -41,24 +37,23 @@ public class rentableJDBC {
         String query = "";
         System.out.println(bean.getStartDate() + " " + bean.getEndDate() + " " + bean.getID());
 
-        switch (bean.getType1()){
+        switch (bean.getType()){
             case APARTMENT:
-                query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE aptID = ? and CAST(? as Date) >= startAvaiability and endAvaiability >= CAST(? as Date) and type = 'apt'";
+
+                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE AptToRentId = ?) ";
                 break;
 
             case BED:
-                query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE bedID = ? and CAST(? as Date) >= startAvaiability and endAvaiability >= CAST(? as Date) and type = 'bed'";
+                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE BedToRentId = ?) ";
                 break;
 
             case ROOM:
-                query = "SELECT startAvaiability, endAvaiability FROM avaiabilityCalendar WHERE roomID = ? and CAST(? as Date) >= startAvaiability and endAvaiability >= CAST(? as Date) and type = 'room'";
+                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE RoomToRentId = ?) ";
                 break;
         }
 
         PreparedStatement preparedStatement = databaseConnection.getConnectionUser().prepareStatement(query);
         preparedStatement.setInt(1, bean.getID());
-        preparedStatement.setString(2, bean.getStartDate());
-        preparedStatement.setString(3, bean.getEndDate());
 
         ResultSet resultSet = preparedStatement.executeQuery();
         if (!resultSet.isBeforeFirst()){
@@ -68,8 +63,8 @@ public class rentableJDBC {
         }
 
         resultSet.next();
-        resultBean.setNewStartAvaiabilityDate(resultSet.getString("startAvaiability"));
-        resultBean.setNewEndAvaiabilityDate(resultSet.getString("endAvaiability"));
+        resultBean.setNewStartAvaiabilityDate(resultSet.getString("startDate"));
+        resultBean.setNewEndAvaiabilityDate(resultSet.getString("endDate"));
         resultSet.close();
         preparedStatement.close();
         return resultBean;
@@ -81,21 +76,21 @@ public class rentableJDBC {
 
         switch (bean.getType1()){
             case APARTMENT:
-                query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'apt');";
-                query2 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (?, NULL, NULL,?,?, 'apt');";
-                query3 = "DELETE FROM avaiabilityCalendar WHERE aptID = ? and startAvaiability = ? and endAvaiability = ? and type = 'apt'";
+                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
+                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
+                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE aptToRentId = ?)";
                 break;
 
             case BED:
-                query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (NULL, NULL, ?,?,?, 'bed');";
-                query2 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (NULL, NULL, ?,?,?, 'bed');";
-                query3 = "DELETE FROM avaiabilityCalendar WHERE bedID = ? and startAvaiability = ? and endAvaiability = ? and type = 'bed'";
+                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE bedToRentId = ?), ?, ?);";
+                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE bedToRentId = ?), ?, ?);";
+                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE bedToRentId = ?)";
                 break;
 
             case ROOM:
-                query1 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (NULL, ?, NULL,?,?, 'room');";
-                query2 ="INSERT INTO avaiabilityCalendar (`aptID`, `roomID`, `bedID`, `startAvaiability`, `endAvaiability`, `type`) VALUES (NULL, ?, NULL,?,?, 'room');";
-                query3 = "DELETE FROM avaiabilityCalendar WHERE roomID = ? and startAvaiability = ? and endAvaiability = ? and type = 'room'";
+                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE roomToRentId = ?), ?, ?);";
+                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE roomToRentId = ?), ?, ?);";
+                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE roomToRentId = ?)";
                 break;
         }
 
@@ -134,15 +129,15 @@ public class rentableJDBC {
 
         switch (renter.getTypeRequest()){
             case ROOM:
-                query = "select * from roomToRent where renterNickname = ? and ID in (Select roomID from avaiabilityCalendar)";
+                query = "SELECT Room.id, Room.roomId, Room.name, Room.description, Room.image FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
 
             case BED:
-                query = "select * from bedToRent where renterNickname = ? and ID in (Select bedID from avaiabilityCalendar)";
+                query = "SELECT Bed.id, Bed.roomId, Bed.name, Bed.description, Bed.image FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
 
             case APARTMENT:
-                query = "select * from aptToRent where renterNickname = ? and ID in (Select aptID from avaiabilityCalendar)";
+                query = "SELECT Apt.id, Apt.roomId, Apt.name, Apt.description, Apt.image FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
         }
 
@@ -153,19 +148,19 @@ public class rentableJDBC {
 
             rentableBean rentable = new rentableBean();
 
-            rentable.setID(resultSet.getInt("ID"));
+            rentable.setID(resultSet.getInt("id"));
 
             switch (renter.getTypeRequest()){
                 case ROOM:
-                    rentable.setRoomID(resultSet.getInt("ID"));
+                    rentable.setRoomID(resultSet.getInt("id"));
                     break;
 
                 case BED:
-                    rentable.setBedID(resultSet.getInt("ID"));
+                    rentable.setBedID(resultSet.getInt("id"));
                     break;
 
                 case APARTMENT:
-                    rentable.setAptID(resultSet.getInt("ID"));
+                    rentable.setAptID(resultSet.getInt("id"));
                     break;
             }
 
@@ -190,15 +185,15 @@ public class rentableJDBC {
 
         List<rentableBean> bedListRoom = new LinkedList<>();
 
-        String query = "select * from bedToRent where roomID = ?";
+        String query = "select id, roomId, name, description, image from BedToRent where roomId = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, Integer.toString(bean.getRoomID()));
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
             rentableBean rentable = new rentableBean();
-            rentable.setID(resultSet.getInt("ID"));
-            rentable.setRoomID(resultSet.getInt(("roomID")));
+            rentable.setID(resultSet.getInt("id"));
+            rentable.setRoomID(resultSet.getInt(("roomId")));
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));
@@ -215,16 +210,16 @@ public class rentableJDBC {
 
         List<rentableBean> roomListApartment = new LinkedList<>();
 
-        String query = "select * from roomToRent where apartmentID = ?";
+        String query = "select * from RoomToRent where aptId = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, bean.getAptID());
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
             rentableBean rentable = new rentableBean();
-            rentable.setID(resultSet.getInt("ID"));
-            rentable.setRoomID(resultSet.getInt("ID"));
-            rentable.setAptID(resultSet.getInt(("apartmentID")));
+            rentable.setID(resultSet.getInt("id"));
+            rentable.setRoomID(resultSet.getInt("id"));
+            rentable.setAptID(resultSet.getInt(("aptId")));
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));

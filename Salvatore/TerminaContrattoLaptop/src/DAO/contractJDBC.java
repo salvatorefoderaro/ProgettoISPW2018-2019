@@ -42,7 +42,7 @@ public class contractJDBC implements contractDAO {
     public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult {
 
         List<contractBean> listBean = new LinkedList<>();
-        String query = "select * from ActiveContract where renterNickname = ? and reported = 0";
+        String query = "select contractID, tenantNickname, renterNickname from Contract where renterNickname = ? and claimReported = 0";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getNickname());
 
@@ -55,7 +55,7 @@ public class contractJDBC implements contractDAO {
         } else {
             while(resultSet.next()){
                 contractBean bean = new contractBean();
-                bean.setContractId(resultSet.getInt("contractId"));
+                bean.setContractId(resultSet.getInt("contractID"));
                 bean.setRenterNickname(resultSet.getString("renterNickname"));
                 bean.setTenantNickname(resultSet.getString("tenantNickname"));
                 listBean.add(bean);
@@ -68,14 +68,14 @@ public class contractJDBC implements contractDAO {
     
     @Override
     public contractBean getContract(contractBean bean)  throws SQLException{
-                String query = "SELECT * from ActiveContract where contractId = ? and reported = 0";
+        String query = "select tenantNickname, renterNickname, state from Contract where contractID = ? and claimReported = 0";
                 PreparedStatement preparedStatement = this.connection.prepareStatement(query);
                 preparedStatement.setString(1, Integer.toString(bean.getContractId()));
                 ResultSet resultSet = preparedStatement.executeQuery();
                 contractBean contract = new contractBean();
                 while(resultSet.next()){
-                            contract.setContractId(resultSet.getInt("contractId"));
-                            contract.setContractState(resultSet.getInt("contractState"));
+                            contract.setContractId(bean.getContractId());
+                            contract.setContractState(resultSet.getInt("state"));
                             contract.setRenterNickname(resultSet.getString("renterNickname"));
                             contract.setTenantNickname(resultSet.getString("tenantNickname"));
 
@@ -92,7 +92,7 @@ public class contractJDBC implements contractDAO {
             preparedStatement.executeUpdate();
             preparedStatement.close();
             
-            PreparedStatement preparedStatement1 = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 3 WHERE contractId = ?");
+            PreparedStatement preparedStatement1 = this.connection.prepareStatement("UPDATE PaymentClaim SET claimState = 3 WHERE contractID = ?");
             preparedStatement1.setInt(1,  bean.getContractId());
             preparedStatement1.executeUpdate();
             preparedStatement1.close();
@@ -101,7 +101,7 @@ public class contractJDBC implements contractDAO {
     
     @Override
     public void setContrattoSegnalato(contractBean bean)  throws SQLException{
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE ActiveContract SET reported = 1 WHERE contractId = ?");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE Contract SET claimReported = 1 WHERE contractId = ?");
             preparedStatement.setInt(1, bean.getContractId());
             preparedStatement.executeUpdate();
             preparedStatement.close();

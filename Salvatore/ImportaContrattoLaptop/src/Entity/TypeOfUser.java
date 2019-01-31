@@ -1,8 +1,8 @@
 package Entity;
 
 public enum TypeOfUser {
-    RENTER ("renter"),
-    TENANT ("tenant"),
+    RENTER ("RENTER"),
+    TENANT ("TENANT"),
     ;
 
     private final String shortCode;
@@ -11,7 +11,7 @@ public enum TypeOfUser {
         this.shortCode = code;
     }
 
-    public String getDirectionCode() {
+    public String getType() {
         return this.shortCode;
     }
 }

@@ -48,11 +48,10 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     List<paymentClaimBean> claimsList = new LinkedList<>();
             String query;
 
-            // String SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Contract.claimReported = 0
             if (TypeOfUser.TENANT == bean.getUserType()){
-                query = "select * from paymentClaim where claimNotified = 0 and tenantNickname = ?";
+                query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Contract.claimReported = 0";
             } else {
-                query = "select * from paymentClaim where claimNotified = 0 and renterNickname = ?";
+                query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Contract.claimReported = 0";
             }
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -65,7 +64,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
         }else {
                 while(resultSet.next()){
                     paymentClaimBean paymentBean = new paymentClaimBean();
-                    paymentBean.setClaimId(resultSet.getInt("claimId"));
+                    paymentBean.setClaimId(resultSet.getInt("id"));
                     paymentBean.setContractId(resultSet.getInt("contractId"));
                     paymentBean.setRenterNickname(resultSet.getString("renterNickname"));
                     paymentBean.setTenantNickname(resultSet.getString("tenantNickname"));
@@ -87,7 +86,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
 
     @Override
     public void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException {
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimNumber = claimNumber + 1, claimState = 0, claimDeadline = DATE_ADD(CURDATE(), interval 14 day)  WHERE claimId = ?");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE PaymentClaim SET claimNumber = claimNumber + 1, claimState = 0, claimDeadline = DATE_ADD(CURDATE(), interval 14 day)  WHERE id = ?");
             preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -96,11 +95,9 @@ public class paymentClaimJDBC implements paymentClaimDAO {
 
     @Override
     public void createPaymentClaim(paymentClaimBean bean) throws SQLException {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO paymentClaim (contractId, renterNickname, tenantNickname, claimNumber, claimDeadline, claimState, claimNotified) VALUES (?, ?, ?, 1, ?, 0, 0)");
+            PreparedStatement preparedStatement = connection.prepareStatement("ISERT INTO PaymentClaim (contractID, claimNumber, claimDeadline, claimState, claimNotified) VALUES (?, 1, ?, 0, 0))");
             preparedStatement.setString(1,  Integer.toString(bean.getContractId()));
-            preparedStatement.setString(2,  bean.getRenterNickname());
-            preparedStatement.setString(3,  bean.getTenantNickname());
-            preparedStatement.setString(4,  bean.getClaimDeadline());
+            preparedStatement.setString(2,  bean.getClaimDeadline());
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
@@ -108,16 +105,18 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     
     @Override
     public void setSegnalazionePagata(paymentClaimBean bean)  throws SQLException{
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 4  WHERE claimId = ?");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE PaymentClaim SET claimState = 4  WHERE id = ?");
             preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
     }
 
+
+
     @Override
     public void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException {
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 2 WHERE claimId = ?");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE PaymentClaim SET claimState = 2 WHERE id = ?");
             preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -125,7 +124,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     
     @Override
     public void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException {
-            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymentClaim SET claimNotified = 1 WHERE claimId = ?");
+            PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE PaymentClaim SET claimNotified = 1 WHERE id = ?");
             preparedStatement.setInt(1, bean.getClaimId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -133,10 +132,10 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     
     @Override
     public void checkPaymentClaimDate() throws SQLException{
-        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE paymenyClaim SET claimState = 1 WHERE claimDeadline < CURDATE() and claimNumber != 3");
+        PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE PaymentClaim SET claimState = 1 WHERE claimDeadline < CURDATE() and claimNumber != 3");
         preparedStatement.executeUpdate();
         preparedStatement.close();
-        PreparedStatement preparedStatement1 = this.connection.prepareStatement("UPDATE paymentClaim SET claimState = 2 WHERE claimDeadline < CURDATE() and claimNumber = 3 and claimState != 3");
+        PreparedStatement preparedStatement1 = this.connection.prepareStatement("UPDATE PaymentClaim SET claimState = 2 WHERE claimDeadline < CURDATE() and claimNumber = 3 and claimState != 3");
         preparedStatement1.executeUpdate();
         preparedStatement1.close();
     }

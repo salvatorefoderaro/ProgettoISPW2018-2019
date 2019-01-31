@@ -1,9 +1,9 @@
 package Entity;
 
 public enum TypeOfRentable {
-    APARTMENT ("apt"),
-    BED ("bed"),
-    ROOM ("room")
+    APARTMENT ("APTTORENT"),
+    BED ("BEDTORENT"),
+    ROOM ("ROOMTORENT")
     ;
 
     private final String shortCode;
@@ -12,7 +12,7 @@ public enum TypeOfRentable {
         this.shortCode = code;
     }
 
-    public String getDirectionCode() {
+    public String getType() {
         return this.shortCode;
     }
 }

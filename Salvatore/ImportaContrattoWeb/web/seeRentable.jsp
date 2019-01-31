@@ -31,9 +31,7 @@ if (request.getParameter("importContract") != null) {
     toRent.setName(request.getParameter("rentableName"));
     toRent.setDescription(request.getParameter("rentableDescription"));
     toRent.setImage(request.getParameter("rentableImage"));
-
     toRent.setType(TypeOfRentable.makeType(request.getParameter("rentableType")));
-
     toRent.setAptID(Integer.parseInt(request.getParameter("aptID")));
     toRent.setRoomID(Integer.parseInt(request.getParameter("roomID")));
     toRent.setBedID(Integer.parseInt(request.getParameter("bedID")));
@@ -97,6 +95,7 @@ if (request.getParameter("importContract") != null) {
         try {
             test = sessionBean.getController().getRentableFromUser(sessionBean);
         } catch (SQLException e) {
+            e.printStackTrace();
             response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.emptyResult emptyResult) {
