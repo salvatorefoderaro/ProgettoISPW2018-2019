@@ -2,13 +2,14 @@ package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity;
 
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Rentable {
     private String name;
     private String description;
-    private Image image;
+    private BufferedImage image;
 
-    public Rentable(String name, String description, Image image) {
+    public Rentable(String name, String description, BufferedImage image) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -22,7 +23,7 @@ public class Rentable {
         return description;
     }
 
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
     }
 }

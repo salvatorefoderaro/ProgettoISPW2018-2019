@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RentableInfoBean {
     private String title;
-    private Image image;
+    private BufferedImage image;
     private String rentableDescription;
     private String rentalDescription;
     private int price;
@@ -17,7 +17,7 @@ public class RentableInfoBean {
     private List<String> avaiblePeriods;
 
 
-    public RentableInfoBean(String title, Image image,String rentableDescription, String rentalDescription, int price, int deposit, List<String> avaiblePeriods) {
+    public RentableInfoBean(String title, BufferedImage image,String rentableDescription, String rentalDescription, int price, int deposit, List<String> avaiblePeriods) {
         this.title = title;
         this.image = image;
         this.rentableDescription = rentableDescription;
@@ -31,7 +31,7 @@ public class RentableInfoBean {
         return title;
     }
 
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
     }
 

@@ -31,8 +31,8 @@ public class ContractTypeDAO {
     }
 
 
-    public List<String> getAllContractNames() {
-        List<String> contractNameList = new ArrayList<>();
+    public List<ContractType> getAllContractTypes() {
+        List<ContractType> contractTypes = new ArrayList<ContractType>();
 
         Connection conn = null;
         Statement stmt = null;
@@ -44,14 +44,14 @@ public class ContractTypeDAO {
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            String sql = "SELECT name FROM ContractType";
+            String sql = "SELECT id, name, description, minDuration, maxDuration FROM ContractType";
 
             ResultSet rs = stmt.executeQuery(sql);
 
-            if (!rs.first()) return null;
+            if (!rs.first()) return contractTypes;
 
             do {
-                contractNameList.add(rs.getString("name"));
+                contractTypes.add(new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration")));
 
             } while(rs.next());
 
@@ -70,14 +70,23 @@ public class ContractTypeDAO {
             }
         }
 
-        return contractNameList;
+        return contractTypes;
     }
 
-    public ContractType getContractType(String name) {
+
+    public ContractType getContractType(int contractId) {
+        return findContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE id = " + contractId);
+    }
+
+    public ContractType getContractType(String contractTypeName) {
+        return findContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE name = '" + contractTypeName + "'");
+    }
+
+    private ContractType findContractType(String sql) {
 
         Connection conn = null;
         Statement stmt = null;
-        ContractType contractType = null;
+        ContractType contractType = null; //TODO Creazione di una eccezione nel caso in cui non si ha alcun risultato
 
         try {
             Class.forName(DRIVER_CLASS_NAME);
@@ -86,13 +95,11 @@ public class ContractTypeDAO {
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            String sql = "SELECT name, description, minDuration, maxDuration FROM ContractType WHERE name = '" + name + "'";
-
             ResultSet rs = stmt.executeQuery(sql);
 
             if (!rs.first()) return null;
 
-            contractType = new ContractType(rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration"));
+            contractType = new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration"));
 
 
 
