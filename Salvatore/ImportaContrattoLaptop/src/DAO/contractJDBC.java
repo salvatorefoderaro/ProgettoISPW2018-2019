@@ -2,36 +2,35 @@ package DAO;
 
 import Bean.contractBean;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static Entity.TypeOfRentable.APARTMENT;
+
 public class contractJDBC implements contractDAO {
- 
-    private Connection connection = null;
+
     private static contractJDBC instance = null;
 
-    public static contractJDBC getInstance(String type)  throws SQLException {
-        if (instance == null)
-                instance = new contractJDBC(type);
+    public static contractJDBC getInstance()  throws SQLException {
+        if (instance == null) {
+            contractJDBC instance = new contractJDBC();
+        }
+
         return instance;
     }
- 
-    private contractJDBC(String type) throws SQLException {
-        if(type == "user") {
-            this.connection = databaseConnection.getConnectionUser();
-        } else {
-            this.connection = databaseConnection.getConnectionAdmin();
-        }
-    }
 
-    public Connection getConnection(){  return this.connection; }
+
+    private contractJDBC() { }
+
 
     @Override
-    // Controllare se va aggiunto il Contract Type ID come variabile
     public void createContract(contractBean bean) throws SQLException {
-        System.out.println(bean.getTenantNickname());
+
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
         String query = "";
         switch(bean.getRentableType()) {
             case APARTMENT:
@@ -46,7 +45,8 @@ public class contractJDBC implements contractDAO {
                 query = "INSERT INTO Contract (aptToRentId, roomToRentId, bedToRentId, type, contractTypeId, state, tenantNickname, renterNickname, creationDate, stipulationDate, startDate, endDate, tenantName, tenantSurname, tenantCF, tenantAddress, renterName, renterSurname, renterCF, renterAddress, price, deposit, claimReported, serviceList, grossPrice) VALUES (null, ?, null, ?, 0, 'Active', ?, ?, ?, null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, null, ?)";
                 break;
         }
-        PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setInt(1, bean.getRentableId());
         preparedStatement.setString(2, bean.getRentableType().getType());
         preparedStatement.setString(3, bean.getTenantNickname());
@@ -67,14 +67,11 @@ public class contractJDBC implements contractDAO {
         preparedStatement.setInt(18, bean.getGrossPrice());
         preparedStatement.executeUpdate();
         preparedStatement.close();
+
+        if (bean.getJDBCcommit()){
+            dBConnection.commit();
+        }
+
     }
-    
-    public void closeConnection(){
-        try {
-              if (connection != null) {
-                  connection.close();
-              }
-            } catch (Exception e) { 
-            }
-    }
+
 }

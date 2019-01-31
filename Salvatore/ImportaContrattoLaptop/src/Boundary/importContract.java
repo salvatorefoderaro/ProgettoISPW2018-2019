@@ -127,9 +127,8 @@ public class importContract {
         } catch (Exceptions.transactionError transactionError) {
             popup("Errore nell'esecuzione dell'operazione!", true);
             return;
-        } catch (Exceptions.dbConnection dbConnection) {
-            popup("Errore nella connessione con il database!", true);
-            return;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
@@ -139,12 +138,8 @@ public class importContract {
 
         try {
             parentController.createContract(contract);
-        } catch (Exceptions.transactionError transactionError) {
-            popup("Errore nell'esecuzione della richiesta!", true);
-            return;
-        } catch (Exceptions.dbConnection dbConnection) {
-            popup("Errore nella connessione con il database!", true);
-            return;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         popup("Inserimento effettuato correttamente!", true);

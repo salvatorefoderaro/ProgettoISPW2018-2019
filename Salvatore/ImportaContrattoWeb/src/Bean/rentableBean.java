@@ -31,8 +31,15 @@ public class rentableBean {
     private String newEndAvaiabilityDate;
     private TypeOfRentable type1;
     private Image image1;
+    private boolean JDBCcommit;
     
     public rentableBean(){}
+
+    public void setJDBCcommit(boolean JDBCcommit){
+        this.JDBCcommit = JDBCcommit;
+    }
+
+    public boolean getJDBCcommit(){ return this.JDBCcommit; }
     
     public String getName(){ return this.name; }
     public String getDescription(){ return this.description; }

@@ -2,7 +2,6 @@ package Control;
 
 import Bean.*;
 import Entity.TypeOfRentable;
-import Exceptions.dbConnection;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
 import DAO.*;
@@ -26,29 +25,25 @@ public class controller {
         databaseConnection.getConnectionUser();
     }
 
-    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, dbConnection {
+    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, SQLException {
         rentableBean newDateBean;
         if (TypeOfRentable.ROOM == bean.getType()){
             try {
                 bean.setType1(TypeOfRentable.ROOM);
-                newDateBean = rentableJDBC.getInstance("admin").checkDate(bean);
+                newDateBean = rentableJDBC.getInstance().checkDate(bean);
                 bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
                 bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
 
-                for (rentableBean tempBed : rentableJDBC.getInstance("admin").bedListByRoom(bean)) {
+                for (rentableBean tempBed : rentableJDBC.getInstance().bedListByRoom(bean)) {
                     bean.setBedID(tempBed.getID());
                     bean.setType1(TypeOfRentable.BED);
-                    rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                    bean.setJDBCcommit(false);
+                    rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                 }
                 bean.setType1(TypeOfRentable.ROOM);
-                rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
-                databaseConnection.getConnectionAdmin().commit();
+                bean.setJDBCcommit(true);
+                rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
             } catch (SQLException e1) {
-                try {
-                    databaseConnection.getConnectionAdmin().rollback();
-                } catch (SQLException e) {
-                    throw new dbConnection("Errore nella connessione con il database!");
-                }
                 throw new transactionError("");
             }
 
@@ -56,81 +51,63 @@ public class controller {
 
             try {
                 bean.setType1(TypeOfRentable.BED);
-                newDateBean = rentableJDBC.getInstance("admin").checkDate(bean);
+                newDateBean = rentableJDBC.getInstance().checkDate(bean);
                 bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
                 bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
-                rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
-                databaseConnection.getConnectionAdmin().commit();
+                bean.setJDBCcommit(true);
+                rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
             } catch (SQLException e1) {
-                try {
-                    databaseConnection.getConnectionAdmin().rollback();
-                } catch (SQLException e) {
-                    throw new dbConnection("Errore nella connessione con il database!");
-                }
                 throw new transactionError("");
             }
 
         } else {
 
-            try {
                 bean.setType1(TypeOfRentable.APARTMENT);
-                newDateBean = rentableJDBC.getInstance("admin").checkDate(bean);
+                newDateBean = rentableJDBC.getInstance().checkDate(bean);
+
                 bean.setNewEndAvaiabilityDate(newDateBean.getNewEndAvaiabilityDate());
                 bean.setNewStartAvaiabilityDate(newDateBean.getNewStartAvaiabilityDate());
-                for(rentableBean tempRoom : rentableJDBC.getInstance("admin").roomListByApartment(bean)){
-                    for (rentableBean tempBed: rentableJDBC.getInstance("admin").bedListByRoom(bean)){
+                for(rentableBean tempRoom : rentableJDBC.getInstance().roomListByApartment(bean)){
+                    for (rentableBean tempBed: rentableJDBC.getInstance().bedListByRoom(bean)){
                         bean.setBedID(tempBed.getID());
                         bean.setType1(TypeOfRentable.BED);
-                        rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                        bean.setJDBCcommit(false);
+                        rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                     }
                     bean.setRoomID(tempRoom.getRoomID());
                     bean.setType1(TypeOfRentable.ROOM);
-                    rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
+                    bean.setJDBCcommit(false);
+                    rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                 }
                 bean.setType1(TypeOfRentable.APARTMENT);
-                rentableJDBC.getInstance("admin").setNewAvaiabilityDate(bean);
-                databaseConnection.getConnectionAdmin().commit();
-            } catch (SQLException e1) {
-                try {
-                    databaseConnection.getConnectionAdmin().rollback();
-                } catch (SQLException e) {
-                    throw new dbConnection("Errore nella connessione con il database!");
-                }
-                throw new transactionError("");
-            }
+                bean.setJDBCcommit(true);
+                rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
+
         }
     }
 
     public userBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResult {
-        return userJDBC.getInstance("user").getLocatario(bean);
+        return userJDBC.getInstance().getLocatario(bean);
     }
 
-    public void createContract(contractBean contract) throws dbConnection, transactionError {
-        try {
-            contractJDBC.getInstance("admin").createContract(contract);
+    public void createContract(contractBean contract) throws SQLException {
+            contract.setJDBCcommit(true);
+            contractJDBC.getInstance().createContract(contract);
             databaseConnection.getConnectionAdmin().commit();
-        } catch (SQLException e1) {
-            try {
-                databaseConnection.getConnectionAdmin().rollback();
-            } catch (SQLException e) {
-                throw new dbConnection("Errore nella connessione con il database!");
-            }
-            throw new transactionError("");
-        }
     }
 
     public userBean loginRenter(userBean renter) throws SQLException, emptyResult {
-        return userJDBC.getInstance("user").getLocatore(renter);
+        return userJDBC.getInstance().getLocatore(renter);
     }
 
     public List<rentableBean> getRentableFromUser(userBean renterNickname) throws SQLException, emptyResult {
 
         renterNickname.setTypeRequest(TypeOfRentable.ROOM);
-        List<rentableBean> rentableList = new ArrayList<>(rentableJDBC.getInstance("user").rentableListByRenter(renterNickname));
+        List<rentableBean> rentableList = new ArrayList<>(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
         renterNickname.setTypeRequest(TypeOfRentable.APARTMENT);
-        rentableList.addAll(rentableJDBC.getInstance("user").rentableListByRenter(renterNickname));
+        rentableList.addAll(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
         renterNickname.setTypeRequest(TypeOfRentable.BED);
-        rentableList.addAll(rentableJDBC.getInstance("user").rentableListByRenter(renterNickname));
+        rentableList.addAll(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
 
         if(rentableList.isEmpty()){
             throw new emptyResult("Errore! Nessun utente associato al nickname indicato!");
@@ -147,7 +124,7 @@ public class controller {
                 if (dictionaryRoomToRent.get(temp.getID()) == null){
 
                     temp.setType1(TypeOfRentable.BED);
-                    List<rentableBean> bedInRoom = rentableJDBC.getInstance("user").bedListByRoom(temp);
+                    List<rentableBean> bedInRoom = rentableJDBC.getInstance().bedListByRoom(temp);
                     List<bedToRent> trueBedInRoom = new LinkedList<>();
 
                     for(rentableBean bedBean : bedInRoom){
@@ -160,7 +137,7 @@ public class controller {
                 if (dictionaryAptToRent.get(temp.getID()) == null) {
 
                     temp.setType1(TypeOfRentable.ROOM);
-                    List<rentableBean> roomInApt = rentableJDBC.getInstance("user").roomListByApartment(temp);
+                    List<rentableBean> roomInApt = rentableJDBC.getInstance().roomListByApartment(temp);
                     List<roomToRent> trueRoomInApt = new LinkedList<>();
 
                     for (rentableBean roomBean : roomInApt) {

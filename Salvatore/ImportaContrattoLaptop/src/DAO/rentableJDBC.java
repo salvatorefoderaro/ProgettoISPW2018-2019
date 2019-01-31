@@ -3,43 +3,38 @@ package DAO;
 import Bean.rentableBean;
 import Bean.userBean;
 import Exceptions.emptyResult;
+
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import Entity.TypeOfRentable;
+
 import javax.imageio.ImageIO;
 
 public class rentableJDBC {
-    private Connection connection;
+
     private static rentableJDBC instance;
-    public static rentableJDBC getInstance(String type)  throws SQLException {
+
+    public static rentableJDBC getInstance() {
         if (instance == null)
-            instance = new rentableJDBC(type);
+            instance = new rentableJDBC();
         return instance;
     }
 
-    private rentableJDBC(String type) throws SQLException{
-        if(type.equals("user")) {
-            this.connection = databaseConnection.getConnectionUser();
-        } else {
-            this.connection = databaseConnection.getConnectionAdmin();
-        }
+    private rentableJDBC(){
     }
 
     public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResult {
-        LinkedList<String> returnList = new LinkedList<>();
+
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
         rentableBean resultBean = new rentableBean();
-        TypeOfRentable testEnum = bean.getType1();
         String query = "";
-        System.out.println(bean.getStartDate() + " " + bean.getEndDate() + " " + bean.getID());
 
         switch (bean.getType()){
             case APARTMENT:
-
                 query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE AptToRentId = ?) ";
                 break;
 
@@ -67,11 +62,15 @@ public class rentableJDBC {
         resultBean.setNewEndAvaiabilityDate(resultSet.getString("endDate"));
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
+
         return resultBean;
     }
 
-    public void setNewAvaiabilityDate(rentableBean bean){
+    public void setNewAvaiabilityDate(rentableBean bean) throws SQLException {
 
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        dBConnection.setAutoCommit(false);
         String query1 = "", query2 = "", query3 = "";
 
         switch (bean.getType1()){
@@ -94,54 +93,78 @@ public class rentableJDBC {
                 break;
         }
 
-        try {
-            PreparedStatement preparedStatement = databaseConnection.getConnectionUser().prepareStatement(query1);
-            preparedStatement.setInt(1, bean.getID());
-            preparedStatement.setString(2, bean.getNewStartAvaiabilityDate());
-            preparedStatement.setString(3, bean.getStartDate());
 
-            PreparedStatement preparedStatement1 = databaseConnection.getConnectionUser().prepareStatement(query2);
-            preparedStatement1.setInt(1, bean.getID());
-            preparedStatement1.setString(2, bean.getEndDate());
-            preparedStatement1.setString(3, bean.getNewEndAvaiabilityDate());
+        PreparedStatement preparedStatement = databaseConnection.getConnectionUser().prepareStatement(query1);
+        preparedStatement.setInt(1, bean.getID());
+        preparedStatement.setString(2, bean.getNewStartAvaiabilityDate());
+        preparedStatement.setString(3, bean.getStartDate());
 
-            PreparedStatement preparedStatement2 = databaseConnection.getConnectionUser().prepareStatement(query3);
-            preparedStatement2.setInt(1, bean.getID());
-            preparedStatement2.setString(2, bean.getNewStartAvaiabilityDate());
-            preparedStatement2.setString(3, bean.getNewEndAvaiabilityDate());
+        PreparedStatement preparedStatement1 = databaseConnection.getConnectionUser().prepareStatement(query2);
+        preparedStatement1.setInt(1, bean.getID());
+        preparedStatement1.setString(2, bean.getEndDate());
+        preparedStatement1.setString(3, bean.getNewEndAvaiabilityDate());
 
-            int resultSet = preparedStatement.executeUpdate();
-            int resultSet1 = preparedStatement1.executeUpdate();
-            int resultSet2 = preparedStatement2.executeUpdate();
+        PreparedStatement preparedStatement2 = databaseConnection.getConnectionUser().prepareStatement(query3);
+        preparedStatement2.setInt(1, bean.getID());
+        preparedStatement2.setString(2, bean.getNewStartAvaiabilityDate());
+        preparedStatement2.setString(3, bean.getNewEndAvaiabilityDate());
 
-            preparedStatement.close();
-            preparedStatement1.close();
-            preparedStatement2.close();
-        } catch (SQLException e){
-            e.printStackTrace();
+        int resultSet = preparedStatement.executeUpdate();
+        int resultSet1 = preparedStatement1.executeUpdate();
+        int resultSet2 = preparedStatement2.executeUpdate();
+
+        preparedStatement.close();
+        preparedStatement1.close();
+        preparedStatement2.close();
+
+
+        if (bean.getJDBCcommit()){
+            try {
+                dBConnection.commit();
+            } catch (SQLException e) {
+                try {
+                    dBConnection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
-        }
+    }
 
     public List<rentableBean> rentableListByRenter(userBean renter)  throws SQLException {
+
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
 
         List<rentableBean> aptListRenter = new LinkedList<>();
         String query = "";
 
         switch (renter.getTypeRequest()){
             case ROOM:
-                query = "SELECT Room.id, Room.roomId, Room.name, Room.description, Room.image FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Room.id, Room.name, Room.description, Room.image\n" +
+                        "\tFROM RoomToRent as Room\n" +
+                        "\tJOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId\n" +
+                        "    JOIN AptToRent on AptToRent.id = Feature.aptId\n" +
+                        "    WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
 
             case BED:
-                query = "SELECT Bed.id, Bed.roomId, Bed.name, Bed.description, Bed.image FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Bed.id, Bed.name, Bed.description, Bed.image\n" +
+                        "\tFROM BedToRent as Bed\n" +
+                        "\tJOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId\n" +
+                        "    JOIN AptToRent on AptToRent.id = Feature.aptId\n" +
+                        "    WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
 
             case APARTMENT:
-                query = "SELECT Apt.id, Apt.roomId, Apt.name, Apt.description, Apt.image FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Apt.id, Apt.name, Apt.description, Apt.image\n" +
+                        "\tFROM AptToRent as Apt\n" +
+                        "\tJOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId\n" +
+                        "    JOIN AptToRent on AptToRent.id = Feature.aptId\n" +
+                        "    WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
         }
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setString(1, renter.getNickname());
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -166,6 +189,9 @@ public class rentableJDBC {
 
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
+
+            rentable.setName(resultSet.getString("name"));
+            rentable.setDescription(resultSet.getString("description"));
             try {
                 rentable.setImage1(ImageIO.read(resultSet.getBinaryStream("image")));
             } catch (IOException e) {
@@ -174,20 +200,27 @@ public class rentableJDBC {
             rentable.setType(renter.getTypeRequest());
             aptListRenter.add(rentable);
 
+            rentable.setType(renter.getTypeRequest());
+            aptListRenter.add(rentable);
+
         }
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
 
         return aptListRenter;
     }
 
     public List<rentableBean> bedListByRoom(rentableBean bean)  throws SQLException {
 
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
+
         List<rentableBean> bedListRoom = new LinkedList<>();
 
         String query = "select id, roomId, name, description, image from BedToRent where roomId = ?";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setString(1, Integer.toString(bean.getRoomID()));
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -202,17 +235,20 @@ public class rentableJDBC {
         }
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
 
         return bedListRoom;
     }
 
     public List<rentableBean> roomListByApartment(rentableBean bean)  throws SQLException {
 
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
         List<rentableBean> roomListApartment = new LinkedList<>();
 
         String query = "select * from RoomToRent where aptId = ?";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setInt(1, bean.getAptID());
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -227,6 +263,7 @@ public class rentableJDBC {
         }
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
 
         return roomListApartment;
     }

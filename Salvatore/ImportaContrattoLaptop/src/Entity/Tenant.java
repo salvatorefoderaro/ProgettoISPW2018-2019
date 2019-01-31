@@ -5,8 +5,6 @@
  */
 package Entity;
 
-import Bean.tenantBean;
-
 import java.sql.SQLException;
 
 /**
@@ -24,18 +22,6 @@ public class Tenant {
         this.nickname = nickname;
         this.sollecitiPagamento = SollecitiPagamento;
         this.CF = CF;
-    }
-
-    public tenantBean makeBean(){
-        tenantBean bean = new tenantBean();
-        bean.setNickname(this.nickname);
-        bean.setID(this.ID);
-        bean.setCF(this.CF);
-        return bean;
-    }
-
-    public int getID(){
-        return this.ID;
     }
     
     public String getNickname(){

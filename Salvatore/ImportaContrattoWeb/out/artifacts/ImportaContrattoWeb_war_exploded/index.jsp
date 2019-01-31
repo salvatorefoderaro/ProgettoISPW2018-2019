@@ -2,7 +2,6 @@
 <%@ page import= "Control.controller" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="Control.controller" %>
-<%@ page import="Bean.renterBean" %>
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Bean.userBean" %>
 <%@ page import="java.util.Timer" %>
@@ -11,9 +10,6 @@
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 
 <%
-
-
-
     if (request.getParameter("login") != null) {
 
         userBean login = new userBean();

@@ -13,7 +13,13 @@ public class userBean {
     private TypeOfUser typeUser;
     private TypeOfRentable typeRequest;
     private controller controller;
+    private boolean JDBCcommit;
 
+    public void setJDBCcommit(boolean JDBCcommit){
+        this.JDBCcommit = JDBCcommit;
+    }
+
+    public boolean getJDBCcommit(){ return this.JDBCcommit; }
 
     public void setID(int ID){ this.ID = ID; }
     public void setNickname(String nickname){ this.nickname = nickname; }

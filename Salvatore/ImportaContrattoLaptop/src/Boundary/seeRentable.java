@@ -1,12 +1,10 @@
 package Boundary;
 
 import Bean.rentableBean;
-import Bean.renterBean;
 import Bean.userBean;
 import Control.controller;
 
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;

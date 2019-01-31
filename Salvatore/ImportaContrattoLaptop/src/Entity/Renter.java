@@ -5,8 +5,6 @@
  */
 package Entity;
 
-import Bean.renterBean;
-
 import java.sql.SQLException;
 
 /**
@@ -23,14 +21,6 @@ public class Renter {
         this.IDLocatore = IDLocatario;
         this.nickname = nickname;
         this.CF = CF;
-    }
-
-    public renterBean makeBean(){
-               renterBean bean = new renterBean();
-               bean.setID(this.IDLocatore);
-               bean.setNickname(this.nickname);
-               bean.setCF(this.CF);
-               return bean;
     }
 
 }

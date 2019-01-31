@@ -31,6 +31,7 @@ public class contractBean {
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
     private List<OptionalService> serviceList; // importante!
     private TypeOfRentable rentableType;
+    private boolean JDBCcommit;
 
 
     public contractBean(int contractId, int rentableId, boolean isExpired, LocalDate initDate, LocalDate terminationDate,
@@ -64,6 +65,11 @@ public class contractBean {
         this.deposito = deposito;
     }
 
+    public void setJDBCcommit(boolean JDBCcommit){
+        this.JDBCcommit = JDBCcommit;
+    }
+
+    public boolean getJDBCcommit(){ return this.JDBCcommit; }
     public String getTenantName(){ return this.tenantName; }
     public String getTenantSurname(){ return this.tenantSurname; }
     public String getTenantAddress(){ return this.tenantAddress; }

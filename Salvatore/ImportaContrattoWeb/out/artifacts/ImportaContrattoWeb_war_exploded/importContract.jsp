@@ -95,7 +95,9 @@
                 0,
                 false,
                 null,
-                toRent.getType());
+                toRent.getType(),
+                Integer.parseInt(request.getParameter("contractDeposito"))
+        );
         } try {
 
         sessionBean.getController().createContract(contract);
@@ -242,34 +244,36 @@
 
     <br>
 
+
+
     <div class="row">
         <div class="col .text-center">
-            <input type="text" class="form-control" id="usr" placeholder="Nome locatario" required>
+            <input type="text" class="form-control" name="locatarioNome" placeholder="Nome locatario" required>
     </div>
         <div class="col .text-center" >
-            <input type="text" class="form-control" id="usr" placeholder="Cognome locatario" required>
+            <input type="text" class="form-control" name="locatarioCognome" placeholder="Cognome locatario" required>
          </div>
         <div class="col .text-center" >
-            <input type="text" class="form-control" id="usr" placeholder="Codice fiscale locatario" required>
+            <input type="text" class="form-control" name="locatarioCF" placeholder="Codice fiscale locatario" required>
         </div>
         <div class="col .text-center" >
-            <input type="text" class="form-control" id="usr" placeholder="Indirizzo locatario" required>
+            <input type="text" class="form-control" name="locatarioIndirizzo" placeholder="Indirizzo locatario" required>
         </div>
     </div>
     <br>
 
     <div class="row">
         <div class="col .text-center">
-            <input type="text" class="form-control" id="usr" placeholder="Nome locatore" required>
+            <input type="text" class="form-control" name="locatoreNome" placeholder="Nome locatore" required>
         </div>
         <div class="col .text-center" >
-            <input type="text" class="form-control" id="usr" placeholder="Cognome locatore" required>
+            <input type="text" class="form-control" name="locatoreCognome" placeholder="Cognome locatore" required>
         </div>
         <div class="col .text-center" >
-            <input type="text" class="form-control" id="usr" placeholder="Codice fiscale locatore" required>
+            <input type="text" class="form-control" name="locatoreCF" placeholder="Codice fiscale locatore" required>
         </div>
         <div class="col .text-center" >
-            <input type="text" class="form-control" id="usr" placeholder="Indirizzo locatore" required>
+            <input type="text" class="form-control" name="locatoreIndirizzo" placeholder="Indirizzo locatore" required>
         </div>
     </div>
     <br>
@@ -278,10 +282,10 @@
         <div class="col .text-center">
         </div>
         <div class="col .text-center" >
-            <input type="number" class="form-control" id="usr" placeholder="Prezzo" required>
+            <input type="number" class="form-control" name="contractPrezzo" placeholder="Prezzo" required>
         </div>
         <div class="col .text-center" >
-            <input type="number" class="form-control" id="usr" placeholder="Deposito" required>
+            <input type="number" class="form-control" name="contractDeposito" placeholder="Deposito" required>
         </div>
         <div class="col .text-center" >
         </div>
@@ -301,6 +305,7 @@
     </div>
 </form>
 </center>
+    <br>
 </div>
 
 </body>

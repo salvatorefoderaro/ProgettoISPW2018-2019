@@ -18,7 +18,12 @@ public class databaseConnection {
     private static Connection dbConnectionUser = null;
     private static Connection dbConnectionAdmin = null;
 
-    private databaseConnection() throws SQLException{}
+    public databaseConnection(String type) throws SQLException{
+        if (type == "admin"){
+            DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        }
+
+    }
 
 
     public static Connection getConnectionUser() throws SQLException{

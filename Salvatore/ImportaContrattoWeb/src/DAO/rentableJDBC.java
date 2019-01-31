@@ -3,40 +3,35 @@ package DAO;
 import Bean.rentableBean;
 import Bean.userBean;
 import Exceptions.emptyResult;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import Entity.TypeOfRentable;
 
 public class rentableJDBC {
-    private Connection connection;
+
     private static rentableJDBC instance;
-    public static rentableJDBC getInstance(String type)  throws SQLException {
+
+    public static rentableJDBC getInstance() {
         if (instance == null)
-            instance = new rentableJDBC(type);
+            instance = new rentableJDBC();
         return instance;
     }
 
-    private rentableJDBC(String type) throws SQLException{
-        if(type.equals("user")) {
-            this.connection = databaseConnection.getConnectionUser();
-        } else {
-            this.connection = databaseConnection.getConnectionAdmin();
-        }
+    private rentableJDBC(){
     }
 
     public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResult {
+
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
         rentableBean resultBean = new rentableBean();
         String query = "";
-        System.out.println(bean.getStartDate() + " " + bean.getEndDate() + " " + bean.getID());
 
         switch (bean.getType()){
             case APARTMENT:
-
                 query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE AptToRentId = ?) ";
                 break;
 
@@ -64,11 +59,15 @@ public class rentableJDBC {
         resultBean.setNewEndAvaiabilityDate(resultSet.getString("endDate"));
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
+
         return resultBean;
     }
 
-    public void setNewAvaiabilityDate(rentableBean bean){
+    public void setNewAvaiabilityDate(rentableBean bean) throws SQLException {
 
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        dBConnection.setAutoCommit(false);
         String query1 = "", query2 = "", query3 = "";
 
         switch (bean.getType1()){
@@ -91,7 +90,7 @@ public class rentableJDBC {
                 break;
         }
 
-        try {
+
             PreparedStatement preparedStatement = databaseConnection.getConnectionUser().prepareStatement(query1);
             preparedStatement.setInt(1, bean.getID());
             preparedStatement.setString(2, bean.getNewStartAvaiabilityDate());
@@ -114,12 +113,24 @@ public class rentableJDBC {
             preparedStatement.close();
             preparedStatement1.close();
             preparedStatement2.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+
+
+            if (bean.getJDBCcommit()){
+                try {
+                    dBConnection.commit();
+                } catch (SQLException e) {
+                    try {
+                        dBConnection.rollback();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
     }
 
     public List<rentableBean> rentableListByRenter(userBean renter)  throws SQLException {
+
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
 
         List<rentableBean> aptListRenter = new LinkedList<>();
         String query = "";
@@ -150,7 +161,7 @@ public class rentableJDBC {
                 break;
         }
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setString(1, renter.getNickname());
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -183,17 +194,21 @@ public class rentableJDBC {
         }
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
 
         return aptListRenter;
     }
 
     public List<rentableBean> bedListByRoom(rentableBean bean)  throws SQLException {
 
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
+
         List<rentableBean> bedListRoom = new LinkedList<>();
 
         String query = "select id, roomId, name, description, image from BedToRent where roomId = ?";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setString(1, Integer.toString(bean.getRoomID()));
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -208,17 +223,20 @@ public class rentableJDBC {
         }
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
 
         return bedListRoom;
     }
 
     public List<rentableBean> roomListByApartment(rentableBean bean)  throws SQLException {
 
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+
         List<rentableBean> roomListApartment = new LinkedList<>();
 
         String query = "select * from RoomToRent where aptId = ?";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setInt(1, bean.getAptID());
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
@@ -233,6 +251,7 @@ public class rentableJDBC {
         }
         resultSet.close();
         preparedStatement.close();
+        dBConnection.close();
 
         return roomListApartment;
     }

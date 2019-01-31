@@ -5,8 +5,6 @@
  */
 package Entity;
 
-import Bean.renterBean;
-
 import java.sql.SQLException;
 
 /**

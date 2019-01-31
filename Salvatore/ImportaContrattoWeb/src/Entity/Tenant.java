@@ -5,8 +5,6 @@
  */
 package Entity;
 
-import Bean.tenantBean;
-
 import java.sql.SQLException;
 
 /**

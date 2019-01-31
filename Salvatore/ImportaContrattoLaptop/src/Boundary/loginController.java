@@ -1,6 +1,5 @@
 package Boundary;
 
-import Bean.renterBean;
 import Bean.userBean;
 import Control.controller;
 import Exceptions.emptyResult;
