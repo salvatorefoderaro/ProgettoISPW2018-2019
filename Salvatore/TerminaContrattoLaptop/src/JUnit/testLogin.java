@@ -23,7 +23,7 @@ public class testLogin {
     @DisplayName("Test Login")
     void testLogin() throws SQLException, emptyResult {
         userSessionBean testBean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, " ");
-        List<contractBean> result = contractJDBC.getInstance("user").getContracts(testBean);
+        List<contractBean> result = contractJDBC.getInstance().getContracts(testBean);
         assertEquals(1, result.size());
     }
 
@@ -38,7 +38,7 @@ public class testLogin {
     @DisplayName("Test login new")
     void testLoginNEw() throws SQLException, emptyResult {
         userSessionBean testBean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, "giuseppe");
-        userJDBC.getInstance("admin").login(testBean);
+        paymentClaimJDBC.getInstance().getPaymentClaims(testBean);
     }
 
 }

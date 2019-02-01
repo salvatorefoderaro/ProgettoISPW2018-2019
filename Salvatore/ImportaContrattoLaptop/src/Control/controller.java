@@ -111,7 +111,7 @@ public class controller {
         return userJDBC.getInstance().getLocatario(bean);
     }
 
-    public void createContract(contractBean contract) throws SQLException {
+    public void createContract(contractBean contract) throws SQLException, transactionError {
         contract.setJDBCcommit(true);
         contractJDBC.getInstance().createContract(contract);
         databaseConnection.getConnectionAdmin().commit();

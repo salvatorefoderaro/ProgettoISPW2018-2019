@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import Entity.TypeOfUser;
+import Exceptions.transactionError;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -137,6 +138,8 @@ public class importContract {
             parentController.createContract(contract);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (Exceptions.transactionError transactionError) {
+            transactionError.printStackTrace();
         }
 
         popup("Inserimento effettuato correttamente!", true);

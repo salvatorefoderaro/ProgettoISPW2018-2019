@@ -9,10 +9,10 @@ import Entity.TypeOfUser;
  */
 public class userSessionBean 
 { 
-    // static variable single_instance of type Singleton 
+    // static variable single_instance of userType Singleton
     private String nickname;
     private int id;
-    private TypeOfUser type;
+    private TypeOfUser userType;
     private int paymentClaim;
     private String password;
     private Controller controller;
@@ -20,11 +20,11 @@ public class userSessionBean
     // private constructor restricted to this class itself
     public userSessionBean() {    }
 
-    public userSessionBean(String nickname, int id, TypeOfUser type, int paymentClaim, String password, Controller controller)
+    public userSessionBean(String nickname, int id, TypeOfUser userType, int paymentClaim, String password, Controller controller)
     {
         this.nickname = nickname;
         this.id = id;
-        this.type = type;
+        this.userType = userType;
         this.paymentClaim = paymentClaim;
         this.password = password;
         this.controller = controller;
@@ -34,7 +34,7 @@ public class userSessionBean
 
     public void setNickname(String nickname){ this.nickname = nickname; }
 
-    public void setType(TypeOfUser type){ this.type = type; }
+    public void setUserType(TypeOfUser userType){ this.userType = userType; }
 
 
     public Controller getController(){ return this.controller; }
@@ -49,8 +49,8 @@ public class userSessionBean
         return this.id;
     }
     
-    public TypeOfUser getType(){
-        return this.type;
+    public TypeOfUser getUserType(){
+        return this.userType;
     }
 
     public int getPaymentClaim(){ return this.paymentClaim; }

@@ -33,14 +33,9 @@ class jUnity {
 
     @Test
     @DisplayName("Test Date")
-    void testDate() throws ParseException {
-        String input = "2019-02-10";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern ("yyyy-MM-dd" );
-        LocalDate localDate = LocalDate.parse ( input , formatter );
-        LocalDate date = LocalDate.now();
-
-        System.out.println(date.toString() + " " + date.until(localDate).getDays());
-        System.out.println(localDate.isBefore(date));
+    void testDate() throws ParseException, SQLException, emptyResult {
+        userSessionBean bean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, "giuseppe", null);
+        userJDBC.getInstance().login(bean);
     }
 
 

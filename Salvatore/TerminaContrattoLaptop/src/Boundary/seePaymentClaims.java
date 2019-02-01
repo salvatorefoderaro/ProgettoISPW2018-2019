@@ -101,10 +101,10 @@ public void initialize(Controller parentController, userSessionBean session){
                                 bean.setClaimId(paymentClaimBean.getClaimId());
                                 try {
                                     claimDeadline.setPaymentClaimPayed(bean);
-                                } catch (Exceptions.dbConnection dbConnection) {
-                                    popupToDestination("Errore nella connessione con il database!", false);
                                 } catch (Exceptions.transactionError transactionError) {
                                     popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
                                 }
                                 element3.setDisable(true);
                             }
@@ -126,6 +126,8 @@ public void initialize(Controller parentController, userSessionBean session){
                                 popupToDestination("Errore nella connessione con il database!", false);
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
                             }
                             element3.setDisable(true);
                         });} else {
@@ -143,10 +145,10 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             try {
                                 claimDeadline.setContrattoArchiviato(bean);
-                            }  catch (Exceptions.dbConnection dbConnection) {
-                                popupToDestination("Errore nella connessione con il database!", false);
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
                             }
                             element3.setDisable(true);
                         });} else {
@@ -167,10 +169,10 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             try {
                                 claimDeadline.setSegnalazioneNotificata(bean);
-                            } catch (Exceptions.dbConnection dbConnection) {
-                                popupToDestination("Errore nella connessione con il database!",false );
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination("Errore nell'esecuzione dell'operazione!",false);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
                             }
                             element3.setDisable(true);
                         });
@@ -188,10 +190,10 @@ public void initialize(Controller parentController, userSessionBean session){
                                 bean.setClaimId(paymentClaimBean.getClaimId());
                                 try {
                                     claimDeadline.setSegnalazioneNotificata(bean);
-                                }  catch (Exceptions.dbConnection dbConnection) {
-                                    popupToDestination("Errore nella connessione con il database!", false);
                                 } catch (Exceptions.transactionError transactionError) {
                                     popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
                                 }
                                 element3.setDisable(true);
                             }

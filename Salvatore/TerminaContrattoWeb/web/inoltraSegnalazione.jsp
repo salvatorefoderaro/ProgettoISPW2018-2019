@@ -32,20 +32,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
 
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
+    <script userType='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
     
     <%
         LocalDate today = LocalDate.now();
         LocalDate nextWeek = today.plus(1, ChronoUnit.WEEKS);   
     %>
 
-    <script type='text/javascript'>
+    <script userType='text/javascript'>
         $(function(){
         $('.input-group.date').datepicker({
             format: "yyyy-mm-dd",
@@ -78,8 +78,8 @@
         }
 
         try {
-            controllerProva.inserisciSegnalazionePagamento(bean);
-        } catch (SQLException | dbConnection e) {
+            controllerProva.insertNewPaymentClaim(bean);
+        } catch (SQLException e) {
             response.sendRedirect("index.jsp?error=databaseConnection");
             return;
         } catch (Exceptions.transactionError transactionError) { %>
@@ -104,7 +104,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">FERSA</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -119,7 +119,7 @@
     	  <br>
           <% List<contractBean> listaResult = null;
               try {
-                  listaResult = sessionBean.getController().getContratti(sessionBean);
+                  listaResult = sessionBean.getController().getContracts(sessionBean);
               } catch (SQLException e) {
           %><jsp:forward page="pannelloUtente.jsp">
       <jsp:param name="error" value="transaction" />
@@ -162,16 +162,16 @@
       
     <div class="col-md">
         <div class="input-group date">
-        <input name="dataScadenza" placeholder="Seleziona una data..." value='<%= (nextWeek) %>' type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        <input name="dataScadenza" placeholder="Seleziona una data..." value='<%= (nextWeek) %>' userType="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 </div>
     </div>
           <div class="col-md">
-            <input name = "date" type="submit" class="btn btn-info" value="Reinoltra segnalazione">       
+            <input name = "date" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
     </div>
       
   </div>
-        <input type="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>"> 
-        <input type="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>"> 
+        <input userType="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>">
+        <input userType="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>">
 
     </form>
     <br>

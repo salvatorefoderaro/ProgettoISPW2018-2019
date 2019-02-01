@@ -5,32 +5,31 @@
  */
 package DAO;
 
- 
+
 import Bean.paymentClaimBean;
 import java.util.List;
 
 import Bean.userSessionBean;
-import Entity.SegnalazionePagamento;
 import Exceptions.emptyResult;
+import Exceptions.transactionError;
 
 import java.sql.SQLException;
- 
+
 public interface paymentClaimDAO {
-     
-
-    void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException;
-
-     void createSegnalazionePagamento(paymentClaimBean bean)  throws SQLException;
-
-    List<paymentClaimBean> getSegnalazioniPagamento(userSessionBean bean) throws SQLException, emptyResult;
 
 
-    void setSegnalazionePagata(paymentClaimBean bean)  throws SQLException;
+    void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException, transactionError;
 
-    void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException;
+    void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError;
 
-    void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException;
+    List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult;
 
+
+    void setSegnalazionePagata(paymentClaimBean bean) throws SQLException, transactionError;
+
+    void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException, transactionError;
+
+    void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException, transactionError;
 
     void checkPaymentClaimDate() throws SQLException;
 }

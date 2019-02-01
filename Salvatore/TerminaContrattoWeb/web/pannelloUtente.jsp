@@ -12,7 +12,7 @@
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
-
+/*
     int initialDelay = 10000; // start after 30 seconds
     int period = 5000;        // repeat every 5 seconds
     Timer timer = new Timer();
@@ -27,7 +27,7 @@
         }
     };
     timer.scheduleAtFixedRate(task, initialDelay, period);
-
+*/
     if (sessionBean.getId() == 0){
 
         response.sendRedirect("index.jsp?error=makeLogin");
@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     
     
-        <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+        <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
         
     <title>Hello, world!</title>
@@ -58,7 +58,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  
     <a class="navbar-brand" href="#">FERSA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -113,11 +113,11 @@
 
 Bentornato <%= sessionBean.getNickname() %> <br>
 
-        <% if(sessionBean.getType() == TypeOfUser.RENTER){  %>
-        <a href="inoltraSegnalazione.jsp"><button type="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
+        <% if(sessionBean.getUserType() == TypeOfUser.RENTER){  %>
+        <a href="inoltraSegnalazione.jsp"><button userType="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
         <% } %>
 
-        <a href="visualizzaSegnalazioni.jsp"><button type="sumbit" name="Locatario" class="btn btn-secondary btn-lg">Visualizza segnalazioni</button></a>
+        <a href="visualizzaSegnalazioni.jsp"><button userType="sumbit" name="Locatario" class="btn btn-secondary btn-lg">Visualizza segnalazioni</button></a>
          </center>
 
 </div>      

@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import Entity.TypeOfRentable;
+import Exceptions.transactionError;
 
 import javax.imageio.ImageIO;
 
@@ -115,7 +116,7 @@ public class rentableJDBC {
         return resultBean;
     }
 
-    public void setNewAvaiabilityDate(rentableBean bean) throws SQLException {
+    public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError {
 
         System.out.println(bean.getStartDateRequest());
         System.out.println(bean.getEndDateRequest());
@@ -178,12 +179,11 @@ public class rentableJDBC {
         if (bean.getJDBCcommit()){
             try {
                 dBConnection.commit();
-            } catch (SQLException e) {
-                try {
-                    dBConnection.rollback();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
+                dBConnection.close();
+            } catch (SQLException e){
+                dBConnection.rollback();
+                dBConnection.close();
+                throw new transactionError("");
             }
         }
     }

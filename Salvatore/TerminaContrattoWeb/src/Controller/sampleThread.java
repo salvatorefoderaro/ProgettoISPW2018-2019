@@ -10,7 +10,7 @@ public class sampleThread {
     private static boolean isActive = false;
     private static Controller controller;
     static public void startTask() {
-        if( !isActive){
+       /* if( !isActive){
             try {
                 controller = new Controller();
             } catch (SQLException e) {
@@ -28,6 +28,6 @@ public class sampleThread {
 
             new Timer(true).scheduleAtFixedRate(dbTask, 0, 60000);
             isActive = true;
-        }
+        } */
     }
 }

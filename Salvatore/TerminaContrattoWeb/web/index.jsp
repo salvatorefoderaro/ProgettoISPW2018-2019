@@ -22,7 +22,7 @@
             sessionBean.setId(login.getId());
             sessionBean.setController(controller);
             sessionBean.setNickname(login.getNickname());
-            sessionBean.setType(login.getType());
+            sessionBean.setUserType(login.getUserType());
 %>
         <jsp:forward page="pannelloUtente.jsp"/>
 <%
@@ -55,7 +55,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     
-        <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+        <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
     <title>Hello, world!</title>
              
@@ -65,7 +65,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">FERSA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -127,11 +127,11 @@
              <div class="input-group-prepend">
                  <span class="input-group-text" id="inputGroup-sizing-default">Nome utente e Password</span>
              </div>
-             <input type="text" name="nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-             <input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+             <input userType="text" name="nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+             <input userType="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
 
          </div>
-         <button type="sumbit" name="login" class="btn btn-primary btn-lg">Login</button></center>
+         <button userType="sumbit" name="login" class="btn btn-primary btn-lg">Login</button></center>
      </form>
     </center>
 </div>      

@@ -4,6 +4,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="Bean.userBean" %>
+<%@ page import="Exceptions.transactionError" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
@@ -59,7 +60,13 @@
     }
 
     try {
-        sessionBean.getController().checkRentableDate(toRent);
+        try {
+            sessionBean.getController().checkRentableDate(toRent);
+        } catch (Exceptions.transactionError transactionError) {
+            transactionError.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     } catch (Exceptions.emptyResult emptyResult) {
         session.setAttribute("notAvaiable", "");
         String destination ="importContract.jsp";
@@ -100,14 +107,13 @@
         );
         } try {
 
-        sessionBean.getController().createContract(contract);
+            try {
+                sessionBean.getController().createContract(contract);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-    } catch (Exceptions.dbConnection e) {
-
-    response.sendRedirect("index.jsp?error=databaseConnection");
-    return;
-
-    }catch (Exceptions.transactionError transactionError) {
+        } catch (Exceptions.transactionError transactionError) {
 
         session.setAttribute("transactionError", "");
         String destination ="importContract.jsp";

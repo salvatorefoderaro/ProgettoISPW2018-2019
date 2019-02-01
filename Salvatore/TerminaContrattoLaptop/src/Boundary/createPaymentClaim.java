@@ -183,9 +183,6 @@ public void initialize(Controller parentController, userSessionBean bean){
                 } catch (Exceptions.transactionError transactionError) {
                     popupToDestination("Errore nell'esecuzione dell'operazione!", false);
                     return;
-                } catch (Exceptions.dbConnection dbConnection) {
-                    popupToDestination("Errore nella connessione con il database!", false);
-                    return;
                 }
                 element.setDisable(true);
                 claimDeadline = null;

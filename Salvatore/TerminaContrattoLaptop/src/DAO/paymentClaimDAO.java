@@ -11,24 +11,25 @@ import java.util.List;
 
 import Bean.userSessionBean;
 import Exceptions.emptyResult;
+import Exceptions.transactionError;
 
 import java.sql.SQLException;
  
 public interface paymentClaimDAO {
      
 
-    void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException;
+    void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException, transactionError;
 
-     void createPaymentClaim(paymentClaimBean bean)  throws SQLException;
+     void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError;
 
     List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult;
 
 
-    void setSegnalazionePagata(paymentClaimBean bean)  throws SQLException;
+    void setSegnalazionePagata(paymentClaimBean bean) throws SQLException, transactionError;
 
-    void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException;
+    void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException, transactionError;
 
-    void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException;
+    void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException, transactionError;
 
      void checkPaymentClaimDate() throws SQLException;
 }

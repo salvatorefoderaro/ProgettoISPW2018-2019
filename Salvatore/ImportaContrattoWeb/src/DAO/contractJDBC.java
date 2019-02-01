@@ -1,14 +1,14 @@
 package DAO;
 
 import Bean.contractBean;
+import Exceptions.transactionError;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import static Entity.TypeOfRentable.APARTMENT;
 
 public class contractJDBC implements contractDAO {
 
@@ -27,7 +27,7 @@ public class contractJDBC implements contractDAO {
 
 
     @Override
-    public void createContract(contractBean bean) throws SQLException {
+    public void createContract(contractBean bean) throws SQLException, transactionError {
 
         Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
 
@@ -69,10 +69,15 @@ public class contractJDBC implements contractDAO {
         preparedStatement.close();
 
         if (bean.getJDBCcommit()){
-            dBConnection.commit();
-            dBConnection.close();
+            try {
+                dBConnection.commit();
+                dBConnection.close();
+            } catch (SQLException e){
+                dBConnection.rollback();
+                dBConnection.close();
+                throw new transactionError("");
+            }
         }
-
     }
 
 }

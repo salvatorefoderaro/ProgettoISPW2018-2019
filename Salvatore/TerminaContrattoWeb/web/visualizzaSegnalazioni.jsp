@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     
     
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
         
     <title>Hello, world!</title>
@@ -43,17 +43,18 @@
         
             bean.setClaimId(Integer.parseInt(request.getParameter("id")));
             try {
-                parentController.setSegnalazionePagata(bean);
+                try {
+                    parentController.setPaymentClaimPayed(bean);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             } catch (Exceptions.transactionError transactionError) { %>
 
 <jsp:forward page="pannelloUtente.jsp">
     <jsp:param name="error" value="transaction" />
 </jsp:forward>
 
-<% return; } catch (Exceptions.dbConnection dbConnection) {
-                response.sendRedirect("index.jsp?error=databaseConnection");
-                return;
-            }
+<% return; }
     String destination ="visualizzaSegnalazioni.jsp";
     response.sendRedirect(response.encodeRedirectURL(destination));
     session.setAttribute("success", "");
@@ -65,7 +66,11 @@
         bean.setClaimId(Integer.parseInt(request.getParameter("id")));
         bean.setClaimNumber(Integer.parseInt(request.getParameter("numeroReclamo")));
         try {
-            parentController.incrementaSegnalazione(bean);
+            try {
+                parentController.incrementaSegnalazione(bean);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } catch (Exceptions.dbConnection dbConnection) {
             response.sendRedirect("index.jsp?error=databaseConnection");
             return;
@@ -81,10 +86,11 @@
        
         bean.setClaimId(Integer.parseInt(request.getParameter("id")));
         try {
-            parentController.setContrattoArchiviato(bean);
-        } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("index.jsp?error=databaseConnection");
-            return;
+            try {
+                parentController.setContrattoArchiviato(bean);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } catch (Exceptions.transactionError transactionError) { %>
 
 <jsp:forward page="pannelloUtente.jsp">
@@ -102,10 +108,11 @@
        
        bean.setClaimId(Integer.parseInt(request.getParameter("id")));
        try {
-           parentController.setSegnalazioneNotificata(bean);
-       } catch (Exceptions.dbConnection dbConnection) {
-           response.sendRedirect("index.jsp?error=databaseConnection");
-           return;
+           try {
+               parentController.setSegnalazioneNotificata(bean);
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
        } catch (Exceptions.transactionError transactionError) {
   %>
 
@@ -124,17 +131,18 @@
        if (request.getParameter("4") != null) {
            bean.setClaimId(Integer.parseInt(request.getParameter("id")));
            try {
-               parentController.setSegnalazionePagata(bean);
+               try {
+                   parentController.setPaymentClaimPayed(bean);
+               } catch (SQLException e) {
+                   e.printStackTrace();
+               }
            } catch (Exceptions.transactionError transactionError) { %>
 
                 <jsp:forward page="pannelloUtente.jsp">
                 <jsp:param name="error" value="transaction" />
                 </jsp:forward>
 
-<% return; } catch (Exceptions.dbConnection dbConnection) {
-               response.sendRedirect("index.jsp?error=databaseConnection");
-               return;
-           }
+<% return; }
     String destination ="visualizzaSegnalazioni.jsp";
     response.sendRedirect(response.encodeRedirectURL(destination));
     session.setAttribute("success", "");
@@ -145,7 +153,7 @@
     List<Integer> IDSegnalazioni = new LinkedList<>();
 
       try {
-          listaResult = parentController.getSegnalazioniPagamento(sessionBean);
+          listaResult = parentController.getPaymentClaims(sessionBean);
       } catch (Exceptions.emptyResult emptyResult) { %>
 
             <jsp:forward page="pannelloUtente.jsp">
@@ -166,7 +174,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  
     <a class="navbar-brand" href="#">FERSA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -214,35 +222,35 @@
         <%
             switch(temp.getClaimState()){
                 case 0: 
-                    if(sessionBean.getType() == TypeOfUser.RENTER){
+                    if(sessionBean.getUserType() == TypeOfUser.RENTER){
 %>
-                    <button type="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
+                    <button userType="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
             <% } else { %> 
-                    <button name ="0" type="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
-                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+                    <button name ="0" userType="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
+                             <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
    
                     <% 
                         }
                     break;
                 
                 case 1:
-                if(sessionBean.getType() == TypeOfUser.RENTER){
+                if(sessionBean.getUserType() == TypeOfUser.RENTER){
                 %>
-        <input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
-        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
-         <input type="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>"> 
+        <input name = "1" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
+        <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+         <input userType="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>">
 
                 <%} else{ %>
-        <input  type="submit" class="btn btn-info" value="In attesa del locatore" disabled>
+        <input  userType="submit" class="btn btn-info" value="In attesa del locatore" disabled>
                     <%}
                 
                     break;
                     
                 case 2:                        
-                if(sessionBean.getType() == TypeOfUser.RENTER){
+                if(sessionBean.getUserType() == TypeOfUser.RENTER){
                     %> 
-        <input name = "2" type="submit" class="btn btn-info" value="Archivia contratto">
-        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+        <input name = "2" userType="submit" class="btn btn-info" value="Archivia contratto">
+        <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
             <% }else {%>
                     <input  class="btn btn-info" value="In attesa del locatore" disabled>
 
@@ -251,27 +259,27 @@
                     
                 case 3:
 
-                   if(sessionBean.getType() == TypeOfUser.RENTER){
+                   if(sessionBean.getUserType() == TypeOfUser.RENTER){
 
 
 
                     %>
-        <button type="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
-                                     <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+        <button userType="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
+                                     <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 
                     <% }else{ %>
-                            <button type="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
+                            <button userType="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
 
         <%}   break;
             
         case 4:
 
-        if(sessionBean.getType() == TypeOfUser.RENTER){ %>
-                            <button type="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
-                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+        if(sessionBean.getUserType() == TypeOfUser.RENTER){ %>
+                            <button userType="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
+                             <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 
 <% }else { %>
-                            <button type="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
+                            <button userType="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
 <% }
 }
         %>

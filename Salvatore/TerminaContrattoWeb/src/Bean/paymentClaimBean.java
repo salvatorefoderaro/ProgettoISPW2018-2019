@@ -18,7 +18,8 @@ public class paymentClaimBean {
     private String claimDeadline;
     private int claimState;
     private int claimNotified;
-    
+    private boolean JDBCcommit;
+
     public int getClaimId(){return this.claimId;}
     public int getContractId(){return this.contractId;}
     public String getTenantNickname(){return this.tenantNickname;}
@@ -27,7 +28,9 @@ public class paymentClaimBean {
     public String getClaimDeadline(){return this.claimDeadline;}
     public int getClaimState(){return this.claimState;}
     public int getClaimNotified(){return this.claimNotified;}
+    public void setJDBCcommit(boolean JDBCcommit){this.JDBCcommit = JDBCcommit;}
 
+    public boolean getJDBCcommit(){ return this.JDBCcommit; }
     public void setClaimId(int ID){this.claimId = ID;}
     public void setContractId(int contractId){this.contractId = contractId;}
     public void setTenantNickname(String tenantNickname){this.tenantNickname = tenantNickname;}

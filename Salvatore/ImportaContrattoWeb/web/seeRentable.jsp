@@ -23,8 +23,6 @@
 
     }
 
-    controller parentController = sessionBean.getController();
-
 if (request.getParameter("importContract") != null) {
 
     toRent.setID(Integer.parseInt(request.getParameter("rentableID")));
