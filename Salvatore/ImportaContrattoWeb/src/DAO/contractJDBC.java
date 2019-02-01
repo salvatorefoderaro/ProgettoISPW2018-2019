@@ -70,6 +70,7 @@ public class contractJDBC implements contractDAO {
 
         if (bean.getJDBCcommit()){
             dBConnection.commit();
+            dBConnection.close();
         }
 
     }

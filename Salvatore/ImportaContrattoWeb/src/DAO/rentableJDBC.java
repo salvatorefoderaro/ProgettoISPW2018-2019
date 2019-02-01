@@ -1,13 +1,18 @@
 package DAO;
 
+import Bean.availabilityPeriodBean;
 import Bean.rentableBean;
 import Bean.userBean;
+import Entity.availabilityPeriod;
 import Exceptions.emptyResult;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
+
 import Entity.TypeOfRentable;
 
 public class rentableJDBC {
@@ -23,10 +28,52 @@ public class rentableJDBC {
     private rentableJDBC(){
     }
 
-    public rentableBean checkDate(rentableBean bean) throws SQLException, emptyResult {
+    public List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult {
 
         Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        String query = "";
 
+        switch (bean.getType()){
+            case APARTMENT:
+                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE AptToRentId = ?) ";
+                break;
+
+            case BED:
+                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE BedToRentId = ?) ";
+                break;
+
+            case ROOM:
+                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE RoomToRentId = ?) ";
+                break;
+        }
+
+        PreparedStatement preparedStatement = databaseConnection.getConnectionUser().prepareStatement(query);
+        preparedStatement.setInt(1, bean.getID());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            resultSet.close();
+            preparedStatement.close();
+            throw new emptyResult("La risorsa non è disponibile per la data indicata!");
+        }
+        List<availabilityPeriodBean> listAvailability = new LinkedList<>();
+        while(resultSet.next()) {
+            availabilityPeriodBean singlePeriod = new availabilityPeriodBean();
+            singlePeriod.setStartDate(LocalDate.parse(resultSet.getString("startDate")));
+            singlePeriod.setEndDate(LocalDate.parse(resultSet.getString("endDate")));
+            listAvailability.add(singlePeriod);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        dBConnection.close();
+
+        return listAvailability;
+    }
+
+    public rentableBean getAvailabilityDate(rentableBean bean) throws SQLException, emptyResult {
+
+        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        List<availabilityPeriod> periodList = new LinkedList<>();
         rentableBean resultBean = new rentableBean();
         String query = "";
 
@@ -53,10 +100,11 @@ public class rentableJDBC {
             preparedStatement.close();
             throw new emptyResult("La risorsa non è disponibile per la data indicata!");
         }
-
-        resultSet.next();
-        resultBean.setNewStartAvaiabilityDate(resultSet.getString("startDate"));
-        resultBean.setNewEndAvaiabilityDate(resultSet.getString("endDate"));
+        List<availabilityPeriod> listAvailability = new LinkedList<>();
+        while(resultSet.next()) {
+            availabilityPeriod singlePeriod = new availabilityPeriod(LocalDate.parse(resultSet.getString("startDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(resultSet.getString("endDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            periodList.add(singlePeriod);
+        }
         resultSet.close();
         preparedStatement.close();
         dBConnection.close();
@@ -66,54 +114,63 @@ public class rentableJDBC {
 
     public void setNewAvaiabilityDate(rentableBean bean) throws SQLException {
 
+        System.out.println(bean.getStartDateRequest());
+        System.out.println(bean.getEndDateRequest());
+        System.out.println(bean.getStartDateAvaliable());
+        System.out.println(bean.getEndDateAvaliable());
+
         Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
         dBConnection.setAutoCommit(false);
-        String query1 = "", query2 = "", query3 = "";
+        String query1 = null;
+        String query2 = null;
+        String query3 = null;
 
         switch (bean.getType1()){
             case APARTMENT:
                 query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
-                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
-                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE aptToRentId = ?)";
+                query2 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
+                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE aptToRentId = ?) AND startDate = ? AND endDate = ?";
                 break;
 
             case BED:
                 query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE bedToRentId = ?), ?, ?);";
-                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE bedToRentId = ?), ?, ?);";
-                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE bedToRentId = ?)";
+                query2 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE bedToRentId = ?), ?, ?);";
+                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE bedToRentId = ?) AND startDate = ? AND endDate = ?";
                 break;
 
             case ROOM:
                 query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE roomToRentId = ?), ?, ?);";
-                query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE roomToRentId = ?), ?, ?);";
-                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE roomToRentId = ?)";
+                query2 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE roomToRentId = ?), ?, ?);";
+                query3 = "DELETE FROM AvailabilityCalendar WHERE renterFeaturesId = (SELECT id FROM RentalFeatures WHERE roomToRentId = ?) AND startDate = ? AND endDate = ?";
                 break;
         }
 
-
+        if(!LocalDate.parse(bean.getStartDateRequest()).plusDays(1).equals(LocalDate.parse(bean.getStartDateAvaliable()))) {
             PreparedStatement preparedStatement = databaseConnection.getConnectionUser().prepareStatement(query1);
             preparedStatement.setInt(1, bean.getID());
-            preparedStatement.setString(2, bean.getNewStartAvaiabilityDate());
-            preparedStatement.setString(3, bean.getStartDate());
+            preparedStatement.setString(2, bean.getStartDateAvaliable());
+            preparedStatement.setString(3, bean.getStartDateRequest());
+            int resultSet = preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+
+        if(!LocalDate.parse(bean.getEndDateRequest()).minusDays(1).equals(LocalDate.parse(bean.getEndDateAvaliable()))) {
 
             PreparedStatement preparedStatement1 = databaseConnection.getConnectionUser().prepareStatement(query2);
             preparedStatement1.setInt(1, bean.getID());
-            preparedStatement1.setString(2, bean.getEndDate());
-            preparedStatement1.setString(3, bean.getNewEndAvaiabilityDate());
+            preparedStatement1.setString(2, bean.getEndDateRequest());
+            preparedStatement1.setString(3, bean.getEndDateAvaliable());
+            int resultSet1 = preparedStatement1.executeUpdate();
+            preparedStatement1.close();
+        }
 
             PreparedStatement preparedStatement2 = databaseConnection.getConnectionUser().prepareStatement(query3);
             preparedStatement2.setInt(1, bean.getID());
-            preparedStatement2.setString(2, bean.getNewStartAvaiabilityDate());
-            preparedStatement2.setString(3, bean.getNewEndAvaiabilityDate());
+            preparedStatement2.setString(2, bean.getStartDateAvaliable());
+            preparedStatement2.setString(3, bean.getEndDateAvaliable());
 
-            int resultSet = preparedStatement.executeUpdate();
-            int resultSet1 = preparedStatement1.executeUpdate();
             int resultSet2 = preparedStatement2.executeUpdate();
-
-            preparedStatement.close();
-            preparedStatement1.close();
             preparedStatement2.close();
-
 
             if (bean.getJDBCcommit()){
                 try {
@@ -128,8 +185,7 @@ public class rentableJDBC {
             }
     }
 
-    public List<rentableBean> rentableListByRenter(userBean renter)  throws SQLException {
-
+    public List<rentableBean> rentableListByRenter(userBean renter) throws SQLException, emptyResult {
         Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
 
         List<rentableBean> aptListRenter = new LinkedList<>();
@@ -137,27 +193,15 @@ public class rentableJDBC {
 
         switch (renter.getTypeRequest()){
             case ROOM:
-                query = "SELECT Room.id, Room.name, Room.description, Room.image\n" +
-                        "\tFROM RoomToRent as Room\n" +
-                        "\tJOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId\n" +
-                        "    JOIN AptToRent on AptToRent.id = Feature.aptId\n" +
-                        "    WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
 
             case BED:
-                query = "SELECT Bed.id, Bed.name, Bed.description, Bed.image\n" +
-                        "\tFROM BedToRent as Bed\n" +
-                        "\tJOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId\n" +
-                        "    JOIN AptToRent on AptToRent.id = Feature.aptId\n" +
-                        "    WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
                 break;
 
             case APARTMENT:
-                query = "SELECT Apt.id, Apt.name, Apt.description, Apt.image\n" +
-                        "\tFROM AptToRent as Apt\n" +
-                        "\tJOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId\n" +
-                        "    JOIN AptToRent on AptToRent.id = Feature.aptId\n" +
-                        "    WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
                 break;
         }
 
@@ -189,6 +233,7 @@ public class rentableJDBC {
             byte[] imgData = resultSet.getBytes("image"); // blob field
             rentable.setImage(Base64.getEncoder().encodeToString(imgData));
             rentable.setType(renter.getTypeRequest());
+            rentable.setListAvailability(getAvailabilityDateBean(rentable));
             aptListRenter.add(rentable);
 
         }
@@ -229,7 +274,6 @@ public class rentableJDBC {
     }
 
     public List<rentableBean> roomListByApartment(rentableBean bean)  throws SQLException {
-
         Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
 
         List<rentableBean> roomListApartment = new LinkedList<>();
@@ -248,6 +292,7 @@ public class rentableJDBC {
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));
             rentable.setType(TypeOfRentable.ROOM);
+            roomListApartment.add(rentable);
         }
         resultSet.close();
         preparedStatement.close();

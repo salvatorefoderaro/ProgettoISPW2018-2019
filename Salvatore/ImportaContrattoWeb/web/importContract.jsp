@@ -23,11 +23,11 @@
     if (request.getParameter("trueImportContract") != null){
 
     toRent.setTenantnNickname(request.getParameter("tenantNickname"));
-    toRent.setEndDate(request.getParameter("endDate"));
-    toRent.setStartDate(request.getParameter("startDate"));
+    toRent.setEndDateRequest(request.getParameter("endDateRequest"));
+    toRent.setStartDateRequest(request.getParameter("startDateRequest"));
 
-    LocalDate localStartDate = LocalDate.parse ( request.getParameter("startDate") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
-    LocalDate localEndDate = LocalDate.parse ( request.getParameter("startDate") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
+    LocalDate localStartDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
+    LocalDate localEndDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
 
     if (localStartDate.isBefore(localEndDate)){
         session.setAttribute("wrongInterval", "");
@@ -68,8 +68,8 @@
     }
 
         toRent.setTenantnNickname(request.getParameter("tenantNickname"));
-        toRent.setEndDate(request.getParameter("endDate"));
-        toRent.setStartDate(request.getParameter("startDate"));
+        toRent.setEndDateRequest(request.getParameter("endDateRequest"));
+        toRent.setStartDateRequest(request.getParameter("startDateRequest"));
 
         contractBean contract = null;
     if (tenant != null) {
@@ -77,8 +77,8 @@
                 0,
                 toRent.getID(),
                 false,
-                LocalDate.parse(request.getParameter("startDate"), DateTimeFormatter.ofPattern ("yyyy-MM-dd" )),
-                LocalDate.parse(request.getParameter("endDate"), DateTimeFormatter.ofPattern ("yyyy-MM-dd" )),
+                LocalDate.parse(request.getParameter("startDateRequest"), DateTimeFormatter.ofPattern ("yyyy-MM-dd" )),
+                LocalDate.parse(request.getParameter("endDateRequest"), DateTimeFormatter.ofPattern ("yyyy-MM-dd" )),
                 null,
                 request.getParameter("tenantNickname"),
                 sessionBean.getNickname(),
@@ -142,7 +142,7 @@
             $('.input-group.date').datepicker({
                 format: "yyyy-mm-dd",
                 calendarWeeks: true,
-                startDate: "<%= LocalDate.now().plusDays(30).toString() %>",
+                startDateRequest: "<%= LocalDate.now().plusDays(30).toString() %>",
                 autoclose: true
             });
         });
@@ -231,11 +231,11 @@
     <div class="row">
         <div class="col .text-center">
             <div class="input-group date">
-                <input name="startDate" placeholder="Data inizio contratto.." type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ></i></span>
+                <input name="startDateRequest" placeholder="Data inizio contratto.." type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ></i></span>
             </div>    </div>
         <div class="col .text-center">
             <div class="input-group date">
-                <input name="endDate" placeholder="Data fine contratto.." type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ></i></span>
+                <input name="endDateRequest" placeholder="Data fine contratto.." type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" ></i></span>
             </div>    </div>
         <div class="col .text-center">
                 <input placeholder="Nickname locatario" name="tenantNickname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>

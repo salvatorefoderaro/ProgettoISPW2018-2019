@@ -8,20 +8,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static Entity.TypeOfRentable.APARTMENT;
-
 public class contractJDBC implements contractDAO {
 
     private static contractJDBC instance = null;
 
-    public static contractJDBC getInstance()  throws SQLException {
+    public static contractJDBC getInstance()  {
         if (instance == null) {
-            contractJDBC instance = new contractJDBC();
+            instance = new contractJDBC();
         }
-
         return instance;
     }
-
 
     private contractJDBC() { }
 
@@ -70,6 +66,7 @@ public class contractJDBC implements contractDAO {
 
         if (bean.getJDBCcommit()){
             dBConnection.commit();
+            dBConnection.close();
         }
 
     }

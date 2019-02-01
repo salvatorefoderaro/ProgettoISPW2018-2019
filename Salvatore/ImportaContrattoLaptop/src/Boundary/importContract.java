@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-import Entity.OptionalService;
-import Entity.TypeOfPayment;
 import Entity.TypeOfUser;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -104,8 +101,8 @@ public class importContract {
             return;
         }
         
-        theBean.setStartDate(dataInizio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        theBean.setEndDate(dataFine.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        theBean.setStartDateRequest(dataInizio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        theBean.setEndDateRequest(dataFine.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         theBean.setTenantnNickname(locatarioNickname.getText());
 
         try {
