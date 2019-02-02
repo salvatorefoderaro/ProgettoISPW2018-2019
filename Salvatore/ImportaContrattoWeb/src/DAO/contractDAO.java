@@ -7,10 +7,11 @@ package DAO;
 
 
 import Bean.contractBean;
+import Exceptions.dbConfigMissing;
 import Exceptions.transactionError;
 
 import java.sql.SQLException;
 
 public interface contractDAO {
-    void createContract(contractBean bean) throws SQLException, transactionError;
+    void createContract(contractBean bean) throws SQLException, transactionError, dbConfigMissing;
 }

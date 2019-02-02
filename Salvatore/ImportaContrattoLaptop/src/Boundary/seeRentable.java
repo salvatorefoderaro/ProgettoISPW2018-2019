@@ -6,6 +6,8 @@ import Control.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
+
+import Exceptions.dbConfigMissing;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -39,20 +41,18 @@ public class seeRentable {
 
         this.parentController = parentController;
         this.loggedRenter = loggedRenter;
-        try {
             try {
                 this.test = this.parentController.getRentableFromUser(this.loggedRenter);
             } catch (Exceptions.emptyResult emptyResult) {
                 popup("Nessuna risorsa al momento disponibile!", true);
+                return;
+            } catch (SQLException e) {
+                popup(TypeOfMessage.DBERROR.getString(), true);
+                return;
+            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                popup(TypeOfMessage.DBCONFIGERROR.getString(), true);
+                return;
             }
-        } catch (SQLException e) {
-            popup("Errore nella connessione con il database!", false);
-            return;
-        }
-
-        if (this.test.isEmpty()){
-            popup("Nessuna risorsa affittabile da mostrare!", true);
-        } else {
 
             scrollPane.setStyle("-fx-background-color:transparent;");
             for (int i = 0; i < test.size(); i++) {
@@ -96,10 +96,9 @@ public class seeRentable {
                             st.show();
                         } catch (IOException ex) {
                             Logger.getLogger(seeRentable.class.getName()).log(Level.SEVERE, null, ex);
-                        }
                     }
-                });
-            }
+                }
+            });
         }
     }
 

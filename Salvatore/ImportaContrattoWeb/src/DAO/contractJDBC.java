@@ -1,6 +1,7 @@
 package DAO;
 
 import Bean.contractBean;
+import Exceptions.dbConfigMissing;
 import Exceptions.transactionError;
 
 import java.sql.Connection;
@@ -14,24 +15,27 @@ public class contractJDBC implements contractDAO {
 
     private static contractJDBC instance = null;
 
-    public static contractJDBC getInstance()  throws SQLException {
+    public static contractJDBC getInstance()  {
         if (instance == null) {
-                instance = new contractJDBC();
-            }
-
+            instance = new contractJDBC();
+        }
         return instance;
     }
-
 
     private contractJDBC() { }
 
 
     @Override
-    public void createContract(contractBean bean) throws SQLException, transactionError {
+    public void createContract(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
-        
+
         String query = "";
         switch(bean.getRentableType()) {
             case APARTMENT:
@@ -79,6 +83,7 @@ public class contractJDBC implements contractDAO {
                 throw new transactionError("");
             }
         }
+
     }
 
 }

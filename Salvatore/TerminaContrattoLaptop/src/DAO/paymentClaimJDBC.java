@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import Bean.userSessionBean;
 import Entity.TypeOfUser;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
 
@@ -22,9 +23,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     private paymentClaimJDBC(){    }
 
     @Override
-    public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult {
+    public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         List<paymentClaimBean> claimsList = new LinkedList<>();
             String query;
@@ -41,7 +47,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
         if (!resultSet.isBeforeFirst()){
             resultSet.close();
             preparedStatement.close();
-            throw new emptyResult("Errore! Nessun utente associato al nickname indicato!");
+            throw new emptyResult("Errore! Nessuna segnalazione di pagamento al momento disponibile!");
         }else {
                 while(resultSet.next()){
                     paymentClaimBean paymentBean = new paymentClaimBean();
@@ -65,9 +71,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException, transactionError {
+    public void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimNumber = claimNumber + 1, claimState = 0, claimDeadline = DATE_ADD(CURDATE(), interval 14 day)  WHERE id = ?");
@@ -88,9 +99,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError {
+    public void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("ISERT INTO PaymentClaim (contractID, claimNumber, claimDeadline, claimState, claimNotified) VALUES (?, 1, ?, 0, 0))");
@@ -112,9 +128,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void setSegnalazionePagata(paymentClaimBean bean) throws SQLException, transactionError {
+    public void setSegnalazionePagata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimState = 4  WHERE id = ?");
@@ -135,9 +156,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException, transactionError {
+    public void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimState = 2 WHERE id = ?");
@@ -158,9 +184,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException, transactionError {
+    public void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimNotified = 1 WHERE id = ?");
@@ -181,9 +212,14 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void checkPaymentClaimDate() throws SQLException{
+    public void checkPaymentClaimDate() throws SQLException, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimState = 1 WHERE claimDeadline < CURDATE() and claimNumber != 3");
         preparedStatement.executeUpdate();

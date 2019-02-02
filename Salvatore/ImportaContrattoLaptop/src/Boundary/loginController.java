@@ -2,6 +2,7 @@ package Boundary;
 
 import Bean.userBean;
 import Control.controller;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -52,6 +53,9 @@ public class loginController {
         } catch (SQLException e) {
             popup("Errore nella connessione con il Database!");
             return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            popup(TypeOfMessage.DBCONFIGERROR.getString());
+            return;
         }
 
         Stage st = (Stage) loginButton.getScene().getWindow();
@@ -65,8 +69,6 @@ public class loginController {
         st.setScene(scene);
         st.setTitle("My App");
         st.show();
-
-
     }
 
     public void popup(String text) {

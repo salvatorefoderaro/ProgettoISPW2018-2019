@@ -7,9 +7,9 @@ package DAO;
 
 import Bean.contractBean;
 import Bean.userSessionBean;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
-
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,9 +27,14 @@ public class contractJDBC implements contractDAO {
     private contractJDBC(){  }
 
     @Override
-    public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult {
+    public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         List<contractBean> listBean = new LinkedList<>();
         String query = "select contractID, tenantNickname, renterNickname from Contract where renterNickname = ? and claimReported = 0";
@@ -59,9 +64,14 @@ public class contractJDBC implements contractDAO {
     }
 
     @Override
-    public contractBean getContract(contractBean bean)  throws SQLException{
+    public contractBean getContract(contractBean bean) throws SQLException, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         String query = "select tenantNickname, renterNickname, state from Contract where contractID = ? and claimReported = 0";
         PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
@@ -83,11 +93,16 @@ public class contractJDBC implements contractDAO {
     }
 
     @Override
-    public void setContrattoArchiviato(contractBean bean) throws SQLException, transactionError {
+    public void setContrattoArchiviato(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
-        
+
         PreparedStatement preparedStatement = dBConnection.prepareStatement("INSERT INTO FiledContract (contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported) SELECT contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported FROM ActiveContract WHERE contractId = ?; DELETE FROM ActiveContract WHERE contractId = ?;");
         preparedStatement.setInt(1, bean.getContractId());
         preparedStatement.executeUpdate();
@@ -111,11 +126,16 @@ public class contractJDBC implements contractDAO {
     }
 
     @Override
-    public void setContrattoSegnalato(contractBean bean) throws SQLException, transactionError {
+    public void setContrattoSegnalato(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
-        
+
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE Contract SET claimReported = 1 WHERE contractId = ?");
         preparedStatement.setInt(1, bean.getContractId());
         preparedStatement.executeUpdate();

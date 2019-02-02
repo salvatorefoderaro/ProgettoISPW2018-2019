@@ -6,6 +6,7 @@ import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.*;
 import Entity.*;
+import Exceptions.dbConfigMissing;
 import Exceptions.dbConnection;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
@@ -25,11 +26,11 @@ public class Controller {
         databaseConnection.getConnectionUser();
     }
 
-    public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult {
+    public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().login(loginUser);
     }
 
-    public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws emptyResult, SQLException {
+    public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws emptyResult, SQLException, dbConfigMissing {
         List<paymentClaimBean> Result = paymentClaimJDBC.getInstance().getPaymentClaims(bean);
         for (paymentClaimBean temp : Result) {
             if (dictionarySegnalazionePagamento.get(temp.getClaimId()) == null){
@@ -54,7 +55,7 @@ public class Controller {
         return Result;
     }
 
-    public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult {
+    public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult, dbConfigMissing {
 
         contractJDBC jdbcContratto = contractJDBC.getInstance();
         List<contractBean> Result = jdbcContratto.getContracts(user);
@@ -66,25 +67,25 @@ public class Controller {
         return Result;
     }
 
-    public void setContrattoArchiviato(paymentClaimBean bean) throws transactionError, SQLException {
+    public void setContrattoArchiviato(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         contractBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).getContract().makeBean();
         operationBean.setJDBCcommit(true);
         contractJDBC.getInstance().setContrattoArchiviato(operationBean);
     }
 
-    public void setSegnalazioneNotificata(paymentClaimBean bean) throws transactionError, SQLException {
+    public void setSegnalazioneNotificata(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
         paymentClaimJDBC.getInstance().setSegnalazionePagamentoNotificata(operationBean);
     }
 
-    public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException {
+    public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
         paymentClaimJDBC.getInstance().setSegnalazionePagamentoNotificata(operationBean);
     }
 
-    public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError {
+    public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
         Contract trueContract = null;
         if (dictionaryContratto.get(bean.getContractId()) == null){
             contractBean contract = new contractBean();
@@ -109,7 +110,7 @@ public class Controller {
         contractJDBC.getInstance().setContrattoSegnalato(operationBean);
     }
 
-    public void incrementaSegnalazione(paymentClaimBean bean) throws transactionError, SQLException {
+    public void incrementaSegnalazione(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
         paymentClaimJDBC.getInstance().incrementaNumeroSegnalazione(operationBean);

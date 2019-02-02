@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Entity.TypeOfUser;
+import Exceptions.dbConfigMissing;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;
@@ -48,13 +49,15 @@ public void initialize(Controller parentController, userSessionBean bean){
     try {
         contractBeanList = controller.getContracts(userSession);
     } catch (SQLException ex) {
-        popupToDestination("Errore nella connessione con il database!", false);
+        popupToDestination(TypeOfMessage.DBERROR.getString(), true);
         return;
     } catch (Exceptions.emptyResult emptyResult) {
         popupToDestination("Nessun contratto al momento disponibile!", true);
         return;
+    } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), true);
     }
-        for (int i = 0; i < contractBeanList.size(); i++) {
+    for (int i = 0; i < contractBeanList.size(); i++) {
             contractBean contractBean = contractBeanList.get(i);
             Label element0 = new Label();
             element0.setText("ID Contract: " + contractBean.getContractId());
@@ -178,11 +181,13 @@ public void initialize(Controller parentController, userSessionBean bean){
                 try {
                     controller.insertNewPaymentClaim(bean);
                 } catch (SQLException ex) {
-                    popupToDestination("Errore nella connessione con il database!", false);
+                    popupToDestination(TypeOfMessage.DBERROR.getString(), true);
                     return;
                 } catch (Exceptions.transactionError transactionError) {
-                    popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                    popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), true);
                     return;
+                } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                    popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), true);
                 }
                 element.setDisable(true);
                 claimDeadline = null;

@@ -5,6 +5,8 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="Bean.userBean" %>
 <%@ page import="Exceptions.transactionError" %>
+<%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="java.lang.reflect.Type" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
@@ -12,7 +14,6 @@
 <%
 
     if ((sessionBean.getNickname() == null) || (toRent.getName() == null)){
-
         session.setAttribute("warningMessage", "Effettua l'accesso prima di continuare!");
         String destination ="index.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
@@ -29,14 +30,14 @@
     LocalDate localEndDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
 
     if (localEndDate.isBefore(localStartDate)){
-        session.setAttribute("infoMessage", "La data indicata non è valida!");
+        session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
 
     if (localEndDate.isAfter(localStartDate.plusDays(180))){
-        session.setAttribute("infoMessage", "L'intervallo massimo è di 180 giorni!");
+        session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -47,7 +48,7 @@
         tenant = sessionBean.getController().checkTenantNickname(toRent);
     } catch (SQLException e) {
         e.printStackTrace();
-        session.setAttribute("waningMessage", "Errore nella connessione con il database!");
+        session.setAttribute("waningMessage", TypeOfMessage.DBERROR.getString());
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -56,23 +57,33 @@
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
+    } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        session.setAttribute("infoMessage1", "Nessun utente associato al nickname indicato!");
+        String destination ="importContract.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+        return;
     }
 
         try {
             sessionBean.getController().checkRentableDate(toRent);
         } catch (Exceptions.transactionError transactionError) {
-            session.setAttribute("infoMessage", "Errore nell'esecuzione della richiesta! Riprova.");
+            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (SQLException e) {
-            session.setAttribute("warningMessage", "Errore nella connessione con il database!");
+            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (Exceptions.emptyResult emptyResult) {
             session.setAttribute("infoMessage", "La risorsa non è disponibile per le date indicate!");
             String destination ="importContract.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
@@ -107,24 +118,28 @@
                 null,
                 toRent.getType(),
                 Integer.parseInt(request.getParameter("contractDeposito"))
-        );
+            );
         }
 
         try {
             sessionBean.getController().createContract(contract);
         } catch (SQLException e) {
-            session.setAttribute("warningMessage", "Errore nella connessione con il database!");
+            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
         catch (Exceptions.transactionError transactionError) {
-            session.setAttribute("transactionError", "");
+            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
-
 
 %>
 
@@ -132,9 +147,7 @@
     <jsp:param name="success" value="contractCreated" />
 </jsp:forward>
 
-<%
-    return; }
-%>
+<% return; } %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 

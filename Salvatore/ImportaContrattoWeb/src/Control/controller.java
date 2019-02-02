@@ -2,6 +2,7 @@ package Control;
 
 import Bean.*;
 import Entity.*;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
 import DAO.*;
@@ -23,7 +24,7 @@ public class controller {
 
     public controller() { }
 
-    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, SQLException {
+    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, SQLException, dbConfigMissing {
         if (TypeOfRentable.ROOM == bean.getType1()){
             try {
                 bean.setType1(TypeOfRentable.ROOM);
@@ -105,20 +106,20 @@ public class controller {
         }
     }
 
-    public userBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResult {
+    public userBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().getTenant(bean);
     }
 
-    public void createContract(contractBean contract) throws SQLException, transactionError {
+    public void createContract(contractBean contract) throws SQLException, transactionError, dbConfigMissing {
             contract.setJDBCcommit(true);
             contractJDBC.getInstance().createContract(contract);
     }
 
-    public userBean loginRenter(userBean renter) throws SQLException, emptyResult {
+    public userBean loginRenter(userBean renter) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().renterLogin(renter);
     }
 
-    public List<rentableBean> getRentableFromUser(userBean renterNickname) throws SQLException, emptyResult {
+    public List<rentableBean> getRentableFromUser(userBean renterNickname) throws SQLException, emptyResult, dbConfigMissing {
 
         renterNickname.setTypeRequest(TypeOfRentable.ROOM);
         List<rentableBean> rentableList = new ArrayList<>(rentableJDBC.getInstance().rentableListByRenter(renterNickname));

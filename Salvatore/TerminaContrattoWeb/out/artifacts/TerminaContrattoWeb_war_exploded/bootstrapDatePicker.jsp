@@ -23,12 +23,12 @@
     <title>Bootstrap datepicket demo</title>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
+    <script userType='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
-<script type='text/javascript'>
+<script userType='text/javascript'>
 $(function(){
 $('.input-group.date').datepicker({
 	format: "yyyy-mm-dd",
@@ -45,12 +45,12 @@ $('.input-group.date').datepicker({
 <h1>Bootstrap datepicker</h1>
     <form action="bootstrapDatePicker.jsp" name="myform" method="POST">
 <div class="input-group date">
-        <input name="date" placeholder="Seleziona una data..." type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        <input name="date" placeholder="Seleziona una data..." userType="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
        
        
 
 </div>
-        <br><input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
+        <br><input name = "1" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
 
         </form>
 </div>

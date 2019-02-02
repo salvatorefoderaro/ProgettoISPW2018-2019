@@ -60,6 +60,12 @@
                 String destination = "index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
+            } catch (Exceptions.dbConfigMissing missingConfig) {
+                missingConfig.printStackTrace();
+                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
             }
             String destination = "visualizzaSegnalazioni.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
@@ -82,6 +88,12 @@
             }
             catch (Exceptions.transactionError transactionError) {
                 session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            } catch (Exceptions.dbConfigMissing missingConfig) {
+                missingConfig.printStackTrace();
+                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
@@ -110,6 +122,12 @@
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
+            } catch (Exceptions.dbConfigMissing missingConfig) {
+                missingConfig.printStackTrace();
+                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
             }
         String destination ="visualizzaSegnalazioni.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
@@ -131,6 +149,12 @@
           }
           catch (Exceptions.transactionError transactionError) {
               session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+              String destination ="index.jsp";
+              response.sendRedirect(response.encodeRedirectURL(destination));
+              return;
+          } catch (Exceptions.dbConfigMissing missingConfig) {
+              missingConfig.printStackTrace();
+              session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
               String destination ="index.jsp";
               response.sendRedirect(response.encodeRedirectURL(destination));
               return;
@@ -157,6 +181,12 @@
                    String destination ="index.jsp";
                    response.sendRedirect(response.encodeRedirectURL(destination));
                    return;
+               } catch (Exceptions.dbConfigMissing missingConfig) {
+                   missingConfig.printStackTrace();
+                   session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                   String destination ="index.jsp";
+                   response.sendRedirect(response.encodeRedirectURL(destination));
+                   return;
                }
            String destination ="visualizzaSegnalazioni.jsp";
            response.sendRedirect(response.encodeRedirectURL(destination));
@@ -176,6 +206,12 @@
           return;
       } catch (SQLException e) {
           session.setAttribute("infoMessage", TypeOfMessage.);
+          String destination ="index.jsp";
+          response.sendRedirect(response.encodeRedirectURL(destination));
+          return;
+      } catch (Exceptions.dbConfigMissing missingConfig) {
+          missingConfig.printStackTrace();
+          session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;

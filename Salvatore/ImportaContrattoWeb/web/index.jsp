@@ -36,6 +36,11 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("infoMessage", "Controllare nome utente e/o password, nessun utente associato!");
             return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
 
         %>

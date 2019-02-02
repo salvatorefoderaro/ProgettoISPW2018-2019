@@ -4,6 +4,7 @@ import Bean.userSessionBean;
 import DAO.paymentClaimJDBC;
 import DAO.userJDBC;
 import Entity.TypeOfUser;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ class jUnity {
 
     @Test
     @DisplayName("Test Date")
-    void testDate() throws ParseException, SQLException, emptyResult {
+    void testDate() throws ParseException, SQLException, emptyResult, dbConfigMissing {
         userSessionBean bean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, "giuseppe", null);
         userJDBC.getInstance().login(bean);
     }

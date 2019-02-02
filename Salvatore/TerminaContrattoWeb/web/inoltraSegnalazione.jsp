@@ -92,6 +92,12 @@
             String destination ="inoltraSegnalazione.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
+        } catch (Exceptions.dbConfigMissing missingConfig) {
+            missingConfig.printStackTrace();
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
         // Success
         return;
@@ -126,6 +132,12 @@
               } catch (emptyResult e) {
                   session.setAttribute("infoMessage", "Nessun contratto da segnalare al momento!");
                   String destination ="pannelloUtente.jsp";
+                  response.sendRedirect(response.encodeRedirectURL(destination));
+                  return;
+              } catch (Exceptions.dbConfigMissing missingConfig) {
+                  missingConfig.printStackTrace();
+                  session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                  String destination ="index.jsp";
                   response.sendRedirect(response.encodeRedirectURL(destination));
                   return;
               } %>

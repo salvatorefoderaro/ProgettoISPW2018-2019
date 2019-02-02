@@ -9,12 +9,15 @@
 <%@ page import="Exceptions.dbConnection" %>
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Entity.TypeOfUser" %>
+<%@ page import="Entity.TypeOfMessage" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
     if (sessionBean.getId() == 0){
-    response.sendRedirect("index.jsp?error=makeLogin");
+    session.setAttribute("infoMessage", TypeOfMessage.NOTLOGGED.getString());
+    String destination ="index.jsp";
+    response.sendRedirect(response.encodeRedirectURL(destination));
     return;
 } %>
 
@@ -30,7 +33,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     
     
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
         
     <title>Hello, world!</title>
@@ -39,124 +42,180 @@
   <% Controller parentController = sessionBean.getController();
         paymentClaimBean bean = new paymentClaimBean();
         
-        if (request.getParameter("0") != null){
-        
+        if (request.getParameter("0") != null) {
+
             bean.setClaimId(Integer.parseInt(request.getParameter("id")));
+
+
             try {
-                parentController.setSegnalazionePagata(bean);
-            } catch (Exceptions.transactionError transactionError) { %>
-
-<jsp:forward page="pannelloUtente.jsp">
-    <jsp:param name="error" value="transaction" />
-</jsp:forward>
-
-<% return; } catch (Exceptions.dbConnection dbConnection) {
-                response.sendRedirect("index.jsp?error=databaseConnection");
+                parentController.setPaymentClaimPayed(bean);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                String destination = "index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            } catch (Exceptions.transactionError transactionError) {
+                session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                String destination = "index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            } catch (Exceptions.dbConfigMissing missingConfig) {
+                missingConfig.printStackTrace();
+                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
-    String destination ="visualizzaSegnalazioni.jsp";
-    response.sendRedirect(response.encodeRedirectURL(destination));
-    session.setAttribute("success", "");
-    return;
+            String destination = "visualizzaSegnalazioni.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+            return;
         }
         
     if (request.getParameter("1") != null) {
        
         bean.setClaimId(Integer.parseInt(request.getParameter("id")));
         bean.setClaimNumber(Integer.parseInt(request.getParameter("numeroReclamo")));
-        try {
-            parentController.incrementaSegnalazione(bean);
-        } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("index.jsp?error=databaseConnection");
-            return;
-        } catch (Exceptions.transactionError transactionError) { %>
-
-<jsp:forward page="pannelloUtente.jsp">
-    <jsp:param name="error" value="transaction" />
-</jsp:forward>
-
-<% return; } }
+            try {
+                parentController.incrementaSegnalazione(bean);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            }
+            catch (Exceptions.transactionError transactionError) {
+                session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            } catch (Exceptions.dbConfigMissing missingConfig) {
+                missingConfig.printStackTrace();
+                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            }
+        String destination ="visualizzaSegnalazioni.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+        session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        return;
+    }
 
     if (request.getParameter("2") != null) {
        
         bean.setClaimId(Integer.parseInt(request.getParameter("id")));
-        try {
-            parentController.setContrattoArchiviato(bean);
-        } catch (Exceptions.dbConnection dbConnection) {
-            response.sendRedirect("index.jsp?error=databaseConnection");
-            return;
-        } catch (Exceptions.transactionError transactionError) { %>
 
-<jsp:forward page="pannelloUtente.jsp">
-    <jsp:param name="error" value="transaction" />
-</jsp:forward>
-
-<% return;}
-    String destination ="visualizzaSegnalazioni.jsp";
-    response.sendRedirect(response.encodeRedirectURL(destination));
-    session.setAttribute("success", "");
-    return;
+            try {
+                parentController.setContrattoArchiviato(bean);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            }
+            catch (Exceptions.transactionError transactionError) {
+                session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            } catch (Exceptions.dbConfigMissing missingConfig) {
+                missingConfig.printStackTrace();
+                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                String destination ="index.jsp";
+                response.sendRedirect(response.encodeRedirectURL(destination));
+                return;
+            }
+        String destination ="visualizzaSegnalazioni.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+        session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        return;
     }
     
    if (request.getParameter("3") != null){
        
        bean.setClaimId(Integer.parseInt(request.getParameter("id")));
-       try {
-           parentController.setSegnalazioneNotificata(bean);
-       } catch (Exceptions.dbConnection dbConnection) {
-           response.sendRedirect("index.jsp?error=databaseConnection");
-           return;
-       } catch (Exceptions.transactionError transactionError) {
-  %>
-
-<jsp:forward page="pannelloUtente.jsp">
-    <jsp:param name="error" value="transaction" />
-</jsp:forward>
-
-<% return;
-}
-    String destination ="visualizzaSegnalazioni.jsp";
-    response.sendRedirect(response.encodeRedirectURL(destination));
-    session.setAttribute("success", "");
-    return;
+          try {
+               parentController.setSegnalazioneNotificata(bean);
+          } catch (SQLException e) {
+              e.printStackTrace();
+              session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+              String destination ="index.jsp";
+              response.sendRedirect(response.encodeRedirectURL(destination));
+              return;
+          }
+          catch (Exceptions.transactionError transactionError) {
+              session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+              String destination ="index.jsp";
+              response.sendRedirect(response.encodeRedirectURL(destination));
+              return;
+          } catch (Exceptions.dbConfigMissing missingConfig) {
+              missingConfig.printStackTrace();
+              session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+              String destination ="index.jsp";
+              response.sendRedirect(response.encodeRedirectURL(destination));
+              return;
+          }
+       String destination ="visualizzaSegnalazioni.jsp";
+       response.sendRedirect(response.encodeRedirectURL(destination));
+       session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+       return;
    }
         
        if (request.getParameter("4") != null) {
            bean.setClaimId(Integer.parseInt(request.getParameter("id")));
-           try {
-               parentController.setSegnalazionePagata(bean);
-           } catch (Exceptions.transactionError transactionError) { %>
-
-                <jsp:forward page="pannelloUtente.jsp">
-                <jsp:param name="error" value="transaction" />
-                </jsp:forward>
-
-<% return; } catch (Exceptions.dbConnection dbConnection) {
-               response.sendRedirect("index.jsp?error=databaseConnection");
-               return;
-           }
-    String destination ="visualizzaSegnalazioni.jsp";
-    response.sendRedirect(response.encodeRedirectURL(destination));
-    session.setAttribute("success", "");
-    return;
+               try {
+                   parentController.setPaymentClaimPayed(bean);
+               } catch (SQLException e) {
+                   e.printStackTrace();
+                   session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                   String destination ="index.jsp";
+                   response.sendRedirect(response.encodeRedirectURL(destination));
+                   return;
+               }
+               catch (Exceptions.transactionError transactionError) {
+                   session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                   String destination ="index.jsp";
+                   response.sendRedirect(response.encodeRedirectURL(destination));
+                   return;
+               } catch (Exceptions.dbConfigMissing missingConfig) {
+                   missingConfig.printStackTrace();
+                   session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                   String destination ="index.jsp";
+                   response.sendRedirect(response.encodeRedirectURL(destination));
+                   return;
+               }
+           String destination ="visualizzaSegnalazioni.jsp";
+           response.sendRedirect(response.encodeRedirectURL(destination));
+           session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+           return;
        }
 
     List<paymentClaimBean> listaResult = null;
     List<Integer> IDSegnalazioni = new LinkedList<>();
 
       try {
-          listaResult = parentController.getSegnalazioniPagamento(sessionBean);
-      } catch (Exceptions.emptyResult emptyResult) { %>
-
-            <jsp:forward page="pannelloUtente.jsp">
-            <jsp:param name="error" value="emptyPaymentClaim" />
-            </jsp:forward>
-
-      <% return; } catch (SQLException e) {
-          response.sendRedirect("index.jsp?error=databaseConnection");
+          listaResult = parentController.getPaymentClaims(sessionBean);
+      } catch (Exceptions.emptyResult emptyResult) {
+          session.setAttribute("infoMessage", "Nessuna segnalazione di pagamento al momento disponibile!");
+          String destination ="index.jsp";
+          response.sendRedirect(response.encodeRedirectURL(destination));
+          return;
+      } catch (SQLException e) {
+          session.setAttribute("infoMessage", TypeOfMessage.);
+          String destination ="index.jsp";
+          response.sendRedirect(response.encodeRedirectURL(destination));
+          return;
+      } catch (Exceptions.dbConfigMissing missingConfig) {
+          missingConfig.printStackTrace();
+          session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+          String destination ="index.jsp";
+          response.sendRedirect(response.encodeRedirectURL(destination));
           return;
       }
-
   %>
     
     
@@ -166,7 +225,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  
     <a class="navbar-brand" href="#">FERSA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -184,16 +243,40 @@
 <div class="container">
 <center>
         <%
-    if (session.getAttribute("success") != null) { %>
+            // Error handling
 
+    <%
+        if (session.getAttribute("successMessage") != null) { %>
 
-    <div class="alert alert-success">
-        <strong>Ok!</strong> Operazione eseguita correttamente!
+    <div class="alert alert-warning">
+        <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
 
-    <% session.setAttribute("success", null);
-        }
+    <% session.setAttribute("successMessage", null);
+    }
+
+        if (session.getAttribute("infoMessage") != null) {  %>
+
+
+    <div class="alert alert-warning">
+        <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
+    </div>
+
+
+    <% session.setAttribute("infoMessage", null);
+    }
+
+        if (session.getAttribute("warningMessage") != null) {  %>
+
+
+    <div class="alert alert-warning">
+        <strong>Errore!</strong> <%= session.getAttribute("warningMessage") %>
+    </div>
+
+
+    <% session.setAttribute("warningMessage", null);
+    }
 
     		for (paymentClaimBean temp : listaResult) {
 		%>
@@ -214,35 +297,35 @@
         <%
             switch(temp.getClaimState()){
                 case 0: 
-                    if(sessionBean.getType() == TypeOfUser.RENTER){
+                    if(sessionBean.getUserType() == TypeOfUser.RENTER){
 %>
-                    <button type="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
+                    <button userType="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
             <% } else { %> 
-                    <button name ="0" type="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
-                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+                    <button name ="0" userType="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
+                             <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
    
                     <% 
                         }
                     break;
                 
                 case 1:
-                if(sessionBean.getType() == TypeOfUser.RENTER){
+                if(sessionBean.getUserType() == TypeOfUser.RENTER){
                 %>
-        <input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
-        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
-         <input type="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>"> 
+        <input name = "1" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
+        <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+         <input userType="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>">
 
                 <%} else{ %>
-        <input  type="submit" class="btn btn-info" value="In attesa del locatore" disabled>
+        <input  userType="submit" class="btn btn-info" value="In attesa del locatore" disabled>
                     <%}
                 
                     break;
                     
                 case 2:                        
-                if(sessionBean.getType() == TypeOfUser.RENTER){
+                if(sessionBean.getUserType() == TypeOfUser.RENTER){
                     %> 
-        <input name = "2" type="submit" class="btn btn-info" value="Archivia contratto">
-        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+        <input name = "2" userType="submit" class="btn btn-info" value="Archivia contratto">
+        <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
             <% }else {%>
                     <input  class="btn btn-info" value="In attesa del locatore" disabled>
 
@@ -251,27 +334,27 @@
                     
                 case 3:
 
-                   if(sessionBean.getType() == TypeOfUser.RENTER){
+                   if(sessionBean.getUserType() == TypeOfUser.RENTER){
 
 
 
                     %>
-        <button type="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
-                                     <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+        <button userType="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
+                                     <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 
                     <% }else{ %>
-                            <button type="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
+                            <button userType="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
 
         <%}   break;
             
         case 4:
 
-        if(sessionBean.getType() == TypeOfUser.RENTER){ %>
-                            <button type="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
-                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>"> 
+        if(sessionBean.getUserType() == TypeOfUser.RENTER){ %>
+                            <button userType="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
+                             <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 
 <% }else { %>
-                            <button type="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
+                            <button userType="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
 <% }
 }
         %>
@@ -295,7 +378,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!-- Bootstrap Date-Picker Plugin -->
-    
 
 </body>
 </html>

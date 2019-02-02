@@ -16,7 +16,7 @@ public class testLogin {
 
     @Test
     @DisplayName("Test login")
-    void newTestLogin() throws SQLException, emptyResult, transactionError {
+    void newTestLogin() throws SQLException, emptyResult, transactionError, dbConfigMissing {
         controller test = new controller();
         userBean test1 = new userBean();
         test1.setNickname("francesco");

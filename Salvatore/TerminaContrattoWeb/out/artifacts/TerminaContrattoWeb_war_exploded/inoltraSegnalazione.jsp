@@ -13,14 +13,17 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.DateFormat" %>
+<%@ page import="Entity.TypeOfMessage" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
-<%     if (sessionBean.getId() == 0){
-
-    response.sendRedirect("index.jsp?error=makeLogin");
-
-} %>
+<%
+    if (sessionBean.getId() == 0){
+        session.setAttribute("infoMessage", TypeOfMessage.NOTLOGGED.getString());
+        String destination ="index.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+        return;
+    } %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"<html lang="en">
 
@@ -32,20 +35,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
 
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
+    <script userType='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
     
     <%
         LocalDate today = LocalDate.now();
         LocalDate nextWeek = today.plus(1, ChronoUnit.WEEKS);   
     %>
 
-    <script type='text/javascript'>
+    <script userType='text/javascript'>
         $(function(){
         $('.input-group.date').datepicker({
             format: "yyyy-mm-dd",
@@ -70,41 +73,42 @@
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern ("yyyy-MM-dd" );
         LocalDate localDate = LocalDate.parse (request.getParameter("dataScadenza") , formatter );
 
-        if ( localDate.isAfter(LocalDate.now().plusWeeks(2)) ){
+        if (localDate.isAfter(LocalDate.now().plusWeeks(2)) ){
+            session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
             String destination ="inoltraSegnalazione.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
-            session.setAttribute("wrongDate", "");
             return;
         }
 
         try {
-            controllerProva.inserisciSegnalazionePagamento(bean);
-        } catch (SQLException | dbConnection e) {
-            response.sendRedirect("index.jsp?error=databaseConnection");
+            controllerProva.insertNewPaymentClaim(bean);
+        } catch (SQLException e) {
+            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        } catch (Exceptions.transactionError transactionError) { %>
-
-            <jsp:forward page="pannelloUtente.jsp">
-                <jsp:param name="error" value="transaction" />
-            </jsp:forward>
-
-            <%
-            return;}
-            %>
-
-        <jsp:forward page="pannelloUtente.jsp">
-            <jsp:param name="success" value="claimCreated" />
-        </jsp:forward>
-
-    <%
-        return; }
+        } catch (Exceptions.transactionError transactionError) {
+            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+            String destination ="inoltraSegnalazione.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (Exceptions.dbConfigMissing missingConfig) {
+            missingConfig.printStackTrace();
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        }
+        // Success
+        return;
+    }
       %>
 
   <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">FERSA</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -119,32 +123,62 @@
     	  <br>
           <% List<contractBean> listaResult = null;
               try {
-                  listaResult = sessionBean.getController().getContratti(sessionBean);
+                  listaResult = sessionBean.getController().getContracts(sessionBean);
               } catch (SQLException e) {
-          %><jsp:forward page="pannelloUtente.jsp">
-      <jsp:param name="error" value="transaction" />
-  </jsp:forward><% return;
+                  session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                  String destination ="index.jsp";
+                  response.sendRedirect(response.encodeRedirectURL(destination));
+                  return;
               } catch (emptyResult e) {
-          %><jsp:forward page="pannelloUtente.jsp">
-    <jsp:param name="error" value="emptyActiveContract" />
-</jsp:forward><%
-              return;
+                  session.setAttribute("infoMessage", "Nessun contratto da segnalare al momento!");
+                  String destination ="pannelloUtente.jsp";
+                  response.sendRedirect(response.encodeRedirectURL(destination));
+                  return;
+              } catch (Exceptions.dbConfigMissing missingConfig) {
+                  missingConfig.printStackTrace();
+                  session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                  String destination ="index.jsp";
+                  response.sendRedirect(response.encodeRedirectURL(destination));
+                  return;
               } %>
 
 <div class="container">
     <center>
-                <%
-    if (session.getAttribute("wrongDate") != null) { %>
+    <%
+        // Error handling
+
+        <%
+            if (session.getAttribute("successMessage") != null) { %>
+
+        <div class="alert alert-warning">
+            <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
+        </div>
 
 
-    <div class="alert alert-warning">
-        <strong>Errore!</strong> Errore! Non è possibile inserire una data di scadenza oltre le due settimane!
-    </div>
+        <% session.setAttribute("successMessage", null);
+        }
+
+            if (session.getAttribute("infoMessage") != null) {  %>
 
 
-    <% session.setAttribute("wrongDate", null);
-    }
+        <div class="alert alert-warning">
+            <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
+        </div>
 
+
+        <% session.setAttribute("infoMessage", null);
+        }
+
+            if (session.getAttribute("warningMessage") != null) {  %>
+
+
+        <div class="alert alert-warning">
+            <strong>Errore!</strong> <%= session.getAttribute("warningMessage") %>
+        </div>
+
+
+        <% session.setAttribute("warningMessage", null);
+        }
 
     		for (contractBean temp : listaResult) {
 		%>
@@ -162,16 +196,16 @@
       
     <div class="col-md">
         <div class="input-group date">
-        <input name="dataScadenza" placeholder="Seleziona una data..." value='<%= (nextWeek) %>' type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        <input name="dataScadenza" placeholder="Seleziona una data..." value='<%= (nextWeek) %>' userType="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 </div>
     </div>
           <div class="col-md">
-            <input name = "date" type="submit" class="btn btn-info" value="Reinoltra segnalazione">       
+            <input name = "date" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
     </div>
       
   </div>
-        <input type="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>"> 
-        <input type="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>"> 
+        <input userType="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>">
+        <input userType="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>">
 
     </form>
     <br>

@@ -4,6 +4,7 @@ import Bean.availabilityPeriodBean;
 import Bean.rentableBean;
 import Bean.userBean;
 import Entity.availabilityPeriod;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
 import java.sql.*;
@@ -29,9 +30,14 @@ public class rentableJDBC {
     private rentableJDBC(){
     }
 
-    public List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult {
+    public List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         String query = "";
 
         switch (bean.getType()){
@@ -71,9 +77,14 @@ public class rentableJDBC {
         return listAvailability;
     }
 
-    public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError {
+    public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
         
         String query1 = null;
@@ -139,10 +150,15 @@ public class rentableJDBC {
         }
     }
 
-    public List<rentableBean> rentableListByRenter(userBean renter) throws SQLException, emptyResult {
-        
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
-        
+    public List<rentableBean> rentableListByRenter(userBean renter) throws SQLException, emptyResult, dbConfigMissing {
+
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
+
         List<rentableBean> aptListRenter = new LinkedList<>();
         String query = "";
 
@@ -199,9 +215,14 @@ public class rentableJDBC {
         return aptListRenter;
     }
 
-    public List<rentableBean> bedListByRoom(rentableBean bean)  throws SQLException {
+    public List<rentableBean> bedListByRoom(rentableBean bean) throws SQLException, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         List<rentableBean> bedListRoom = new LinkedList<>();
 
@@ -227,10 +248,15 @@ public class rentableJDBC {
         return bedListRoom;
     }
 
-    public List<rentableBean> roomListByApartment(rentableBean bean)  throws SQLException {
-        
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
-        
+    public List<rentableBean> roomListByApartment(rentableBean bean) throws SQLException, dbConfigMissing {
+
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
+
         List<rentableBean> roomListApartment = new LinkedList<>();
 
         String query = "select * from RoomToRent where aptId = ?";

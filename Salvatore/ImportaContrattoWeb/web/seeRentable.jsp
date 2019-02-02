@@ -118,6 +118,11 @@ if (request.getParameter("importContract") != null) {
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
 
         for (rentableBean temp : test) {

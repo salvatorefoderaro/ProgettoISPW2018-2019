@@ -3,6 +3,7 @@ package DAO;
 import Bean.rentableBean;
 import Bean.userBean;
 import Entity.TypeOfUser;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
 import java.sql.*;
@@ -21,9 +22,14 @@ public class userJDBC {
     private userJDBC(){
     }
 
-    public userBean getLocatore(userBean sessionBean) throws SQLException, emptyResult {
+    public userBean getLocatore(userBean sessionBean) throws emptyResult, SQLException, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("SELECT * from RentingUser WHERE nickname = ? and password = SHA2(?, 256) and type ='RENTER'");
         preparedStatement.setString(1, sessionBean.getNickname());
@@ -47,9 +53,14 @@ public class userJDBC {
         }
     }
 
-    public userBean getLocatario(rentableBean bean) throws SQLException, emptyResult {
+    public userBean getLocatario(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("SELECT * from RentingUser where nickname = ? and type = 'TENANT'");
         preparedStatement.setString(1, bean.getTenantNickname());

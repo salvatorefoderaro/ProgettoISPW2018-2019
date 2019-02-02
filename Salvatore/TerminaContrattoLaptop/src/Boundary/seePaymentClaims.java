@@ -11,7 +11,6 @@ import Bean.paymentClaimBean;
 import Controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
-
 import Entity.TypeOfUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -55,14 +54,16 @@ public void initialize(Controller parentController, userSessionBean session){
     try {
         paymentClaimList = claimDeadline.getPaymentClaims(userSession);
     } catch (SQLException ex) {
-        popupToDestination("Errore nella connessione con il database!", false);
+        popupToDestination(TypeOfMessage.DBERROR.getString(), false);
         return;
     } catch (Exceptions.emptyResult emptyResult) {
         popupToDestination("Nessuna segnalazione di pagamento disponibile al momento!", true);
         return;
+    } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
     }
 
-        for (int i = 0; i < paymentClaimList.size(); i++) {
+    for (int i = 0; i < paymentClaimList.size(); i++) {
 
             paymentClaimBean paymentClaimBean = paymentClaimList.get(i);
 
@@ -102,9 +103,11 @@ public void initialize(Controller parentController, userSessionBean session){
                                 try {
                                     claimDeadline.setPaymentClaimPayed(bean);
                                 } catch (Exceptions.transactionError transactionError) {
-                                    popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                    popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                                 } catch (SQLException e) {
-                                    e.printStackTrace();
+                                    popupToDestination(TypeOfMessage.DBERROR.getString(), false);
+                                } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                                    popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
                                 }
                                 element3.setDisable(true);
                             }
@@ -122,12 +125,12 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimNumber(paymentClaimBean.getClaimNumber());
                             try {
                                 claimDeadline.incrementaSegnalazione(bean);
-                            } catch (Exceptions.dbConnection dbConnection) {
-                                popupToDestination("Errore nella connessione con il database!", false);
                             } catch (Exceptions.transactionError transactionError) {
-                                popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
-                                e.printStackTrace();
+                                popupToDestination(TypeOfMessage.DBERROR.getString(), false);
+                            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                                popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
                             }
                             element3.setDisable(true);
                         });} else {
@@ -146,9 +149,11 @@ public void initialize(Controller parentController, userSessionBean session){
                             try {
                                 claimDeadline.setContrattoArchiviato(bean);
                             } catch (Exceptions.transactionError transactionError) {
-                                popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
-                                e.printStackTrace();
+                                popupToDestination(TypeOfMessage.DBERROR.getString(), false);
+                            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                                popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
                             }
                             element3.setDisable(true);
                         });} else {
@@ -170,9 +175,11 @@ public void initialize(Controller parentController, userSessionBean session){
                             try {
                                 claimDeadline.setSegnalazioneNotificata(bean);
                             } catch (Exceptions.transactionError transactionError) {
-                                popupToDestination("Errore nell'esecuzione dell'operazione!",false);
+                                popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
-                                e.printStackTrace();
+                                popupToDestination(TypeOfMessage.DBERROR.getString(), false);
+                            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                                popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
                             }
                             element3.setDisable(true);
                         });
@@ -191,9 +198,11 @@ public void initialize(Controller parentController, userSessionBean session){
                                 try {
                                     claimDeadline.setSegnalazioneNotificata(bean);
                                 } catch (Exceptions.transactionError transactionError) {
-                                    popupToDestination("Errore nell'esecuzione dell'operazione!", false);
+                                    popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                                 } catch (SQLException e) {
-                                    e.printStackTrace();
+                                    popupToDestination(TypeOfMessage.DBERROR.getString(), false);
+                                } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                                    popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
                                 }
                                 element3.setDisable(true);
                             }

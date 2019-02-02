@@ -9,6 +9,7 @@
 <%@ page import="Control.controller" %>
 <%@ page import="Bean.rentableBean" %>
 <%@ page import="Entity.TypeOfRentable" %>
+<%@ page import="Entity.TypeOfMessage" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
@@ -17,10 +18,10 @@
 <%
 
     if (sessionBean.getNickname() == null){
-
-        response.sendRedirect("index.jsp?error=makeLogin");
+        session.setAttribute("warningMessage", TypeOfMessage.NOTLOGGED.getString());
+        String destination ="index.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
         return;
-
     }
 
 if (request.getParameter("importContract") != null) {
@@ -70,37 +71,58 @@ if (request.getParameter("importContract") != null) {
 <center>
     <%
 
-        if (request.getParameter("success") != null) { %>
+        // Error handling
 
+        if (session.getAttribute("successMessage") != null) { %>
 
-    <div class="alert alert-success">
-        <strong>Ok!</strong> Contratto importato correttamente nel sistema.
+    <div class="alert alert-warning">
+        <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
-    <% }
 
-        if (session.getAttribute("transactionError") != null) { %>
+    <% session.setAttribute("successMessage", null);
+    }
+
+        if (session.getAttribute("infoMessage") != null) {  %>
 
 
     <div class="alert alert-warning">
-        <strong>Errore!</strong> Errore durante la transazione.
+        <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
     </div>
 
 
-    <% session.setAttribute("emptyResult", null);
+    <% session.setAttribute("infoMessage", null);
+    }
+
+        if (session.getAttribute("warningMessage") != null) {  %>
+
+
+    <div class="alert alert-warning">
+        <strong>Errore!</strong> <%= session.getAttribute("warningMessage") %>
+    </div>
+
+
+    <% session.setAttribute("warningMessage", null);
     }
         List<rentableBean> test = null;
         try {
             test = sessionBean.getController().getRentableFromUser(sessionBean);
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("index.jsp?error=databaseConnection");
+            session.setAttribute("warningMessage", "Errore nella comunicazione con il database!");
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (Exceptions.emptyResult emptyResult) {
-            %>
-            <jsp:forward page="index.jsp">
-                <jsp:param name="error" value="emptyResultRentable" />
-            </jsp:forward> <%
+            session.setAttribute("infoMessage", "Nessuna risposta al momento disponibile!");
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
 
         for (rentableBean temp : test) {

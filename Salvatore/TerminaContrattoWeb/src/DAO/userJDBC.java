@@ -2,6 +2,7 @@ package DAO;
 
 import Bean.userSessionBean;
 import Entity.TypeOfUser;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
 import java.sql.*;
@@ -17,9 +18,14 @@ public class userJDBC implements userDAO {
     }
 
     @Override
-    public userSessionBean login(userSessionBean bean) throws SQLException, emptyResult {
+    public userSessionBean login(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("SELECT * from RentingUser WHERE nickname = ? and password = SHA2(?, 256)");
         preparedStatement.setString(1, bean.getNickname());
@@ -43,11 +49,16 @@ public class userJDBC implements userDAO {
     }
 
     @Override
-    public void incrementaSollecitiPagamento(userSessionBean session)  throws SQLException{
+    public void incrementaSollecitiPagamento(userSessionBean session) throws SQLException, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
         dBConnection.setAutoCommit(false);
-        
+
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE RentingUser SET paymentClaim = paymentClaim + 1 WHERE id = ?");
         preparedStatement.setInt(1, session.getId());
         preparedStatement.executeUpdate();
@@ -56,9 +67,14 @@ public class userJDBC implements userDAO {
     }
 
     @Override
-    public userSessionBean getTenant(userSessionBean session) throws SQLException {
+    public userSessionBean getTenant(userSessionBean session) throws SQLException, dbConfigMissing {
 
-        Connection dBConnection = DriverManager.getConnection("jdbc:mysql://localhost:8000/RentingManagement?user=root&password=");
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("SELECT * from RentingUser where nickname = ?");
         preparedStatement.setString(1, session.getNickname());

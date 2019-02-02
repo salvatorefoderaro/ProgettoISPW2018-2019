@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Entity.TypeOfUser;
+import Exceptions.dbConfigMissing;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,8 +41,7 @@ public class login {
     userSessionBean user;
     
     
-    public void initialize() throws IOException{
-    }
+    public void initialize(){ }
 
         @FXML
         public void login(){
@@ -60,7 +60,7 @@ public class login {
                 Controller controllerProva = new Controller();
                 this.controller = controllerProva;
             } catch (SQLException e) {
-                databaseConnectionError();
+                popup(TypeOfMessage.DBERROR.getString());
                 return;
             }
 
@@ -68,73 +68,22 @@ public class login {
             try {
                 user = controller.login(user);
             } catch (SQLException e) {
-                e.printStackTrace();
-                popup("Errore nella connessione con il database!");
+                popup(TypeOfMessage.DBERROR.getString());
                 return;
             } catch (Exceptions.emptyResult emptyResult) {
                 popup("Nome utente e/o password errati!");
                 return;
+            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                popup(TypeOfMessage.DBCONFIGERROR.getString());
+                return;
             }
+
             if (user.getUserType() == TypeOfUser.RENTER){
                 isRenter();
             } else {
                 isTenant();
             }
         }
-
-        @FXML
-    public void databaseConnectionError() {
-        
-        Platform.runLater(() -> {
-
-            Stage stage = (Stage) login.getScene().getWindow();
-            stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
-            Stage newStage = new Stage();
-            Pane comp = new Pane();
-
-            Label nameField = new Label();
-            nameField.setLayoutX(128.0);
-            nameField.setLayoutY(21.0);
-            nameField.setText("Errore nella connessione con il database! ");
-            nameField.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: black;-fx-font-size: 14px;-fx-background-color: #f4f4f4;");
-            
-            Button close = new Button();
-            close.setLayoutX(70.0);
-            close.setLayoutY(135.0);
-            close.setText("Torna al login");
-            close.setId("aButton");
-
-            Button exit = new Button();
-            exit.setLayoutX(318.0);
-            exit.setLayoutY(135.0);
-            exit.setText("Esci");
-            exit.setId("anotherButton");
-
-            exit.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    System.exit(0);
-                }
-            });
-
-            // Mostro la finestra di popup
-            Scene stageScene = new Scene(comp, 500, 200);
-            stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            newStage.setScene(stageScene);
-            comp.getChildren().addAll(nameField, close, exit);
-            newStage.show();
-            
-            close.setOnAction((ActionEvent event) -> {
-                Stage stage1 = (Stage)close.getScene().getWindow();
-                try {
-                    stage1.close();
-                    initialize();
-                }catch (IOException ex) {
-                    Logger.getLogger(Boundary.login.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }); });
-
-}
     
     @FXML
     private void isRenter() {

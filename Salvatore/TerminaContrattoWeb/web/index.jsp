@@ -33,13 +33,18 @@
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        }
-     catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-         session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
-         String destination ="index.jsp";
-         response.sendRedirect(response.encodeRedirectURL(destination));
-         return;
+            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (Exceptions.dbConfigMissing missingConfig) {
+            missingConfig.printStackTrace();
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
 }
 %>

@@ -5,7 +5,8 @@ public enum TypeOfMessage {
     TRANSATIONERROR ("Errore nell'esecuzione della richiesta!"),
     NOTLOGGED("Effettua l'accesso prima di continuare!"),
     SUCCESSOPERATION("Operazione completata con successo!"),
-    WRONGDATEINTERVAL("Inserisci un intervallo di date corretto!");
+    WRONGDATEINTERVAL("Inserisci un intervallo di date corretto!"),
+    DBCONFIGERROR("Errore nel caricamento dei file relativi alla configurazione del database!")
     ;
 
     private final String toString;

@@ -9,9 +9,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import Entity.TypeOfMessage;
 import Entity.TypeOfUser;
-import Exceptions.transactionError;
+import Exceptions.dbConfigMissing;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -116,6 +115,9 @@ public class importContract {
         } catch (Exceptions.emptyResult emptyResult) {
             popup("Nessun utente associato al nickname indicato!", false);
             return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            popup(TypeOfMessage.DBCONFIGERROR.getString(), true);
+            return;
         }
 
         try {
@@ -128,7 +130,10 @@ public class importContract {
             return;
         } catch (SQLException e) {
             popup(TypeOfMessage.DBERROR.getString(), true);
-            e.printStackTrace();
+            return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            popup(TypeOfMessage.DBCONFIGERROR.getString(), true);
+            return;
         }
 
         contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
@@ -142,6 +147,9 @@ public class importContract {
             popup(TypeOfMessage.DBERROR.getString(), true);
         } catch (Exceptions.transactionError transactionError) {
             popup(TypeOfMessage.TRANSATIONERROR.getString(), false);
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            popup(TypeOfMessage.DBCONFIGERROR.getString(), true);
+            return;
         }
 
         popup(TypeOfMessage.SUCCESSOPERATION.getString(), true);

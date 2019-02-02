@@ -2,6 +2,7 @@ package Control;
 
 import Bean.*;
 import Entity.*;
+import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
 import DAO.*;
@@ -23,9 +24,9 @@ public class controller {
 
     public controller() { }
 
-    public void checkRentableDate(rentableBean bean) throws emptyResult, transactionError, SQLException {
+    public void checkRentableDate(rentableBean bean) throws dbConfigMissing, transactionError, SQLException, emptyResult {
         if (TypeOfRentable.ROOM == bean.getType1()){
-            try {
+
                 bean.setType1(TypeOfRentable.ROOM);
 
                 availabilityPeriodBean newAvailability = dictionaryRoomToRent.get(bean.getID()).checkAvailability(LocalDate.parse(bean.getStartDateRequest(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(bean.getEndDateRequest(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -47,9 +48,6 @@ public class controller {
                 bean.setJDBCcommit(true);
                 rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                 dictionaryRoomToRent.get(bean.getRoomID()).updateAvailability(bean);
-            } catch (SQLException e1) {
-                throw new transactionError("");
-            }
 
         } else if (TypeOfRentable.BED == bean.getType1()){
             System.out.println("Controllo il letto?");
@@ -105,20 +103,20 @@ public class controller {
         }
     }
 
-    public userBean checkTenantNickname(rentableBean bean) throws SQLException, emptyResult {
+    public userBean checkTenantNickname(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult {
         return userJDBC.getInstance().getLocatario(bean);
     }
 
-    public void createContract(contractBean contract) throws SQLException, transactionError {
+    public void createContract(contractBean contract) throws transactionError, SQLException, dbConfigMissing {
         contract.setJDBCcommit(true);
         contractJDBC.getInstance().createContract(contract);
     }
 
-    public userBean loginRenter(userBean renter) throws SQLException, emptyResult {
+    public userBean loginRenter(userBean renter) throws SQLException, dbConfigMissing, emptyResult {
         return userJDBC.getInstance().getLocatore(renter);
     }
 
-    public List<rentableBean> getRentableFromUser(userBean renterNickname) throws SQLException, emptyResult {
+    public List<rentableBean> getRentableFromUser(userBean renterNickname) throws emptyResult, SQLException, dbConfigMissing {
 
         renterNickname.setTypeRequest(TypeOfRentable.ROOM);
         List<rentableBean> rentableList = new ArrayList<>(rentableJDBC.getInstance().rentableListByRenter(renterNickname));

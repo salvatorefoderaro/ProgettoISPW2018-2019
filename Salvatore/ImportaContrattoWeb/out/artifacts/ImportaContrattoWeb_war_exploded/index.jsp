@@ -6,6 +6,7 @@
 <%@ page import="Bean.userBean" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
+<%@ page import="Entity.TypeOfMessage" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 
@@ -28,12 +29,17 @@
         } catch (SQLException e) {
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
-            session.setAttribute("warningMessage", "Errore nella comunicazione con il database!");
+            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
             return;
         } catch (Exceptions.emptyResult emptyResult) {
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("infoMessage", "Controllare nome utente e/o password, nessun utente associato!");
+            return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
 

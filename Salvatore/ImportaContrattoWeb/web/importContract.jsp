@@ -57,6 +57,11 @@
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
+    } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        session.setAttribute("infoMessage1", "Nessun utente associato al nickname indicato!");
+        String destination ="importContract.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+        return;
     }
 
         try {
@@ -74,6 +79,11 @@
         } catch (Exceptions.emptyResult emptyResult) {
             session.setAttribute("infoMessage", "La risorsa non è disponibile per le date indicate!");
             String destination ="importContract.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
@@ -124,7 +134,13 @@
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
+        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
+
 %>
 
 <jsp:forward page="seeRentable.jsp">

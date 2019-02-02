@@ -8,11 +8,12 @@
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="Entity.TypeOfMessage" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
-    sampleThread.startTask();
+    // sampleThread.startTask();
 
     if (request.getParameter("login") != null) {
         userSessionBean login = new userSessionBean(request.getParameter("nickname"), 1, TypeOfUser.NOTLOGGED, 0, request.getParameter("password"), null);
@@ -22,24 +23,28 @@
             sessionBean.setId(login.getId());
             sessionBean.setController(controller);
             sessionBean.setNickname(login.getNickname());
-            sessionBean.setType(login.getType());
-%>
-        <jsp:forward page="pannelloUtente.jsp"/>
-<%
-
+            sessionBean.setUserType(login.getUserType());
+        %>
+            <jsp:forward page="pannelloUtente.jsp"/>
+        <%
+            return;
         } catch (Exceptions.emptyResult emptyResult) {
-
+            session.setAttribute("infoMessage", "Nessun utente associato!");
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
-            session.setAttribute("emptyResult", "");
             return;
-        }
-     catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-         String destination ="index.jsp";
-         response.sendRedirect(response.encodeRedirectURL(destination));
-         session.setAttribute("databaseConnectionError", "");
-         return;
+            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (Exceptions.dbConfigMissing missingConfig) {
+            missingConfig.printStackTrace();
+            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
         }
 }
 %>
@@ -55,7 +60,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
     
-        <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+        <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
     <title>Hello, world!</title>
              
@@ -65,7 +70,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">FERSA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -81,57 +86,51 @@
     	  <br>
 <div class="container">
 <center>
-<%
+    // Error handling
 
-    if (session.getAttribute("emptyResult") != null) { %>
-
+    <%
+        if (session.getAttribute("successMessage") != null) { %>
 
     <div class="alert alert-warning">
-        <strong>Errore!</strong> Nickname e/o password errati.
+        <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
 
-    <% session.setAttribute("emptyResult", null);
+    <% session.setAttribute("successMessage", null);
     }
 
-    if (request.getParameter("error") != null && request.getParameter("error").equals("makeLogin")) { %>
+        if (session.getAttribute("infoMessage") != null) {  %>
 
 
     <div class="alert alert-warning">
-        <strong>Errore!</strong> Efettua l'accesso prima di continuare.
+        <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
     </div>
 
-    <% }
 
-        if (request.getParameter("error") != null && request.getParameter("error").equals("emptyResult")) { %>
+    <% session.setAttribute("infoMessage", null);
+    }
+
+        if (session.getAttribute("warningMessage") != null) {  %>
 
 
     <div class="alert alert-warning">
-        <strong>Errore!</strong> Nickname e/o password errati.
+        <strong>Errore!</strong> <%= session.getAttribute("warningMessage") %>
     </div>
 
-        <% }
 
-        if ((request.getParameter("error") != null && request.getParameter("error").equals("databaseConnection"))  || session.getAttribute("databaseConnectionError") != null) {  %>
-
-
-    <div class="alert alert-warning">
-        <strong>Errore!</strong> Errore nella connessione con il Database!
-    </div>
-
-        <% session.setAttribute("databaseConnectionError", null);
-        } %>
+    <% session.setAttribute("warningMessage", null);
+    } %>
 
      <form action="index.jsp" method="POST">
 <div class="input-group mb-3">
              <div class="input-group-prepend">
                  <span class="input-group-text" id="inputGroup-sizing-default">Nome utente e Password</span>
              </div>
-             <input type="text" name="nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-             <input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+             <input userType="text" name="nickname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+             <input userType="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
 
          </div>
-         <button type="sumbit" name="login" class="btn btn-primary btn-lg">Login</button></center>
+         <button userType="sumbit" name="login" class="btn btn-primary btn-lg">Login</button></center>
      </form>
     </center>
 </div>      
