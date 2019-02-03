@@ -1,17 +1,13 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.IntervalDate;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Rentable;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.RentableTypeEnum;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.RentalFeatures;
 
 import javax.imageio.ImageIO;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class RentableDAO {
-    private static RentableDAO ourInstance = new RentableDAO();
+public class RentableJDBC {
+    private static RentableJDBC ourInstance = new RentableJDBC();
 
     private static String USER = "root";
 
@@ -21,11 +17,11 @@ public class RentableDAO {
 
     private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
-    public static RentableDAO getInstance() {
+    public static RentableJDBC getInstance() {
         return ourInstance;
     }
 
-    private RentableDAO() {
+    private RentableJDBC() {
     }
 
     public Rentable getRentable(int rentalFeaturesId) {

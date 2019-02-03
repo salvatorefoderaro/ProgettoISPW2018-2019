@@ -1,13 +1,13 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ContractTypeBean;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractRequestId;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractType;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContractTypeDAO {
+public class ContractTypeJDBC {
     private static String USER = "root";
 
     private static String PASS = "Francesco1997";
@@ -17,17 +17,17 @@ public class ContractTypeDAO {
     private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
 
-    protected static ContractTypeDAO contractTypeDAO;
+    protected static ContractTypeJDBC contractTypeJDBC;
 
 
-    protected ContractTypeDAO() {
+    protected ContractTypeJDBC() {
     }
 
-    public static synchronized ContractTypeDAO getIstance() {
-        if (contractTypeDAO == null) {
-            contractTypeDAO = new ContractTypeDAO();
+    public static synchronized ContractTypeJDBC getIstance() {
+        if (contractTypeJDBC == null) {
+            contractTypeJDBC = new ContractTypeJDBC();
         }
-        return contractTypeDAO;
+        return contractTypeJDBC;
     }
 
 
@@ -73,20 +73,10 @@ public class ContractTypeDAO {
         return contractTypes;
     }
 
-
-    public ContractType getContractType(int contractId) {
-        return findContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE id = " + contractId);
-    }
-
-    public ContractType getContractType(String contractTypeName) {
-        return findContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE name = '" + contractTypeName + "'");
-    }
-
-    private ContractType findContractType(String sql) {
-
+    private ContractType getContractType(String sql) {
         Connection conn = null;
         Statement stmt = null;
-        ContractType contractType = null; //TODO Creazione di una eccezione nel caso in cui non si ha alcun risultato
+        ContractType contractType = null;
 
         try {
             Class.forName(DRIVER_CLASS_NAME);
@@ -95,12 +85,14 @@ public class ContractTypeDAO {
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
+
+
             ResultSet rs = stmt.executeQuery(sql);
 
             if (!rs.first()) return null;
 
-            contractType = new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration"));
 
+            contractType = new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration"));
 
 
             rs.close();
@@ -120,4 +112,19 @@ public class ContractTypeDAO {
 
         return contractType;
     }
+
+
+    public ContractType getContractTypeById(int contractTypeId) {
+        return getContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE id = " + contractTypeId);
+    }
+
+    public ContractType getContractTypeByRequestId(ContractRequestId requestId) {
+        return getContractType("SELECT ContractType.id, name, description, minDuration, maxDuration FROM ContractType INNER JOIN ContractRequest ON ContractType.id = ContractRequest.contractTypeId WHERE ContractRequest.id = " + requestId.getId());
+    }
+
+    public ContractType getContractTypeByName(String contractTypeName) {
+        return getContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE name = '" + contractTypeName + "'");
+    }
+
+
 }

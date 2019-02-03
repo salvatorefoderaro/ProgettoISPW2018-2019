@@ -3,6 +3,9 @@ package it.uniroma2.ispw.fersa.boundary;
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ResponseEnum;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Service;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -21,6 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +101,8 @@ public class PerformContractRequestBoundary {
         rentableInfoBean.getAvaiblePeriods().forEach(period -> this.rentableDescription.appendText(period + " "));
     }
 
+
+
     private void setContractTypes() {
         List<String> contractTypeNames = this.control.getAllContractTypes().getContractNames();
         ObservableList<String> contractSelectorValues = FXCollections.observableArrayList();
@@ -107,7 +113,18 @@ public class PerformContractRequestBoundary {
     }
 
     private void setServices(){
-        List<ServiceBean> serviceBeans = this.control.getAllServices();
+
+        List<ServiceBean> serviceBeans = null;
+
+        try {
+            serviceBeans = this.control.getAllServices();
+        } catch (ConfigFileException | ConfigException | SQLException e) {
+            showPopUp(e.toString());
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            showPopUp("Assenza dei driver necessari per accedere al database!");
+            System.exit(1);
+        }
 
         Label label = new Label("Servizi aggiuntivi:");
         label.setFont(Font.font(18));
@@ -148,11 +165,21 @@ public class PerformContractRequestBoundary {
         this.formArea.autosize();
     }
 
+    public void getContractInfo(){
+        String contractName = this.contractSelector.getValue().toString();
+        ContractTypeBean contractDescription = control.getContractType(contractName);
+        this.setContractDescription(contractDescription);
+    }
+
     public void selectContract(){
         String contractName = this.contractSelector.getValue().toString();
-        ContractTypeBean contractDescription = control.selectContract(contractName);
-        this.setContractDescription(contractDescription);
+        ResponseBean responseBean = control.selectContract(contractName);
 
+        if (responseBean.getResponse() == ResponseEnum.ERROR) {
+            this.startDate.setValue(null);
+            this.endDate.setValue(null);
+        }
+        showPopUp(responseBean.getMessage());
 
     }
     private void setContractDescription (ContractTypeBean contractDescription) {
@@ -216,13 +243,17 @@ public class PerformContractRequestBoundary {
             if (this.serviceCheckBoxes.get(i).isSelected()) serviceBeans.add(this.services.get(i));
         }
 
-        ResponseBean responseBean = this.control.setServices(serviceBeans);
-
-        showPopUp(responseBean.getMessage());
-
-        if (responseBean.getResponse() == ResponseEnum.ERROR) {
-            this.serviceCheckBoxes.forEach(checkBox -> checkBox.setSelected(false));
+        try {
+            this.control.setServices(serviceBeans);
+        } catch (ConfigFileException | ConfigException | ClassNotFoundException | SQLException e) {
+            showPopUp(e.toString());
+            return;
         }
+
+
+        showPopUp("I servizi sono stati aggiunti correttamente");
+
+
     }
 
     private void showPopUp(String messageText) {

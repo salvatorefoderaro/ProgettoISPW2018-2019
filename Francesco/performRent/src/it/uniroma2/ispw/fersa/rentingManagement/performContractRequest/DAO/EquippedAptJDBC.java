@@ -1,13 +1,12 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractType;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.EquippedApt;
 
 import java.sql.*;
 
-public class EquippedAptDAO {
+public class EquippedAptJDBC {
 
-    private static EquippedAptDAO equippedAptDAO;
+    private static EquippedAptJDBC equippedAptJDBC;
 
     private static String USER = "root";
 
@@ -17,15 +16,15 @@ public class EquippedAptDAO {
 
     private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
-    protected EquippedAptDAO(){
+    protected EquippedAptJDBC(){
 
     }
 
-    public static synchronized EquippedAptDAO getInstance(){
-        if (equippedAptDAO == null) {
-            equippedAptDAO = new EquippedAptDAO();
+    public static synchronized EquippedAptJDBC getInstance(){
+        if (equippedAptJDBC == null) {
+            equippedAptJDBC = new EquippedAptJDBC();
         }
-        return equippedAptDAO;
+        return equippedAptJDBC;
     }
 
     public EquippedApt getEquippedApt(int aptId) {

@@ -7,6 +7,10 @@ public class ResponseBean {
     private ResponseEnum response;
     private String message;
 
+    public ResponseBean(){
+
+    }
+
     public ResponseBean(ResponseEnum response, String message) {
         this.response = response;
         this.message = message;
@@ -18,5 +22,13 @@ public class ResponseBean {
 
     public String getMessage() {
         return message;
+    }
+
+    public void setResponse(ResponseEnum response) {
+        this.response = response;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

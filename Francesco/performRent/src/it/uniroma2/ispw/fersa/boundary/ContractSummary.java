@@ -10,9 +10,6 @@ import javafx.stage.Stage;
 public class ContractSummary {
 
     @FXML
-    private Label title;
-
-    @FXML
     private TextArea contractSummary;
 
     private Stage stage;
@@ -24,7 +21,6 @@ public class ContractSummary {
     }
 
     public void initializeText(ContractRequestInfoBean contractRequestInfoBean) {
-        this.title.setText(contractRequestInfoBean.getRentableName());
 
         this.contractSummary.appendText("Tipologia contratto: " + contractRequestInfoBean.getContractName() + '\n');
         this.contractSummary.appendText("Data di inizio: " + contractRequestInfoBean.getStartDate() + '\n');

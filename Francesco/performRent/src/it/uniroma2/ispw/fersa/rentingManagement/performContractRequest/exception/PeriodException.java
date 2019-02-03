@@ -1,4 +1,4 @@
-package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity;
+package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception;
 
 public class PeriodException extends Exception {
     public PeriodException() {

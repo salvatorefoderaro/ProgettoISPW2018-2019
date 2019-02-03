@@ -1,12 +1,14 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity;
 
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContractRequest {
 
-    private int requestId;
+    private ContractRequestId requestId;
     private String renterNickname;
     private String tenantNickname;
     private Rentable rentable;
@@ -26,6 +28,19 @@ public class ContractRequest {
         this.deposit = deposit;
     }
 
+    public ContractRequest (ContractRequestId requestId, String renterNickname, String tenantNickname, RequestStateEnum state, LocalDate creationDate, LocalDate beginDate, LocalDate endDate, int rentablePrice, int deposit) {
+        this.requestId = requestId;
+        this.renterNickname = renterNickname;
+        this.tenantNickname = tenantNickname;
+        this.state = state;
+        this.creationDate = creationDate;
+        this.intervalDate = new IntervalDate(beginDate, endDate);
+        this.rentablePrice = rentablePrice;
+        this.deposit=deposit;
+    }
+
+
+
     public void setContractType(ContractType contractType) {
         this.contractType = contractType;
     }
@@ -43,6 +58,10 @@ public class ContractRequest {
         return this.contractType.getName();
     }
 
+    public RequestStateEnum getState() {
+        return state;
+    }
+
     public String getRentableName() {
         return this.rentable.getName();
     }
@@ -53,6 +72,10 @@ public class ContractRequest {
 
     public String getTenantNickname() {
         return tenantNickname;
+    }
+
+    public LocalDate getCreationDate(){
+        return this.creationDate;
     }
 
     public LocalDate getStartDate() {
@@ -90,4 +113,21 @@ public class ContractRequest {
 
         return total;
     }
+
+    public ContractRequestId getRequestId() {
+        return requestId;
+    }
+
+    public boolean hasContractType() {
+        return this.contractType != null;
+    }
+
+    public void clearPeriod() {
+        this.intervalDate = null;
+    }
+
+    public boolean hasIntervalDate() {
+        return this.intervalDate != null;
+    }
+
 }

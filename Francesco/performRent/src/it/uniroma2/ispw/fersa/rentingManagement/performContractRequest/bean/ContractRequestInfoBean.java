@@ -1,12 +1,14 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean;
 
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.RequestStateEnum;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public class ContractRequestInfoBean {
 
+
     private String contractName;
-    private String rentableName;
     private LocalDate startDate;
     private LocalDate endDate;
     private int rentablePrice;
@@ -14,9 +16,9 @@ public class ContractRequestInfoBean {
     private List<ServiceBean> services;
     private int total;
 
-    public ContractRequestInfoBean(String contractName, String rentableName, LocalDate startDate, LocalDate endDate, int rentablePrice, int deposit, List<ServiceBean> services, int total) {
+
+    public ContractRequestInfoBean(String contractName, LocalDate startDate, LocalDate endDate, int rentablePrice, int deposit, List<ServiceBean> services, int total) {
         this.contractName = contractName;
-        this.rentableName = rentableName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.rentablePrice = rentablePrice;
@@ -27,10 +29,6 @@ public class ContractRequestInfoBean {
 
     public String getContractName() {
         return contractName;
-    }
-
-    public String getRentableName() {
-        return rentableName;
     }
 
     public LocalDate getStartDate() {
@@ -56,4 +54,6 @@ public class ContractRequestInfoBean {
     public int getTotal() {
         return this.total;
     }
+
+
 }

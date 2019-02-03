@@ -1,17 +1,15 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractType;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.IntervalDate;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.RentalFeatures;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RentalFeaturesDAO {
+public class RentalFeaturesJDBC {
 
-    protected static RentalFeaturesDAO rentalFeaturesDAO;
+    protected static RentalFeaturesJDBC rentalFeaturesJDBC;
 
     private static String USER = "root";
 
@@ -22,15 +20,15 @@ public class RentalFeaturesDAO {
     private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
 
-    protected RentalFeaturesDAO(){
+    protected RentalFeaturesJDBC(){
 
     }
 
-    public static synchronized RentalFeaturesDAO getInstance() {
-        if (rentalFeaturesDAO == null) {
-            rentalFeaturesDAO = new RentalFeaturesDAO();
+    public static synchronized RentalFeaturesJDBC getInstance() {
+        if (rentalFeaturesJDBC == null) {
+            rentalFeaturesJDBC = new RentalFeaturesJDBC();
         }
-        return rentalFeaturesDAO;
+        return rentalFeaturesJDBC;
     }
 
     //TODO Modificare quando si introduce il db
