@@ -1,9 +1,9 @@
 package it.uniroma2.ispw.fersa.control;
 
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO.*;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.*;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.*;
+import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.*;
 
 import java.io.IOException;
 import java.sql.SQLException;

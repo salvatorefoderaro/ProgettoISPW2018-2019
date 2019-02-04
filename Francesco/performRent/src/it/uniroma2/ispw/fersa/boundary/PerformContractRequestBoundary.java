@@ -1,8 +1,8 @@
 package it.uniroma2.ispw.fersa.boundary;
 
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.*;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -19,11 +19,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PerformContractRequestBoundary {
@@ -72,7 +75,33 @@ public class PerformContractRequestBoundary {
     public void initialize () {
         this.rentableDescription.setWrapText(true);
         this.contractDescription.setWrapText(true);
+        this.setDatePickerFormat(this.startDate);
+        this.setDatePickerFormat(this.endDate);
 
+    }
+
+    private void setDatePickerFormat(DatePicker datePicker) {
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
     }
 
 
