@@ -2,22 +2,17 @@ package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.ContractRequestBean;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.*;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContractRequestJDBC {
+public class ContractRequestJDBC implements ContractRequestDAO{
     private static ContractRequestJDBC ourInstance = new ContractRequestJDBC();
-
-    private static String USER = "root";
-
-    private static String PASS = "Francesco1997";
-
-    private static String DB_URL = "jdbc:mariadb://localhost:3306/RentingManagement";
-
-    private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
     public static ContractRequestJDBC getInstance() {
         return ourInstance;
@@ -26,27 +21,22 @@ public class ContractRequestJDBC {
     private ContractRequestJDBC() {
     }
 
-    public void insertNewRequest(ContractRequestBean contractRequestBean) {
+    @Override
+    public void insertNewRequest(ContractRequestBean contractRequestBean) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, PeriodException {
 
-        Connection conn = null;
+        Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
-        Rentable rentable = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
 
         try {
-            Class.forName(DRIVER_CLASS_NAME);
-
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             boolean autocommit = conn.getAutoCommit();
             int isolation = conn.getTransactionIsolation();
             conn.setAutoCommit(false);
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
-
-
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-
 
 
             String sql = "SELECT startDate, endDate FROM AvailabilityCalendar WHERE renterFeaturesId = " + contractRequestBean.getRentalFeatureId() + " AND startDate <= DATE('" + contractRequestBean.getStartDate().toString() + "') AND endDate >= DATE('" + contractRequestBean.getEndDate().toString() + "')";
@@ -56,8 +46,8 @@ public class ContractRequestJDBC {
 
 
             if(!rs1.first()) {
-                conn.rollback(); //TODO Organizzare più attentamente l'abort in caso di errore
-                return;
+                conn.rollback();
+                throw new PeriodException();
             }
 
 
@@ -85,23 +75,23 @@ public class ContractRequestJDBC {
 
             String insertString = "INSERT INTO ContractRequest (renterNickname, tenantNickname, " + column + ", type, contractTypeId, state,  creationDate, startDate, endDate, price, deposit) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement preparedStatement = conn.prepareStatement(insertString, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, contractRequestBean.getRenterNickname());
-            preparedStatement.setString(2, contractRequestBean.getTenantNickname());
-            preparedStatement.setInt(3, rs2.getInt(column));
-            preparedStatement.setString(4, rs2.getString("type"));
-            preparedStatement.setInt(5, contractRequestBean.getContractTypeId());
-            preparedStatement.setString(6, RequestStateEnum.INSERTED.toString());
-            preparedStatement.setDate(7, Date.valueOf(LocalDate.now()));
-            preparedStatement.setDate(8, Date.valueOf(contractRequestBean.getStartDate()));
-            preparedStatement.setDate(9, Date.valueOf(contractRequestBean.getEndDate()));
-            preparedStatement.setInt(10, contractRequestBean.getRentablePrice());
-            preparedStatement.setInt(11, contractRequestBean.getDeposit());
+            preparedStatement1 = conn.prepareStatement(insertString, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement1.setString(1, contractRequestBean.getRenterNickname());
+            preparedStatement1.setString(2, contractRequestBean.getTenantNickname());
+            preparedStatement1.setInt(3, rs2.getInt(column));
+            preparedStatement1.setString(4, rs2.getString("type"));
+            preparedStatement1.setInt(5, contractRequestBean.getContractTypeId());
+            preparedStatement1.setString(6, RequestStateEnum.INSERTED.toString());
+            preparedStatement1.setDate(7, Date.valueOf(LocalDate.now()));
+            preparedStatement1.setDate(8, Date.valueOf(contractRequestBean.getStartDate()));
+            preparedStatement1.setDate(9, Date.valueOf(contractRequestBean.getEndDate()));
+            preparedStatement1.setInt(10, contractRequestBean.getRentablePrice());
+            preparedStatement1.setInt(11, contractRequestBean.getDeposit());
 
 
-            preparedStatement.executeUpdate();
+            preparedStatement1.executeUpdate();
 
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            ResultSet generatedKeys = preparedStatement1.getGeneratedKeys();
 
             if (!generatedKeys.first()) return;
 
@@ -109,11 +99,11 @@ public class ContractRequestJDBC {
 
             String insertService = "INSERT INTO ContractRequest_has_Service(contractRequestId, serviceId) VALUES (" + contractId + ", ?)";
 
-            PreparedStatement preparedStatement1 = conn.prepareStatement(insertService);
+            preparedStatement2 = conn.prepareStatement(insertService);
 
             for (int i = 0; i < contractRequestBean.getServiceIds().length; i++) {
-                preparedStatement1.setInt(1, contractRequestBean.getServiceIds()[i]);
-                preparedStatement1.executeUpdate();
+                preparedStatement2.setInt(1, contractRequestBean.getServiceIds()[i]);
+                preparedStatement2.executeUpdate();
             }
 
             conn.commit();
@@ -124,32 +114,34 @@ public class ContractRequestJDBC {
             rs2.close();
             generatedKeys.close();
             stmt.close();
+            preparedStatement1.close();
+            preparedStatement2.close();
             conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
+            throw e;
+        }  finally {
             try {
+                if (conn != null) conn.rollback();
                 if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
+                if (preparedStatement1 != null) preparedStatement1.close();
+                if (preparedStatement2 != null) preparedStatement2.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
     }
 
 
-    private List<ContractRequestId> findContractRequestIds(String sql) {
+    private List<ContractRequestId> findContractRequestIds(String sql) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
         List<ContractRequestId> contractRequestIds = new ArrayList<>();
 
-        Connection conn = null;
+        Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
 
         try {
-            Class.forName(DRIVER_CLASS_NAME);
 
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
@@ -165,35 +157,33 @@ public class ContractRequestJDBC {
             rs.close();
             stmt.close();
             conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
         return contractRequestIds;
     }
 
-    public List<ContractRequestId> findContractRequestIdsByRenterNickname(String renterNickname) {
+    @Override
+    public List<ContractRequestId> findContractRequestIdsByRenterNickname(String renterNickname) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
         return findContractRequestIds("SELECT id FROM ContractRequest WHERE renterNickname = '" + renterNickname + "'");
     }
 
-    public ContractRequest getContractRequest(ContractRequestId contractRequestId) {
+    @Override
+    public ContractRequest getContractRequest(ContractRequestId contractRequestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
         ContractRequest contractRequest = null;
 
-        Connection conn = null;
+        Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
 
         try {
-            Class.forName(DRIVER_CLASS_NAME);
-
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
@@ -210,13 +200,11 @@ public class ContractRequestJDBC {
             conn.close();
         } catch (SQLException se) {
             se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        }  finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 

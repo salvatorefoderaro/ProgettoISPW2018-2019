@@ -5,6 +5,6 @@ public class ConfigFileException extends Exception {
 
     @Override
     public String toString() {
-        return this.getMessage() + ": " + System.getProperty("user.dir") + "config/db.config";
+        return this.getMessage() + ": " + System.getProperty("user.dir") + "/config/db.config";
     }
 }

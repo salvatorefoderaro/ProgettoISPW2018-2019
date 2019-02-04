@@ -18,7 +18,7 @@ public class RequestResponseControl {
         this.renterNickname = renterNickname;
     }
 
-    public List<RequestLabelBean> getAllContractRequest() {
+    /*public List<RequestLabelBean> getAllContractRequest() {
         List<RequestLabelBean> requestLabelBeans = new ArrayList<>();
 
         List<ContractRequestId> contractRequestIds = ContractRequestJDBC.getInstance().findContractRequestIdsByRenterNickname(this.renterNickname);
@@ -28,7 +28,7 @@ public class RequestResponseControl {
             requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(), contractRequest.getTenantNickname(), contractRequest.getCreationDate(), contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(), contractRequest.getState()));
         });
         return requestLabelBeans;
-    }
+    }*/
 
 
 

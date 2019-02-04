@@ -2,22 +2,16 @@ package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.IntervalDate;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.RentalFeatures;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RentalFeaturesJDBC {
+public class RentalFeaturesJDBC implements RentalFeaturesDAO {
 
     protected static RentalFeaturesJDBC rentalFeaturesJDBC;
-
-    private static String USER = "root";
-
-    private static String PASS = "Francesco1997";
-
-    private static String DB_URL = "jdbc:mariadb://localhost:3306/RentingManagement";
-
-    private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
 
     protected RentalFeaturesJDBC(){
@@ -31,17 +25,14 @@ public class RentalFeaturesJDBC {
         return rentalFeaturesJDBC;
     }
 
-    //TODO Modificare quando si introduce il db
-    public RentalFeatures getRentalFeatures(int rentalFeaturesId) {
+    @Override
+    public RentalFeatures getRentalFeatures(int rentalFeaturesId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
 
-        Connection conn = null;
+        Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
         RentalFeatures rentalFeatures = null;
 
         try {
-            Class.forName(DRIVER_CLASS_NAME);
-
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
@@ -53,15 +44,14 @@ public class RentalFeaturesJDBC {
 
             ResultSet rs2 = stmt.executeQuery(sql);
 
-            if (!rs1.first()) return null;
+            if (!rs1.first() | !rs2.first()) return null;
 
-            List<IntervalDate> intervalDates = new ArrayList<IntervalDate>();
+            List<IntervalDate> intervalDates = new ArrayList<>();
 
-            if (rs2.first()) {
-                do {
-                    intervalDates.add(new IntervalDate(rs2.getDate("startDate").toLocalDate(), rs2.getDate("endDate").toLocalDate()));
-                } while (rs2.next());
-            }
+            do {
+                intervalDates.add(new IntervalDate(rs2.getDate("startDate").toLocalDate(), rs2.getDate("endDate").toLocalDate()));
+            } while (rs2.next());
+
 
             rentalFeatures = new RentalFeatures(rentalFeaturesId, rs1.getString("description"), rs1.getInt("price"), rs1.getInt("deposit"), intervalDates);
 
@@ -70,15 +60,14 @@ public class RentalFeaturesJDBC {
             rs2.close();
             stmt.close();
             conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 

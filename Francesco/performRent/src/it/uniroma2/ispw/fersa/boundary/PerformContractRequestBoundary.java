@@ -4,8 +4,7 @@ import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ResponseEnum;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Service;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -70,7 +69,6 @@ public class PerformContractRequestBoundary {
             this.control = control;
             this.init();
         }
-
     }
 
     public void initialize () {
@@ -88,13 +86,25 @@ public class PerformContractRequestBoundary {
     }
 
     private void setInfo(){
-        RentableInfoBean rentableInfoBean = this.control.makeNewRequest();
 
+        RentableInfoBean rentableInfoBean = null;
+
+        try {
+            rentableInfoBean = this.control.makeNewRequest();
+        } catch (SQLException | ConfigFileException | ConfigException | NotFoundException e) {
+            showPopUp(e.toString());
+            System.exit(1);
+        } catch (IOException e) {
+          showPopUp("Errore durante il caricamento dell'immagine");
+        } catch (ClassNotFoundException e) {
+            showPopUp("Assenza dei driver necessari per accedere al database!");
+            System.exit(1);
+        }
         this.rentableTitle.setText(rentableInfoBean.getTitle());
 
         this.rentableImage.setImage(SwingFXUtils.toFXImage( rentableInfoBean.getImage(), null));
 
-        this.rentableDescription.setText(rentableInfoBean.getRentableDescription() + '\n' + rentableInfoBean.getRentalDescription() + '\n' + "Prezzo mensile: " + rentableInfoBean.getPrice() + " €\n" + "Deposito cauzionale: " + rentableInfoBean.getDeposit() + " €");
+        this.rentableDescription.setText("Tipologia: " + rentableInfoBean.getType().toString() + "\n" + rentableInfoBean.getRentableDescription() + '\n' + rentableInfoBean.getRentalDescription() + '\n' + "Prezzo mensile: " + rentableInfoBean.getPrice() + " €\n" + "Deposito cauzionale: " + rentableInfoBean.getDeposit() + " €");
 
         this.rentableDescription.appendText("\nDisponibilità: ");
 
@@ -104,7 +114,17 @@ public class PerformContractRequestBoundary {
 
 
     private void setContractTypes() {
-        List<String> contractTypeNames = this.control.getAllContractTypes().getContractNames();
+        List<String> contractTypeNames = null;
+        try {
+            contractTypeNames = this.control.getAllContractTypes().getContractNames();
+        } catch (SQLException | ConfigException | ConfigFileException e ) {
+            showPopUp(e.toString());
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            showPopUp("Assenza dei driver necessari per accedere al database!");
+            System.exit(1);
+        }
+
         ObservableList<String> contractSelectorValues = FXCollections.observableArrayList();
 
         contractSelectorValues.addAll(contractTypeNames);
@@ -165,23 +185,51 @@ public class PerformContractRequestBoundary {
         this.formArea.autosize();
     }
 
-    public void getContractInfo(){
+    public void getContractInfo() {
         String contractName = this.contractSelector.getValue().toString();
-        ContractTypeBean contractDescription = control.getContractType(contractName);
+
+
+        ContractTypeBean contractDescription = null;
+        try {
+            contractDescription = control.getContractType(contractName);
+        } catch (ConfigFileException | ConfigException | SQLException | NotFoundException e) {
+            showPopUp(e.toString());
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            showPopUp("Assenza dei driver necessari per accedere al database!");
+            System.exit(1);
+        }
         this.setContractDescription(contractDescription);
     }
 
     public void selectContract(){
-        String contractName = this.contractSelector.getValue().toString();
-        ResponseBean responseBean = control.selectContract(contractName);
+        Object contractType = this.contractSelector.getValue();
+        if (contractType == null) {
+            showPopUp("Selezionare un contratto!");
+            return;
+        }
 
-        if (responseBean.getResponse() == ResponseEnum.ERROR) {
+        String contractName = contractType.toString();
+
+
+        try {
+            control.selectContract(contractName);
+        } catch (ConfigFileException | ConfigException | SQLException | NotFoundException e) {
+            showPopUp(e.toString());
+            System.exit(1);
+        } catch (ClassNotFoundException e) {
+            showPopUp("Assenza dei driver necessari per accedere al database!");
+            System.exit(1);
+        } catch (PeriodException e) {
+            showPopUp("Contratto inserito correttamente ma il periodo selezionato non è conforme ai vincoli contrattuali");
             this.startDate.setValue(null);
             this.endDate.setValue(null);
+            return;
         }
-        showPopUp(responseBean.getMessage());
 
+        showPopUp("Contratto inserito correttamente");
     }
+
     private void setContractDescription (ContractTypeBean contractDescription) {
         this.contractDescription.setText(contractDescription.getDescription() + "\n");
         this.contractDescription.appendText("Durata minima: " + setDuration(contractDescription.getMinDuration()) +'\n');
@@ -225,14 +273,15 @@ public class PerformContractRequestBoundary {
             return;
         }
 
-        ResponseBean response = this.control.setPeriod(startDate, endDate);
-
-        showPopUp(response.getMessage());
-
-        if (response.getResponse() == ResponseEnum.ERROR) {
-            this.startDate.setValue(null);
-            this.endDate.setValue(null);
-        }
+       try {
+           this.control.setPeriod(startDate, endDate);
+       } catch (PeriodException e) {
+           showPopUp(e.toString());
+           this.startDate.setValue(null);
+           this.endDate.setValue(null);
+           return;
+       }
+       showPopUp("Periodo inserito correttamente");
 
     }
 
@@ -286,9 +335,18 @@ public class PerformContractRequestBoundary {
 
     public void sendRequest(){
 
-        ResponseBean responseBean = this.control.sendRequest();
+        try {
+            this.control.sendRequest();
+        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
+            this.showPopUp(e.toString());
+            System.exit(1);
+        } catch (PeriodException e) {
+            this.showPopUp("Periodo non più disponibile");
+            this.setInfo();
+            return;
+        }
 
-        showPopUp(responseBean.getMessage());
+        showPopUp("Richiesta inserita correttamente");
 
         System.exit(0);
 
@@ -298,9 +356,11 @@ public class PerformContractRequestBoundary {
 
     public void confirmRequest() {
 
-        ContractRequestInfoBean contractRequestInfoBean = this.control.getSummary();
+
+
 
         try {
+            ContractRequestInfoBean contractRequestInfoBean = this.control.getSummary();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("contractSummary.fxml"));
             Parent root = loader.load();
@@ -325,6 +385,9 @@ public class PerformContractRequestBoundary {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IncompleteException e){
+            showPopUp(e.toString());
+            return;
         }
 
     }

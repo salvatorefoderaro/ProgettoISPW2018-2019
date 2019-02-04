@@ -3,9 +3,7 @@ package it.uniroma2.ispw.fersa.control;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO.*;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.*;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,7 +33,7 @@ public class PerformContractRequestSession {
 
     }
 
-    public RentableInfoBean makeNewRequest() {
+    public RentableInfoBean makeNewRequest() throws ClassNotFoundException, ConfigException, ConfigFileException, SQLException, NotFoundException, IOException {
         this.rentalFeatures = RentalFeaturesJDBC.getInstance().getRentalFeatures(this.rentalFeaturesId);
 
         List<String> intervalDates = new ArrayList<>();
@@ -44,37 +42,27 @@ public class PerformContractRequestSession {
 
         Rentable rentable = RentableJDBC.getInstance().getRentable(this.rentalFeaturesId);
 
-        RentableInfoBean rentableInfoBean = new RentableInfoBean(rentable.getName(), rentable.getImage(), rentable.getDescription(), rentalFeatures.getDescription(), rentalFeatures.getPrice(), rentalFeatures.getDeposit(), intervalDates);
+        if (rentable == null) throw new NotFoundException("Errore: informazioni sull'immobile selezionato non trovate");
+
+        RentableInfoBean rentableInfoBean = new RentableInfoBean(rentable.getName(), rentable.getImage(), rentable.getType(),rentable.getDescription(), rentalFeatures.getDescription(), rentalFeatures.getPrice(), rentalFeatures.getDeposit(), intervalDates);
 
         EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedApt(this.apartmentId);
 
-        this.contractRequest = new ContractRequest(equippedApt.getRenterNickname(), this.tenantNickname, rentable, this.rentalFeatures.getPrice(), this.rentalFeatures.getDeposit());
+        this.contractRequest = new ContractRequest(equippedApt.getRenterNickname(), this.tenantNickname, rentable.getRentableId(), this.rentalFeatures.getPrice(), this.rentalFeatures.getDeposit());
 
         return rentableInfoBean;
     }
 
-    public ContractTypeBean getContractType(String contractTypeName) {
+    public ContractTypeBean getContractType(String contractTypeName) throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException, NotFoundException {
         ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByName(contractTypeName);
+        if (contractType == null) throw new NotFoundException("Errore: contratto selezionato non trovato");
         return new ContractTypeBean(contractType.getContractTypeId(), contractType.getName(), contractType.getDescription(), contractType.getMinDuration(), contractType.getMaxDuration());
     }
 
-    public ResponseBean selectContract(String contractTypeName) {
+    public void selectContract(String contractTypeName) throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException, NotFoundException, PeriodException {
         ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByName(contractTypeName);
+        if (contractType == null) throw new NotFoundException("Errore: contratto selezionato non trovato");
         this.contractRequest.setContractType(contractType);
-        if (this.contractRequest.hasIntervalDate()) {
-            LocalDate startDate = contractRequest.getStartDate(); //TODO Verificare la presenza effettiva della data
-            LocalDate endDate = contractRequest.getEndDate();
-            this.contractRequest.clearPeriod();
-
-            try {
-                this.contractRequest.insertPeriod(new IntervalDate(startDate, endDate));
-            } catch (PeriodException e) {
-                return new ResponseBean(ResponseEnum.ERROR, "Contratto innserito correttamente ma il periodo non soddisfa più i requisiti!");
-            }
-        }
-        return new ResponseBean(ResponseEnum.OK, "Contratto inserito correttamente");
-
-
     }
 
     public List<ServiceBean> getAllServices() throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
@@ -84,7 +72,7 @@ public class PerformContractRequestSession {
         return serviceBeans;
     }
 
-    public ContractNamesBean getAllContractTypes() {
+    public ContractNamesBean getAllContractTypes() throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException {
         List<ContractType> contractTypes = ContractTypeJDBC.getIstance().getAllContractTypes();
 
         List<String> contractNames = new ArrayList<>();
@@ -94,23 +82,8 @@ public class PerformContractRequestSession {
         return new ContractNamesBean(contractNames);
     }
 
-    public ResponseBean setPeriod(LocalDate start, LocalDate end) {
-
-        if (!this.contractRequest.hasContractType()) return new ResponseBean(ResponseEnum.ERROR, "Inserire prima un contratto!");
-
-        if (!this.rentalFeatures.checkPeriod(start, end)) {
-            return new ResponseBean(ResponseEnum.ERROR, "Il periodo inserito non è disponibile!");
-        }
-
-        try {
+    public void setPeriod(LocalDate start, LocalDate end) throws PeriodException {
             this.contractRequest.insertPeriod(new IntervalDate(start, end));
-        } catch (PeriodException e) {
-            return new ResponseBean(ResponseEnum.ERROR, e.toString());
-        }
-
-        return new ResponseBean(ResponseEnum.OK, "Periodo inserito correttamente");
-
-
     }
 
     public void setServices(List<ServiceBean> serviceBeans) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException{
@@ -125,7 +98,9 @@ public class PerformContractRequestSession {
 
     }
 
-    public ContractRequestInfoBean getSummary() {
+    public ContractRequestInfoBean getSummary() throws IncompleteException {
+
+        if (!this.contractRequest.check()) throw new IncompleteException();
 
         List<Service> services = this.contractRequest.getServices();
 
@@ -139,7 +114,7 @@ public class PerformContractRequestSession {
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal());
     }
 
-    public ResponseBean sendRequest() {
+    public void sendRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, PeriodException {
         List<Service> services = this.contractRequest.getServices();
 
         int length = services.size();
@@ -153,7 +128,6 @@ public class PerformContractRequestSession {
 
         ContractRequestJDBC.getInstance().insertNewRequest(contractRequestBean);
 
-        return new ResponseBean(ResponseEnum.OK, "La richiesta è stata inserita correttamene!");
     }
 
 

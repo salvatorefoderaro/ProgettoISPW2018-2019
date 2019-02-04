@@ -11,7 +11,7 @@ public class ContractRequest {
     private ContractRequestId requestId;
     private String renterNickname;
     private String tenantNickname;
-    private Rentable rentable;
+    private int rentableId;
     private ContractType contractType;
     private RequestStateEnum state;
     private LocalDate creationDate;
@@ -20,10 +20,10 @@ public class ContractRequest {
     private int deposit;
     private List<Service> services = new ArrayList<>();
 
-    public ContractRequest (String renterNickname, String tenantNickname, Rentable rentable, int rentablePrice, int deposit) {
+    public ContractRequest (String renterNickname, String tenantNickname, int rentableId, int rentablePrice, int deposit) {
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
-        this.rentable = rentable;
+        this.rentableId = rentableId;
         this.rentablePrice = rentablePrice;
         this.deposit = deposit;
     }
@@ -39,14 +39,19 @@ public class ContractRequest {
         this.deposit=deposit;
     }
 
-
-
-    public void setContractType(ContractType contractType) {
+    public void setContractType(ContractType contractType) throws PeriodException {
+        if (this.intervalDate != null) {
+            this.contractType = contractType;
+            IntervalDate period = this.intervalDate;
+            this.intervalDate = null;
+            this.insertPeriod(period);
+            return;
+        }
         this.contractType = contractType;
     }
 
     public void insertPeriod(IntervalDate intervalDate) throws PeriodException {
-        if (this.contractType.checkPeriod(intervalDate)) throw new PeriodException();
+        if (this.contractType != null && this.contractType.checkPeriod(intervalDate)) throw new PeriodException();
         this.intervalDate = intervalDate;
     }
 
@@ -62,16 +67,16 @@ public class ContractRequest {
         return state;
     }
 
-    public String getRentableName() {
-        return this.rentable.getName();
-    }
-
     public String getRenterNickname() {
         return renterNickname;
     }
 
     public String getTenantNickname() {
         return tenantNickname;
+    }
+
+    public int getRentableId() {
+        return this.rentableId;
     }
 
     public LocalDate getCreationDate(){
@@ -114,20 +119,13 @@ public class ContractRequest {
         return total;
     }
 
+    public boolean check() {
+        return this.contractType != null && this.intervalDate != null;
+    }
+
     public ContractRequestId getRequestId() {
         return requestId;
     }
 
-    public boolean hasContractType() {
-        return this.contractType != null;
-    }
-
-    public void clearPeriod() {
-        this.intervalDate = null;
-    }
-
-    public boolean hasIntervalDate() {
-        return this.intervalDate != null;
-    }
 
 }

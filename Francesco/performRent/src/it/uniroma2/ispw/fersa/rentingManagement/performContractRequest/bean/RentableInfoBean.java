@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean;
 
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.IntervalDate;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.RentableTypeEnum;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,6 +11,7 @@ import java.util.List;
 public class RentableInfoBean {
     private String title;
     private BufferedImage image;
+    private RentableTypeEnum type;
     private String rentableDescription;
     private String rentalDescription;
     private int price;
@@ -17,9 +19,10 @@ public class RentableInfoBean {
     private List<String> avaiblePeriods;
 
 
-    public RentableInfoBean(String title, BufferedImage image,String rentableDescription, String rentalDescription, int price, int deposit, List<String> avaiblePeriods) {
+    public RentableInfoBean(String title, BufferedImage image, RentableTypeEnum type,String rentableDescription, String rentalDescription, int price, int deposit, List<String> avaiblePeriods) {
         this.title = title;
         this.image = image;
+        this.type = type;
         this.rentableDescription = rentableDescription;
         this.rentalDescription = rentalDescription;
         this.price = price;
@@ -33,6 +36,10 @@ public class RentableInfoBean {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public RentableTypeEnum getType() {
+        return type;
     }
 
     public String getRentableDescription() {

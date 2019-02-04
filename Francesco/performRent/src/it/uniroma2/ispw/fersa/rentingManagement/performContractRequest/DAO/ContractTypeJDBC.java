@@ -2,20 +2,14 @@ package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractRequestId;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractType;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContractTypeJDBC {
-    private static String USER = "root";
-
-    private static String PASS = "Francesco1997";
-
-    private static String DB_URL = "jdbc:mariadb://localhost:3306/RentingManagement";
-
-    private static String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
-
+public class ContractTypeJDBC implements ContractTypeDAO{
 
     protected static ContractTypeJDBC contractTypeJDBC;
 
@@ -30,17 +24,14 @@ public class ContractTypeJDBC {
         return contractTypeJDBC;
     }
 
+    @Override
+    public List<ContractType> getAllContractTypes() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+        List<ContractType> contractTypes = new ArrayList<>();
 
-    public List<ContractType> getAllContractTypes() {
-        List<ContractType> contractTypes = new ArrayList<ContractType>();
-
-        Connection conn = null;
+        Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
 
         try {
-            Class.forName(DRIVER_CLASS_NAME);
-
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
@@ -58,50 +49,43 @@ public class ContractTypeJDBC {
             rs.close();
             stmt.close();
             conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
         return contractTypes;
     }
 
-    private ContractType getContractType(String sql) {
-        Connection conn = null;
-        Statement stmt = null;
+    private ContractType getContractType(String sql) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException{
         ContractType contractType = null;
 
-        try {
-            Class.forName(DRIVER_CLASS_NAME);
+        Connection conn = ConnectionFactory.getInstance().openConnection();
+        Statement stmt = null;
 
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+        try {
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-
 
             ResultSet rs = stmt.executeQuery(sql);
 
             if (!rs.first()) return null;
 
-
             contractType = new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration"));
-
 
             rs.close();
             stmt.close();
             conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (stmt != null) stmt.close();
@@ -113,16 +97,18 @@ public class ContractTypeJDBC {
         return contractType;
     }
 
-
-    public ContractType getContractTypeById(int contractTypeId) {
+    @Override
+    public ContractType getContractTypeById(int contractTypeId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
         return getContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE id = " + contractTypeId);
     }
 
-    public ContractType getContractTypeByRequestId(ContractRequestId requestId) {
+    @Override
+    public ContractType getContractTypeByRequestId(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
         return getContractType("SELECT ContractType.id, name, description, minDuration, maxDuration FROM ContractType INNER JOIN ContractRequest ON ContractType.id = ContractRequest.contractTypeId WHERE ContractRequest.id = " + requestId.getId());
     }
 
-    public ContractType getContractTypeByName(String contractTypeName) {
+    @Override
+    public ContractType getContractTypeByName(String contractTypeName) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
         return getContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE name = '" + contractTypeName + "'");
     }
 
