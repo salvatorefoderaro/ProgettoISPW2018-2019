@@ -59,7 +59,7 @@ public class PerformContractRequestSession {
         return new ContractTypeBean(contractType.getContractTypeId(), contractType.getName(), contractType.getDescription(), contractType.getMinDuration(), contractType.getMaxDuration());
     }
 
-    public void selectContract(String contractTypeName) throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException, NotFoundException, PeriodException {
+    public void selectContract(String contractTypeName) throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException, NotFoundException, ContractPeriodException {
         ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByName(contractTypeName);
         if (contractType == null) throw new NotFoundException("Errore: contratto selezionato non trovato");
         this.contractRequest.setContractType(contractType);
@@ -82,8 +82,9 @@ public class PerformContractRequestSession {
         return new ContractNamesBean(contractNames);
     }
 
-    public void setPeriod(LocalDate start, LocalDate end) throws PeriodException {
-            this.contractRequest.insertPeriod(new IntervalDate(start, end));
+    public void setPeriod(LocalDate start, LocalDate end) throws ContractPeriodException, PeriodException {
+        if (!this.rentalFeatures.checkPeriod(start, end)) throw new PeriodException();
+        this.contractRequest.insertPeriod(new IntervalDate(start, end));
     }
 
     public void setServices(List<ServiceBean> serviceBeans) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException{
@@ -114,7 +115,7 @@ public class PerformContractRequestSession {
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal());
     }
 
-    public void sendRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, PeriodException {
+    public void sendRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
         List<Service> services = this.contractRequest.getServices();
 
         int length = services.size();

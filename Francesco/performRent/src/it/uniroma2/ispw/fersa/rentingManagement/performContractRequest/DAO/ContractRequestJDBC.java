@@ -4,7 +4,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.Cont
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ContractPeriodException;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class ContractRequestJDBC implements ContractRequestDAO{
     }
 
     @Override
-    public void insertNewRequest(ContractRequestBean contractRequestBean) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, PeriodException {
+    public void insertNewRequest(ContractRequestBean contractRequestBean) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
@@ -47,7 +47,7 @@ public class ContractRequestJDBC implements ContractRequestDAO{
 
             if(!rs1.first()) {
                 conn.rollback();
-                throw new PeriodException();
+                throw new ContractPeriodException();
             }
 
 

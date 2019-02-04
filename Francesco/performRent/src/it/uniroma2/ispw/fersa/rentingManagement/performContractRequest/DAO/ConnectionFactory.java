@@ -2,7 +2,6 @@ package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

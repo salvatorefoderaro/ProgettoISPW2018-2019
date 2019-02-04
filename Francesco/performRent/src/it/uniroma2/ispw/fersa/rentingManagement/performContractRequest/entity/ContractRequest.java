@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity;
 
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ContractPeriodException;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
 
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class ContractRequest {
         this.deposit=deposit;
     }
 
-    public void setContractType(ContractType contractType) throws PeriodException {
+    public void setContractType(ContractType contractType) throws ContractPeriodException {
         if (this.intervalDate != null) {
             this.contractType = contractType;
             IntervalDate period = this.intervalDate;
@@ -50,8 +51,8 @@ public class ContractRequest {
         this.contractType = contractType;
     }
 
-    public void insertPeriod(IntervalDate intervalDate) throws PeriodException {
-        if (this.contractType != null && this.contractType.checkPeriod(intervalDate)) throw new PeriodException();
+    public void insertPeriod(IntervalDate intervalDate) throws ContractPeriodException {
+        if (this.contractType != null && this.contractType.checkPeriod(intervalDate)) throw new ContractPeriodException();
         this.intervalDate = intervalDate;
     }
 

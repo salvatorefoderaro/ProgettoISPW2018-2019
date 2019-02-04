@@ -6,7 +6,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Co
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ContractType;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ContractPeriodException;
 
 import java.sql.SQLException;
 
@@ -15,7 +15,7 @@ public class ContractTypeDecorator extends ContractRequestRetriverDecorator{
         super(contractRequestRetriver);
     }
 
-    public ContractRequest setContractType(ContractRequest contractRequest) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, PeriodException {
+    public ContractRequest setContractType(ContractRequest contractRequest) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
         ContractRequestId contractRequestId = contractRequest.getRequestId();
         ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByRequestId(contractRequestId);
         contractRequest.setContractType(contractType);
@@ -23,7 +23,7 @@ public class ContractTypeDecorator extends ContractRequestRetriverDecorator{
     }
 
     @Override
-    public ContractRequest retriveContractRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, PeriodException{
+    public ContractRequest retriveContractRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
         ContractRequest preliminaryResult = super.retriveContractRequest();
         preliminaryResult = setContractType(preliminaryResult);
         return preliminaryResult;

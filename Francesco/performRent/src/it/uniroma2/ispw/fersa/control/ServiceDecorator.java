@@ -6,7 +6,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Co
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Service;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.PeriodException;
+import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.ContractPeriodException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ServiceDecorator extends ContractRequestRetriverDecorator {
     }
 
     @Override
-    public ContractRequest retriveContractRequest() throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, PeriodException {
+    public ContractRequest retriveContractRequest() throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, ContractPeriodException {
         ContractRequest preliminaryResult = super.retriveContractRequest();
         preliminaryResult = setServices(preliminaryResult);
         return preliminaryResult;

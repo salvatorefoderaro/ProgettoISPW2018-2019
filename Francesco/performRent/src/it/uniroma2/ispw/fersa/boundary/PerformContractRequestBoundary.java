@@ -2,8 +2,6 @@ package it.uniroma2.ispw.fersa.boundary;
 
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.bean.*;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.ResponseEnum;
-import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.entity.Service;
 import it.uniroma2.ispw.fersa.rentingManagement.performContractRequest.exception.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -220,7 +218,7 @@ public class PerformContractRequestBoundary {
         } catch (ClassNotFoundException e) {
             showPopUp("Assenza dei driver necessari per accedere al database!");
             System.exit(1);
-        } catch (PeriodException e) {
+        } catch (ContractPeriodException e) {
             showPopUp("Contratto inserito correttamente ma il periodo selezionato non è conforme ai vincoli contrattuali");
             this.startDate.setValue(null);
             this.endDate.setValue(null);
@@ -275,7 +273,7 @@ public class PerformContractRequestBoundary {
 
        try {
            this.control.setPeriod(startDate, endDate);
-       } catch (PeriodException e) {
+       } catch (ContractPeriodException | PeriodException e) {
            showPopUp(e.toString());
            this.startDate.setValue(null);
            this.endDate.setValue(null);
@@ -340,7 +338,7 @@ public class PerformContractRequestBoundary {
         } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
             this.showPopUp(e.toString());
             System.exit(1);
-        } catch (PeriodException e) {
+        } catch (ContractPeriodException e) {
             this.showPopUp("Periodo non più disponibile");
             this.setInfo();
             return;
