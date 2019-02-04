@@ -9,40 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author root
- */
-public class Tenant implements user {
+
+public class Tenant {
     private int IDLocatario;
     private String nickname;
     private int SollecitiPagamento;
 
-    public Tenant(int IDLocatario, String nickname, int SollecitiPagamento) throws SQLException{
+    public Tenant(int IDLocatario, String nickname, int SollecitiPagamento){
         this.IDLocatario = IDLocatario;
         this.nickname = nickname;
         this.SollecitiPagamento = SollecitiPagamento;
     }
     
-    public int getID(){
-        return this.IDLocatario;
-    }
-    
     public String getNickname(){
         return this.nickname;
     }
-    
 
-
-    @Override
-    public List getInfo() {
-        List renterInfo = new ArrayList();
-        renterInfo.add(this.IDLocatario);
-        renterInfo.add(this.nickname);
-        renterInfo.add(this.SollecitiPagamento);
-        return renterInfo;
-    }
-    
-
-    
 }

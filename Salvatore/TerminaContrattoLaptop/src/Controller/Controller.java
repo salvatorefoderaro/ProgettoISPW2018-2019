@@ -1,13 +1,11 @@
 package Controller;
 
 import Bean.contractBean;
-import Bean.notificationBean;
 import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.*;
 import Entity.*;
 import Exceptions.dbConfigMissing;
-import Exceptions.dbConnection;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
 import java.sql.SQLException;
@@ -21,9 +19,7 @@ public class Controller extends Observable implements Runnable {
     private  Map<Integer, PaymentClaim> dictionarySegnalazionePagamento  = new HashMap<Integer, PaymentClaim>();
     private  Map<Integer, Contract> dictionaryContratto  = new HashMap<Integer, Contract>();
 
-    public Controller()  throws SQLException{
-        databaseConnection.getConnectionUser();
-    }
+    public Controller(){ }
     
     public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().login(loginUser);
@@ -66,22 +62,22 @@ public class Controller extends Observable implements Runnable {
         return Result;
     }
   
-    public void setContrattoArchiviato(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
+    public void setContractAchieved(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         contractBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).getContract().makeBean();
         operationBean.setJDBCcommit(true);
-        contractJDBC.getInstance().setContrattoArchiviato(operationBean);
+        contractJDBC.getInstance().setContractAchieved(operationBean);
     }
     
-    public void setSegnalazioneNotificata(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
+    public void setPaymentClaimNotified(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
-        paymentClaimJDBC.getInstance().setSegnalazionePagamentoNotificata(operationBean);
+        paymentClaimJDBC.getInstance().setPaymentClaimNotified(operationBean);
     }
 
     public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
-        paymentClaimJDBC.getInstance().setSegnalazionePagamentoNotificata(operationBean);
+        paymentClaimJDBC.getInstance().setPaymentClaimNotified(operationBean);
     }
 
     public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
@@ -106,13 +102,13 @@ public class Controller extends Observable implements Runnable {
         paymentClaimJDBC.getInstance().createPaymentClaim(bean);
         contractBean operationBean = dictionaryContratto.get(bean.getContractId()).makeBean();
         operationBean.setJDBCcommit(false);
-        contractJDBC.getInstance().setContrattoSegnalato(operationBean);
+        contractJDBC.getInstance().setContractReported(operationBean);
         }
 
-    public void incrementaSegnalazione(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
+    public void incrementPaymentClaim(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
             paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
             operationBean.setJDBCcommit(true);
-            paymentClaimJDBC.getInstance().incrementaNumeroSegnalazione(operationBean);
+            paymentClaimJDBC.getInstance().incrementPaymentClaimNumber(operationBean);
     }
 
     /*public void checkNotifications() throws SQLException, emptyResult, dbConfigMissing {

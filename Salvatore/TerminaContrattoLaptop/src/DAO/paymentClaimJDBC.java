@@ -71,7 +71,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void incrementPaymentClaimNumber(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {
@@ -128,7 +128,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void setSegnalazionePagata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void setPaymentClaimPayed(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {
@@ -156,7 +156,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     @Override
-    public void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void setPaymentClaimAchieved(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {
@@ -184,7 +184,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
     
     @Override
-    public void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void setPaymentClaimNotified(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {

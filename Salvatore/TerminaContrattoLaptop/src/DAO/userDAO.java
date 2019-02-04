@@ -8,6 +8,6 @@ import java.sql.SQLException;
 
 public interface userDAO {
     userSessionBean login(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing;
-    void incrementaSollecitiPagamento(userSessionBean session) throws SQLException, dbConfigMissing;
+    void incrementPaymentClaimNumber(userSessionBean session) throws SQLException, dbConfigMissing;
     userSessionBean getTenant(userSessionBean session) throws SQLException, dbConfigMissing;
 }

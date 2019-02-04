@@ -6,6 +6,7 @@ import Entity.TypeOfUser;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class userJDBC {
@@ -13,7 +14,7 @@ public class userJDBC {
     private Connection connection;
     private static userJDBC instance;
 
-    public static userJDBC getInstance()  throws SQLException {
+    public static synchronized userJDBC getInstance() {
         if (instance == null)
             instance = new userJDBC();
         return instance;
@@ -27,7 +28,7 @@ public class userJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -58,7 +59,7 @@ public class userJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 

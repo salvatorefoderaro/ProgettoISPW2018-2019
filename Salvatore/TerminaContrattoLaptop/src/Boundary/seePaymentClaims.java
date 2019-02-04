@@ -124,7 +124,7 @@ public void initialize(Controller parentController, userSessionBean session){
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             bean.setClaimNumber(paymentClaimBean.getClaimNumber());
                             try {
-                                claimDeadline.incrementaSegnalazione(bean);
+                                claimDeadline.incrementPaymentClaim(bean);
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
@@ -147,7 +147,7 @@ public void initialize(Controller parentController, userSessionBean session){
                             paymentClaimBean bean = new paymentClaimBean();
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             try {
-                                claimDeadline.setContrattoArchiviato(bean);
+                                claimDeadline.setContractAchieved(bean);
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
@@ -173,7 +173,7 @@ public void initialize(Controller parentController, userSessionBean session){
                             paymentClaimBean bean = new paymentClaimBean();
                             bean.setClaimId(paymentClaimBean.getClaimId());
                             try {
-                                claimDeadline.setSegnalazioneNotificata(bean);
+                                claimDeadline.setPaymentClaimNotified(bean);
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
@@ -196,7 +196,7 @@ public void initialize(Controller parentController, userSessionBean session){
                                 paymentClaimBean bean = new paymentClaimBean();
                                 bean.setClaimId(paymentClaimBean.getClaimId());
                                 try {
-                                    claimDeadline.setSegnalazioneNotificata(bean);
+                                    claimDeadline.setPaymentClaimNotified(bean);
                                 } catch (Exceptions.transactionError transactionError) {
                                     popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                                 } catch (SQLException e) {

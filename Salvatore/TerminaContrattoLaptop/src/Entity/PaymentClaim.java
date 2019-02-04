@@ -31,15 +31,8 @@ public class PaymentClaim {
         this.claimState = claimState;
         this.claimNotified = claimNotified;
     }
-    
-    public int getClaimId(){ return this.claimId; }
+
     public Contract getContract(){ return this.contractId; }
-    public String getRenterNickname(){ return this.renterNickname;}
-    public Tenant getTenantNickname(){ return this.tenantNickname;}
-    public int getClaimNumber(){ return this.claimNumber; }
-    public String getClaimDeadline(){ return this.claimDeadline; }
-    public int getClaimState(){ return this.claimState; }
-    public int getClaimNotified(){ return this.claimNotified; }
 
     public paymentClaimBean makeBean(){
         paymentClaimBean bean = new paymentClaimBean();
@@ -52,10 +45,4 @@ public class PaymentClaim {
         bean.setClaimNotified(this.claimNotified);
         return bean;
     }
-    
-    public Contract getContratto(){
-        return this.contractId;
-    }
-
-    
 }

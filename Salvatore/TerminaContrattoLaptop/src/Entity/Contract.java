@@ -15,11 +15,6 @@ public class Contract {
         this.tenantNickname = tenantNickname;
         this.renterNickname = renterNickname;
     }
-    
-    public int getContractId(){ return this.contractId; } 
-    public int getContractState(){ return this.contractState; }
-    public String getTenantNickname(){ return this.tenantNickname; }
-    public String getRenterNickname(){ return this.renterNickname; }
 
     public contractBean makeBean(){
         contractBean bean = new contractBean();

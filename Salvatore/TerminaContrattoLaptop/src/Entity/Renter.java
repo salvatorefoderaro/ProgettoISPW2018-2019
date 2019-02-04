@@ -1,8 +1,7 @@
 package Entity;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Renter implements user {
+
+public class Renter {
     
     private int IDRenter;
     private String nickname;
@@ -11,16 +10,5 @@ public class Renter implements user {
         this.IDRenter = IDRenter;
         this.nickname = nickname;
     }
-
-    @Override
-    public List getInfo() {
-        List renterInfo = new ArrayList();
-        renterInfo.add(this.IDRenter);
-        renterInfo.add(this.nickname);
-        return renterInfo;
-    }
-
-
-    
     
 }

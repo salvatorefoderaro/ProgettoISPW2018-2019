@@ -56,13 +56,8 @@ public class login {
                 return;
             }
 
-            try {
-                Controller controllerProva = new Controller();
-                this.controller = controllerProva;
-            } catch (SQLException e) {
-                popup(TypeOfMessage.DBERROR.getString());
-                return;
-            }
+            Controller controllerProva = new Controller();
+            this.controller = controllerProva;
 
             user = new userSessionBean(nickname.getText(),0, TypeOfUser.NOTLOGGED, 0, password.getText());
             try {

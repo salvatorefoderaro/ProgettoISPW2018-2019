@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author root
  */
-public class Renter implements user {
+public class Renter {
     
     private int IDLocatore;
     private String nickname;
@@ -23,15 +23,4 @@ public class Renter implements user {
         this.nickname = nickname;
     }
 
-    @Override
-    public List getInfo() {
-        List renterInfo = new ArrayList();
-        renterInfo.add(this.IDLocatore);
-        renterInfo.add(this.nickname);
-        return renterInfo;
-    }
-
-
-    
-    
 }

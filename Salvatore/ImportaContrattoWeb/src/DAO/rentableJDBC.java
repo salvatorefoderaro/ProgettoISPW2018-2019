@@ -7,6 +7,7 @@ import Entity.availabilityPeriod;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +22,7 @@ public class rentableJDBC {
 
     private static rentableJDBC instance;
 
-    public static rentableJDBC getInstance() {
+    public static synchronized rentableJDBC getInstance() {
         if (instance == null)
             instance = new rentableJDBC();
         return instance;
@@ -35,7 +36,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         String query = "";
@@ -82,11 +83,11 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         dBConnection.setAutoCommit(false);
-        
+
         String query1 = null;
         String query2 = null;
         String query3 = null;
@@ -155,7 +156,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -220,7 +221,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -253,7 +254,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 

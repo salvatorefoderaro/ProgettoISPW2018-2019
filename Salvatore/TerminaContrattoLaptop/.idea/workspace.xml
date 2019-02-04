@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Controller/Controller.java" line="50" />
+    <bookmark url="file://$PROJECT_DIR$/src/Controller/Controller.java" line="46" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
@@ -98,41 +98,34 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/TypeOfUser.java">
+        <entry file="file://$PROJECT_DIR$/src/Controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Exceptions/transactionError.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/contractBean.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="135">
+              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
               <folding>
-                <element signature="e#0#1258#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/notificationBean.class">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/readDBConf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="255">
+              <caret line="19" column="21" selection-end-line="33" selection-end-column="1" />
               <folding>
-                <element signature="e#0#424#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/JUnit/testLogin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -140,62 +133,68 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1052">
-              <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2537">
-              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/user.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Renter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="34" column="55" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
+              <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DAO/connectionUser.prop">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="9" selection-end-line="5" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DAO/userJDBC.java">
+        <entry file="file://$PROJECT_DIR$/src/DAO/connectionAdmin.prop">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+            <state relative-caret-position="75">
+              <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/seePaymentClaims.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/src/test.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Boundary/userPanelRenter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -245,10 +244,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Boundary/main.java" />
-        <option value="$PROJECT_DIR$/src/DAO/renterDAO.java" />
-        <option value="$PROJECT_DIR$/src/DAO/contractDAO.java" />
-        <option value="$PROJECT_DIR$/src/Boundary/test.css" />
         <option value="$PROJECT_DIR$/src/Entity/SegnalazionePagamento.java" />
         <option value="$PROJECT_DIR$/src/DAO/renterJDBC.java" />
         <option value="$PROJECT_DIR$/src/Boundary/userPanel.java" />
@@ -264,15 +259,11 @@
         <option value="$PROJECT_DIR$/src/Controller/myThread.java" />
         <option value="$PROJECT_DIR$/src/Boundary/userPanelTenant.java" />
         <option value="$PROJECT_DIR$/src/Boundary/seePaymentClaim.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Contract.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Tenant.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Renter.java" />
         <option value="$PROJECT_DIR$/src/Bean/notificationBean.java" />
         <option value="$PROJECT_DIR$/src/Boundary/login.fxml" />
         <option value="$PROJECT_DIR$/src/DAO/TypeOfUser.java" />
         <option value="$PROJECT_DIR$/src/DAO/tenantJDBC.java" />
         <option value="$PROJECT_DIR$/src/Bean/userSessionBean.java" />
-        <option value="$PROJECT_DIR$/src/Boundary/userPanelRenter.java" />
         <option value="$PROJECT_DIR$/src/src/test.css" />
         <option value="$PROJECT_DIR$/src/Boundary/seePaymentClaim.fxml" />
         <option value="$PROJECT_DIR$/src/Boundary/style.css" />
@@ -282,24 +273,35 @@
         <option value="$PROJECT_DIR$/src/DAO/databaseConnection.java" />
         <option value="$PROJECT_DIR$/src/Bean/contractBean.java" />
         <option value="$PROJECT_DIR$/src/Bean/paymentClaimBean.java" />
-        <option value="$PROJECT_DIR$/src/DAO/contractJDBC.java" />
-        <option value="$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java" />
-        <option value="$PROJECT_DIR$/src/JUnit/testLogin.java" />
         <option value="$PROJECT_DIR$/src/Boundary/TypeOfMessage.java" />
         <option value="$PROJECT_DIR$/src/Boundary/createPaymentClaim.java" />
-        <option value="$PROJECT_DIR$/src/Boundary/login.java" />
         <option value="$PROJECT_DIR$/src/Boundary/seePaymentClaims.java" />
-        <option value="$PROJECT_DIR$/src/Controller/Controller.java" />
-        <option value="$PROJECT_DIR$/src/DAO/userJDBC.java" />
         <option value="$PROJECT_DIR$/src/Entity/user.java" />
+        <option value="$PROJECT_DIR$/src/DAO/contractJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/userJDBC.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Contract.java" />
+        <option value="$PROJECT_DIR$/src/Entity/PaymentClaim.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Tenant.java" />
+        <option value="$PROJECT_DIR$/src/Entity/Renter.java" />
+        <option value="$PROJECT_DIR$/src/Exceptions/dbConfigMissing.java" />
+        <option value="$PROJECT_DIR$/src/Exceptions/dbConnection.java" />
+        <option value="$PROJECT_DIR$/src/Exceptions/emptyResult.java" />
+        <option value="$PROJECT_DIR$/src/Exceptions/transactionError.java" />
+        <option value="$PROJECT_DIR$/src/Controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/login.java" />
+        <option value="$PROJECT_DIR$/src/Boundary/userPanelRenter.java" />
+        <option value="$PROJECT_DIR$/src/DAO/connectionUser.prop" />
+        <option value="$PROJECT_DIR$/src/DAO/readDBConf.java" />
+        <option value="$PROJECT_DIR$/src/DAO/connectionAdmin.prop" />
+        <option value="$PROJECT_DIR$/src/JUnit/testLogin.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="284" />
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="y" value="25" />
-    <option name="width" value="634" />
+    <option name="width" value="683" />
     <option name="height" value="743" />
   </component>
   <component name="ProjectReloadState">
@@ -310,8 +312,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -420,9 +422,9 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549190859791" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549274162660" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ImportaContrattoLaptop" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -460,7 +462,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.testLogin.testLoginNEw1">
+  <component name="RunManager" selected="JUnit.testLogin">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -634,9 +636,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testLogin" />
         <item itemvalue="JUnit.testLogin.testLoginNEw1" />
         <item itemvalue="JUnit.testLogin.testLoginNEw" />
-        <item itemvalue="JUnit.testLogin" />
         <item itemvalue="Application.main" />
         <item itemvalue="JUnit.testLogin.testLogin" />
       </list>
@@ -688,31 +690,13 @@
       <workItem from="1549061475117" duration="2445000" />
       <workItem from="1549102431043" duration="326000" />
       <workItem from="1549187438372" duration="3343000" />
+      <workItem from="1549203571403" duration="505000" />
+      <workItem from="1549271136965" duration="1883000" />
+      <workItem from="1549274408443" duration="224000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="testLogin - 2019.01.31 at 15h 26m 32s.xml">
-      <configuration name="testLogin" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 14h 24m 07s.xml">
-      <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 14h 24m 33s.xml">
-      <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 14h 25m 07s.xml">
-      <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 23h 14m 51s.xml">
-      <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 23h 15m 29s.xml">
-      <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 23h 15m 44s.xml">
-      <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="testLogin_testLoginNEw - 2019.02.01 at 23h 16m 18s.xml">
       <configuration name="testLogin.testLoginNEw" configurationId="JUnit" />
     </history-entry>
@@ -722,14 +706,36 @@
     <history-entry file="testLogin_testLoginNEw1 - 2019.02.01 at 23h 17m 27s.xml">
       <configuration name="testLogin.testLoginNEw1" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="testLogin - 2019.02.04 at 10h 45m 33s.xml">
+      <configuration name="testLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin - 2019.02.04 at 10h 46m 40s.xml">
+      <configuration name="testLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin - 2019.02.04 at 10h 47m 24s.xml">
+      <configuration name="testLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_testLoginNEw1 - 2019.02.04 at 10h 48m 08s.xml">
+      <configuration name="testLogin.testLoginNEw1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_testLoginNEw1 - 2019.02.04 at 10h 49m 10s.xml">
+      <configuration name="testLogin.testLoginNEw1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_testLoginNEw1 - 2019.02.04 at 10h 49m 34s.xml">
+      <configuration name="testLogin.testLoginNEw1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin - 2019.02.04 at 10h 49m 47s.xml">
+      <configuration name="testLogin" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69967000" />
+    <option name="totallyTimeSpent" value="72579000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="25" width="1368" height="746" extended-state="6" />
+    <frame x="0" y="25" width="683" height="743" extended-state="4" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.81229776" visible="true" weight="0.2189394" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.81229776" weight="0.47574335" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -738,8 +744,8 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="Persistence" order="7" sideWeight="0.18770227" side_tool="true" weight="0.26677853" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3273906" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3656958" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3267974" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36437908" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39967638" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -783,32 +789,9 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Boundary/main.class" />
     <entry file="file://$PROJECT_DIR$/src/DAO/renterDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/dbConnection.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/emptyResult.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAO/tenantDAO.java" />
     <entry file="file://$PROJECT_DIR$/src/Controller/myThread.java" />
     <entry file="file://$PROJECT_DIR$/src/DAO/TypeOfUser.java" />
-    <entry file="file://$PROJECT_DIR$/src/Entity/Tenant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/src/test.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAO/renterJDBC.java" />
     <entry file="file://$PROJECT_DIR$/src/Boundary/userPanelTenant.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
@@ -863,29 +846,12 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/83ec5daf-87d9-466f-b05d-e5db3040b505/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/untitled/src/Bean/ContractEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="38" column="28" selection-end-line="286" />
-          <folding>
-            <element signature="e#937#938#0" expanded="true" />
-            <element signature="e#970#971#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/untitled/src/Bean/ContractEntity.java" />
     <entry file="file://$PROJECT_DIR$/src/Boundary/createPaymentClaim.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/databaseConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="42" column="130" selection-start-line="42" selection-start-column="130" selection-end-line="42" selection-end-column="130" />
         </state>
       </provider>
     </entry>
@@ -927,32 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/readDBConf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/connectionUser.prop">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/connectionAdmin.prop">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/dbConfigMissing.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JUnit/testLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="27" column="72" selection-start-line="27" selection-start-column="72" selection-end-line="27" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Boundary/userPanelTenant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -967,16 +907,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1875">
-          <caret line="125" column="12" selection-start-line="125" selection-start-column="12" selection-end-line="125" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bean/userSessionBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -984,27 +914,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Boundary/login.java">
+    <entry file="file://$PROJECT_DIR$/src/Entity/user.java" />
+    <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="70" column="30" selection-start-line="70" selection-start-column="30" selection-end-line="70" selection-end-column="30" />
+        <state relative-caret-position="330">
+          <caret line="34" column="55" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Boundary/userPanelRenter.java">
+    <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/notificationBean.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="102" column="53" lean-forward="true" selection-start-line="102" selection-start-column="53" selection-end-line="102" selection-end-column="53" />
+        <state>
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#424#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Boundary/seePaymentClaims.java">
+    <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/contractBean.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/userJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state relative-caret-position="-174">
+          <caret line="51" column="43" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1013,79 +946,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Contract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/PaymentClaim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Boundary/createPaymentClaim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2150">
-          <caret line="189" column="66" selection-start-line="189" selection-start-column="66" selection-end-line="189" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/userJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1052">
-          <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="34" column="55" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2537">
-          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/user.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Renter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        <state relative-caret-position="240">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1100,27 +962,141 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Exceptions/transactionError.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/dbConfigMissing.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/dbConnection.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/emptyResult.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Renter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/contractBean.class">
+    <entry file="file://$PROJECT_DIR$/src/Entity/Tenant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="45">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/PaymentClaim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/createPaymentClaim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="189" column="66" selection-start-line="189" selection-start-column="66" selection-end-line="189" selection-end-column="66" />
           <folding>
-            <element signature="e#0#1258#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/notificationBean.class">
+    <entry file="file://$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="261">
+          <caret line="218" column="77" selection-start-line="218" selection-start-column="77" selection-end-line="218" selection-end-column="77" />
           <folding>
-            <element signature="e#0#424#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/databaseConnection.java" />
+    <entry file="file://$PROJECT_DIR$/src/Controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/readDBConf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="21" selection-end-line="33" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JUnit/testLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/connectionAdmin.prop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/seePaymentClaims.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/src/test.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Boundary/userPanelRenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/connectionUser.prop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="9" selection-end-line="5" selection-end-column="9" />
         </state>
       </provider>
     </entry>

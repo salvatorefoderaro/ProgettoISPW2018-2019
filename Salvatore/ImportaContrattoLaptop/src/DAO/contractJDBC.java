@@ -4,6 +4,7 @@ import Bean.contractBean;
 import Exceptions.dbConfigMissing;
 import Exceptions.transactionError;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,7 +32,7 @@ public class contractJDBC implements contractDAO {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         dBConnection.setAutoCommit(false);

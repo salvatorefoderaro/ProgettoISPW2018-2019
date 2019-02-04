@@ -93,7 +93,7 @@ public class contractJDBC implements contractDAO {
     }
 
     @Override
-    public void setContrattoArchiviato(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void setContractAchieved(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {
@@ -126,7 +126,7 @@ public class contractJDBC implements contractDAO {
     }
     
     @Override
-    public void setContrattoSegnalato(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void setContractReported(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {

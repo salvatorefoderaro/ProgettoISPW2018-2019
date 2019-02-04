@@ -49,7 +49,7 @@ public class userJDBC implements userDAO {
     }
 
     @Override
-    public void incrementaSollecitiPagamento(userSessionBean session) throws SQLException, dbConfigMissing {
+    public void incrementPaymentClaimNumber(userSessionBean session) throws SQLException, dbConfigMissing {
 
         Connection dBConnection = null;
         try {

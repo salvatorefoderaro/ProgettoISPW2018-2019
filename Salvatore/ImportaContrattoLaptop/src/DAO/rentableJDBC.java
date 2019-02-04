@@ -38,7 +38,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         String query = "";
@@ -80,60 +80,12 @@ public class rentableJDBC {
         return listAvailability;
     }
 
-    public rentableBean getAvailabilityDate(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
-
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
-            throw new dbConfigMissing("");
-        }
-
-        List<availabilityPeriod> periodList = new LinkedList<>();
-        rentableBean resultBean = new rentableBean();
-        String query = "";
-
-        switch (bean.getType()){
-            case APARTMENT:
-                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE AptToRentId = ?) ";
-                break;
-
-            case BED:
-                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE BedToRentId = ?) ";
-                break;
-
-            case ROOM:
-                query = "Select startDate, endDate from AvailabilityCalendar WHERE renterFeaturesId IN (SELECT id from RentalFeatures WHERE RoomToRentId = ?) ";
-                break;
-        }
-
-        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
-        preparedStatement.setInt(1, bean.getID());
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (!resultSet.isBeforeFirst()){
-            resultSet.close();
-            preparedStatement.close();
-            throw new emptyResult("La risorsa non è disponibile per la data indicata!");
-        }
-        List<availabilityPeriod> listAvailability = new LinkedList<>();
-        while(resultSet.next()) {
-            availabilityPeriod singlePeriod = new availabilityPeriod(LocalDate.parse(resultSet.getString("startDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(resultSet.getString("endDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            periodList.add(singlePeriod);
-        }
-        resultSet.close();
-        preparedStatement.close();
-        dBConnection.close();
-
-        return resultBean;
-    }
-
     public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         dBConnection.setAutoCommit(false);
@@ -206,7 +158,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -274,7 +226,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -307,7 +259,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 

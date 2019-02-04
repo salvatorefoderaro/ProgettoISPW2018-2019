@@ -108,46 +108,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Tenant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Renter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Boundary/login.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Boundary/login.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="148" selection-start-line="13" selection-start-column="148" selection-end-line="13" selection-end-column="148" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Entity/bedToRent.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
@@ -183,11 +143,59 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Control/controller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="26" column="122" selection-start-line="26" selection-start-column="122" selection-end-line="26" selection-end-column="122" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/userJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="61" column="28" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/rentableJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1115">
+              <caret line="256" column="34" selection-start-line="256" selection-start-column="34" selection-end-line="256" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1118">
+              <caret line="83" column="47" lean-forward="true" selection-start-line="83" selection-start-column="47" selection-end-line="83" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/readDBConf.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -244,10 +252,12 @@
       <find>getLocatore</find>
       <find>Exception</find>
       <find>exception</find>
+      <find>Exception e</find>
     </findStrings>
     <replaceStrings>
       <replace>test.css</replace>
       <replace>transactionError</replace>
+      <replace>IOException e</replace>
     </replaceStrings>
   </component>
   <component name="FindManager">
@@ -290,13 +300,9 @@
         <option value="$PROJECT_DIR$/src/Entity/Renter.java" />
         <option value="$PROJECT_DIR$/src/Bean/rentableBean.java" />
         <option value="$PROJECT_DIR$/src/DAO/connection.prop" />
-        <option value="$PROJECT_DIR$/src/DAO/readDBConf.java" />
         <option value="$PROJECT_DIR$/src/DAO/connectionUser.prop" />
         <option value="$PROJECT_DIR$/src/DAO/connectionAdmin.prop" />
         <option value="$PROJECT_DIR$/src/Exceptions/dbConfigMissing.java" />
-        <option value="$PROJECT_DIR$/src/DAO/contractJDBC.java" />
-        <option value="$PROJECT_DIR$/src/DAO/rentableJDBC.java" />
-        <option value="$PROJECT_DIR$/src/DAO/userJDBC.java" />
         <option value="$PROJECT_DIR$/src/Control/controller.java" />
         <option value="$PROJECT_DIR$/src/Entity/TypeOfMessage.java" />
         <option value="$PROJECT_DIR$/src/Boundary/TypeOfMessage.java" />
@@ -309,6 +315,10 @@
         <option value="$PROJECT_DIR$/src/Entity/aptToRent.java" />
         <option value="$PROJECT_DIR$/src/Entity/bedToRent.java" />
         <option value="$PROJECT_DIR$/src/Entity/roomToRent.java" />
+        <option value="$PROJECT_DIR$/src/DAO/readDBConf.java" />
+        <option value="$PROJECT_DIR$/src/DAO/userJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/rentableJDBC.java" />
+        <option value="$PROJECT_DIR$/src/DAO/contractJDBC.java" />
       </list>
     </option>
   </component>
@@ -320,9 +330,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="25" />
-    <option name="width" value="683" />
-    <option name="height" value="743" />
+    <option name="x" value="1" />
+    <option name="width" value="675" />
+    <option name="height" value="736" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -332,22 +342,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
@@ -371,7 +365,29 @@
               <item name="ImportaContrattoLaptop - Test generalizzazione" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="ImportaContrattoLaptop" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="DAO" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop - Test generalizzazione" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="ImportaContrattoLaptop" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="Entity" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ImportaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImportaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -398,7 +414,7 @@
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549192659949" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Codici OK/ImportaContrattoLaptop" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -665,25 +681,11 @@
       <workItem from="1549190859051" duration="781000" />
       <workItem from="1549191911491" duration="758000" />
       <workItem from="1549194248160" duration="17000" />
+      <workItem from="1549202870107" duration="409000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="testLogin - 2019.01.31 at 15h 10m 15s.xml">
-      <configuration name="testLogin" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_newTestLogin - 2019.01.31 at 21h 30m 44s.xml">
-      <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testReadDb - 2019.02.01 at 20h 14m 44s.xml">
-      <configuration name="testLogin.testReadDb" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testReadDb - 2019.02.01 at 20h 15m 12s.xml">
-      <configuration name="testLogin.testReadDb" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testLogin_testReadDb - 2019.02.01 at 20h 16m 38s.xml">
-      <configuration name="testLogin.testReadDb" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="testLogin_testReadDb - 2019.02.01 at 20h 16m 59s.xml">
       <configuration name="testLogin.testReadDb" configurationId="JUnit" />
     </history-entry>
@@ -699,9 +701,24 @@
     <history-entry file="testLogin_newTestLogin - 2019.02.01 at 20h 29m 58s.xml">
       <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="testLogin_newTestLogin - 2019.02.03 at 15h 09m 11s.xml">
+      <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_newTestLogin - 2019.02.03 at 15h 10m 32s.xml">
+      <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_newTestLogin - 2019.02.03 at 15h 10m 37s.xml">
+      <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_newTestLogin - 2019.02.03 at 15h 11m 57s.xml">
+      <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testLogin_newTestLogin - 2019.02.03 at 15h 14m 32s.xml">
+      <configuration name="testLogin.newTestLogin" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119561000" />
+    <option name="totallyTimeSpent" value="119970000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -713,9 +730,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="25" width="1368" height="746" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="736" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7432099" visible="true" weight="0.14166667" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7432099" visible="true" weight="0.19772728" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -727,8 +745,8 @@
       <window_info anchor="bottom" id="SQL Generator" order="1" weight="0.32847896" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.3273906" />
-      <window_info anchor="bottom" id="Run" order="4" weight="0.26213592" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.39967638" />
+      <window_info anchor="bottom" id="Run" order="4" weight="0.48366013" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.39869282" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.32847896" />
@@ -905,16 +923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/readDBConf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="69" selection-start-line="13" selection-start-column="69" selection-end-line="13" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAO/contractDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -963,30 +971,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="23" selection-end-line="88" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Exceptions/dbConfigMissing.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/rentableJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,16 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="12" selection-start-line="8" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/userJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="71" column="56" selection-start-line="71" selection-start-column="56" selection-end-line="71" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1132,6 +1110,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="26" column="122" selection-start-line="26" selection-start-column="122" selection-end-line="26" selection-end-column="122" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/readDBConf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="8" column="55" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/userJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="61" column="28" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/rentableJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1115">
+          <caret line="256" column="34" selection-start-line="256" selection-start-column="34" selection-end-line="256" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/contractJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1118">
+          <caret line="83" column="47" lean-forward="true" selection-start-line="83" selection-start-column="47" selection-end-line="83" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

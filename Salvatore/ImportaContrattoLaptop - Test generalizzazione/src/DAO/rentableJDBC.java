@@ -38,7 +38,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         String query = "";
@@ -85,7 +85,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -133,7 +133,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         dBConnection.setAutoCommit(false);
@@ -206,7 +206,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -274,7 +274,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 
@@ -307,7 +307,7 @@ public class rentableJDBC {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
 

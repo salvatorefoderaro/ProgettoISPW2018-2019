@@ -1,11 +1,12 @@
 package DAO;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class readDBConf {
 
-    public static String getDBConf(String type) throws Exception {
+    public static String getDBConf(String type) throws IOException {
         System.out.println(System.getProperty("user.dir"));
         FileInputStream fis = null;
         if("admin".equals(type)){

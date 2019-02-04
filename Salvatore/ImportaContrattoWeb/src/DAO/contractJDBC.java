@@ -4,6 +4,7 @@ import Bean.contractBean;
 import Exceptions.dbConfigMissing;
 import Exceptions.transactionError;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,14 +16,15 @@ public class contractJDBC implements contractDAO {
 
     private static contractJDBC instance = null;
 
-    public static contractJDBC getInstance()  {
+    public static synchronized contractJDBC getInstance() {
         if (instance == null) {
             instance = new contractJDBC();
         }
         return instance;
     }
 
-    private contractJDBC() { }
+    private contractJDBC() {
+    }
 
 
     @Override
@@ -31,13 +33,13 @@ public class contractJDBC implements contractDAO {
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new dbConfigMissing("");
         }
         dBConnection.setAutoCommit(false);
 
         String query = "";
-        switch(bean.getRentableType()) {
+        switch (bean.getRentableType()) {
             case APARTMENT:
                 query = "INSERT INTO Contract (aptToRentId, roomToRentId, bedToRentId, type, contractTypeId, state, tenantNickname, renterNickname, creationDate, stipulationDate, startDate, endDate, tenantName, tenantSurname, tenantCF, tenantAddress, renterName, renterSurname, renterCF, renterAddress, price, deposit, claimReported, serviceList, grossPrice) VALUES (?, null, null, ?, 0, 'Active', ?, ?, ?, null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, null, ?)";
                 break;
@@ -73,11 +75,11 @@ public class contractJDBC implements contractDAO {
         preparedStatement.executeUpdate();
         preparedStatement.close();
 
-        if (bean.getJDBCcommit()){
+        if (bean.getJDBCcommit()) {
             try {
                 dBConnection.commit();
                 dBConnection.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 dBConnection.rollback();
                 dBConnection.close();
                 throw new transactionError("");

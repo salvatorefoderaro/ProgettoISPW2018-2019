@@ -1,7 +1,6 @@
 package JUnit;
 
 import Bean.contractBean;
-import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.paymentClaimJDBC;
 import DAO.readDBConf;
@@ -12,7 +11,6 @@ import Exceptions.emptyResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import DAO.contractJDBC;
-import Entity.TypeOfUser;
 import java.sql.SQLException;
 import java.util.List;
 

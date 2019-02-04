@@ -19,18 +19,18 @@ import java.sql.SQLException;
 public interface paymentClaimDAO {
      
 
-    void incrementaNumeroSegnalazione(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
+    void incrementPaymentClaimNumber(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
 
      void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
 
     List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing;
 
 
-    void setSegnalazionePagata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
+    void setPaymentClaimPayed(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
 
-    void setSegnalazionePagamentoArchiviata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
+    void setPaymentClaimAchieved(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
 
-    void setSegnalazionePagamentoNotificata(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
+    void setPaymentClaimNotified(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
 
      void checkPaymentClaimDate() throws SQLException, dbConfigMissing;
 }

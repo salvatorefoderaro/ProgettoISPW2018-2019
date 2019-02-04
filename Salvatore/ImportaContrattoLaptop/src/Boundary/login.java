@@ -28,6 +28,7 @@ public class login {
     private controller parentController;
     private userBean loggedUser;
 
+    @FXML
     public void test() throws IOException {
 
         userBean loginBean = new userBean();
