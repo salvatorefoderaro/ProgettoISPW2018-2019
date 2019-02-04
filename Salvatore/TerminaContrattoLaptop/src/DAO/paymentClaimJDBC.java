@@ -11,16 +11,16 @@ import Exceptions.emptyResult;
 import Exceptions.transactionError;
 
 public class paymentClaimJDBC implements paymentClaimDAO {
-    
-    private static paymentClaimJDBC instance = null;
-    
+
     public static paymentClaimJDBC getInstance() {
-        if (instance == null)
-                instance = new paymentClaimJDBC();
-        return instance;
+        return paymentClaimJDBC.trueInstance.instance;
     }
-    
-    private paymentClaimJDBC(){    }
+
+    private static class trueInstance {
+        private final static paymentClaimJDBC instance = new paymentClaimJDBC();
+    }
+
+    private paymentClaimJDBC(){ }
 
     @Override
     public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
@@ -216,7 +216,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
 
         Connection dBConnection = null;
         try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("admin"));
         } catch (Exception e) {
             throw new dbConfigMissing("");
         }

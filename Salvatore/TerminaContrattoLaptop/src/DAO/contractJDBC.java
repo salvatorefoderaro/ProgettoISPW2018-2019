@@ -15,16 +15,16 @@ import java.util.LinkedList;
 import java.util.List;
  
 public class contractJDBC implements contractDAO {
- 
-    private static contractJDBC instance = null;
-    
+
     public static contractJDBC getInstance() {
-        if (instance == null)
-                instance = new contractJDBC();
-        return instance;
+        return trueInstance.instance;
     }
- 
-    private contractJDBC(){  }
+
+    private static class trueInstance {
+        private final static contractJDBC instance = new contractJDBC();
+    }
+
+    private contractJDBC(){ }
 
     @Override
     public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult, dbConfigMissing {

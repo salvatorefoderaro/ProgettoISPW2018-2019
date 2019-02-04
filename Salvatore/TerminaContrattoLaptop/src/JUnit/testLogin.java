@@ -11,6 +11,9 @@ import Exceptions.emptyResult;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import DAO.contractJDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -46,8 +49,10 @@ public class testLogin {
     @DisplayName("Test Login 11")
     void testLoginNEw1() throws Exception {
         System.out.println(readDBConf.getDBConf("admin"));
-        userSessionBean testBean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, "giuseppe");
-        userJDBC.getInstance().login(testBean);
+       Connection dBConnection = DriverManager.getConnection(readDBConf.getDBConf("admin"));
+
     }
+
+
 
 }

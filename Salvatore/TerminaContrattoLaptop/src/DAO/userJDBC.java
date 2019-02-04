@@ -9,18 +9,20 @@ import java.sql.*;
 
 public class userJDBC implements userDAO {
 
-    private static userJDBC instance = null;
-
     public static userJDBC getInstance() {
-        if (instance == null)
-            instance = new userJDBC();
-        return instance;
+        return userJDBC.trueInstance.instance;
     }
+
+    private static class trueInstance {
+        private final static userJDBC instance = new userJDBC();
+    }
+
+    private userJDBC(){ }
 
     @Override
     public userSessionBean login(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
-        Connection dBConnection = null;
+        Connection dBConnection;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
         } catch (Exception e) {

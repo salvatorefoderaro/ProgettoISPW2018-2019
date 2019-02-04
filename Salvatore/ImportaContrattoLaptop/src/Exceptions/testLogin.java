@@ -21,10 +21,4 @@ public class testLogin {
         controller control = new controller();
         control.loginRenter(test);
     }
-
-    @Test
-    @DisplayName("Test read DB")
-    void testReadDb() throws Exception {
-        readDBConf.getDBConf("aa");
-    }
 }

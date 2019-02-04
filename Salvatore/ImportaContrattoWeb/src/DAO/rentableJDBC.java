@@ -20,16 +20,15 @@ import Exceptions.transactionError;
 
 public class rentableJDBC {
 
-    private static rentableJDBC instance;
-
-    public static synchronized rentableJDBC getInstance() {
-        if (instance == null)
-            instance = new rentableJDBC();
-        return instance;
+    public static rentableJDBC getInstance() {
+        return rentableJDBC.trueInstance.instance;
     }
 
-    private rentableJDBC(){
+    private static class trueInstance {
+        private final static rentableJDBC instance = new rentableJDBC();
     }
+
+    private rentableJDBC(){ }
 
     public List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
 

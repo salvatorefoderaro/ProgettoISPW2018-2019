@@ -7,7 +7,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import= "Controller.Controller, Bean.paymentClaimBean" %>
 <%@ page import="Exceptions.emptyResult" %>
-<%@ page import="Exceptions.dbConnection" %>
 <%@ page import="Exceptions.transactionError" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.text.SimpleDateFormat" %>

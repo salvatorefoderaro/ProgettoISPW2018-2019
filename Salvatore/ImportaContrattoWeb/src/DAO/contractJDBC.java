@@ -3,7 +3,6 @@ package DAO;
 import Bean.contractBean;
 import Exceptions.dbConfigMissing;
 import Exceptions.transactionError;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,17 +13,15 @@ import java.time.format.DateTimeFormatter;
 
 public class contractJDBC implements contractDAO {
 
-    private static contractJDBC instance = null;
-
-    public static synchronized contractJDBC getInstance() {
-        if (instance == null) {
-            instance = new contractJDBC();
-        }
-        return instance;
+    public static contractJDBC getInstance() {
+        return contractJDBC.trueInstance.instance;
     }
 
-    private contractJDBC() {
+    private static class trueInstance {
+        private final static contractJDBC instance = new contractJDBC();
     }
+
+    private contractJDBC(){ }
 
 
     @Override

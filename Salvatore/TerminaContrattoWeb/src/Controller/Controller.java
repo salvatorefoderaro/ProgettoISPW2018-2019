@@ -19,9 +19,7 @@ public class Controller {
     private  Map<Integer, Contract> dictionaryContratto  = new HashMap<Integer, Contract>();
     private  userSessionBean loggedUser;
 
-    public Controller()  throws SQLException{
-        databaseConnection.getConnectionUser();
-    }
+    public Controller(){  }
 
     public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().login(loginUser);
@@ -111,6 +109,10 @@ public class Controller {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
         paymentClaimJDBC.getInstance().incrementPaymentClaimNumber(operationBean);
+    }
+
+    public void checkPaymentClaimDateScadenza() throws dbConfigMissing, SQLException {
+        paymentClaimJDBC.getInstance().checkPaymentClaimDate();
     }
 
 }

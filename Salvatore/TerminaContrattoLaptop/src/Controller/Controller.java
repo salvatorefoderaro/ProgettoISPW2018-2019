@@ -1,6 +1,7 @@
 package Controller;
 
 import Bean.contractBean;
+import Bean.notificationBean;
 import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.*;
@@ -18,8 +19,9 @@ public class Controller extends Observable implements Runnable {
     
     private  Map<Integer, PaymentClaim> dictionarySegnalazionePagamento  = new HashMap<Integer, PaymentClaim>();
     private  Map<Integer, Contract> dictionaryContratto  = new HashMap<Integer, Contract>();
+    private  userSessionBean loggedUser;
 
-    public Controller(){ }
+    public Controller(userSessionBean user){ this.loggedUser = user; }
     
     public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().login(loginUser);
@@ -81,7 +83,7 @@ public class Controller extends Observable implements Runnable {
     }
 
     public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
-        Contract trueContract = null;
+        Contract trueContract;
         if (dictionaryContratto.get(bean.getContractId()) == null){
             contractBean contract = new contractBean();
             contract.setContractId(bean.getContractId());
@@ -111,16 +113,15 @@ public class Controller extends Observable implements Runnable {
             paymentClaimJDBC.getInstance().incrementPaymentClaimNumber(operationBean);
     }
 
-    /*public void checkNotifications() throws SQLException, emptyResult, dbConfigMissing {
-        List<paymentClaimBean> Result = null;
+    public void checkNotifications() throws SQLException, emptyResult, dbConfigMissing {
+        List<paymentClaimBean> Result;
             Result = paymentClaimJDBC.getInstance().getPaymentClaims(loggedUser);
             int count = Result.size();
             notificationBean changes = new notificationBean();
             changes.setNotificationsNumber(count);
             setChanged();
             notifyObservers(changes);
-        } */
-
+        }
 
     public void checkPaymentClaimDateScadenza() throws dbConfigMissing, SQLException {
             paymentClaimJDBC.getInstance().checkPaymentClaimDate();
@@ -129,14 +130,29 @@ public class Controller extends Observable implements Runnable {
     @Override
     public void run() {
 
-        /*while(true){
-            checkNotifications();
-            checkPaymentClaimDateScadenza();
+        while(true){
+            System.out.println("faccio il check");
+            try {
+                checkNotifications();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exceptions.emptyResult emptyResult) {
+                System.out.println("Nothing to show...");
+            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                dbConfigMissing.printStackTrace();
+            }
+            try {
+                checkPaymentClaimDateScadenza();
+            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                dbConfigMissing.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             try {
                 Thread.sleep(15000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 }

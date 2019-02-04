@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class jUnity {
+class JUnity {
     @Test
     @DisplayName("Test Login")
     void testLogin() throws SQLException, emptyResult {
@@ -34,9 +34,8 @@ class jUnity {
 
     @Test
     @DisplayName("Test Date")
-    void testDate() throws ParseException, SQLException, emptyResult, dbConfigMissing {
-        userSessionBean bean = new userSessionBean("francesco", 0, TypeOfUser.NOTLOGGED, 0, "giuseppe", null);
-        userJDBC.getInstance().login(bean);
+    void testDate() throws SQLException, dbConfigMissing {
+        System.out.println(this.getClass().getResource("").getPath());
     }
 
 

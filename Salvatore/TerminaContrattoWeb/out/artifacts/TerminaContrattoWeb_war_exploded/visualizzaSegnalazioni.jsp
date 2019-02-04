@@ -6,7 +6,6 @@
 <%@ page import= "Controller.Controller, Bean.userSessionBean" %>
 <%@ page import="Bean.paymentClaimBean" %>
 <%@ page import="Exceptions.transactionError" %>
-<%@ page import="Exceptions.dbConnection" %>
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Entity.TypeOfUser" %>
 <%@ page import="Entity.TypeOfMessage" %>
@@ -78,7 +77,7 @@
         bean.setClaimId(Integer.parseInt(request.getParameter("id")));
         bean.setClaimNumber(Integer.parseInt(request.getParameter("numeroReclamo")));
             try {
-                parentController.incrementaSegnalazione(bean);
+                parentController.incrementPaymentClaim(bean);
             } catch (SQLException e) {
                 e.printStackTrace();
                 session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
@@ -109,7 +108,7 @@
         bean.setClaimId(Integer.parseInt(request.getParameter("id")));
 
             try {
-                parentController.setContrattoArchiviato(bean);
+                parentController.setContractAchieved(bean);
             } catch (SQLException e) {
                 e.printStackTrace();
                 session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
@@ -139,7 +138,7 @@
        
        bean.setClaimId(Integer.parseInt(request.getParameter("id")));
           try {
-               parentController.setSegnalazioneNotificata(bean);
+               parentController.setPaymentClaimNotified(bean);
           } catch (SQLException e) {
               e.printStackTrace();
               session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
@@ -218,10 +217,7 @@
       }
   %>
     
-    
     <body>
-      
-      
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  
     <a class="navbar-brand" href="#">FERSA</a>

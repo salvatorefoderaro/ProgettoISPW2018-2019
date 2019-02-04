@@ -1,5 +1,7 @@
 package Controller;
 
+import Exceptions.dbConfigMissing;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,25 +11,29 @@ import java.util.TimerTask;
 public class sampleThread {
     private static boolean isActive = false;
     private static Controller controller;
-    static public void startTask() {
-       /* if( !isActive){
-            try {
-                controller = new Controller();
-            } catch (SQLException e) {
-                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella comunicazione con il database");
-                return;
-            }
 
-            TimerTask dbTask = new TimerTask() {
+    static public synchronized  void startTask(String parameter) {
+       if( !isActive){
+           System.out.println(parameter);
+           controller = new Controller();
+
+           TimerTask dbTask = new TimerTask() {
                 @Override
                 public void run() {
                     System.out.println(isActive);
-                    controller.checkPaymentClaimDateScadenza();
+                    try {
+                        controller.checkPaymentClaimDateScadenza();
+                    } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+                        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Comunicazione con il DB assente");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella comunicazione con il database");
+                    }
                 }
             };
 
             new Timer(true).scheduleAtFixedRate(dbTask, 0, 60000);
             isActive = true;
-        } */
+        }
     }
 }

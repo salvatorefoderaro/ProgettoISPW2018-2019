@@ -75,6 +75,7 @@ public void initialize(Controller parentController, userSessionBean bean){
            
             element3.setText("Button");
             element3.setMnemonicParsing(false);
+            element3.setId("buttonBlu");
             gridPane.add(element3, 3, i);
             
             element3.setOnAction(new EventHandler<ActionEvent>() {
@@ -279,32 +280,33 @@ public void initialize(Controller parentController, userSessionBean bean){
 
 }
 
-@Override
-public void update(Observable o, Object arg) {
-    Platform.runLater(() -> {
-        notificationBean dati = (notificationBean)arg;
-        Stage newStage = new Stage();
-        Pane comp = new Pane();
+    @Override
+    public void update(Observable o, Object arg) {
+        Platform.runLater(() -> {
+            notificationBean dati = (notificationBean)arg;
+            Stage newStage = new Stage();
+            Pane comp = new Pane();
 
-        Label nameField = new Label();
-        nameField.setLayoutX(71.0);
-        nameField.setLayoutY(42.0);
+            Label nameField = new Label();
+            nameField.setLayoutX(71.0);
+            nameField.setLayoutY(42.0);
 
-        if(dati.getNotificationsNumber() > 1){
-            nameField.setText("Sono disponibili " + Integer.toString(dati.getNotificationsNumber()) + " nuove notifiche!");
-        } else {
-            nameField.setText("E' disponibile 1 nuova notifica!");
-        }
+            if(dati.getNotificationsNumber() > 1){
+                nameField.setText("Sono disponibili " + Integer.toString(dati.getNotificationsNumber()) + " nuove notifiche!");
+            } else {
+                nameField.setText("E' disponibile 1 nuova notifica!");
+            }
 
-        Button close = new Button();
-        close.setLayoutX(154.0);
-        close.setLayoutY(99.0);
-        close.setText("Chiudi!");
+            Button close = new Button();
+            close.setLayoutX(154.0);
+            close.setLayoutY(99.0);
+            close.setText("Chiudi");
 
-        Scene stageScene = new Scene(comp, 368, 159);
-        newStage.setScene(stageScene);
-        comp.getChildren().addAll(nameField, close);
-        newStage.show();
-    });
-}
+            Scene stageScene = new Scene(comp, 368, 159);
+            newStage.setScene(stageScene);
+            comp.getChildren().addAll(nameField, close);
+            newStage.show();
+        });
+    }
+
 }

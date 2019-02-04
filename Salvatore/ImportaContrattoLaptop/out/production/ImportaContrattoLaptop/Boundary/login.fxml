@@ -27,7 +27,7 @@
             <PasswordField fx:id="password" layoutX="386.0" layoutY="160.0" />
             <Label layoutX="104.0" layoutY="131.0" text="Nickname" />
             <Label layoutX="440.0" layoutY="131.0" text="Password" />
-            <Button fx:id="loginButton" layoutX="209.0" layoutY="222.0" mnemonicParsing="false"  prefHeight="77.0" prefWidth="222.0" text="Login" />
+            <Button fx:id="loginButton" layoutX="209.0" layoutY="222.0" mnemonicParsing="false" onAction="#test" prefHeight="77.0" prefWidth="222.0" text="Login" />
          </children>
       </Pane>
   </children>

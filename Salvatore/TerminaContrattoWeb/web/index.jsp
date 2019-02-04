@@ -13,7 +13,11 @@
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
-    // sampleThread.startTask();
+
+    java.util.concurrent.TimeUnit.SECONDS.sleep(5);
+
+    sampleThread.startTask(request.getContextPath());
+
 
     if (request.getParameter("login") != null) {
         userSessionBean login = new userSessionBean(request.getParameter("nickname"), 1, TypeOfUser.NOTLOGGED, 0, request.getParameter("password"), null);
@@ -86,7 +90,7 @@
     	  <br>
 <div class="container">
 <center>
-    // Error handling
+
 
     <%
         if (session.getAttribute("successMessage") != null) { %>

@@ -7,11 +7,11 @@ import java.util.Properties;
 public class readDBConf {
 
     public static String getDBConf(String type) throws IOException {
-        FileReader fis = null;
+        FileReader fis;
         if("admin".equals(type)){
-            fis = new FileReader("src/DAO/connectionAdmin.prop");
+            fis = new FileReader("Config/connectionAdmin.prop");
         } else {
-            fis = new FileReader("src/DAO/connectionUser.prop");
+            fis = new FileReader("Config/connectionUser.prop");
         }
         Properties p=new Properties ();
         p.load(fis);

@@ -5,10 +5,13 @@
  */
 package Boundary;
 
+import Bean.notificationBean;
 import Bean.userSessionBean;
 import Controller.Controller;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +44,9 @@ public class login {
     userSessionBean user;
     
     
-    public void initialize(){ }
+    public void initialize(){
+        login.setId("buttonBlu");
+    }
 
         @FXML
         public void login(){
@@ -56,10 +61,11 @@ public class login {
                 return;
             }
 
-            Controller controllerProva = new Controller();
-            this.controller = controllerProva;
-
             user = new userSessionBean(nickname.getText(),0, TypeOfUser.NOTLOGGED, 0, password.getText());
+
+            this.controller = new Controller(user);
+
+
             try {
                 user = controller.login(user);
             } catch (SQLException e) {
@@ -72,6 +78,8 @@ public class login {
                 popup(TypeOfMessage.DBCONFIGERROR.getString());
                 return;
             }
+
+            (new Thread(this.controller)).start();
 
             if (user.getUserType() == TypeOfUser.RENTER){
                 isRenter();
@@ -181,5 +189,4 @@ public class login {
             }
         });
     }
-
 }

@@ -4,14 +4,14 @@
     -fx-background-color: #f4f4f4;
 }
 
-#renterButton, #seePaymentClaimButton, #aButton {
+#buttonBlu, #seePaymentClaimButton, #aButton {
     -fx-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     -fx-text-fill: white; 
     -fx-font-size: 16px;
     -fx-padding: 10;
     -fx-background-color: #007bff;
 }
-#tenantButton, #createPaymentClaimButton, #anotherButton {
+#buttonWhite, #createPaymentClaimButton, #anotherButton {
     -fx-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     -fx-text-fill: white;
     -fx-font-size: 16px;

@@ -11,17 +11,15 @@ import java.sql.*;
 
 public class userJDBC {
 
-    private Connection connection;
-    private static userJDBC instance;
-
-    public static synchronized userJDBC getInstance() {
-        if (instance == null)
-            instance = new userJDBC();
-        return instance;
+    public static userJDBC getInstance() {
+        return userJDBC.trueInstance.instance;
     }
 
-    private userJDBC(){
+    private static class trueInstance {
+        private final static userJDBC instance = new userJDBC();
     }
+
+    private userJDBC(){ }
 
     public userBean renterLogin(userBean sessionBean) throws SQLException, emptyResult, dbConfigMissing {
 

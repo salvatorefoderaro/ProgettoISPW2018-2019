@@ -6,7 +6,6 @@
 <%@ page import= "Controller.Controller, Bean.userSessionBean" %>
 <%@ page import="Bean.paymentClaimBean" %>
 <%@ page import="Exceptions.transactionError" %>
-<%@ page import="Exceptions.dbConnection" %>
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Entity.TypeOfUser" %>
 <%@ page import="Entity.TypeOfMessage" %>

@@ -1,4 +1,6 @@
 Dname=RentingManagement
-URL=jdbc:mysql://localhost:8000/
+Driver=mysql
+URL=localhost
+PortNumber=8000
 Uname=testAdmin
-password=Foderaro95
+Password=Foderaro95
