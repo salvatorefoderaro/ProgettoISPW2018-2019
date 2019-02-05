@@ -5,68 +5,21 @@
  */
 package Entity;
 
-import Bean.availabilityPeriodBean;
-import Bean.rentableBean;
-import Exceptions.emptyResult;
-
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
  *
  * @author root
  */
-public class roomToRent implements rentable {
+public class roomToRent extends Rentable {
     private long aptID;
-    private int roomID;
-    private String roomName;
-    private String roomDescription;
-    private String roomImage;
     private List<bedToRent> bedInRoom;
-    private List<availabilityPeriod> listAvailability;
 
     public roomToRent(int aptID, int roomID, String roomName, String roomDescription, String roomImage, List<bedToRent> bedList, List<availabilityPeriod> listAvailability) throws SQLException{
-        this.aptID = aptID;
-        this.roomID = roomID;
-        this.roomName = roomName;
-        this.roomDescription = roomDescription;
-        this.roomImage = roomImage;
+        super(roomID, roomName, roomDescription, roomImage, listAvailability);
         this.bedInRoom = bedList;
-        this.listAvailability = listAvailability;
+        this.aptID = aptID;
     }
-
-
-    @Override
-    public int checkDate(String startDate, String endDate) throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public List getInfo() {
-        return null;
-    }
-
-    public availabilityPeriodBean checkAvailability(LocalDate startDate, LocalDate endDate) throws emptyResult {
-
-        for (availabilityPeriod singleAvailability : this.listAvailability) {
-            if(singleAvailability.isAvaiableOnPeriod(startDate, endDate)){
-                return singleAvailability.makeBean();
-            }
-        }
-        throw new emptyResult("");
-    }
-
-    public void updateAvailability(rentableBean bean){
-        for (availabilityPeriod singleAvailability : this.listAvailability) {
-            if(singleAvailability.isEqual(LocalDate.parse(bean.getStartDateRequest()), LocalDate.parse(bean.getEndDateRequest()))){
-                this.listAvailability.remove(singleAvailability);
-            }
-        }
-        this.listAvailability.add(new availabilityPeriod(LocalDate.parse(bean.getStartDateRequest()), LocalDate.parse(bean.getStartDateAvaliable())));
-        this.listAvailability.add(new availabilityPeriod(LocalDate.parse(bean.getEndDateAvaliable()), LocalDate.parse(bean.getEndDateRequest())));
-        System.out.println("Updated");
-    }
-
 
 }
