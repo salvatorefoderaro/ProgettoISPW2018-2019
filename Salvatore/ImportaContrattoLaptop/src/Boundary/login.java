@@ -2,7 +2,7 @@ package Boundary;
 
 import Bean.userBean;
 import Control.controller;
-import Exceptions.dbConfigMissing;
+import Control.loginController;
 import Exceptions.emptyResult;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -47,7 +47,7 @@ public class login {
 
         parentController = new controller();
         try {
-            loggedUser = parentController.loginRenter(loginBean);
+            loggedUser = loginController.loginRenter(loginBean);
         } catch (emptyResult e) {
             popup("Nome utente e/o password errati!");
             return;

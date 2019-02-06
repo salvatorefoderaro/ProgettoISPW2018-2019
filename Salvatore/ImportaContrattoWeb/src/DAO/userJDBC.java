@@ -9,7 +9,7 @@ import Exceptions.emptyResult;
 import java.io.IOException;
 import java.sql.*;
 
-public class userJDBC {
+public class userJDBC implements userDAO {
 
     public static userJDBC getInstance() {
         return userJDBC.trueInstance.instance;
@@ -21,6 +21,7 @@ public class userJDBC {
 
     private userJDBC(){ }
 
+    @Override
     public userBean renterLogin(userBean sessionBean) throws SQLException, emptyResult, dbConfigMissing {
 
         Connection dBConnection = null;
@@ -52,6 +53,7 @@ public class userJDBC {
         }
     }
 
+    @Override
     public userBean getTenant(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
         Connection dBConnection = null;

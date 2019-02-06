@@ -18,7 +18,7 @@ import java.util.List;
 import Entity.TypeOfRentable;
 import Exceptions.transactionError;
 
-public class rentableJDBC {
+public class rentableJDBC implements  rentableDAO{
 
     public static rentableJDBC getInstance() {
         return rentableJDBC.trueInstance.instance;
@@ -30,6 +30,7 @@ public class rentableJDBC {
 
     private rentableJDBC(){ }
 
+    @Override
     public List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
         Connection dBConnection = null;
@@ -77,6 +78,7 @@ public class rentableJDBC {
         return listAvailability;
     }
 
+    @Override
     public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = null;
@@ -150,6 +152,7 @@ public class rentableJDBC {
         }
     }
 
+    @Override
     public List<rentableBean> rentableListByRenter(userBean renter) throws SQLException, emptyResult, dbConfigMissing {
 
         Connection dBConnection = null;
@@ -215,6 +218,7 @@ public class rentableJDBC {
         return aptListRenter;
     }
 
+    @Override
     public List<rentableBean> bedListByRoom(rentableBean bean) throws SQLException, dbConfigMissing {
 
         Connection dBConnection = null;
@@ -248,6 +252,7 @@ public class rentableJDBC {
         return bedListRoom;
     }
 
+    @Override
     public List<rentableBean> roomListByApartment(rentableBean bean) throws SQLException, dbConfigMissing {
 
         Connection dBConnection = null;

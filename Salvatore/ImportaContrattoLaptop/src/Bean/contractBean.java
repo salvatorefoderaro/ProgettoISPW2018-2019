@@ -29,7 +29,7 @@ public class contractBean {
     private int netPrice; // prezzo netto per l'affitto
     private int frequencyOfPayment; // Mesi
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
-    private List<OptionalService> serviceList; // importante!
+    private List<optionalServiceBean> serviceList; // importante!
     private TypeOfRentable rentableType;
     private boolean JDBCcommit;
 
@@ -37,7 +37,7 @@ public class contractBean {
                     TypeOfPayment paymentMethod, String tenantNickname, String renterNickname, String renterName,
             String tenantName, String tenantCF,
                     String renterCF, String renterAddress, String tenantnAddress, String renterSurname, String tenantSurname, int grossPrice, int netPrice, int frequencyOfPayment, boolean reported,
-                    List<OptionalService> serviceList, TypeOfRentable rentableType, int deposito) {
+                    List<optionalServiceBean> serviceList, TypeOfRentable rentableType, int deposito) {
 
         this.contractId = contractId;
         this.initDate = initDate;

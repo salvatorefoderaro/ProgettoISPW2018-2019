@@ -9,7 +9,7 @@ import Exceptions.emptyResult;
 import java.io.IOException;
 import java.sql.*;
 
-public class userJDBC {
+public class userJDBC implements userDAO {
 
     public static userJDBC getInstance() {
         return userJDBC.trueInstance.instance;
@@ -21,7 +21,8 @@ public class userJDBC {
 
     private userJDBC(){ }
 
-    public userBean getLocatore(userBean sessionBean) throws emptyResult, SQLException, dbConfigMissing {
+    @Override
+    public userBean renterLogin(userBean sessionBean) throws emptyResult, SQLException, dbConfigMissing {
 
         Connection dBConnection = null;
         try {
@@ -52,6 +53,7 @@ public class userJDBC {
         }
     }
 
+    @Override
     public userBean getLocatario(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult {
 
         Connection dBConnection = null;

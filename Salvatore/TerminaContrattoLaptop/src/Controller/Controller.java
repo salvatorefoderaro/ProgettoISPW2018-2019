@@ -68,12 +68,14 @@ public class Controller extends Observable implements Runnable {
         contractBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).getContract().makeBean();
         operationBean.setJDBCcommit(true);
         contractJDBC.getInstance().setContractAchieved(operationBean);
+        dictionaryContratto.remove(bean.getClaimId());
     }
     
     public void setPaymentClaimNotified(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
         paymentClaimJDBC.getInstance().setPaymentClaimNotified(operationBean);
+        dictionarySegnalazionePagamento.remove(bean.getClaimId());
     }
 
     public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {

@@ -112,10 +112,6 @@ public class controller {
         contractJDBC.getInstance().createContract(contract);
     }
 
-    public userBean loginRenter(userBean renter) throws SQLException, dbConfigMissing, emptyResult {
-        return userJDBC.getInstance().getLocatore(renter);
-    }
-
     public List<rentableBean> getRentableFromUser(userBean renterNickname) throws emptyResult, SQLException, dbConfigMissing {
 
         renterNickname.setTypeRequest(TypeOfRentable.ROOM);

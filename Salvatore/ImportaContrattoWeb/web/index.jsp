@@ -7,6 +7,7 @@
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Control.loginController" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 
@@ -21,7 +22,7 @@
         userBean loggedUser = null;
         try {
             parentController = new controller();
-            loggedUser = parentController.loginRenter(login);
+            loggedUser = loginController.loginRenter(login);
             sessionBean.setID(loggedUser.getID());
             sessionBean.setNickname(loggedUser.getNickname());
             sessionBean.setCF(loggedUser.getCF());
