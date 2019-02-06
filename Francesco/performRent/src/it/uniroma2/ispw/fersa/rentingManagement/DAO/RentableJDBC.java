@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
+import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.Rentable;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.RentableTypeEnum;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
@@ -20,7 +21,17 @@ public class RentableJDBC implements RentableDAO{
     }
 
     @Override
-    public Rentable getRentable(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+    public Rentable getRentableByRentalFeaturesId(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+      return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM RentalFeatures WHERE id = " + rentalFeaturesId);
+    }
+
+    @Override
+    public Rentable getRentableByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+        return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM ContractRequest WHERE id = " + contractRequestId.getId());
+    }
+
+
+    private Rentable getRentable(String sql) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
         Rentable rentable = null;
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
@@ -31,7 +42,6 @@ public class RentableJDBC implements RentableDAO{
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            String sql = "SELECT aptToRentId, roomToRentId, bedToRentId, type FROM RentalFeatures WHERE id = " + rentalFeaturesId;
 
             ResultSet rs1 = stmt.executeQuery(sql);
 
@@ -82,4 +92,6 @@ public class RentableJDBC implements RentableDAO{
         }
         return rentable;
     }
+
+
 }

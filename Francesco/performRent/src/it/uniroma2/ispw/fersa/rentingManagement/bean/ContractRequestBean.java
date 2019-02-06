@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class ContractRequestBean {
     private String renterNickname;
     private String tenantNickname;
+    private int equippedAptId;
     private int rentalFeatureId;
     private int contractTypeId;
     private LocalDate startDate;
@@ -14,9 +15,10 @@ public class ContractRequestBean {
     private int serviceIds[];
 
 
-    public ContractRequestBean(String renterNickname, String tenantNickname, int rentalFeatureId,int contractTypeId, LocalDate startDate, LocalDate endDate, int rentablePrice, int deposit, int serviceIds[]){
+    public ContractRequestBean(String renterNickname, String tenantNickname, int equippedAptId,int rentalFeatureId,int contractTypeId, LocalDate startDate, LocalDate endDate, int rentablePrice, int deposit, int serviceIds[]){
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
+        this.equippedAptId = equippedAptId;
         this.rentalFeatureId = rentalFeatureId;
         this.contractTypeId = contractTypeId;
         this.startDate = startDate;
@@ -24,6 +26,10 @@ public class ContractRequestBean {
         this.rentablePrice = rentablePrice;
         this.deposit = deposit;
         this.serviceIds = serviceIds;
+    }
+
+    public int getEquippedAptId() {
+        return equippedAptId;
     }
 
     public String getRenterNickname() {

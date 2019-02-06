@@ -12,7 +12,9 @@
 
 <html>
 <head>
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="libs/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 <center>
@@ -57,11 +59,5 @@
         </form>
     </div>
 </center>
-
-
-<script type='text/javascript' src='resource/jquery-1.8.3.min.js'></script>
-<link rel='stylesheet' href='resource/bootstrap.min.css'>
-<link rel='stylesheet' href='resource/bootstrap-datepicker3.min.css'>
-<script type='text/javascript' src='resource/bootstrap-datepicker.min.js'></script>
 </body>
 </html>

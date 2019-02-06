@@ -19,6 +19,7 @@ public class ContractRequest {
     private int rentablePrice;
     private int deposit;
     private List<Service> services = new ArrayList<>();
+    private String declineMotivation;
 
     public ContractRequest (String renterNickname, String tenantNickname, int rentableId, int rentablePrice, int deposit) {
         this.renterNickname = renterNickname;
@@ -28,7 +29,7 @@ public class ContractRequest {
         this.deposit = deposit;
     }
 
-    public ContractRequest (ContractRequestId requestId, String renterNickname, String tenantNickname, RequestStateEnum state, LocalDate creationDate, LocalDate beginDate, LocalDate endDate, int rentablePrice, int deposit) {
+    public ContractRequest (ContractRequestId requestId, String renterNickname, String tenantNickname, RequestStateEnum state, LocalDate creationDate, LocalDate beginDate, LocalDate endDate, int rentablePrice, int deposit, String declineMotivation) {
         this.requestId = requestId;
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
@@ -37,6 +38,7 @@ public class ContractRequest {
         this.intervalDate = new IntervalDate(beginDate, endDate);
         this.rentablePrice = rentablePrice;
         this.deposit=deposit;
+        this.declineMotivation = declineMotivation;
     }
 
     public void setContractType(ContractType contractType) throws ContractPeriodException {
@@ -103,8 +105,12 @@ public class ContractRequest {
         return services;
     }
 
-    public int getContractId() {
+    public int getContractTypeId() {
         return this.contractType.getContractTypeId();
+    }
+
+    public ContractRequestId getContractRequestId() {
+        return this.requestId;
     }
 
     public int getTotal() {
@@ -117,6 +123,9 @@ public class ContractRequest {
         }
 
         return total;
+    }
+    public String getDeclineMotivation(){
+        return this.declineMotivation;
     }
 
     public boolean check() {

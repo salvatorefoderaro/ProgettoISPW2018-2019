@@ -14,4 +14,5 @@ public interface ContractRequestDAO {
     public void insertNewRequest(ContractRequestBean contractRequestBean) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException;
     public List<ContractRequestId> findContractRequestIdsByRenterNickname(String renterNickname) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException;
     public ContractRequest getContractRequest(ContractRequestId contractRequestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException;
+    public void refuseRequest(ContractRequestId contractRequestId, String declineMotivation) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException;
 }

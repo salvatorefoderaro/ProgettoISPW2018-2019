@@ -3,7 +3,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
-<%@ page import="java.time.format.DateTimeFormatter" %><%--
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId" %><%--
   Created by IntelliJ IDEA.
   User: francesco
   Date: 04/02/19
@@ -17,14 +18,34 @@
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
-    } else {
+    } else if (request.getParameter("seeDetails") != null) {
+        sessionBean.getControl().selectRequest(new ContractRequestId(Integer.parseInt(request.getParameter("requestId"))));
+        %>
+        <jsp:forward page="ContractRequestInfo.jsp"></jsp:forward>
+        <%
+    }
+    else {
         sessionBean.setControl(new RequestResponseControl(sessionBean.getUsername()));
     }
-%>
+        %>
 <html>
 <head>
     <title>FERSA - Richieste contratti</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="libs/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
+<body>
+<%
+    if (session.getAttribute("warningMessage") != null) { %>
+<div class="alert alert-primary" role="alert">
+
+    <%= session.getAttribute("warningMessage")%>
+
+</div>
+<%
+    }
+%>
 <center>
     <table class="table">
         <thead>
@@ -53,8 +74,8 @@
             <td align="center"><%= requestLabelBean.getTotalPrice() + " €"%></td>
             <td align="center"><%= requestLabelBean.getState().getRenterState()%></td>
             <td align="center"><form action="ContractRequests.jsp" name="seeRequestInfo" method="post">
-                <input name="requestId" type="text" value="<%=requestLabelBean.getContractRequestId()%>" hidden>
-                <button type="submit" class="btn btn-primary">Visualizza</button>
+                <input name="requestId" id="requestId" type="text" value="<%=requestLabelBean.getContractRequestId()%>" hidden>
+                <button type="submit" name="seeDetails" id="seeDetails" class="btn btn-primary">Visualizza</button>
             </form></td>
         </tr>
         <%
@@ -68,12 +89,5 @@
         </tbody>
     </table>
 </center>
-<body>
-
-
-<script type='text/javascript' src='resource/jquery-1.8.3.min.js'></script>
-<link rel='stylesheet' href='resource/bootstrap.min.css'>
-<link rel='stylesheet' href='resource/bootstrap-datepicker3.min.css'>
-<script type='text/javascript' src='resource/bootstrap-datepicker.min.js'></script>
 </body>
 </html>
