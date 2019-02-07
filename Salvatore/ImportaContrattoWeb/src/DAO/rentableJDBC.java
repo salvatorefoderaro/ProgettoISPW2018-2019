@@ -79,6 +79,7 @@ public class rentableJDBC implements  rentableDAO{
     public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection connection = transactionConnection.getConnection();
+        System.out.println("L'ID nel dAO è: " + bean.getID());
         
         String query1 = null;
         String query2 = null;
@@ -157,15 +158,15 @@ public class rentableJDBC implements  rentableDAO{
 
         switch (renter.getTypeRequest()){
             case ROOM:
-                query = "SELECT DISTINCT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate, AptToRent.id as aptId FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate, AptToRent.id as aptId FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar) GROUP BY Period.renterFeaturesId";
                 break;
 
             case BED:
-                query = "SELECT DISTINCT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Bed.roomId, AptToRent.id as aptId, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
+                query = "SELECT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Bed.roomId, AptToRent.id as aptId, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar) GROUP BY Period.renterFeaturesId";
                 break;
 
             case APARTMENT:
-                query = "SELECT DISTINCT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
+                query = "SELECT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar) GROUP BY Period.renterFeaturesId";
                 break;
         }
 
@@ -188,7 +189,6 @@ public class rentableJDBC implements  rentableDAO{
                     rentable.setBedID(rentable.getID());
                     rentable.setRoomID(resultSet.getInt("roomId"));
                     rentable.setAptID(resultSet.getInt("aptId"));
-                    System.out.println("L'ID del letto è" + rentable.getBedID());
                     break;
 
                 case APARTMENT:

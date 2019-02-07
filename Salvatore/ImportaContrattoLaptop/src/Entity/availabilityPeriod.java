@@ -16,18 +16,11 @@ public class availabilityPeriod {
 
     public boolean isAvaiableOnPeriod(LocalDate startPeriod, LocalDate endPeriod) {
 
-        if ((startPeriod.isAfter(this.startDate) || startPeriod.equals(this.startDate)) && (endPeriod.isBefore(this.endDate) || endPeriod.equals(this.endDate))) {
-            return true;
-        } else {
-            return false;
-        }
+        return (startPeriod.isAfter(this.startDate) || startPeriod.equals(this.startDate)) && (endPeriod.isBefore(this.endDate) || endPeriod.equals(this.endDate));
     }
 
     public boolean isEqual(LocalDate startPeriod, LocalDate endPeriod){
-        if (startPeriod.equals(this.startDate) && endPeriod.equals(this.endDate)){
-            return true;
-        }
-        return false;
+        return startPeriod.equals(this.startDate) && endPeriod.equals(this.endDate);
     }
 
     public availabilityPeriodBean makeBean(){

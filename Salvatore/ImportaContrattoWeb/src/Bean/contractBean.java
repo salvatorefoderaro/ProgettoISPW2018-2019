@@ -1,6 +1,7 @@
 package Bean;
 
 import Entity.OptionalService;
+import Entity.TypeOfContract;
 import Entity.TypeOfPayment;
 import Entity.TypeOfRentable;
 
@@ -32,13 +33,13 @@ public class contractBean {
     private List<OptionalService> serviceList; // importante!
     private TypeOfRentable rentableType;
     private boolean JDBCcommit;
-
+    private TypeOfContract contractType;
 
     public contractBean(int contractId, int rentableId, boolean isExpired, LocalDate initDate, LocalDate terminationDate,
                         TypeOfPayment paymentMethod, String tenantNickname, String renterNickname, String renterName,
                         String tenantName, String tenantCF,
                         String renterCF, String renterAddress, String tenantnAddress, String renterSurname, String tenantSurname, int grossPrice, int netPrice, int frequencyOfPayment, boolean reported,
-                        List<OptionalService> serviceList, TypeOfRentable rentableType, int deposito) {
+                        List<OptionalService> serviceList, TypeOfRentable rentableType, int deposito, TypeOfContract contractType) {
 
         this.contractId = contractId;
         this.initDate = initDate;
@@ -63,6 +64,7 @@ public class contractBean {
         this.rentableType = rentableType;
         this.rentableId = rentableId;
         this.deposito = deposito;
+        this.contractType = contractType;
     }
 
     public void setJDBCcommit(boolean JDBCcommit){
@@ -114,7 +116,7 @@ public class contractBean {
     public boolean isReported() {
         return reported;
     }
-    public TypeOfRentable getRentableType(){ return rentableType;
-    }
+    public TypeOfRentable getRentableType(){ return rentableType; }
+    public TypeOfContract getContractType(){ return contractType; }
 
 }

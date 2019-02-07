@@ -4,9 +4,8 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="Bean.userBean" %>
-<%@ page import="Exceptions.transactionError" %>
 <%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="java.lang.reflect.Type" %>
+<%@ page import="Entity.TypeOfContract" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
@@ -20,6 +19,8 @@
         return;
     }
 
+    TypeOfContract selectedContractType = TypeOfContract.typeFromString(request.getParameter("contractType"));
+
     if (request.getParameter("trueImportContract") != null){
 
     toRent.setTenantnNickname(request.getParameter("tenantNickname"));
@@ -27,7 +28,7 @@
     toRent.setStartDateRequest(request.getParameter("startDateRequest"));
 
     LocalDate localStartDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
-    LocalDate localEndDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
+    LocalDate localEndDate = LocalDate.parse ( request.getParameter("endDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
 
     if (localEndDate.isBefore(localStartDate)){
         session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
@@ -35,9 +36,16 @@
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
+    System.out.println(localStartDate.toString() + localEndDate.toString() + selectedContractType.minDuration + selectedContractType.maxDuration);
+    if (localEndDate.isBefore(localStartDate.plusMonths(selectedContractType.minDuration))){
+        session.setAttribute("infoMessage", "Per la tipologia di contratto scelta, l'intervallo minimo è di " + selectedContractType.minDuration + " mesi!");
+        String destination ="importContract.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+        return;
+    }
 
-    if (localEndDate.isAfter(localStartDate.plusDays(180))){
-        session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
+    if (localEndDate.isAfter(localStartDate.plusMonths(selectedContractType.maxDuration))){
+        session.setAttribute("infoMessage", "Per la tipologia di contratto scelta, l'intervallo massimo è di " + selectedContractType.maxDuration + " mesi!");
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -65,7 +73,7 @@
     }
 
         try {
-            sessionBean.getController().checkRentableDate(toRent);
+            sessionBean.getController().setNewAvailabilityCalendar(toRent);
         } catch (Exceptions.transactionError transactionError) {
             session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
@@ -118,8 +126,9 @@
                 false,
                 null,
                 toRent.getType(),
-                Integer.parseInt(request.getParameter("contractDeposito"))
-            );
+                Integer.parseInt(request.getParameter("contractDeposito")),
+                selectedContractType
+        );
         }
 
         try {
@@ -143,13 +152,11 @@
             return;
         }
 
-
-
-        session.setAttribute("warningMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        session.setAttribute("successMessage", TypeOfMessage.SUCCESSOPERATION.getString());
         String destination ="seeRentable.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
-
- return; } %>
+        return;
+    } %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -168,7 +175,6 @@
             $('.input-group.date').datepicker({
                 format: "yyyy-mm-dd",
                 calendarWeeks: true,
-                startDateRequest: "<%= LocalDate.now().plusDays(30).toString() %>",
                 autoclose: true
             });
         });
@@ -295,8 +301,6 @@
     <br>
 
     <div class="row">
-        <div class="col .text-center">
-        </div>
         <div class="col .text-center" >
             <input type="number" class="form-control" name="contractPrezzo" placeholder="Prezzo" required>
         </div>
@@ -304,6 +308,13 @@
             <input type="number" class="form-control" name="contractDeposito" placeholder="Deposito" required>
         </div>
         <div class="col .text-center" >
+            <select name="contractType">
+                <option value="Contratto ordinario a canone libero" selected disabled hidden>Seleziona una tipologia di contratto...</option>
+                <option value="Contratto ordinario a canone libero">Contratto ordinario a canone libero</option>
+                <option value="Contratto transitorio">Contratto transitorio</option>
+                <option value="Contratto di locazione convenzionato o a canone concordato">Contratto di locazione convenzionato o a canone concordato</option>
+                <option value="Contratto transitorio per studenti">Contratto transitorio per studenti</option>
+            </select>
         </div>
     </div>
 

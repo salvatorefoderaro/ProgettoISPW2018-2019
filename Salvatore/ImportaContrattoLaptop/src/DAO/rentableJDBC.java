@@ -3,19 +3,17 @@ package DAO;
 import Bean.availabilityPeriodBean;
 import Bean.rentableBean;
 import Bean.userBean;
-import Entity.availabilityPeriod;
+import Entity.TypeOfRentable;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
-import Entity.TypeOfRentable;
+import Entity.TypeOfContract;
 import Exceptions.transactionError;
 
 import javax.imageio.ImageIO;
@@ -163,15 +161,15 @@ public class rentableJDBC implements rentableDAO{
 
         switch (renter.getTypeRequest()){
             case ROOM:
-                query = "SELECT DISTINCT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate, AptToRent.id as aptId FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate, AptToRent.id as aptId FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar) GROUP BY Period.renterFeaturesId";
                 break;
 
             case BED:
-                query = "SELECT DISTINCT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Bed.roomId, AptToRent.id as aptId, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
+                query = "SELECT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Bed.roomId, AptToRent.id as aptId, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar) GROUP BY Period.renterFeaturesId";
                 break;
 
             case APARTMENT:
-                query = "SELECT DISTINCT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
+                query = "SELECT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar) GROUP BY Period.renterFeaturesId";
                 break;
         }
 

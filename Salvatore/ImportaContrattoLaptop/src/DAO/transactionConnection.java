@@ -1,17 +1,17 @@
 package DAO;
 
 import Exceptions.dbConfigMissing;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+// Utilizzo una connessione unica per le transazioni "multi DAO". Da utilizzare con cautela
 
 public class transactionConnection {
 
     private static transactionConnection istanza = null;
     private static Connection dbConnection = null;
 
-    //Il costruttore private impedisce l'istanza di oggetti da parte di classi esterne
     private transactionConnection() throws dbConfigMissing, SQLException {
         try {
             dbConnection = DriverManager.getConnection(readDBConf.getDBConf("admin"));
@@ -21,7 +21,6 @@ public class transactionConnection {
         dbConnection.setAutoCommit(false);
     }
 
-    // Metodo della classe impiegato per accedere al singleton
     public static synchronized Connection getConnection() throws dbConfigMissing, SQLException {
         if (dbConnection == null) {
             System.out.println("Era null");

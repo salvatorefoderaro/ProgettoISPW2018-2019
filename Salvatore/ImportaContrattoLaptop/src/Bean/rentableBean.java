@@ -15,7 +15,7 @@ import java.util.List;
  * @author root
  */
 public class rentableBean {
-    
+
     private String name;
     private String description;
     private String image;
@@ -32,7 +32,7 @@ public class rentableBean {
     private Image image1;
     private boolean JDBCcommit;
     private List<availabilityPeriodBean> listAvailability;
-    
+
     public rentableBean(){}
 
     public void setJDBCcommit(boolean JDBCcommit){

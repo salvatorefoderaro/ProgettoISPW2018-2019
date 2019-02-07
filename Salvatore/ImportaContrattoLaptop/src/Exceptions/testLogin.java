@@ -20,6 +20,6 @@ public class testLogin {
         test.setNickname("francesco");
         test.setPassword("giuseppe");
         loginController control = new loginController();
-        control.loginRenter(test);
+        loginController.loginRenter(test);
     }
 }

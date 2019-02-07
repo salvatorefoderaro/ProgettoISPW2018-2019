@@ -24,26 +24,26 @@ public class controller {
 
     public controller() { }
 
-    public void checkRentableDate(rentableBean bean) throws dbConfigMissing, transactionError, SQLException, emptyResult {
+    public void setNewAvailabilityCalendar(rentableBean bean) throws dbConfigMissing, transactionError, SQLException, emptyResult {
         if (TypeOfRentable.ROOM == bean.getType()){
 
-                bean.setType(TypeOfRentable.ROOM);
+            bean.setType(TypeOfRentable.ROOM);
 
-                availabilityPeriodBean newAvailability = dictionaryRoomToRent.get(bean.getID()).checkAvailability(LocalDate.parse(bean.getStartDateRequest(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(bean.getEndDateRequest(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            availabilityPeriodBean newAvailability = dictionaryRoomToRent.get(bean.getID()).checkAvailability(LocalDate.parse(bean.getStartDateRequest(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(bean.getEndDateRequest(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-                bean.setStartDateAvaliable(newAvailability.getStartDate().toString());
-                bean.setEndDateAvaliable(newAvailability.getEndDate().toString());
-                bean.setStartDateRequest(LocalDate.parse(bean.getStartDateRequest()).minusDays(1).toString());
-                bean.setEndDateRequest(LocalDate.parse(bean.getEndDateRequest()).plusDays(1).toString());
+            bean.setStartDateAvaliable(newAvailability.getStartDate().toString());
+            bean.setEndDateAvaliable(newAvailability.getEndDate().toString());
+            bean.setStartDateRequest(LocalDate.parse(bean.getStartDateRequest()).minusDays(1).toString());
+            bean.setEndDateRequest(LocalDate.parse(bean.getEndDateRequest()).plusDays(1).toString());
 
-                bean.setRoomID(bean.getID());
-                for (rentableBean tempBed : rentableJDBC.getInstance().bedListByRoom(bean)) {
-                    bean.setID(tempBed.getID());
-                    bean.setType(TypeOfRentable.BED);
-                    bean.setJDBCcommit(false);
-                    rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
-                    dictionaryBedToRent.get(bean.getID()).updateAvailability(bean);
-                }
+            bean.setRoomID(bean.getID());
+            for (rentableBean tempBed : rentableJDBC.getInstance().bedListByRoom(bean)) {
+                bean.setID(tempBed.getID());
+                bean.setType(TypeOfRentable.BED);
+                bean.setJDBCcommit(false);
+                rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
+                dictionaryBedToRent.get(bean.getID()).updateAvailability(bean);
+            }
 
             bean.setType(TypeOfRentable.APARTMENT);
             bean.setID(bean.getAptID());

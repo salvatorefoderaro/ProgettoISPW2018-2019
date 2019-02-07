@@ -85,7 +85,7 @@ public class seeRentable {
                             Stage st = (Stage) table.getScene().getWindow();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("importContract.fxml"));
                             Parent root = loader.load();
-                            importContract controller = loader.<importContract>getController();
+                            importContract controller = loader.getController();
                             System.out.println(test.get(finalI).getType());
                             controller.initialize(test.get(finalI), parentController, loggedRenter);
 

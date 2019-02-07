@@ -6,9 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import Entity.TypeOfContract;
 import Entity.TypeOfUser;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -18,10 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -44,6 +40,7 @@ public class importContract {
     @FXML TextField locatoreIndirizzo;
     @FXML TextField contractPrezzo;
     @FXML TextField contractDeposito;
+    @FXML ComboBox contractType;
 
     private rentableBean theBean;
     private controller parentController;
@@ -54,6 +51,12 @@ public class importContract {
         this.loggedUser = loggedUser;
         this.parentController = parentController;
         this.theBean = bean;
+        contractType.getItems().addAll(
+                "Contratto ordinario a canone libero",
+                "Contratto transitorio",
+                "Contratto di locazione convenzionato o a canone concordato",
+                "Contratto transitorio per studenti"
+        );
 
         bottone.setId("aButton");
         immagine.setImage(SwingFXUtils.toFXImage((BufferedImage) theBean.getImage1(), null));
@@ -66,18 +69,22 @@ public class importContract {
         tenant1.setTypeUSer(TypeOfUser.TENANT);
         tenant = new userBean();
 
+        System.out.println(TypeOfContract.idFromString((String) this.contractType.getValue()));
+
+        TypeOfContract selectedContractType = TypeOfContract.typeFromString((String) this.contractType.getValue());
+
         if (dataInizio.getValue() == null){
             popup("Inserire un valore valido per la data di inizio del contratto!", false);
             return;
         }
-        
-        if (dataFine.getValue() == null){
-            popup("Inserire un valore valido per la data di fine del contratto!", false);
+
+        if (contractType.getValue() == null){
+            popup("Seleziona una tipologia di contratto!", false);
             return;
         }
 
-        if (dataInizio.getValue().isBefore(LocalDate.now()) || dataFine.getValue().isBefore(LocalDate.now())){
-            popup("Non è possibile selezionare una data nel passato!", false);
+        if (dataFine.getValue() == null){
+            popup("Inserire un valore valido per la data di fine del contratto!", false);
             return;
         }
 
@@ -86,13 +93,13 @@ public class importContract {
             return;
         }
 
-        if (dataInizio.getValue().isBefore(dataFine.getValue().minusDays(30))){
-            popup("L'intervallo minimo per il contratto è di 30 giorni!", false);
+        if (dataFine.getValue().isBefore(dataInizio.getValue().plusMonths(selectedContractType.minDuration))){
+            popup("Per la tipologia di contratto scelta, l'intervallo minimo è di " + selectedContractType.minDuration + " mesi!", false);
             return;
         }
 
-        if (dataFine.getValue().isAfter(dataInizio.getValue().plusDays(180))){
-            popup("L'intervallo massimo per il contratto è di 180 giorni!", false);
+        if (dataFine.getValue().isAfter(dataInizio.getValue().plusDays(selectedContractType.maxDuration))){
+            popup("Per la tipologia di contratto scelta, l'intervallo massimo è di " + selectedContractType.maxDuration + " mesi!", false);
             return;
         }
 
@@ -120,7 +127,7 @@ public class importContract {
         }
 
         try {
-            this.parentController.checkRentableDate(theBean);
+            this.parentController.setNewAvailabilityCalendar(theBean);
         } catch (Exceptions.emptyResult emptyResult) {
             popup("La risorsa non è disponibile per il periodo indicato!", false);
             return;
@@ -139,7 +146,7 @@ public class importContract {
         contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
                 loggedUser.getNickname(), locatoreNome.getText(), locatarioNome.getText(),
                 locatarioCF.getText(), locatoreCF.getText(), locatoreIndirizzo.getText(),
-                locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false, null, theBean.getType(), Integer.parseInt(contractDeposito.getText()));
+                locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false, null, theBean.getType(), Integer.parseInt(contractDeposito.getText()), selectedContractType);
 
         try {
             parentController.createContract(contract);

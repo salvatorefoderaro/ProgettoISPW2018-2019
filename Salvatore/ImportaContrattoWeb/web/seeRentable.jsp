@@ -120,6 +120,7 @@ if (request.getParameter("importContract") != null) {
         }
 
         for (rentableBean temp : test) {
+            System.out.println(temp.getID());
     %>
     <form action="seeRentable.jsp" name="myform" method="POST"><div class="row justify-content-md-center ">
         <div class="col-md">

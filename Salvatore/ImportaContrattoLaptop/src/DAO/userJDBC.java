@@ -19,7 +19,8 @@ public class userJDBC implements userDAO {
         private final static userJDBC instance = new userJDBC();
     }
 
-    private userJDBC(){ }
+    private userJDBC() {
+    }
 
     @Override
     public userBean renterLogin(userBean sessionBean) throws emptyResult, SQLException, dbConfigMissing {
@@ -35,7 +36,7 @@ public class userJDBC implements userDAO {
         preparedStatement.setString(1, sessionBean.getNickname());
         preparedStatement.setString(2, sessionBean.getPassword());
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (!resultSet.isBeforeFirst()){
+        if (!resultSet.isBeforeFirst()) {
             resultSet.close();
             preparedStatement.close();
             throw new emptyResult("Errore! Nessun utente associato al nickname indicato!");
@@ -66,7 +67,7 @@ public class userJDBC implements userDAO {
         PreparedStatement preparedStatement = dBConnection.prepareStatement("SELECT * from RentingUser where nickname = ? and type = 'TENANT'");
         preparedStatement.setString(1, bean.getTenantNickname());
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (!resultSet.isBeforeFirst()){
+        if (!resultSet.isBeforeFirst()) {
             resultSet.close();
             preparedStatement.close();
             dBConnection.close();

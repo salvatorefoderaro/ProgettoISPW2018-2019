@@ -62,7 +62,7 @@ public class login {
         Stage st = (Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("seeRentable.fxml"));
         Parent root = loader.load();
-        seeRentable controller = loader.<seeRentable>getController();
+        seeRentable controller = loader.getController();
 
         controller.initialize(loggedUser, parentController);
 
