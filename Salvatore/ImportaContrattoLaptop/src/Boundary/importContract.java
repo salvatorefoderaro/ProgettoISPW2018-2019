@@ -128,6 +128,7 @@ public class importContract {
             popup(TypeOfMessage.TRANSATIONERROR.getString(), false);
             return;
         } catch (SQLException e) {
+            e.printStackTrace();
             popup(TypeOfMessage.DBERROR.getString(), true);
             return;
         } catch (Exceptions.dbConfigMissing dbConfigMissing) {
@@ -143,9 +144,12 @@ public class importContract {
         try {
             parentController.createContract(contract);
         } catch (SQLException e) {
+            e.printStackTrace();
             popup(TypeOfMessage.DBERROR.getString(), true);
+            return;
         } catch (Exceptions.transactionError transactionError) {
             popup(TypeOfMessage.TRANSATIONERROR.getString(), false);
+            return;
         } catch (Exceptions.dbConfigMissing dbConfigMissing) {
             popup(TypeOfMessage.DBCONFIGERROR.getString(), true);
             return;

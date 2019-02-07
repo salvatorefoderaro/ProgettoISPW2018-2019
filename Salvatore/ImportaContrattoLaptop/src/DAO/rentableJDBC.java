@@ -20,7 +20,7 @@ import Exceptions.transactionError;
 
 import javax.imageio.ImageIO;
 
-public class rentableJDBC implements rentableDAO {
+public class rentableJDBC implements rentableDAO{
 
     public static rentableJDBC getInstance() {
         return rentableJDBC.trueInstance.instance;
@@ -83,19 +83,13 @@ public class rentableJDBC implements rentableDAO {
     @Override
     public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (IOException e) {
-            throw new dbConfigMissing("");
-        }
-        dBConnection.setAutoCommit(false);
+        Connection connection = transactionConnection.getConnection();
 
         String query1 = null;
         String query2 = null;
         String query3 = null;
 
-        switch (bean.getType1()){
+        switch (bean.getType()){
             case APARTMENT:
                 query1 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
                 query2 ="INSERT INTO AvailabilityCalendar (renterFeaturesId, startDate, endDate) VALUES ((SELECT id FROM RentalFeatures WHERE aptToRentId = ?), ?, ?);";
@@ -116,7 +110,7 @@ public class rentableJDBC implements rentableDAO {
         }
 
         if(!LocalDate.parse(bean.getStartDateRequest()).plusDays(1).equals(LocalDate.parse(bean.getStartDateAvaliable()))) {
-            PreparedStatement preparedStatement = dBConnection.prepareStatement(query1);
+            PreparedStatement preparedStatement = connection.prepareStatement(query1);
             preparedStatement.setInt(1, bean.getID());
             preparedStatement.setString(2, bean.getStartDateAvaliable());
             preparedStatement.setString(3, bean.getStartDateRequest());
@@ -126,7 +120,7 @@ public class rentableJDBC implements rentableDAO {
 
         if(!LocalDate.parse(bean.getEndDateRequest()).minusDays(1).equals(LocalDate.parse(bean.getEndDateAvaliable()))) {
 
-            PreparedStatement preparedStatement1 = dBConnection.prepareStatement(query2);
+            PreparedStatement preparedStatement1 = connection.prepareStatement(query2);
             preparedStatement1.setInt(1, bean.getID());
             preparedStatement1.setString(2, bean.getEndDateRequest());
             preparedStatement1.setString(3, bean.getEndDateAvaliable());
@@ -134,7 +128,7 @@ public class rentableJDBC implements rentableDAO {
             preparedStatement1.close();
         }
 
-        PreparedStatement preparedStatement2 = dBConnection.prepareStatement(query3);
+        PreparedStatement preparedStatement2 = connection.prepareStatement(query3);
         preparedStatement2.setInt(1, bean.getID());
         preparedStatement2.setString(2, bean.getStartDateAvaliable());
         preparedStatement2.setString(3, bean.getEndDateAvaliable());
@@ -144,11 +138,11 @@ public class rentableJDBC implements rentableDAO {
 
         if (bean.getJDBCcommit()){
             try {
-                dBConnection.commit();
-                dBConnection.close();
+                connection.commit();
+                connection.close();
             } catch (SQLException e){
-                dBConnection.rollback();
-                dBConnection.close();
+                connection.rollback();
+                connection.close();
                 throw new transactionError("");
             }
         }
@@ -169,15 +163,15 @@ public class rentableJDBC implements rentableDAO {
 
         switch (renter.getTypeRequest()){
             case ROOM:
-                query = "SELECT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
+                query = "SELECT DISTINCT Room.id, Room.name, Room.description, Room.image, Period.startDate, Period.endDate, AptToRent.id as aptId FROM RoomToRent as Room JOIN RentalFeatures as Feature ON Room.id = Feature.roomToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id in (Select renterFeaturesId FROM AvailabilityCalendar)";
                 break;
 
             case BED:
-                query = "SELECT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
+                query = "SELECT DISTINCT Bed.id, Bed.name, Bed.description, Bed.image, Period.startDate, Bed.roomId, AptToRent.id as aptId, Period.endDate FROM BedToRent as Bed JOIN RentalFeatures as Feature ON Bed.id = Feature.bedToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
                 break;
 
             case APARTMENT:
-                query = "SELECT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
+                query = "SELECT DISTINCT Apt.id, Apt.name, Apt.description, Apt.image, Period.startDate, Period.endDate FROM AptToRent as Apt JOIN RentalFeatures as Feature ON Apt.id = Feature.aptToRentId JOIN AptToRent on AptToRent.id = Feature.aptId JOIN AvailabilityCalendar as Period on Period.renterFeaturesId = Feature.id WHERE AptToRent.renterNickname = ? AND Feature.id IN (Select renterFeaturesID FROM AvailabilityCalendar)";
                 break;
         }
 
@@ -192,11 +186,15 @@ public class rentableJDBC implements rentableDAO {
 
             switch (renter.getTypeRequest()){
                 case ROOM:
-                    rentable.setRoomID(resultSet.getInt("id"));
+                    rentable.setRoomID(rentable.getID());
+                    rentable.setAptID(resultSet.getInt("aptId"));
                     break;
 
                 case BED:
-                    rentable.setBedID(resultSet.getInt("id"));
+                    rentable.setBedID(rentable.getID());
+                    rentable.setRoomID(resultSet.getInt("roomId"));
+                    rentable.setAptID(resultSet.getInt("aptId"));
+                    System.out.println("L'ID del letto è" + rentable.getBedID());
                     break;
 
                 case APARTMENT:

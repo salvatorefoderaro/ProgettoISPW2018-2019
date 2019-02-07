@@ -5,6 +5,7 @@
  */
 package Boundary;
 
+import Bean.notificationBean;
 import Bean.userSessionBean;
 import Controller.Controller;
 import javafx.fxml.FXML;
@@ -40,7 +41,8 @@ private userSessionBean userSession;
 
     @FXML
     public void seePaymentClaim() throws IOException{
-        
+        this.controller.deleteObserver(this);
+
         Stage st = (Stage)seePaymentClaimButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("seePaymentClaim.fxml"));
         Parent root = loader.load();
@@ -55,8 +57,10 @@ private userSessionBean userSession;
     }
     
     @FXML
-    public void createPaymentClaim() throws IOException{        
+    public void createPaymentClaim() throws IOException{
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
+        this.controller.deleteObserver(this);
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createPaymentClaim.fxml"));
         Parent root = loader.load();
         
@@ -71,6 +75,7 @@ private userSessionBean userSession;
     
     @FXML
     public void login() throws IOException{
+        this.controller.deleteObserver(this);
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent root = loader.load();
@@ -86,6 +91,30 @@ private userSessionBean userSession;
 
     @Override
     public void update(Observable o, Object arg) {
+        Platform.runLater(() -> {
+            notificationBean dati = (notificationBean)arg;
+            Stage newStage = new Stage();
+            Pane comp = new Pane();
 
+            Label nameField = new Label();
+            nameField.setLayoutX(71.0);
+            nameField.setLayoutY(42.0);
+
+            if(dati.getNotificationsNumber() > 1){
+                nameField.setText("Sono disponibili " + Integer.toString(dati.getNotificationsNumber()) + " nuove notifiche!");
+            } else {
+                nameField.setText("E' disponibile 1 nuova notifica!");
+            }
+
+            Button close = new Button();
+            close.setLayoutX(154.0);
+            close.setLayoutY(99.0);
+            close.setText("Chiudi");
+
+            Scene stageScene = new Scene(comp, 368, 159);
+            newStage.setScene(stageScene);
+            comp.getChildren().addAll(nameField, close);
+            newStage.show();
+        });
     }
 }

@@ -1,9 +1,9 @@
 package Entity;
 
 public enum TypeOfRentable {
-    APARTMENT ("apt"),
-    BED ("bed"),
-    ROOM ("room")
+    APARTMENT ("APTTORENT"),
+    BED ("BEDTORENT"),
+    ROOM ("ROOMTORENT")
     ;
 
     private final String type;
@@ -12,10 +12,12 @@ public enum TypeOfRentable {
         this.type = type;
     }
 
-    public static TypeOfRentable makeType(String value){
-        for (TypeOfRentable type : values())
-            if (type.getType() == value )
-                return type;
+    public static TypeOfRentable fromString(String text) {
+        for (TypeOfRentable b : TypeOfRentable.values()) {
+            if (b.type.equalsIgnoreCase(text)) {
+                return b;
+            }
+        }
         return null;
     }
 

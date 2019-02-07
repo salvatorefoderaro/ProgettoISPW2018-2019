@@ -30,6 +30,10 @@ public class availabilityPeriod {
         return false;
     }
 
+    public String printAvailability(){
+        return this.startDate.toString() + " " + this.endDate.toString();
+    }
+
     public availabilityPeriodBean makeBean(){
         availabilityPeriodBean bean = new availabilityPeriodBean();
         bean.setStartDate(this.startDate);

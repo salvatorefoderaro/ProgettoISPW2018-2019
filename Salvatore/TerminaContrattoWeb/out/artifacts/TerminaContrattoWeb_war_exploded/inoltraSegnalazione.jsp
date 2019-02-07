@@ -82,6 +82,7 @@
         try {
             controllerProva.insertNewPaymentClaim(bean);
         } catch (SQLException e) {
+            e.printStackTrace();
             session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
@@ -98,7 +99,10 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
-        // Success
+
+        session.setAttribute("successMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        String destination ="pannelloUtente.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
       %>
@@ -143,8 +147,6 @@
 
 <div class="container">
     <center>
-    <%
-        // Error handling
 
         <%
             if (session.getAttribute("successMessage") != null) { %>
@@ -199,12 +201,12 @@
 </div>
     </div>
           <div class="col-md">
-            <input name = "date" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
+            <input name = "date" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
     </div>
       
   </div>
-        <input userType="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>">
-        <input userType="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>">
+        <input type="hidden" id="custId" name="contractId" value="<%= temp.getContractId() %>">
+        <input type="hidden" id="custId" name="tenantUsername" value="<%= temp.getTenantNickname() %>">
 
     </form>
     <br>

@@ -45,6 +45,7 @@ public class Rentable {
 
     public void updateAvailability(rentableBean bean){
         for (availabilityPeriod singleAvailability : this.rentableListAvailability) {
+            singleAvailability.printAvailability();
             if(singleAvailability.isEqual(LocalDate.parse(bean.getStartDateRequest()), LocalDate.parse(bean.getEndDateRequest()))){
                 this.rentableListAvailability.remove(singleAvailability);
             }

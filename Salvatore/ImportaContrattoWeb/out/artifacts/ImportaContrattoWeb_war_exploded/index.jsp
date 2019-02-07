@@ -7,6 +7,7 @@
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Control.loginController" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 
@@ -21,12 +22,13 @@
         userBean loggedUser = null;
         try {
             parentController = new controller();
-            loggedUser = parentController.loginRenter(login);
+            loggedUser = loginController.loginRenter(login);
             sessionBean.setID(loggedUser.getID());
             sessionBean.setNickname(loggedUser.getNickname());
             sessionBean.setCF(loggedUser.getCF());
             sessionBean.setController(parentController);
         } catch (SQLException e) {
+            e.printStackTrace();
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());

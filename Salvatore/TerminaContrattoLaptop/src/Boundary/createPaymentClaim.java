@@ -49,6 +49,7 @@ public void initialize(Controller parentController, userSessionBean bean){
     try {
         contractBeanList = controller.getContracts(userSession);
     } catch (SQLException ex) {
+        ex.printStackTrace();
         popupToDestination(TypeOfMessage.DBERROR.getString(), true);
         return;
     } catch (Exceptions.emptyResult emptyResult) {
@@ -182,6 +183,7 @@ public void initialize(Controller parentController, userSessionBean bean){
                 try {
                     controller.insertNewPaymentClaim(bean);
                 } catch (SQLException ex) {
+                    ex.printStackTrace();
                     popupToDestination(TypeOfMessage.DBERROR.getString(), true);
                     return;
                 } catch (Exceptions.transactionError transactionError) {

@@ -14,9 +14,8 @@
 
 <%
 
-    java.util.concurrent.TimeUnit.SECONDS.sleep(5);
-
-    sampleThread.startTask(request.getContextPath());
+    // java.util.concurrent.TimeUnit.SECONDS.sleep(5);
+    // sampleThread.startTask(request.getContextPath());
 
 
     if (request.getParameter("login") != null) {
@@ -28,6 +27,7 @@
             sessionBean.setController(controller);
             sessionBean.setNickname(login.getNickname());
             sessionBean.setUserType(login.getUserType());
+            System.out.println("Tipo di utente è " + login.getUserType());
         %>
             <jsp:forward page="pannelloUtente.jsp"/>
         <%
@@ -90,12 +90,11 @@
     	  <br>
 <div class="container">
 <center>
-
-
+    
     <%
         if (session.getAttribute("successMessage") != null) { %>
 
-    <div class="alert alert-warning">
+    <div class="alert alert-success">
         <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
@@ -106,7 +105,7 @@
         if (session.getAttribute("infoMessage") != null) {  %>
 
 
-    <div class="alert alert-warning">
+    <div class="alert alert-info">
         <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
     </div>
 

@@ -26,7 +26,7 @@ if (request.getParameter("importContract") != null) {
     toRent.setName(request.getParameter("rentableName"));
     toRent.setDescription(request.getParameter("rentableDescription"));
     toRent.setImage(request.getParameter("rentableImage"));
-    toRent.setType(TypeOfRentable.makeType(request.getParameter("rentableType")));
+    toRent.setType(TypeOfRentable.fromString(request.getParameter("rentableType")));
     toRent.setAptID(Integer.parseInt(request.getParameter("aptID")));
     toRent.setRoomID(Integer.parseInt(request.getParameter("roomID")));
     toRent.setBedID(Integer.parseInt(request.getParameter("bedID")));
@@ -66,20 +66,20 @@ if (request.getParameter("importContract") != null) {
 <div class="container">
 <center>
     <%
-        // Error handling
         if (session.getAttribute("successMessage") != null) { %>
 
-    <div class="alert alert-warning">
+    <div class="alert alert-success">
         <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
 
     <% session.setAttribute("successMessage", null);
     }
+
         if (session.getAttribute("infoMessage") != null) {  %>
 
 
-    <div class="alert alert-warning">
+    <div class="alert alert-info">
         <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
     </div>
 
@@ -96,6 +96,7 @@ if (request.getParameter("importContract") != null) {
 
 
     <% session.setAttribute("warningMessage", null);
+
     }
         List<rentableBean> test = null;
         try {

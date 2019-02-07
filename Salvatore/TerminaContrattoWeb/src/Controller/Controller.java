@@ -79,7 +79,7 @@ public class Controller {
     public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
-        paymentClaimJDBC.getInstance().setPaymentClaimNotified(operationBean);
+        paymentClaimJDBC.getInstance().setPaymentClaimPayed(operationBean);
     }
 
     public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {

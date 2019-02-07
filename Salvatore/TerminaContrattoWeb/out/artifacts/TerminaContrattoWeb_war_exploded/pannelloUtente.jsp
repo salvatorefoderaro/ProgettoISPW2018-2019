@@ -76,8 +76,6 @@
     	  <br>
 <div class="container">
 <center>
-    <%
-        // Error handling
 
     <%
         if (session.getAttribute("successMessage") != null) { %>

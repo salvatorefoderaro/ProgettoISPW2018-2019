@@ -1,8 +1,8 @@
 package Entity;
 
 public enum TypeOfUser {
-    RENTER ("renter"),
-    TENANT ("tenant"),
+    RENTER ("RENTER"),
+    TENANT ("TENANT"),
     NOTLOGGED("")
     ;
 

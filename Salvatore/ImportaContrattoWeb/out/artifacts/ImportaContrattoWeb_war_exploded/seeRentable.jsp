@@ -1,10 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.SQLException"%>
 <%@ page import="java.util.LinkedList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="Exceptions.transactionError" %>
-<%@ page import="Exceptions.dbConnection" %>
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Control.controller" %>
 <%@ page import="Bean.rentableBean" %>
@@ -14,9 +12,7 @@
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
 
-
 <%
-
     if (sessionBean.getNickname() == null){
         session.setAttribute("warningMessage", TypeOfMessage.NOTLOGGED.getString());
         String destination ="index.jsp";
@@ -30,7 +26,7 @@ if (request.getParameter("importContract") != null) {
     toRent.setName(request.getParameter("rentableName"));
     toRent.setDescription(request.getParameter("rentableDescription"));
     toRent.setImage(request.getParameter("rentableImage"));
-    toRent.setType(TypeOfRentable.makeType(request.getParameter("rentableType")));
+    toRent.setType(TypeOfRentable.fromString(request.getParameter("rentableType")));
     toRent.setAptID(Integer.parseInt(request.getParameter("aptID")));
     toRent.setRoomID(Integer.parseInt(request.getParameter("roomID")));
     toRent.setBedID(Integer.parseInt(request.getParameter("bedID")));
@@ -70,9 +66,7 @@ if (request.getParameter("importContract") != null) {
 <div class="container">
 <center>
     <%
-
         // Error handling
-
         if (session.getAttribute("successMessage") != null) { %>
 
     <div class="alert alert-warning">
@@ -82,7 +76,6 @@ if (request.getParameter("importContract") != null) {
 
     <% session.setAttribute("successMessage", null);
     }
-
         if (session.getAttribute("infoMessage") != null) {  %>
 
 

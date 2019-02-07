@@ -72,6 +72,7 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (SQLException e) {
+            e.printStackTrace();
             session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
@@ -124,6 +125,7 @@
         try {
             sessionBean.getController().createContract(contract);
         } catch (SQLException e) {
+            e.printStackTrace();
             session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
@@ -141,13 +143,13 @@
             return;
         }
 
-%>
 
-<jsp:forward page="seeRentable.jsp">
-    <jsp:param name="success" value="contractCreated" />
-</jsp:forward>
 
-<% return; } %>
+        session.setAttribute("warningMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        String destination ="seeRentable.jsp";
+        response.sendRedirect(response.encodeRedirectURL(destination));
+
+ return; } %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -194,9 +196,6 @@
 
 <div class="container .text-center" style="margin: 0px auto;">
     <center>
-
-
-    // Error handling
 
     <%
     if (session.getAttribute("successMessage") != null) { %>
@@ -325,6 +324,12 @@
 </center>
     <br>
 </div>
+
+<script type='text/javascript' src='${pageContext.request.contextPath}/Resource/jquery-1.8.3.min.js'></script>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap-datepicker3.min.css'>
+<script type='text/javascript' src='${pageContext.request.contextPath}/Resource/bootstrap-datepicker.min.js'></script>
+
 
 </body>
 </html>

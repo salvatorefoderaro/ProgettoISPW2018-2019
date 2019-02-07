@@ -105,6 +105,7 @@ public void initialize(Controller parentController, userSessionBean session){
                                 } catch (Exceptions.transactionError transactionError) {
                                     popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                                 } catch (SQLException e) {
+                                    e.printStackTrace();
                                     popupToDestination(TypeOfMessage.DBERROR.getString(), false);
                                 } catch (Exceptions.dbConfigMissing dbConfigMissing) {
                                     popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
@@ -128,6 +129,7 @@ public void initialize(Controller parentController, userSessionBean session){
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
+                                e.printStackTrace();
                                 popupToDestination(TypeOfMessage.DBERROR.getString(), false);
                             } catch (Exceptions.dbConfigMissing dbConfigMissing) {
                                 popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
@@ -151,6 +153,7 @@ public void initialize(Controller parentController, userSessionBean session){
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
+                                e.printStackTrace();
                                 popupToDestination(TypeOfMessage.DBERROR.getString(), false);
                             } catch (Exceptions.dbConfigMissing dbConfigMissing) {
                                 popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
@@ -177,6 +180,7 @@ public void initialize(Controller parentController, userSessionBean session){
                             } catch (Exceptions.transactionError transactionError) {
                                 popupToDestination(TypeOfMessage.TRANSATIONERROR.getString(), false);
                             } catch (SQLException e) {
+                                e.printStackTrace();
                                 popupToDestination(TypeOfMessage.DBERROR.getString(), false);
                             } catch (Exceptions.dbConfigMissing dbConfigMissing) {
                                 popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), false);
@@ -317,7 +321,6 @@ public void initialize(Controller parentController, userSessionBean session){
     @FXML
     private void userPanel() throws IOException{
         this.claimDeadline.deleteObserver(this);
-
         String destination = null;
         if (userSession.getUserType() == TypeOfUser.RENTER){
             destination = "userPanelRenter.fxml";
@@ -366,6 +369,4 @@ public void initialize(Controller parentController, userSessionBean session){
             st.setTitle("My App");
             st.show();
     }
-    
-
 }

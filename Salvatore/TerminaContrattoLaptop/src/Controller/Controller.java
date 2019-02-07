@@ -81,7 +81,7 @@ public class Controller extends Observable implements Runnable {
     public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(true);
-        paymentClaimJDBC.getInstance().setPaymentClaimNotified(operationBean);
+        paymentClaimJDBC.getInstance().setPaymentClaimPayed(operationBean);
     }
 
     public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
@@ -105,7 +105,7 @@ public class Controller extends Observable implements Runnable {
         bean.setJDBCcommit(false);
         paymentClaimJDBC.getInstance().createPaymentClaim(bean);
         contractBean operationBean = dictionaryContratto.get(bean.getContractId()).makeBean();
-        operationBean.setJDBCcommit(false);
+        operationBean.setJDBCcommit(true);
         contractJDBC.getInstance().setContractReported(operationBean);
         }
 
@@ -133,7 +133,7 @@ public class Controller extends Observable implements Runnable {
     public void run() {
 
         while(true){
-            System.out.println("faccio il check");
+            System.out.println("Faccio il check");
             try {
                 checkNotifications();
             } catch (SQLException e) {
@@ -151,7 +151,7 @@ public class Controller extends Observable implements Runnable {
                 e.printStackTrace();
             }
             try {
-                Thread.sleep(15000);
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

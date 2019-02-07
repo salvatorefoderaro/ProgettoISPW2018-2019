@@ -19,13 +19,6 @@ public class readDBConf extends HttpServlet {
 
     public static String getDBConf(String type) throws IOException {
 
-        String filePath = new File("").getAbsolutePath();
-        InputStream inputStream = readDBConf.class.getClassLoader().getResourceAsStream("/src/DAO/connectionAdmin.prop");
-        System.out.println(readDBConf.class.getClassLoader().getResource(""));
-        System.out.println(readDBConf.class.getClassLoader().getResource("/"));
-        System.out.println("aaa" + readDBConf.class.getClassLoader().getResourceAsStream("connectionAdmin.prop"));
-        System.out.println("aaa" + readDBConf.class.getClassLoader().getResourceAsStream(filePath));
-
         FileReader fis = null;
         if("admin".equals(type)){
             fis = new FileReader("Config/connectionAdmin.prop");

@@ -204,7 +204,7 @@
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
       } catch (SQLException e) {
-          session.setAttribute("infoMessage", TypeOfMessage.);
+          session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
@@ -238,8 +238,7 @@
 
 <div class="container">
 <center>
-        <%
-            // Error handling
+
 
     <%
         if (session.getAttribute("successMessage") != null) { %>

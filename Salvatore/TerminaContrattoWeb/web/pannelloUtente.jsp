@@ -76,13 +76,19 @@
     	  <br>
 <div class="container">
 <center>
-    <%
-        // Error handling
 
     <%
         if (session.getAttribute("successMessage") != null) { %>
 
     <div class="alert alert-warning">
+        <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
+    </div>
+
+
+    <%
+        if (session.getAttribute("successMessage") != null) { %>
+
+    <div class="alert alert-success">
         <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
@@ -93,7 +99,7 @@
         if (session.getAttribute("infoMessage") != null) {  %>
 
 
-    <div class="alert alert-warning">
+    <div class="alert alert-info">
         <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
     </div>
 

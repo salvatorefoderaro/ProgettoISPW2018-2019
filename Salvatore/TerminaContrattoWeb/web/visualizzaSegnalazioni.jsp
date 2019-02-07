@@ -204,7 +204,7 @@
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
       } catch (SQLException e) {
-          session.setAttribute("infoMessage", TypeOfMessage.);
+          session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
@@ -238,13 +238,11 @@
 
 <div class="container">
 <center>
-        <%
-            // Error handling
 
     <%
         if (session.getAttribute("successMessage") != null) { %>
 
-    <div class="alert alert-warning">
+    <div class="alert alert-success">
         <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
     </div>
 
@@ -255,7 +253,7 @@
         if (session.getAttribute("infoMessage") != null) {  %>
 
 
-    <div class="alert alert-warning">
+    <div class="alert alert-info">
         <strong>Attenzione!</strong> <%= session.getAttribute("infoMessage") %>
     </div>
 
@@ -272,7 +270,7 @@
 
 
     <% session.setAttribute("warningMessage", null);
-    }
+    } 
 
     		for (paymentClaimBean temp : listaResult) {
 		%>

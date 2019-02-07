@@ -128,13 +128,7 @@ public class contractJDBC implements contractDAO {
     @Override
     public void setContractReported(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
-            throw new dbConfigMissing("");
-        }
-        dBConnection.setAutoCommit(false);
+        Connection dBConnection = transactionConnection.getConnection();
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE Contract SET claimReported = 1 WHERE contractId = ?");
         preparedStatement.setInt(1, bean.getContractId());
@@ -151,5 +145,6 @@ public class contractJDBC implements contractDAO {
                 throw new transactionError("");
             }
         }
+        transactionConnection.closeConnection();
     }
 }

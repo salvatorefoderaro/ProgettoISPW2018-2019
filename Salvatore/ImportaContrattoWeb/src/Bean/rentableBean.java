@@ -30,7 +30,6 @@ public class rentableBean {
     private int bedID;
     private String startDateAvaliable;
     private String endDateAvaliable;
-    private TypeOfRentable type1;
     private Image image1;
     private boolean JDBCcommit;
     private List<availabilityPeriodBean> listAvailability;
@@ -56,7 +55,6 @@ public class rentableBean {
     public String getEndDateAvaliable(){ return this.endDateAvaliable; }
     public TypeOfRentable getType(){ return this.type; }
     public String getTenantNickname(){ return this.tenantNickname; }
-    public TypeOfRentable getType1(){ return this.type1; }
     public Image getImage1(){ return this.image1; }
     public List<availabilityPeriodBean> getListAvailability(){ return this.listAvailability; }
 
@@ -74,6 +72,5 @@ public class rentableBean {
     public void setEndDateAvaliable(String endDateAvaliable){ this.endDateAvaliable = endDateAvaliable; }
     public void setType(TypeOfRentable type){ this.type = type; }
     public void setTenantnNickname(String tenantNickname){ this.tenantNickname = tenantNickname; }
-    public void setType1(TypeOfRentable type){this.type1 = type; }
     public void setImage1(Image image){ this.image1 = image; }
 }

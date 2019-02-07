@@ -27,7 +27,7 @@ public class readDBConf {
             password = "";
         }
 
-        String connection = "jdbc:" + driver + "://" + url + ":"+ portNumber + "/" + dname + "?user=" + username + "&password" + password;
+        String connection = "jdbc:" + driver + "://" + url + ":"+ portNumber + "/" + dname + "?user=" + username + "&password=" + password;
 
         return connection;
     }

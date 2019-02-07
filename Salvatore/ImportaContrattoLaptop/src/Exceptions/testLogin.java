@@ -2,6 +2,7 @@ package Exceptions;
 
 import Bean.userBean;
 import Control.controller;
+import Control.loginController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ public class testLogin {
         userBean test = new userBean();
         test.setNickname("francesco");
         test.setPassword("giuseppe");
-        controller control = new controller();
+        loginController control = new loginController();
         control.loginRenter(test);
     }
 }

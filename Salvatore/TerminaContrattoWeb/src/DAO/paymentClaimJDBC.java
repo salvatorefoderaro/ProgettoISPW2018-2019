@@ -36,9 +36,9 @@ public class paymentClaimJDBC implements paymentClaimDAO {
         String query;
 
         if (TypeOfUser.TENANT == bean.getUserType()){
-            query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Contract.claimReported = 0";
+            query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Claim.claimNotified = 0";
         } else {
-            query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Contract.claimReported = 0";
+            query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Claim.claimNotified = 0";
         }
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
@@ -101,15 +101,9 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     @Override
     public void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
-            throw new dbConfigMissing("");
-        }
-        dBConnection.setAutoCommit(false);
+        Connection dBConnection = transactionConnection.getConnection();
 
-        PreparedStatement preparedStatement = dBConnection.prepareStatement("ISERT INTO PaymentClaim (contractID, claimNumber, claimDeadline, claimState, claimNotified) VALUES (?, 1, ?, 0, 0))");
+        PreparedStatement preparedStatement = dBConnection.prepareStatement("INSERT INTO PaymentClaim (contractID, claimNumber, claimDeadline, claimState, claimNotified) VALUES (?, 1, ?, 0, 0) ");
         preparedStatement.setString(1,  Integer.toString(bean.getContractId()));
         preparedStatement.setString(2,  bean.getClaimDeadline());
         preparedStatement.executeUpdate();
@@ -118,10 +112,10 @@ public class paymentClaimJDBC implements paymentClaimDAO {
         if (bean.getJDBCcommit()){
             try {
                 dBConnection.commit();
-                dBConnection.close();
+                transactionConnection.closeConnection();
             } catch (SQLException e){
                 dBConnection.rollback();
-                dBConnection.close();
+                transactionConnection.closeConnection();
                 throw new transactionError("");
             }
         }

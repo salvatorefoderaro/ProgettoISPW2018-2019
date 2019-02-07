@@ -36,7 +36,6 @@ public class userSessionBean
 
     public void setUserType(TypeOfUser userType){ this.userType = userType; }
 
-
     public Controller getController(){ return this.controller; }
 
     public void setController(Controller controller){ this.controller = controller; }
