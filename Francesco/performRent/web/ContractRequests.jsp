@@ -1,16 +1,12 @@
-<%@ page import="it.uniroma2.ispw.fersa.control.RequestResponseControl" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.RequestLabelBean" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId" %><%--
-  Created by IntelliJ IDEA.
-  User: francesco
-  Date: 04/02/19
-  Time: 17.27
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId" %>
+<%@ page import="it.uniroma2.ispw.fersa.control.RentalHandlerRenterSession" %>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
 <%
@@ -25,7 +21,7 @@
         <%
     }
     else {
-        sessionBean.setControl(new RequestResponseControl(sessionBean.getUsername()));
+        sessionBean.setControl(new RentalHandlerRenterSession(sessionBean.getUsername()));
     }
         %>
 <html>

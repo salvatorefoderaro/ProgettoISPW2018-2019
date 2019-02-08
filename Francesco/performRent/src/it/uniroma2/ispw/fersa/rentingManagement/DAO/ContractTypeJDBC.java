@@ -35,14 +35,14 @@ public class ContractTypeJDBC implements ContractTypeDAO{
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            String sql = "SELECT id, name, description, minDuration, maxDuration FROM ContractType";
+            String sql = "SELECT id, name, description, transitory, minDuration, maxDuration FROM ContractType";
 
             ResultSet rs = stmt.executeQuery(sql);
 
             if (!rs.first()) return contractTypes;
 
             do {
-                contractTypes.add(new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration")));
+                contractTypes.add(new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getBoolean("transitory"),rs.getInt("minDuration"), rs.getInt("maxDuration")));
 
             } while(rs.next());
 
@@ -78,7 +78,7 @@ public class ContractTypeJDBC implements ContractTypeDAO{
 
             if (!rs.first()) return null;
 
-            contractType = new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("minDuration"), rs.getInt("maxDuration"));
+            contractType = new ContractType(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getBoolean("transitory"),rs.getInt("minDuration"), rs.getInt("maxDuration"));
 
             rs.close();
             stmt.close();
@@ -99,17 +99,17 @@ public class ContractTypeJDBC implements ContractTypeDAO{
 
     @Override
     public ContractType getContractTypeById(int contractTypeId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
-        return getContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE id = " + contractTypeId);
+        return getContractType("SELECT id, name, description, transitory ,minDuration, maxDuration FROM ContractType WHERE id = " + contractTypeId);
     }
 
     @Override
     public ContractType getContractTypeByRequestId(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
-        return getContractType("SELECT ContractType.id, name, description, minDuration, maxDuration FROM ContractType INNER JOIN ContractRequest ON ContractType.id = ContractRequest.contractTypeId WHERE ContractRequest.id = " + requestId.getId());
+        return getContractType("SELECT ContractType.id, name, description, transitory,minDuration, maxDuration FROM ContractType INNER JOIN ContractRequest ON ContractType.id = ContractRequest.contractTypeId WHERE ContractRequest.id = " + requestId.getId());
     }
 
     @Override
     public ContractType getContractTypeByName(String contractTypeName) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
-        return getContractType("SELECT id, name, description, minDuration, maxDuration FROM ContractType WHERE name = '" + contractTypeName + "'");
+        return getContractType("SELECT id, name, description, transitory,minDuration, maxDuration FROM ContractType WHERE name = '" + contractTypeName + "'");
     }
 
 

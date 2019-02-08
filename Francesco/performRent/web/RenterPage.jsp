@@ -14,7 +14,15 @@
 </head>
 <body>
     <center>
+        <% if (session.getAttribute("warningMessage") != null) { %>
+        <div class="alert alert-primary" role="alert">
+
+            <%= session.getAttribute("warningMessage")%>
+
+        </div>
         <%
+                session.setAttribute("warningMessage" , null);
+            }
             if (!sessionBean.isLogged()) {
                 session.setAttribute("warningMessage", "Non sei loggato");
                 response.sendRedirect(response.encodeRedirectURL("index.jsp"));

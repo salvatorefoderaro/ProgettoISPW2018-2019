@@ -4,13 +4,15 @@ public class ContractType {
     private  int contractTypeId;
     private String name;
     private String description;
+    private boolean transitory;
     private int minDuration;
     private int maxDuration;
 
-    public ContractType(int contractTypeId, String name, String description, int minDuration, int maxDuration) {
+    public ContractType(int contractTypeId, String name, String description, boolean transitory,int minDuration, int maxDuration) {
         this.contractTypeId = contractTypeId;
         this.name = name;
         this.description = description;
+        this.transitory = transitory;
         this.minDuration = minDuration;
         this.maxDuration = maxDuration;
     }
@@ -33,6 +35,10 @@ public class ContractType {
 
     public int getMaxDuration() {
         return maxDuration;
+    }
+
+    public boolean isTransitory(){
+        return this.transitory;
     }
 
     public boolean checkPeriod(IntervalDate intervalDate) {

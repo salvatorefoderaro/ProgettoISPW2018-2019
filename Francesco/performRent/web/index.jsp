@@ -44,6 +44,7 @@
 
         </div>
         <%
+            session.setAttribute("warningMessage" , null);
         }
         %>
         <form action="index.jsp" name="loginForm" method="post">

@@ -116,7 +116,9 @@
                 <form action="ContractRequests.jsp" method="get" style="display: inline">
                     <button type="submit" class="btn btn-primary">Indietro</button>
                 </form>
-                <button type="button" class="btn btn-primary">Accetta</button>
+                <form action="AcceptRequest.jsp" method="get" style="display: inline">
+                    <button type="submit" class="btn btn-primary">Accetta</button>
+                </form>
                 <form action="DeclineRequest.jsp" method="get" style="display: inline">
                     <button type="submit" class="btn btn-primary">Rifiuta</button>
                 </form>
