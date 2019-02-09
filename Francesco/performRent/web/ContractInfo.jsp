@@ -9,6 +9,7 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractRequestInfoBean" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ServiceBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractInfoBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
 
@@ -19,11 +20,11 @@
         return;
     }
     PropertyBean propertyBean;
-    ContractRequestInfoBean contractRequestInfoBean;
+    ContractInfoBean contractInfoBean;
     try {
 
-        propertyBean = sessionBean.getControl().getPropertyInfoRequest();
-        contractRequestInfoBean = sessionBean.getControl().getRequestInfo();
+        propertyBean = sessionBean.getControl().getPropertyInfoContract();
+        contractInfoBean = sessionBean.getControl().getContractInfo();
     } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
         session.setAttribute("warningMessage", e.toString());
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
@@ -66,80 +67,70 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <h2 class="font-weight-bold">Informazioni richiesta</h2>
+            <h2 class="font-weight-bold">Informazioni contratto</h2>
         </div>
         <div class="row justify-content-center">
             <div class="col-md" >
 
-                <p class="text-left"><%="Tipologia contratto: " + contractRequestInfoBean.getContractName()%></p>
-                <p class="text-left"><%= "Data di inzio: " + contractRequestInfoBean.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></p>
-                <p class="text-left"> <%= "Data di conclusione: " + contractRequestInfoBean.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></p>
-                <p class="text-left"> <%="Prezzo: " + contractRequestInfoBean.getTotal() + " €"%></p>
-                <p class="text-left"><%="Deposito cauzionale: " + contractRequestInfoBean.getDeposit() + " €"%></p>
-
-            <%
-                if (contractRequestInfoBean.getServices().size() == 0) {
-                    %>
-            <p class="text-left"><%="Servizi: nessun servizio"%></p>
+                <p class="text-left"><%="Tipologia contratto: " + contractInfoBean.getContractName()%></p>
+                <p class="text-left"><%= "Data di creazione: " + contractInfoBean.getCreationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></p>
+                <p class="text-left">Data di stipulazione:
                     <%
-                } else {
-            %>
+                    if (contractInfoBean.getStipulationDate() != null) {
+                    %>
+                    <%=contractInfoBean.getStipulationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%>
 
-            <p class="text-left"><%="Servizi: "%></p>
-
-            <%
-                    for (ServiceBean serviceBean : contractRequestInfoBean.getServices()) {
-                        %>
-            <ul class="text-left"><%="-" + serviceBean.getName() + ": " + serviceBean.getPrice() + " €"%></ul>
-                        <%
+                    <%
                     }
-                }
-            %>
+                    %>
+                </p>
+                <p class="text-left"><%= "Data di inzio: " + contractInfoBean.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></p>
+                <p class="text-left"> <%= "Data di conclusione: " + contractInfoBean.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></p>
+                <p class="text-left"> <%="Prezzo: " + contractInfoBean.getTotal() + " €"%></p>
+                <p class="text-left"><%="Deposito cauzionale: " + contractInfoBean.getDeposit() + " €"%></p>
+
+                <%
+                    if (contractInfoBean.getServices().size() == 0) {
+                %>
+                <p class="text-left"><%="Servizi: nessun servizio"%></p>
+                <%
+                } else {
+                %>
+
+                <p class="text-left"><%="Servizi: "%></p>
+
+                <%
+                    for (ServiceBean serviceBean : contractInfoBean.getServices()) {
+                %>
+                <ul class="text-left"><%="-" + serviceBean.getName() + ": " + serviceBean.getPrice() + " €"%></ul>
+                <%
+                        }
+                    }
+                %>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <h2 class="font-weight-bold">Informazioni locatario</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md" >
+
+                <p class="text-left"><%="Nickname: " + contractInfoBean.getNickname()%></p>
+                <p class="text-left"><%= "Nome: " + contractInfoBean.getName()%></p>
+                <p class="text-left"><%= "Cognome: " + contractInfoBean.getSurname()%></p>
+                <p class="text-left"><%= "Codice Fiscale: " + contractInfoBean.getCF()%></p>
+
             </div>
         </div>
         <div class="row align-content-center">
-        <%
-            switch(contractRequestInfoBean.getState()) {
-                case INSERTED:
-                    System.out.println("Prova");
-        %>
             <div class="col-sm">
-                <form action="ContractRequests.jsp" method="get" style="display: inline">
+                <form action="Contracts.jsp" method="get" style="display: inline">
                     <button type="submit" class="btn btn-primary">Indietro</button>
                 </form>
-                <form action="AcceptRequest.jsp" method="get" style="display: inline">
-                    <button type="submit" class="btn btn-primary">Accetta</button>
-                </form>
-                <form action="DeclineRequest.jsp" method="get" style="display: inline">
-                    <button type="submit" class="btn btn-primary">Rifiuta</button>
+                <form action="ContractText.jsp" method="get" style="display: inline">
+                    <button type="submit" class="btn btn-primary">Visualizza Contratto</button>
                 </form>
             </div>
-
-        <%
-                    break;
-                case REFUSUED:
-        %>
-                    <div class="col-md align-content-center">
-                        <p class="text-center font-weight-bold">Motivo del rifiuto</p>
-                        <p class="text-justify"><%=contractRequestInfoBean.getDeclineMotivation()%></p>
-                        <form action="ContractRequests.jsp" method="get">
-                            <button type="submit" class="btn btn-primary">Indietro</button>
-                        </form>
-                    </div>
-        <%
-                    break;
-                case CANCELED:
-                case APPROVED:
-        %>
-            <div class="col-md align-content-center">
-                <form action="ContractRequests.jsp" method="get">
-                    <button type="submit" class="btn btn-primary">Indietro</button>
-                </form>
-            </div>
-        <%
-                break;
-            }
-        %>
         </div>
     </div>
 </center>

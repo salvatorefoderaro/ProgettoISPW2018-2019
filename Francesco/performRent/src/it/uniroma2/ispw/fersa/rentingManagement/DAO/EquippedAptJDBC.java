@@ -28,6 +28,10 @@ public class EquippedAptJDBC implements EquippedAptDAO{
         return this.getEquippedApt("Select AptToRent.id, AptToRent.renterNickname, address FROM AptToRent INNER JOIN ContractRequest ON AptToRent.id = ContractRequest.aptId WHERE ContractRequest.id = " + contractRequestId.getId());
     }
 
+    public EquippedApt getEquippedAptByContractId(ContractId contractId) throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException{
+        return this.getEquippedApt("Select AptToRent.id, AptToRent.renterNickname, address FROM AptToRent INNER JOIN Contract ON AptToRent.id = Contract.aptId WHERE Contract.contractId = " + contractId.getContractId());
+    }
+
 
     @Override
     public EquippedApt getEquippedAptById(int aptId) throws ClassNotFoundException, SQLException, ConfigException, ConfigFileException {

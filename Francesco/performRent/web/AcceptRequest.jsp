@@ -4,13 +4,7 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.userProfileAndServices.NicknameNotFoundException" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %><%--
-  Created by IntelliJ IDEA.
-  User: francesco
-  Date: 06/02/19
-  Time: 9.48
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
 
@@ -40,7 +34,7 @@
 
         try {
             sessionBean.getControl().createContract();
-            contractTextBean = sessionBean.getControl().getContract();
+            contractTextBean = sessionBean.getControl().getContractByRequest();
         } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException | NicknameNotFoundException e) {
             session.setAttribute("warningMessage", e.toString());
             response.sendRedirect(response.encodeRedirectURL("index.jsp"));

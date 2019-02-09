@@ -109,7 +109,7 @@ public class ContractTypeJDBC implements ContractTypeDAO{
     }
 
     public ContractType getContractTypeByContractId(ContractId contractId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
-        return getContractType("SELECT ContractType.id, name, description, transitory,minDuration, maxDuration FROM ContractType INNER JOIN Contract ON ContractType.contractId = Contract.contractTypeId WHERE Contract.contractId = " + contractId.getContractId());
+        return getContractType("SELECT ContractType.id, name, description, transitory,minDuration, maxDuration FROM ContractType INNER JOIN Contract ON ContractType.id = Contract.contractTypeId WHERE Contract.contractId = " + contractId.getContractId());
     }
 
     @Override

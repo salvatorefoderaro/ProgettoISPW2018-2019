@@ -36,12 +36,28 @@ public abstract class RentalHandlerSession  {
         this.contractRequest = contractsAndRequestRetriver.retriveContractRequest();
     }
 
-    public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
+    public void selectContract(ContractId contractId) throws SQLException, ClassNotFoundException, ConfigException,
+            ConfigFileException, ContractPeriodException {
+        ContractsAndRequestRetriver contractsAndRequestRetriver =
+                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(contractId)));
+        this.contract = contractsAndRequestRetriver.retriveContract();
+    }
+
+    public PropertyBean getPropertyInfoRequest()  throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, IOException {
         EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
         Rentable rentable = RentableJDBC.getInstance().getRentableByContractRequestId(
                 this.contractRequest.getContractRequestId());
+        return new PropertyBean(apt.getAddress(), rentable.getName(), rentable.getImage(), rentable.getType(),
+                rentable.getDescription());
+    }
+
+    public PropertyBean getPropertyInfoContract()  throws SQLException, ClassNotFoundException, ConfigException,
+            ConfigFileException, IOException {
+        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
+
+        Rentable rentable = RentableJDBC.getInstance().getRentableByContractId(this.contract.getContractId());
         return new PropertyBean(apt.getAddress(), rentable.getName(), rentable.getImage(), rentable.getType(),
                 rentable.getDescription());
     }
@@ -54,15 +70,15 @@ public abstract class RentalHandlerSession  {
         services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
                 service.getDescriprion(), service.getPrice())));
 
-        System.out.println("Valore" + this.contractRequest.getState());
-
         return new ContractRequestInfoBean(this.contractRequest.getContractName(),
                 this.contractRequest.getStartDate(), this.contractRequest.getEndDate(),
                 this.contractRequest.getRentablePrice(),
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal(), this.contractRequest.getState(), this.contractRequest.getDeclineMotivation());
     }
 
-    public ContractTextBean getContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException{
+
+
+    public ContractTextBean getContractByRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException{
         EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
         List<ServiceBean> serviceBeans = new ArrayList<>();
@@ -79,5 +95,21 @@ public abstract class RentalHandlerSession  {
                 this.contract.getNumMonths(), this.contract.getNetPrice(), this.contract.getDeposit(), serviceBeans);
     }
 
+    public ContractTextBean getContractByContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException{
+        EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
+
+        List<ServiceBean> serviceBeans = new ArrayList<>();
+
+        this.contract.getServices().forEach(service -> serviceBeans.add(new ServiceBean(service.getId(),
+                service.getName(), service.getDescriprion(), service.getPrice())));
+
+        return new ContractTextBean(this.contract.getContractTypeName(), this.contract.isTransitory(),
+                equippedApt.getAddress(), this.contract.getStartDate(), this.contract.getEndDate(),
+                this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(),
+                this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(),
+                this.contract.getTenantAddress(), this.contract.getRenterName(),
+                this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(),
+                this.contract.getNumMonths(), this.contract.getNetPrice(), this.contract.getDeposit(), serviceBeans);
+    }
 
 }
