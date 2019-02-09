@@ -5,6 +5,8 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionContract" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionContractBean"></jsp:useBean>
+
 
 <%
     ContractTextBean contractTextBean;
@@ -12,10 +14,14 @@
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
+    } else if (sessionContract.getRenterContractHandlerSession() == null | !sessionContract.getRenterContractHandlerSession().isContractSelected()){
+%>
+    <jsp:forward page="Contracts.jsp"></jsp:forward>
+<%
     } else {
 
         try {
-            contractTextBean = sessionBean.getControl().getContractByContract();
+            contractTextBean = sessionContract.getRenterContractHandlerSession().getContract();
         } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException e) {
             session.setAttribute("warningMessage", e.toString());
             response.sendRedirect(response.encodeRedirectURL("index.jsp"));
@@ -90,7 +96,7 @@
         dagli usi locali e dagli Accordi Territoriali.</p>
     <center>
         <form class="align-content-center" action="ContractInfo.jsp" name="sign" method="get">
-            <button type="submit" id="signature" name="signature" class="btn btn-primary btn-lg align-content-center">Indietro</button>
+            <button type="submit" id="undo" name="undo" class="btn btn-primary btn-lg align-content-center">Indietro</button>
         </form>
     </center>
 </div>

@@ -4,12 +4,13 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId" %>
-<%@ page import="it.uniroma2.ispw.fersa.control.RentalHandlerRenterSession" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %>
+<%@ page import="it.uniroma2.ispw.fersa.control.RenterRequestHandlerSession" %>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionRequest" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionRequestBean"></jsp:useBean>
 <%
     if (!sessionBean.isLogged()) {
         session.setAttribute("warningMessage", "Non sei loggato");
@@ -17,7 +18,7 @@
         return;
     } else if (request.getParameter("seeRequestDetails") != null) {
         try {
-            sessionBean.getControl().selectRequest(new ContractRequestId(Integer.parseInt(request.getParameter("requestId"))));
+            sessionRequest.getRenterRequestHandlerSession().selectRequest(new ContractRequestId(Integer.parseInt(request.getParameter("requestId"))));
         %>
         <jsp:forward page="ContractRequestInfo.jsp"></jsp:forward>
         <%
@@ -27,7 +28,8 @@
             return;
         }
     } else {
-        sessionBean.setControl(new RentalHandlerRenterSession(sessionBean.getUsername()));
+        sessionRequest.setRenterNickname(sessionBean.getUsername());
+        sessionRequest.setRenterRequestHandlerSession(new RenterRequestHandlerSession(sessionBean.getUsername()));
     }
         %>
 <html>
@@ -48,6 +50,7 @@
 
     </div>
     <%
+            session.setAttribute("warningMessage", null);
         }
     %>
     <table class="table">
@@ -66,7 +69,7 @@
         <tbody>
         <%
             try {
-                for (RequestLabelBean requestLabelBean : sessionBean.getControl().getAllContractRequest()) {
+                for (RequestLabelBean requestLabelBean : sessionRequest.getRenterRequestHandlerSession().getAllContractRequest()) {
         %>
         <tr align="center">
             <th align="center" scope="row"><%= requestLabelBean.getContractRequestId()%></th>
@@ -85,12 +88,15 @@
                 }
             } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
                 session.setAttribute("warningMessage", e.toString());
-                response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+                response.sendRedirect(response.encodeRedirectURL("RenterPage.jsp"));
                 return;
             }
         %>
         </tbody>
     </table>
+    <form action="RenterPage.jsp" method="get" style="display: inline">
+        <button type="submit" class="btn btn-primary">Indietro</button>
+    </form>
 </center>
 </body>
 </html>

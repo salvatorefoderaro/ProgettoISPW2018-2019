@@ -1,41 +1,33 @@
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %>
-<%@ page import="it.uniroma2.ispw.fersa.control.RentalHandlerRenterSession" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.RequestLabelBean" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractLabelBean" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId" %><%--
-  Created by IntelliJ IDEA.
-  User: francesco
-  Date: 09/02/19
-  Time: 11.01
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId" %>
+<%@ page import="it.uniroma2.ispw.fersa.control.RenterContractHandlerSession" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionContract" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionContractBean"></jsp:useBean>
     <%
     if (!sessionBean.isLogged()) {
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
-    } else if (request.getParameter("seeContractDetails") != null) { //TODO da modificare
+    } else if (request.getParameter("seeContractDetails") != null) {
         try {
-            sessionBean.getControl().selectContract(new ContractId(Integer.parseInt(request.getParameter("contractId"))));
+            sessionContract.getRenterContractHandlerSession().selectContract(new ContractId(Integer.parseInt(request.getParameter("contractId"))));
         %>
     <jsp:forward page="ContractInfo.jsp"></jsp:forward>
-    <%
-        } catch (ClassNotFoundException | SQLException | ConfigFileException | ConfigException | ContractPeriodException e) {
+        <%
+        } catch (ClassNotFoundException | SQLException | ConfigFileException | ConfigException e) {
             session.setAttribute("warningMessage", e.toString());
             response.sendRedirect(response.encodeRedirectURL("Contracts.jsp"));
             return;
         }
     } else {
-        sessionBean.setControl(new RentalHandlerRenterSession(sessionBean.getUsername()));
+        sessionContract.setRenterContractHandlerSession(new RenterContractHandlerSession(sessionBean.getUsername()));
     }
         %>
 <html>
@@ -56,6 +48,7 @@
 
     </div>
     <%
+            session.setAttribute("warningMessage", null);
         }
     %>
     <table class="table">
@@ -75,7 +68,7 @@
         <tbody>
         <%
             try {
-                for (ContractLabelBean contractLabelBean : sessionBean.getControl().getAllContracts()) {
+                for (ContractLabelBean contractLabelBean : sessionContract.getRenterContractHandlerSession().getAllContracts()) {
         %>
         <tr align="center">
             <th align="center" scope="row"><%= contractLabelBean.getContractId()%></th>
@@ -112,6 +105,9 @@
         %>
         </tbody>
     </table>
+    <form action="RenterPage.jsp" method="get" style="display: inline">
+        <button type="submit" class="btn btn-primary">Indietro</button>
+    </form>
 </center>
 </body>
 </html>

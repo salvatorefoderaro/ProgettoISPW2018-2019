@@ -7,23 +7,28 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionRequest" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionRequestBean"></jsp:useBean>
+
 
 <%
-    ContractTextBean contractTextBean;
+    ContractTextBean contractTextBean = null;
     if (!sessionBean.isLogged()) {
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
+    } else if (sessionRequest.getRenterRequestHandlerSession() == null | !sessionRequest.getRenterRequestHandlerSession().isRequestSelected()) {
+%>
+<jsp:forward page="ContractRequests.jsp"></jsp:forward>
+<%
     } else if(request.getParameter("signature") != null) {
 
-        System.out.println("Starting signature");
 
         try {
-            sessionBean.getControl().signContract();
+            sessionRequest.getRenterRequestHandlerSession().signContract();
 
         } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException | ContractPeriodException e) {
             session.setAttribute("warningMessage", e.toString());
-            response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+            response.sendRedirect(response.encodeRedirectURL("RenterPage.jsp"));
             return;
         }
 
@@ -33,8 +38,8 @@
     } else {
 
         try {
-            sessionBean.getControl().createContract();
-            contractTextBean = sessionBean.getControl().getContractByRequest();
+            sessionRequest.getRenterRequestHandlerSession().createContract();
+            contractTextBean = sessionRequest.getRenterRequestHandlerSession().getContract();
         } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException | NicknameNotFoundException e) {
             session.setAttribute("warningMessage", e.toString());
             response.sendRedirect(response.encodeRedirectURL("index.jsp"));
@@ -52,6 +57,7 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+<center>
     <div class="container">
         <h2 class="font-weight-bold text-center"><%=contractTextBean.getContracTypeName()%></h2>
         <p class="text-justify">Il/la Sig./Sig.ra <%=contractTextBean.getRenterSurname() + " " +
@@ -107,11 +113,17 @@
         <p class="text-justify">Per quanto non previsto dal presente contratto le parti rinviano a quanto disposto in
             materia dal Codice Civile, dalle Leggi n. 392/78 e n. 431/98 o ccomunque dalle normi vigenti,
         dagli usi locali e dagli Accordi Territoriali.</p>
-        <center>
-        <form class="align-content-center" action="AcceptRequest.jsp" name="sign" method="get">
-            <button type="submit" id="signature" name="signature" class="btn btn-primary btn-lg align-content-center">Firma</button>
-        </form>
-        </center>
+        <div class="row align-content-center">
+            <div class="col-sm">
+                <form action="RenterPage.jsp" method="get" style="display: inline">
+                    <button type="submit" class="btn btn-primary">Indietro</button>
+                </form>
+                <form action="AcceptRequest.jsp" name="sign" method="get" style="display: inline">
+                    <button type="submit" id="signature" name="signature" class="btn btn-primary">Firma</button>
+                </form>
+            </div>
+        </div>
     </div>
+</center>
 </body>
 </html>

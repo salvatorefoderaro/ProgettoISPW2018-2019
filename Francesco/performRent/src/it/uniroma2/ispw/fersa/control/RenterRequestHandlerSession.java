@@ -1,16 +1,14 @@
 package it.uniroma2.ispw.fersa.control;
 
 import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractRequestInfoBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTextBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.RequestLabelBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ServiceBean;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 import it.uniroma2.ispw.fersa.userProfileAndServices.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +83,16 @@ public class RenterRequestHandlerSession {
                 this.contract.getNumMonths(), this.contract.getNetPrice(), this.contract.getDeposit(), serviceBeans);
     }
 
+    public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
+            ConfigFileException, IOException {
+        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
+
+        Rentable rentable = RentableJDBC.getInstance().getRentableByContractRequestId(
+                this.contractRequest.getContractRequestId());
+        return new PropertyBean(apt.getAddress(), rentable.getName(), rentable.getImage(), rentable.getType(),
+                rentable.getDescription());
+    }
+
     public void createContract() throws NicknameNotFoundException, SQLException, ClassNotFoundException, ConfigException, ConfigFileException{
         UserProfileInterface userProfile = new UserLoaderFAKE();
         UserInfo tenantInfo, renterInfo;
@@ -104,7 +112,16 @@ public class RenterRequestHandlerSession {
                 contractType, this.contractRequest.getServices());
     }
 
+    public void declineRequest(String declineMotivation) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+        ContractRequestJDBC.getInstance().refuseRequest(this.contractRequest.getContractRequestId(), declineMotivation);
+    }
 
+    public boolean isRequestSelected() {
+        return this.contractRequest != null;
+    }
 
-
+    public void signContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
+        ContractBean contractBean = new ContractBean(this.contractRequest.getContractRequestId(), this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(), this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(), this.contract.getTenantAddress(), this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(), this.contract.getGrossPrice(), this.contract.getNetPrice(), 1);
+        ContractJDBC.getInstance().createContract(contractBean);
+    }
 }

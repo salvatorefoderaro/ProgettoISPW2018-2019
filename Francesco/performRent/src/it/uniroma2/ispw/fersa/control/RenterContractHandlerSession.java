@@ -1,14 +1,8 @@
 package it.uniroma2.ispw.fersa.control;
 
 import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractLabelBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTextBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.PropertyBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ServiceBean;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.Contract;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.EquippedApt;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.Rentable;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 
@@ -74,7 +68,7 @@ public class RenterContractHandlerSession {
 
     }
 
-    public PropertyBean getPropertyInfoRequest()  throws SQLException, ClassNotFoundException, ConfigException,
+    public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, IOException {
         EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
 
@@ -84,20 +78,22 @@ public class RenterContractHandlerSession {
                 rentable.getDescription());
     }
 
-    public ContractTextBean getContractText() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException{
-        EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
+    public ContractInfoBean getContractInfo() {
+        List<Service> services = this.contract.getServices();
 
         List<ServiceBean> serviceBeans = new ArrayList<>();
 
-        this.contract.getServices().forEach(service -> serviceBeans.add(new ServiceBean(service.getId(),
-                service.getName(), service.getDescriprion(), service.getPrice())));
+        services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
+                service.getDescriprion(), service.getPrice())));
 
-        return new ContractTextBean(this.contract.getContractTypeName(), this.contract.isTransitory(),
-                equippedApt.getAddress(), this.contract.getStartDate(), this.contract.getEndDate(),
+        return new ContractInfoBean(this.contract.getContractTypeName(), this.contract.getTenantNickname(),
                 this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(),
-                this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(),
-                this.contract.getTenantAddress(), this.contract.getRenterName(),
-                this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(),
-                this.contract.getNumMonths(), this.contract.getNetPrice(), this.contract.getDeposit(), serviceBeans);
+                this.contract.getCreationDate(), this.contract.getStipulationDate(), this.contract.getStartDate(),
+                this.contract.getEndDate(), this.contract.getPropertyPrice(), this.contract.getDeposit(), serviceBeans,
+                this.contract.getGrossPrice(), this.contract.getState());
+    }
+
+    public boolean isContractSelected() {
+        return this.contract != null;
     }
 }
