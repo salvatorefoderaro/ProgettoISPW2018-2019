@@ -53,14 +53,7 @@ public abstract class RentalHandlerSession  {
                 rentable.getDescription());
     }
 
-    public PropertyBean getPropertyInfoContract()  throws SQLException, ClassNotFoundException, ConfigException,
-            ConfigFileException, IOException {
-        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
 
-        Rentable rentable = RentableJDBC.getInstance().getRentableByContractId(this.contract.getContractId());
-        return new PropertyBean(apt.getAddress(), rentable.getName(), rentable.getImage(), rentable.getType(),
-                rentable.getDescription());
-    }
 
     public ContractRequestInfoBean getRequestInfo() {
         List<Service> services = this.contractRequest.getServices();
