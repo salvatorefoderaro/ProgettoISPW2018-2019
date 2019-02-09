@@ -2,29 +2,32 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
-<%@ page import="java.awt.*" %>
 <%@ page import="javax.imageio.ImageIO" %>
 <%@ page import="java.awt.image.BufferedImage" %>
 <%@ page import="java.io.ByteArrayOutputStream" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractRequestInfoBean" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ServiceBean" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractInfoBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionContract" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionContractBean"></jsp:useBean>
 
 <%
     if (!sessionBean.isLogged()) {
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
+    } else if (sessionContract.getRenterContractHandlerSession() == null | !sessionContract.getRenterContractHandlerSession().isContractSelected()){
+%>
+    <jsp:forward page="Contracts.jsp"></jsp:forward>
+<%
     }
     PropertyBean propertyBean;
     ContractInfoBean contractInfoBean;
     try {
 
-        propertyBean = sessionBean.getControl().getPropertyInfoContract();
-        contractInfoBean = sessionBean.getControl().getContractInfo();
+        propertyBean = sessionContract.getRenterContractHandlerSession().getPropertyInfo();
+        contractInfoBean = sessionContract.getRenterContractHandlerSession().getContractInfo();
     } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
         session.setAttribute("warningMessage", e.toString());
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));

@@ -1,27 +1,38 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %><%--
-  Created by IntelliJ IDEA.
-  User: francesco
-  Date: 05/02/19
-  Time: 22.27
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
+
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionRequest" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionRequestBean"></jsp:useBean>
+
+
+
 
 <%
-    if(request.getParameter("decline") != null) {
-        if (request.getParameter("declineMotivation") == null) {
+    if (!sessionBean.isLogged()) {
+        session.setAttribute("warningMessage", "Non sei loggato");
+        response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+        return;
+    } else if (sessionRequest.getRenterRequestHandlerSession() == null | !sessionRequest.getRenterRequestHandlerSession().isRequestSelected()) {
 %>
-        <div class="alert alert-primary" role="alert">
+    <jsp:forward page="ContractRequests.jsp"></jsp:forward>
+<%
+    }else if(request.getParameter("decline") != null) {
+        if (request.getParameter("declineMotivation").equals("")) {
+%>
+<center>
+        <div class="alert alert-primary align-content-center" role="alert">
         Inserire una motivazione per il rifiuto!
         </div>
+</center>
 <%
         } else {
             try {
-                sessionBean.getControl().declineRequest(request.getParameter("declineMotivation"));
+                sessionRequest.getRenterRequestHandlerSession().declineRequest(request.getParameter("declineMotivation"));
             } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException e) {
                 session.setAttribute("warningMessage", e.toString());
                 response.sendRedirect(response.encodeRedirectURL("ContractRequests.jsp"));
@@ -29,8 +40,6 @@
 
             session.setAttribute("warningMessage", "Operazione completata con successo");
             response.sendRedirect(response.encodeRedirectURL("ContractRequests.jsp"));
-
-
         }
     }
 %>
@@ -43,6 +52,7 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+<center>
     <div class="container">
         <h2 class="font-weight-bold">Inserire la motivazione del rifiuto</h2>
         <form class="form-group" action="DeclineRequest.jsp" method="post">
@@ -52,7 +62,7 @@
         <form class="form-group" action="ContractRequests.jsp" method="get">
             <button type="submit" id="undo" name="undo" class="btn btn-primary">Indietro</button>
         </form>
-
     </div>
+</center>
 </body>
 </html>

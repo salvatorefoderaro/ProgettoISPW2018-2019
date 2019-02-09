@@ -2,7 +2,6 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
-<%@ page import="java.awt.*" %>
 <%@ page import="javax.imageio.ImageIO" %>
 <%@ page import="java.awt.image.BufferedImage" %>
 <%@ page import="java.io.ByteArrayOutputStream" %>
@@ -11,22 +10,28 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ServiceBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
+<jsp:useBean id="sessionRequest" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionRequestBean"></jsp:useBean>
+
 
 <%
     if (!sessionBean.isLogged()) {
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
+    } else if (sessionRequest.getRenterRequestHandlerSession() == null) {
+%>
+    <jsp:forward page="ContractRequests.jsp"></jsp:forward>
+<%
     }
     PropertyBean propertyBean;
     ContractRequestInfoBean contractRequestInfoBean;
     try {
 
-        propertyBean = sessionBean.getControl().getPropertyInfoRequest();
-        contractRequestInfoBean = sessionBean.getControl().getRequestInfo();
+        propertyBean = sessionRequest.getRenterRequestHandlerSession().getPropertyInfo();
+        contractRequestInfoBean = sessionRequest.getRenterRequestHandlerSession().getRequestInfo();
     } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
         session.setAttribute("warningMessage", e.toString());
-        response.sendRedirect(response.encodeRedirectURL("index.jsp"));
+        response.sendRedirect(response.encodeRedirectURL("RenterPage.jsp"));
         return;
     }
 %>

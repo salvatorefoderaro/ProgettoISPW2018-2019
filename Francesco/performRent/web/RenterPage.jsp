@@ -28,7 +28,7 @@
                 response.sendRedirect(response.encodeRedirectURL("index.jsp"));
             }  else {
         %>
-        <%="Bentornato " + sessionBean.getUsername()%>
+        <h2><%="Bentornato " + sessionBean.getUsername()%></h2>
         <%
             }
         %>
