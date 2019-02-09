@@ -1,7 +1,6 @@
 package it.uniroma2.ispw.fersa.control;
 
-import it.uniroma2.ispw.fersa.rentingManagement.DAO.EquippedAptJDBC;
-import it.uniroma2.ispw.fersa.rentingManagement.DAO.RentableJDBC;
+import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
@@ -32,9 +31,9 @@ public abstract class RentalHandlerSession  {
 
     public void selectRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, ContractPeriodException {
-        ContractRequestRetriver contractRequestRetriver =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractRequestSimpleRetriver(requestId)));
-        this.contractRequest = contractRequestRetriver.retriveContractRequest();
+        ContractsAndRequestRetriver contractsAndRequestRetriver =
+                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
+        this.contractRequest = contractsAndRequestRetriver.retriveContractRequest();
     }
 
     public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,

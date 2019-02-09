@@ -103,7 +103,7 @@ public class PerformContractRequestSession {
 
 
         for (ServiceBean serviceBean : serviceBeans) {
-            services.add(ServiceJDBC.getInstance().getServiceById(serviceBean.getServiceId()));
+            services.add(ServiceJDBC.getInstance().getServiceByContractRequestId(serviceBean.getServiceId()));
         }
 
         this.contractRequest.setServices(services);

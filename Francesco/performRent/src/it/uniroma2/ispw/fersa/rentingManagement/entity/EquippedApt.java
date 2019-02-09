@@ -1,12 +1,12 @@
 package it.uniroma2.ispw.fersa.rentingManagement.entity;
 
 public class EquippedApt  {
-    private int aptId;
+    private ApartmentId aptId;
     private String renterNickname;
     private String address;
 
 
-    public EquippedApt(int aptId, String renterNickname, String address) {
+    public EquippedApt(ApartmentId aptId, String renterNickname, String address) {
         this.aptId = aptId;
         this.renterNickname = renterNickname;
         this.address = address;
@@ -22,7 +22,7 @@ public class EquippedApt  {
         return renterNickname;
     }
 
-    public int getAptId(){
+    public ApartmentId getAptId(){
         return aptId;
     }
 }

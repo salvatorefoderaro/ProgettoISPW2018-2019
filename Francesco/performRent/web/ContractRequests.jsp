@@ -5,6 +5,7 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId" %>
 <%@ page import="it.uniroma2.ispw.fersa.control.RentalHandlerRenterSession" %>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,13 +15,18 @@
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
-    } else if (request.getParameter("seeDetails") != null) {
-        sessionBean.getControl().selectRequest(new ContractRequestId(Integer.parseInt(request.getParameter("requestId"))));
+    } else if (request.getParameter("seeRequestDetails") != null) {
+        try {
+            sessionBean.getControl().selectRequest(new ContractRequestId(Integer.parseInt(request.getParameter("requestId"))));
         %>
         <jsp:forward page="ContractRequestInfo.jsp"></jsp:forward>
         <%
-    }
-    else {
+        } catch (ClassNotFoundException | SQLException | ConfigFileException | ConfigException | ContractPeriodException e) {
+            session.setAttribute("warningMessage", e.toString());
+            response.sendRedirect(response.encodeRedirectURL("ContractRequests.jsp"));
+            return;
+        }
+    } else {
         sessionBean.setControl(new RentalHandlerRenterSession(sessionBean.getUsername()));
     }
         %>
@@ -32,17 +38,18 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<%
-    if (session.getAttribute("warningMessage") != null) { %>
-<div class="alert alert-primary" role="alert">
 
-    <%= session.getAttribute("warningMessage")%>
-
-</div>
-<%
-    }
-%>
 <center>
+    <%
+    if (session.getAttribute("warningMessage") != null) { %>
+    <div class="alert alert-primary" role="alert">
+
+        <%= session.getAttribute("warningMessage")%>
+
+    </div>
+    <%
+        }
+    %>
     <table class="table">
         <thead>
         <tr align="center">
@@ -71,7 +78,7 @@
             <td align="center"><%= requestLabelBean.getState().getRenterState()%></td>
             <td align="center"><form action="ContractRequests.jsp" name="seeRequestInfo" method="post">
                 <input name="requestId" id="requestId" type="text" value="<%=requestLabelBean.getContractRequestId()%>" hidden>
-                <button type="submit" name="seeDetails" id="seeDetails" class="btn btn-primary">Visualizza</button>
+                <button type="submit" name="seeRequestDetails" id="seeRequestDetails" class="btn btn-primary">Visualizza</button>
             </form></td>
         </tr>
         <%

@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface ServiceDAO {
 
-    public Service getServiceById(int serviceId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException;
+    public Service getServiceByContractRequestId(int serviceId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException;
 
     public List<Service> getServicesByAptId(int aptId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException;
 
-    public List<Service> getServiceByRequestId(ContractRequestId requestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException;
+    public List<Service> getServiceByContractRequestId(ContractRequestId requestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException;
 }

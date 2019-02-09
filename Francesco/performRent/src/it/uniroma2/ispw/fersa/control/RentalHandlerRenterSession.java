@@ -6,10 +6,8 @@ import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.PeriodException;
 import it.uniroma2.ispw.fersa.userProfileAndServices.*;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +28,9 @@ public class RentalHandlerRenterSession extends RentalHandlerSession{
                 ContractRequestJDBC.getInstance().findContractRequestIdsByRenterNickname(this.nickname);
         for (ContractRequestId requestId : contractRequestIds) {
             try {
-                ContractRequestRetriver contractRequestRetriver =
-                        new ContractTypeDecorator(new ServiceDecorator(new ContractRequestSimpleRetriver(requestId)));
-                ContractRequest contractRequest = contractRequestRetriver.retriveContractRequest();
+                ContractsAndRequestRetriver contractsAndRequestRetriver =
+                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
+                ContractRequest contractRequest = contractsAndRequestRetriver.retriveContractRequest();
                 requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(),
                         contractRequest.getTenantNickname(), contractRequest.getCreationDate(),
                         contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(),
@@ -61,7 +59,7 @@ public class RentalHandlerRenterSession extends RentalHandlerSession{
 
 
 
-        this.contract = new Contract(this.contractRequest.getRentableId(), tenantInfo.getNickname(),
+        this.contract = new Contract(this.contractRequest.getRentableId(), this.nickname,tenantInfo.getNickname(),
                 this.contractRequest.getStartDate(), this.contractRequest.getEndDate(), tenantInfo.getName(),
                 tenantInfo.getSurname(), tenantInfo.getCF(), tenantInfo.getDateOfBirth(), tenantInfo.getCityOfBirth(),
                 tenantInfo.getAddress(), renterInfo.getName(), renterInfo.getSurname(), renterInfo.getCF(),
@@ -71,7 +69,7 @@ public class RentalHandlerRenterSession extends RentalHandlerSession{
 
 
     public void signContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
-        ContractBean contractBean = new ContractBean(this.contractRequest.getContractRequestId(), this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(), this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(), this.contract.getTenantAddress(), this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress());
+        ContractBean contractBean = new ContractBean(this.contractRequest.getContractRequestId(), this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(), this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(), this.contract.getTenantAddress(), this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(), this.contract.getGrossPrice(), this.contract.getNetPrice(), 1);
 
         System.out.println("Saving contract");
 
@@ -79,7 +77,27 @@ public class RentalHandlerRenterSession extends RentalHandlerSession{
     }
 
     @Override
-    public List<ContractLabelBean> getAllContracts() {
-        return null;
+    public List<ContractLabelBean> getAllContracts() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+        List<ContractLabelBean> contractLabelBeans = new ArrayList<>();
+        List<ContractId> contractIds;
+        try {
+            contractIds = ContractJDBC.getInstance().getAllContractsIdByRenterNickname(this.nickname);
+        } catch (SQLException | ConfigException | ConfigFileException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        for (ContractId contractId : contractIds) {
+            ContractsAndRequestRetriver contractsAndRequestRetriver = new ServiceDecorator(new ContractsAndRequestSimpleRetriver(contractId));
+
+            Contract contract = contractsAndRequestRetriver.retriveContract();
+
+            contractLabelBeans.add(new ContractLabelBean(contract.getContractId().getContractId(),
+                    contract.getTenantNickname(), contract.getCreationDate(), contract.getStipulationDate(),
+                    contract.getStartDate(), contract.getEndDate(), contract.getGrossPrice(), contract.getState()));
+
+        }
+
+        return contractLabelBeans;
     }
 }

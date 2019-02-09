@@ -1,9 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
-import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.EquippedApt;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.Rentable;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.RentableTypeEnum;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 
@@ -52,7 +49,7 @@ public class EquippedAptJDBC implements EquippedAptDAO{
 
             if (!rs.first()) return null;
 
-            equippedApt = new EquippedApt(rs.getInt("id"), rs.getString("renterNickname"), rs.getString("address"));
+            equippedApt = new EquippedApt(new ApartmentId(rs.getInt("id")), rs.getString("renterNickname"), rs.getString("address"));
 
             rs.close();
             stmt.close();

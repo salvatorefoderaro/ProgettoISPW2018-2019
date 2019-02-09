@@ -28,9 +28,15 @@ public class ContractBean {
 
     private String renterAddress;
 
+    private int grossPrice;
+
+    private int netPrice;
+
+    private int frequencyOfPayement;
+
     public ContractBean(ContractRequestId contractRequestId, String tenantName, String tenantSurname, String tenantCF,
                         LocalDate tenantDateOfBirth, String tenantCityOfBirth,String tenantAddress, String renterName, String renterSurname,
-                        String renterCF, String renterAddress) {
+                        String renterCF, String renterAddress, int grossPrice, int netPrice, int frequencyOfPayement) {
         this.contractRequestId = contractRequestId;
         this.tenantName = tenantName;
         this.tenantSurname = tenantSurname;
@@ -42,6 +48,9 @@ public class ContractBean {
         this.renterSurname = renterSurname;
         this.renterCF = renterCF;
         this.renterAddress = renterAddress;
+        this.grossPrice = grossPrice;
+        this.netPrice = netPrice;
+        this.frequencyOfPayement = frequencyOfPayement;
     }
 
     public ContractRequestId getContractRequestId() {
@@ -86,5 +95,17 @@ public class ContractBean {
 
     public String getRenterAddress() {
         return renterAddress;
+    }
+
+    public int getGrossPrice() {
+        return grossPrice;
+    }
+
+    public int getNetPrice() {
+        return netPrice;
+    }
+
+    public int getFrequencyOfPayement() {
+        return frequencyOfPayement;
     }
 }

@@ -35,7 +35,7 @@
         <form action="ContractRequests.jsp" name="contractRequests" method="get">
             <button type="submit" id="contractRequests" name="contractRequest" class="btn btn-primary btn-lg">Richieste contratti</button>
         </form>
-        <form action="RenterPage.jsp" name="contracts" method="get">
+        <form action="Contracts.jsp" name="contracts" method="get">
             <button type="submit" id="contracts" name="contracts" class="btn btn-primary btn-lg">Contratti</button>
         </form>
     </center>

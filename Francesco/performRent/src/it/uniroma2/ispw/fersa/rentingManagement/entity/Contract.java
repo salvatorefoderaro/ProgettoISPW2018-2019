@@ -5,9 +5,10 @@ import java.util.List;
 
 public class Contract {
 
-    private int contractId;
+    private ContractId contractId;
     private int rentableId;
     private ContractStateEnum state;
+    private String renterNickname;
     private String tenantNickname;
     private LocalDate creationDate;
     private LocalDate stipulationDate;
@@ -28,12 +29,13 @@ public class Contract {
     private List<Service> services;
 
 
-    public Contract(int rentableId, String tenantNickname, LocalDate startDate, LocalDate endDate,
+    public Contract(int rentableId, String renterNickname,String tenantNickname, LocalDate startDate, LocalDate endDate,
                     String tenantName, String tenantSurname, String tenantCF, LocalDate tenantDateOfBirth,
                     String tenantCityOfBirth, String tenantAddress, String renterName,
                     String renterSurname, String renterCF, String renterAddress, int propertyPrice, int deposit,
                     ContractType contractType, List<Service> services){
         this.rentableId = rentableId;
+        this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
         this.intervalDate = new IntervalDate(startDate, endDate);
         this.tenantName = tenantName;
@@ -50,10 +52,25 @@ public class Contract {
         this.deposit = deposit;
         this.contractType = contractType;
         this.services = services;
+    }
+
+    public Contract(ContractId contractId, int rentableId, ContractStateEnum state, String renterNickname, String tenantNickname, LocalDate creationDate, LocalDate stipulationDate,LocalDate startDate, LocalDate endDate,
+                    String tenantName, String tenantSurname, String tenantCF, LocalDate tenantDateOfBirth,
+                    String tenantCityOfBirth, String tenantAddress, String renterName,
+                    String renterSurname, String renterCF, String renterAddress, int propertyPrice, int deposit,
+                    ContractType contractType, List<Service> services) {
+        this(rentableId, renterNickname, tenantNickname, startDate, endDate, tenantName, tenantSurname, tenantCF, tenantDateOfBirth,
+                tenantCityOfBirth, tenantAddress, renterName, renterSurname, renterCF, renterAddress, propertyPrice, deposit,
+                contractType, services);
+        this.contractId = contractId;
+        this.state = state;
+        this.creationDate = creationDate;
+        this.stipulationDate = stipulationDate;
+
 
     }
 
-    public int getContractId() {
+    public ContractId getContractId() {
         return contractId;
     }
 
@@ -67,6 +84,10 @@ public class Contract {
 
     public String getTenantNickname() {
         return tenantNickname;
+    }
+
+    public String getRenterNickname() {
+        return renterNickname;
     }
 
     public LocalDate getCreationDate() {
@@ -163,6 +184,13 @@ public class Contract {
         }
 
         return total;
+    }
+
+    public void setServices(List<Service> services) {
+        if (this.services == null) this.services = services;
+    }
+    public void setContractType(ContractType contractType) {
+        if (this.contractType == null) this.contractType = contractType;
     }
 
 }

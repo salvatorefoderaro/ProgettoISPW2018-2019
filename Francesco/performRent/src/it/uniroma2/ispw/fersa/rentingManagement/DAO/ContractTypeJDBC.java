@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
+import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractType;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
@@ -105,6 +106,10 @@ public class ContractTypeJDBC implements ContractTypeDAO{
     @Override
     public ContractType getContractTypeByRequestId(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
         return getContractType("SELECT ContractType.id, name, description, transitory,minDuration, maxDuration FROM ContractType INNER JOIN ContractRequest ON ContractType.id = ContractRequest.contractTypeId WHERE ContractRequest.id = " + requestId.getId());
+    }
+
+    public ContractType getContractTypeByContractId(ContractId contractId) throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException {
+        return getContractType("SELECT ContractType.id, name, description, transitory,minDuration, maxDuration FROM ContractType INNER JOIN Contract ON ContractType.contractId = Contract.contractTypeId WHERE Contract.contractId = " + contractId.getContractId());
     }
 
     @Override
