@@ -13,6 +13,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Entity.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
@@ -57,7 +58,7 @@
         });
         });
     </script>
-    <title>Hello, world!</title>
+    <title><%= TitleOfWindows.CREATEPAYMENTCLAIM.getString() %></title>
   </head>
 
   <%

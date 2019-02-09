@@ -9,6 +9,7 @@
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Entity.TypeOfUser" %>
 <%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Entity.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
@@ -34,8 +35,8 @@
     
     <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
-        
-    <title>Hello, world!</title>
+
+      <title><%= TitleOfWindows.SEEPAYMENTCLAIM.getString() %></title>
              
   </head>
   <% Controller parentController = sessionBean.getController();

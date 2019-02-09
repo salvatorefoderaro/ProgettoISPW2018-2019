@@ -13,7 +13,7 @@ public class main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setScene(new Scene(root, 640, 400));
-        primaryStage.setTitle("FERSA - Termina contratto - Pannello utente");
+        primaryStage.setTitle(TitleOfWindows.LOGIN.getString());
         primaryStage.show();
     }
 

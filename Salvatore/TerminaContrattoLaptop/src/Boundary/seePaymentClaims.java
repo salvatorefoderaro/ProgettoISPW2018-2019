@@ -84,7 +84,7 @@ public void initialize(Controller parentController, userSessionBean session){
             element2.setId("text-label");
             
             Button element3 = new Button();
-            element3.setStyle("-fx-font-family: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";-fx-text-fill: white;-fx-font-size: 14px; -fx-padding: 10;-fx-background-color: #6c757d;");
+            element3.setId("aButton");
             element3.setMnemonicParsing(false);
             gridPane.add(element3, 3, i);
             
@@ -214,8 +214,8 @@ public void initialize(Controller parentController, userSessionBean session){
                         element3.setText("Conferma pagamento");
                         element3.setDisable(true);
                     }
-            }}     // Fare qualcosa se non ho risultati
-
+            }
+        }
     }
 
     @FXML
@@ -225,7 +225,7 @@ public void initialize(Controller parentController, userSessionBean session){
         @Override public void run() {
         
         Stage stage = (Stage) userPanelButton.getScene().getWindow();
-        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+        stage.setTitle(TitleOfWindows.SEEPAYMENTCLAIM.getString());
         Stage newStage = new Stage();
         Pane comp = new Pane();
         
@@ -294,6 +294,7 @@ public void initialize(Controller parentController, userSessionBean session){
         Platform.runLater(() -> {
             notificationBean dati = (notificationBean)arg;
             Stage newStage = new Stage();
+            newStage.setTitle(dati.getNotificationsNumber() + " nuove notifiche - Termina contratto - FERSA");
             Pane comp = new Pane();
 
             Label nameField = new Label();
@@ -301,7 +302,7 @@ public void initialize(Controller parentController, userSessionBean session){
             nameField.setLayoutY(42.0);
 
             if(dati.getNotificationsNumber() > 1){
-                nameField.setText("Sono disponibili " + Integer.toString(dati.getNotificationsNumber()) + " nuove notifiche!");
+                nameField.setText("Sono disponibili " + dati.getNotificationsNumber() + " nuove notifiche!");
             } else {
                 nameField.setText("E' disponibile 1 nuova notifica!");
             }
@@ -346,7 +347,7 @@ public void initialize(Controller parentController, userSessionBean session){
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.USERPANEL.getString());
         st.show();
     }
         @FXML
@@ -366,7 +367,7 @@ public void initialize(Controller parentController, userSessionBean session){
 
             Scene scene = new Scene(root, 640, 400);
             st.setScene(scene);
-            st.setTitle("My App");
+            st.setTitle(TitleOfWindows.LOGIN.getString());
             st.show();
     }
 }

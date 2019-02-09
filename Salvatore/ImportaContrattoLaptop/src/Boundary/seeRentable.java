@@ -53,7 +53,6 @@ public class seeRentable {
                 return;
             }
 
-            scrollPane.setStyle("-fx-background-color:transparent;");
             for (int i = 0; i < test.size(); i++) {
 
                 ImageView photo = new ImageView();
@@ -91,7 +90,7 @@ public class seeRentable {
 
                             Scene scene = new Scene(root, 704, 437);
                             st.setScene(scene);
-                            st.setTitle("My App");
+                            st.setTitle(TitleOfWindows.IMPORTCONTRACT.getString());
                             st.show();
                         } catch (IOException ex) {
                             Logger.getLogger(seeRentable.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +107,7 @@ public class seeRentable {
             @Override public void run() {
 
                 Stage stage = (Stage) scrollPane.getScene().getWindow();
-                stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+                stage.setTitle(TitleOfWindows.IMPORTCONTRACT.getString());
                 Stage newStage = new Stage();
                 Pane comp = new Pane();
 
@@ -117,6 +116,7 @@ public class seeRentable {
                 nameField.setLayoutX(128.0);
                 nameField.setLayoutY(21.0);
                 nameField.setText(text);
+                nameField.setId("textLabel");
 
                 Button close = new Button();
                 close.setLayoutX(219.0);
@@ -125,7 +125,7 @@ public class seeRentable {
                 close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
-                stageScene.getStylesheets().add(getClass().getResource("../src/").toExternalForm());
+                stageScene.getStylesheets().add(getClass().getResource("test.css").toExternalForm());
 
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);
@@ -183,7 +183,7 @@ public class seeRentable {
 
         Scene scene = new Scene(root, 704, 437);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();
     }
 }

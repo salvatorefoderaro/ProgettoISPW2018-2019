@@ -6,6 +6,7 @@
 <%@ page import="Bean.userBean" %>
 <%@ page import="Entity.TypeOfMessage" %>
 <%@ page import="Entity.TypeOfContract" %>
+<%@ page import="Entity.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
@@ -163,7 +164,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title><%=TitleOfWindows.IMPORTCONTRACT.getString() %></title>
 
     <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/jquery-1.8.3.min.js'></script>
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>

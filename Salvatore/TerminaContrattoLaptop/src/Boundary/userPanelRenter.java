@@ -52,7 +52,7 @@ private userSessionBean userSession;
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.SEEPAYMENTCLAIM.getString());
         st.show();
     }
     
@@ -69,7 +69,7 @@ private userSessionBean userSession;
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.CREATEPAYMENTCLAIM.getString());
         st.show();
     }
     
@@ -81,11 +81,10 @@ private userSessionBean userSession;
         Parent root = loader.load();
         
         login controllerGraphic = loader.<login>getController();
-        controllerGraphic.initialize();
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();
     }
 
@@ -94,6 +93,7 @@ private userSessionBean userSession;
         Platform.runLater(() -> {
             notificationBean dati = (notificationBean)arg;
             Stage newStage = new Stage();
+            newStage.setTitle(dati.getNotificationsNumber() + " nuove notifiche - Termina contratto - FERSA");
             Pane comp = new Pane();
 
             Label nameField = new Label();
@@ -101,7 +101,7 @@ private userSessionBean userSession;
             nameField.setLayoutY(42.0);
 
             if(dati.getNotificationsNumber() > 1){
-                nameField.setText("Sono disponibili " + Integer.toString(dati.getNotificationsNumber()) + " nuove notifiche!");
+                nameField.setText("Sono disponibili " + dati.getNotificationsNumber() + " nuove notifiche!");
             } else {
                 nameField.setText("E' disponibile 1 nuova notifica!");
             }

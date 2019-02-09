@@ -58,7 +58,6 @@ public class importContract {
                 "Contratto transitorio per studenti"
         );
 
-        bottone.setId("aButton");
         immagine.setImage(SwingFXUtils.toFXImage((BufferedImage) theBean.getImage1(), null));
         descrizione.setText(bean.getDescription());
     }
@@ -173,7 +172,7 @@ public class importContract {
         @Override public void run() {
         
             Stage stage = (Stage) bottone.getScene().getWindow();
-            stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+            stage.setTitle(TitleOfWindows.IMPORTCONTRACT.getString());
             Stage newStage = new Stage();
             Pane comp = new Pane();
 
@@ -246,7 +245,7 @@ public class importContract {
 
         Scene scene = new Scene(root, 704, 437);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();
     }
 

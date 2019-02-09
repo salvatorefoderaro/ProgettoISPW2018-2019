@@ -32,8 +32,8 @@ public class login {
     public void test() throws IOException {
 
         userBean loginBean = new userBean();
-
         loginBean.setNickname(nickname.getText());
+
         if (nickname.getText().isEmpty()){
             popup("Inserire un valore valido per il Nickname!");
             return;
@@ -68,7 +68,7 @@ public class login {
 
         Scene scene = new Scene(root, 704, 437);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle("Visualizza risorse affittabili - Importa contratto - FERSA");
         st.show();
     }
 
@@ -77,7 +77,7 @@ public class login {
             @Override public void run() {
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+                stage.setTitle("Login - Importa contratto - FERSA");
                 Stage newStage = new Stage();
                 Pane comp = new Pane();
 
@@ -86,6 +86,7 @@ public class login {
                 nameField.setLayoutX(128.0);
                 nameField.setLayoutY(21.0);
                 nameField.setText(text);
+                nameField.setId("textLabel");
 
                 Button close = new Button();
                 close.setLayoutX(70.0);

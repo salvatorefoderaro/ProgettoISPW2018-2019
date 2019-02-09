@@ -8,6 +8,7 @@
 <%@ page import="Bean.rentableBean" %>
 <%@ page import="Entity.TypeOfRentable" %>
 <%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Entity.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
@@ -42,6 +43,7 @@ if (request.getParameter("importContract") != null) {
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap-datepicker3.min.css'>
     <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/bootstrap-datepicker.min.js'></script>
+    <title><%=TitleOfWindows.SEERENTABLE.getString() %></title>
 </head>
 <body>
 

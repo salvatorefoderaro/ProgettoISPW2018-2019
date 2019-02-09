@@ -8,6 +8,7 @@
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="Entity.TypeOfMessage" %>
 <%@ page import="Control.loginController" %>
+<%@ page import="Entity.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 
@@ -57,7 +58,7 @@ return; } %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
-    <title>Hello, world!</title>
+    <title><%= TitleOfWindows.LOGIN.getString() %></title>
              
   </head>
   

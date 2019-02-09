@@ -44,7 +44,7 @@
             <TextField fx:id="locatoreIndirizzo" layoutX="538.0" layoutY="249.0" prefHeight="26.0" prefWidth="149.0" promptText="Indirizzo locatore" />
             <TextField fx:id="contractPrezzo" layoutX="29.0" layoutY="293.0" promptText="Prezzo" />
             <TextField fx:id="contractDeposito" layoutX="250.0" layoutY="293.0" promptText="Deposito" />
-            <Button fx:id="bottone" layoutX="296.0" layoutY="331.0" mnemonicParsing="false" onAction="#test" text="Importa contratto" />
+            <Button id="aButton" fx:id="bottone" layoutX="296.0" layoutY="331.0" mnemonicParsing="false" onAction="#test" text="Importa contratto" />
             <ComboBox fx:id="contractType" layoutX="450.0" layoutY="293.0" prefHeight="26.0" prefWidth="237.0" promptText="Tipologia del contratto" />
         </children>
     </AnchorPane>

@@ -42,11 +42,7 @@ public class login {
     @FXML private PasswordField password;
     private Controller controller;
     userSessionBean user;
-    
-    
-    public void initialize(){
-        login.setId("buttonBlu");
-    }
+
 
         @FXML
         public void login(){
@@ -107,7 +103,7 @@ public class login {
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.USERPANEL.getString());
         st.show();        
         
     }
@@ -132,7 +128,7 @@ public class login {
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.USERPANEL.getString());
         st.show(); 
     }
 
@@ -141,7 +137,7 @@ public class login {
             @Override public void run() {
 
                 Stage stage = (Stage) login.getScene().getWindow();
-                stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+                stage.setTitle("FERSA - Termina contratto - Muove notifiche disponibili");
                 Stage newStage = new Stage();
                 Pane comp = new Pane();
 

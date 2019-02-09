@@ -9,6 +9,7 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Entity.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
@@ -66,7 +67,7 @@
     
         <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
-    <title>Hello, world!</title>
+    <title><%= TitleOfWindows.LOGIN.getString() %></title>
              
   </head>
     

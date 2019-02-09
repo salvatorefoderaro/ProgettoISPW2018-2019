@@ -6,6 +6,10 @@
     -fx-background-color: #007bff;
 }
 
+#scrollPane{
+    -fx-background-color:transparent;
+}
+
 
 
 #descrizione {

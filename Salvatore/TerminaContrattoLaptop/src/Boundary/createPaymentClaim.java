@@ -116,7 +116,7 @@ public void initialize(Controller parentController, userSessionBean bean){
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
-        st.setTitle("My App");
+        st.setTitle(TitleOfWindows.USERPANEL.getString());
         st.show();
     }
         @FXML
@@ -129,7 +129,7 @@ public void initialize(Controller parentController, userSessionBean bean){
         Parent myNewScene = loader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
-        stage.setTitle("FERSA - Termina contratto - Pannello utente");
+        stage.setTitle(TitleOfWindows.LOGIN.getString());
         stage.show();
     }
 
@@ -137,7 +137,7 @@ public void initialize(Controller parentController, userSessionBean bean){
     public void popup(long IDContratto, String tenantNickname, String renterNickname, Button element) {
         
         Stage stage = (Stage) gridPane.getScene().getWindow();
-        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+        stage.setTitle(TitleOfWindows.CREATEPAYMENTCLAIM.getString());
         Stage newStage = new Stage();
         Pane comp = new Pane();
         
@@ -159,7 +159,6 @@ public void initialize(Controller parentController, userSessionBean bean){
         close.setText("Invia");
         close.setId("aButton");
         
-        // Mostro la finestra di popup
         Scene stageScene = new Scene(comp, 500, 200);
         stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         newStage.setScene(stageScene);
@@ -221,7 +220,7 @@ public void initialize(Controller parentController, userSessionBean bean){
         
         // Creo lo stage
         Stage stage = (Stage) userPanelButton.getScene().getWindow();
-        stage.setTitle("FERSA - Termina contratto - nuove notifiche disponibili");
+      stage.setTitle("Crea segnalazione pagamento - Termina contratto - FERSA");
         Stage newStage = new Stage();
         Pane comp = new Pane();
         
@@ -287,6 +286,7 @@ public void initialize(Controller parentController, userSessionBean bean){
         Platform.runLater(() -> {
             notificationBean dati = (notificationBean)arg;
             Stage newStage = new Stage();
+            newStage.setTitle(dati.getNotificationsNumber() + " nuove notifiche - Termina contratto - FERSA");
             Pane comp = new Pane();
 
             Label nameField = new Label();
@@ -294,7 +294,7 @@ public void initialize(Controller parentController, userSessionBean bean){
             nameField.setLayoutY(42.0);
 
             if(dati.getNotificationsNumber() > 1){
-                nameField.setText("Sono disponibili " + Integer.toString(dati.getNotificationsNumber()) + " nuove notifiche!");
+                nameField.setText("Sono disponibili " + dati.getNotificationsNumber() + " nuove notifiche!");
             } else {
                 nameField.setText("E' disponibile 1 nuova notifica!");
             }
