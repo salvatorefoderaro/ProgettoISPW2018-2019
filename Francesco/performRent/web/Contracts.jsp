@@ -6,7 +6,8 @@
 <%@ page import="it.uniroma2.ispw.fersa.control.RentalHandlerRenterSession" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.RequestLabelBean" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractLabelBean" %><%--
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.bean.ContractLabelBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId" %><%--
   Created by IntelliJ IDEA.
   User: francesco
   Date: 09/02/19
@@ -22,11 +23,11 @@
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
-    } else if (request.getParameter("prova") != null) { //TODO da modificare
+    } else if (request.getParameter("seeContractDetails") != null) { //TODO da modificare
         try {
-            sessionBean.getControl().selectRequest(new ContractRequestId(Integer.parseInt(request.getParameter("requestId"))));
+            sessionBean.getControl().selectContract(new ContractId(Integer.parseInt(request.getParameter("contractId"))));
         %>
-    <jsp:forward page="ContractRequestInfo.jsp"></jsp:forward>
+    <jsp:forward page="ContractInfo.jsp"></jsp:forward>
     <%
         } catch (ClassNotFoundException | SQLException | ConfigFileException | ConfigException | ContractPeriodException e) {
             session.setAttribute("warningMessage", e.toString());
@@ -97,7 +98,7 @@
             <td align="center"><%= contractLabelBean.getTotalPrice() + " €"%></td>
             <td align="center"><%= contractLabelBean.getState().getRenterState()%></td>
             <td align="center"><form action="Contracts.jsp" name="seeRequestInfo" method="post">
-                <input name="requestId" id="requestId" type="text" value="<%=contractLabelBean.getContractId()%>" hidden>
+                <input name="contractId" id="contractId" type="text" value="<%=contractLabelBean.getContractId()%>" hidden>
                 <button type="submit" name="seeContractDetails" id="seeConytractDetails" class="btn btn-primary">Visualizza</button>
             </form></td>
         </tr>

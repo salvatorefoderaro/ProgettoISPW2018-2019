@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
+import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.Rentable;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.RentableTypeEnum;
@@ -28,6 +29,11 @@ public class RentableJDBC implements RentableDAO{
     @Override
     public Rentable getRentableByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
         return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM ContractRequest WHERE id = " + contractRequestId.getId());
+    }
+
+
+    public Rentable getRentableByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+        return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM Contract WHERE contractId = " + contractId.getContractId());
     }
 
 

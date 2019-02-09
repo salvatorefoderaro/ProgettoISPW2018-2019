@@ -100,4 +100,19 @@ public class RentalHandlerRenterSession extends RentalHandlerSession{
 
         return contractLabelBeans;
     }
+
+    public ContractInfoBean getContractInfo() {
+        List<Service> services = this.contract.getServices();
+
+        List<ServiceBean> serviceBeans = new ArrayList<>();
+
+        services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
+                service.getDescriprion(), service.getPrice())));
+
+        return new ContractInfoBean(this.contract.getContractTypeName(), this.contract.getTenantNickname(),
+                this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(),
+                this.contract.getCreationDate(), this.contract.getStipulationDate(), this.contract.getStartDate(),
+                this.contract.getEndDate(), this.contract.getPropertyPrice(), this.contract.getDeposit(), serviceBeans,
+                this.contract.getGrossPrice(), this.contract.getState());
+    }
 }
