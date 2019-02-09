@@ -139,9 +139,9 @@ public class ContractJDBC {
 
             String insertString = "INSERT INTO Contract (aptId, tenantNickname, "+ column +", type, contractTypeId," +
                     " state,  creationDate, startDate, endDate, tenantName, tenantSurname, tenantCF, " +
-                    "tenantDateOfBirth," + " tenantCityOfBirth, tenantAddress, renterName, renterSurname, renterCF, " +
+                    "tenantDateOfBirth, tenantCityOfBirth, tenantAddress, renterName, renterSurname, renterCF, " +
                     "renterAddress, propertyPrice, deposit, grossPrice, netPrice, frequencyOfPayement) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             System.out.println(rs1.getInt("aptToRentId"));
 
