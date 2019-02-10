@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -115,7 +116,7 @@ public class ContractRequestController {
                 textArea.setWrapText(true);
                 textArea.appendText(contractRequestInfoBean.getDeclineMotivation());
                 Label title = new Label("Motivo del rifiuto");
-                title.setFont(Font.font("System Bold", 18)); //TODO Impostare il font bold
+                title.setFont(Font.font("System", FontWeight.BOLD, 18));
                 this.body.getChildren().addAll(title, textArea);
                 break;
             case APPROVED:
