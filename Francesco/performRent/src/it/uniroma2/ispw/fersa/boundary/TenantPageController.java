@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.fersa.boundary;
 
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
+import it.uniroma2.ispw.fersa.control.TenantRequestHandlerSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,6 +61,28 @@ public class TenantPageController {
     }
 
     public void showRequests(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Requests.fxml"));
+            Parent root = loader.load();
+            this.stage.setTitle("FERSA - Lista richieste");
+
+            TenantRequestHandlerSession model = new TenantRequestHandlerSession(this.tenantNickname);
+
+            RequestsController controller = loader.getController();
+            controller.setStage(this.stage);
+            controller.setTenantNickname(this.tenantNickname);
+            controller.setModel(model);
+            controller.getAllRequest();
+
+            this.stage.setScene(new Scene(root));
+            this.stage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            return;
+        }
 
     }
 

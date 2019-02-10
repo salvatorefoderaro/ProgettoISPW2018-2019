@@ -1,16 +1,13 @@
 package it.uniroma2.ispw.fersa.control;
 
 import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractLabelBean;
-import it.uniroma2.ispw.fersa.rentingManagement.bean.RequestLabelBean;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.Contract;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequest;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
+import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +49,29 @@ public class TenantRequestHandlerSession {
         this.contractRequest = contractsAndRequestRetriver.retriveContractRequest();
     }
 
+    public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
+            ConfigFileException, IOException {
+        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
+        Rentable rentable = RentableJDBC.getInstance().getRentableByContractRequestId(
+                this.contractRequest.getContractRequestId());
+        return new PropertyBean(apt.getAddress(), rentable.getName(), rentable.getImage(), rentable.getType(),
+                rentable.getDescription());
+    }
+
+    public ContractRequestInfoBean getRequestInfo() {
+        List<Service> services = this.contractRequest.getServices();
+
+        List<ServiceBean> serviceBeans = new ArrayList<>();
+
+        services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
+                service.getDescriprion(), service.getPrice())));
+
+        return new ContractRequestInfoBean(this.contractRequest.getContractName(),
+                this.contractRequest.getStartDate(), this.contractRequest.getEndDate(),
+                this.contractRequest.getRentablePrice(),
+                this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal(), this.contractRequest.getState(), this.contractRequest.getDeclineMotivation());
+    }
 
 
 
