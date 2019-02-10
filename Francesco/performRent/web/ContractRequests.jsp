@@ -73,7 +73,7 @@
         %>
         <tr align="center">
             <th align="center" scope="row"><%= requestLabelBean.getContractRequestId()%></th>
-            <td align="center" ><%= requestLabelBean.getTenantNickname()%></td>
+            <td align="center" ><%= requestLabelBean.getNickname()%></td>
             <td align="center" ><%= requestLabelBean.getCreationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></td>
             <td align="center" ><%= requestLabelBean.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></td>
             <td align="center"><%= requestLabelBean.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></td>

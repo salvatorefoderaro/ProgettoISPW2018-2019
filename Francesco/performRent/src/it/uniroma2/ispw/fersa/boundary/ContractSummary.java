@@ -53,6 +53,7 @@ public class ContractSummary {
 
     public void sendRequest(){
         this.performContractRequestBoundary.sendRequest();
+        this.stage.close();
     }
 
 

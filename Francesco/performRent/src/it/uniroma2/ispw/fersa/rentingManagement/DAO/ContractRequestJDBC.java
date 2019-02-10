@@ -178,6 +178,10 @@ public class ContractRequestJDBC implements ContractRequestDAO{
         return findContractRequestIds("SELECT id FROM ContractRequest WHERE renterNickname = '" + renterNickname + "'");
     }
 
+    public List<ContractRequestId> findContractRequestIdsByTenantNickname(String tenantNickname) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+        return findContractRequestIds("SELECT id FROM ContractRequest WHERE tenantNickname = '" + tenantNickname + "'");
+    }
+
     @Override
     public ContractRequest getContractRequest(ContractRequestId contractRequestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
         ContractRequest contractRequest = null;

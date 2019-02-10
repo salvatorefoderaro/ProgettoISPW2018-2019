@@ -61,9 +61,21 @@ public class PerformContractRequestBoundary {
     @FXML
     private List<CheckBox> serviceCheckBoxes = new ArrayList<>();
 
+    private List<ServiceBean> services = new ArrayList<>();
+
     private PerformContractRequestSession control;
 
-    private List<ServiceBean> services = new ArrayList<>();
+    private String tenantNickname;
+
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setTenantNickname(String tenantNickname) {
+        this.tenantNickname = tenantNickname;
+    }
 
     public void setModel(PerformContractRequestSession control) {
         if (this.control == null) {
@@ -119,12 +131,12 @@ public class PerformContractRequestBoundary {
         try {
             rentableInfoBean = this.control.makeNewRequest();
         } catch (SQLException | ConfigFileException | ConfigException | NotFoundException e) {
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window,e.toString());
             System.exit(1);
         } catch (IOException e) {
-          showPopUp("Errore durante il caricamento dell'immagine");
+          PopUp.getInstance().showPopUp(this.window,"Errore durante il caricamento dell'immagine");
         } catch (ClassNotFoundException e) {
-            showPopUp("Assenza dei driver necessari per accedere al database!");
+            PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         }
         this.rentableTitle.setText(rentableInfoBean.getTitle());
@@ -145,10 +157,10 @@ public class PerformContractRequestBoundary {
         try {
             contractTypeNames = this.control.getAllContractTypes().getContractNames();
         } catch (SQLException | ConfigException | ConfigFileException e ) {
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window,e.toString());
             System.exit(1);
         } catch (ClassNotFoundException e) {
-            showPopUp("Assenza dei driver necessari per accedere al database!");
+            PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         }
 
@@ -166,10 +178,10 @@ public class PerformContractRequestBoundary {
         try {
             serviceBeans = this.control.getAllServices();
         } catch (ConfigFileException | ConfigException | SQLException e) {
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window,e.toString());
             System.exit(1);
         } catch (ClassNotFoundException e) {
-            showPopUp("Assenza dei driver necessari per accedere al database!");
+            PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         }
 
@@ -203,7 +215,7 @@ public class PerformContractRequestBoundary {
 
         this.formArea.getChildren().add(gridPane);
 
-        Button submitServices = new Button("Submit Services");
+        Button submitServices = new Button("Inserisci servizi");
         submitServices.setAlignment(Pos.CENTER);
         submitServices.setOnAction(event -> insertServices());
 
@@ -220,10 +232,10 @@ public class PerformContractRequestBoundary {
         try {
             contractDescription = control.getContractType(contractName);
         } catch (ConfigFileException | ConfigException | SQLException | NotFoundException e) {
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window,e.toString());
             System.exit(1);
         } catch (ClassNotFoundException e) {
-            showPopUp("Assenza dei driver necessari per accedere al database!");
+            PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         }
         this.setContractDescription(contractDescription);
@@ -232,7 +244,7 @@ public class PerformContractRequestBoundary {
     public void selectContract(){
         Object contractType = this.contractSelector.getValue();
         if (contractType == null) {
-            showPopUp("Selezionare un contratto!");
+            PopUp.getInstance().showPopUp(this.window,"Selezionare un contratto!");
             return;
         }
 
@@ -242,19 +254,19 @@ public class PerformContractRequestBoundary {
         try {
             control.selectContract(contractName);
         } catch (ConfigFileException | ConfigException | SQLException | NotFoundException e) {
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window,e.toString());
             System.exit(1);
         } catch (ClassNotFoundException e) {
-            showPopUp("Assenza dei driver necessari per accedere al database!");
+            PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         } catch (ContractPeriodException e) {
-            showPopUp("Contratto inserito correttamente ma il periodo selezionato non è conforme ai vincoli contrattuali");
+            PopUp.getInstance().showPopUp(this.window,"Contratto inserito correttamente ma il periodo selezionato non è conforme ai vincoli contrattuali");
             this.startDate.setValue(null);
             this.endDate.setValue(null);
             return;
         }
 
-        showPopUp("Contratto inserito correttamente");
+        PopUp.getInstance().showPopUp(this.window,"Contratto inserito correttamente");
     }
 
     private void setContractDescription (ContractTypeBean contractDescription) {
@@ -282,19 +294,19 @@ public class PerformContractRequestBoundary {
         LocalDate endDate = this.endDate.getValue();
 
         if (startDate == null | endDate == null ) {
-            showPopUp("Inserire un periodo!");
+            PopUp.getInstance().showPopUp(this.window,"Inserire un periodo!");
             return;
         }
 
         if (startDate.compareTo(LocalDate.now()) <= 0) {
-            showPopUp("Errore: inserire una data successiva a oggi");
+            PopUp.getInstance().showPopUp(this.window, "Errore: inserire una data successiva a oggi");
             this.startDate.setValue(null);
             this.endDate.setValue(null);
             return;
         }
 
         if(endDate.compareTo(startDate) <= 0 ) {
-            showPopUp("Errore: periodo inserito non valido");
+            PopUp.getInstance().showPopUp(this.window, "Errore: periodo inserito non valido");
             this.startDate.setValue(null);
             this.endDate.setValue(null);
             return;
@@ -303,12 +315,12 @@ public class PerformContractRequestBoundary {
        try {
            this.control.setPeriod(startDate, endDate);
        } catch (ContractPeriodException | PeriodException e) {
-           showPopUp(e.toString());
+           PopUp.getInstance().showPopUp(this.window, e.toString());
            this.startDate.setValue(null);
            this.endDate.setValue(null);
            return;
        }
-       showPopUp("Periodo inserito correttamente");
+       PopUp.getInstance().showPopUp(this.window, "Periodo inserito correttamente");
 
     }
 
@@ -322,42 +334,14 @@ public class PerformContractRequestBoundary {
         try {
             this.control.setServices(serviceBeans);
         } catch (ConfigFileException | ConfigException | ClassNotFoundException | SQLException e) {
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window, e.toString());
             return;
         }
 
 
-        showPopUp("I servizi sono stati aggiunti correttamente");
+        PopUp.getInstance().showPopUp(this.window, "I servizi sono stati aggiunti correttamente");
 
 
-    }
-
-    private void showPopUp(String messageText) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("popUpWindow.fxml"));
-            Parent root = loader.load();
-
-            PopUpBoundary popUp = loader.getController();
-
-            Stage stage = new Stage();
-
-            popUp.setText(messageText);
-            popUp.setStage(stage);
-
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.setScene(new Scene(root));
-
-            window.setDisable(true);
-
-            stage.showAndWait();
-
-            window.setDisable(false);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void sendRequest(){
@@ -365,17 +349,17 @@ public class PerformContractRequestBoundary {
         try {
             this.control.sendRequest();
         } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
-            this.showPopUp(e.toString());
-            System.exit(1);
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            undo();
         } catch (ContractPeriodException e) {
-            this.showPopUp("Periodo non più disponibile");
+            PopUp.getInstance().showPopUp(this.window,"Periodo non più disponibile");
             this.setInfo();
             return;
         }
 
-        showPopUp("Richiesta inserita correttamente");
+        PopUp.getInstance().showPopUp(this.window,"Richiesta inserita correttamente");
 
-        System.exit(0);
+        undo();
 
 
 
@@ -413,7 +397,27 @@ public class PerformContractRequestBoundary {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IncompleteException e){
-            showPopUp(e.toString());
+            PopUp.getInstance().showPopUp(this.window,e.toString());
+            return;
+        }
+
+    }
+
+    public void undo(){
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TenantPage.fxml"));
+            Parent root = loader.load();
+            stage.setTitle("FERSA - Pagina locatario");
+            TenantPageController controller = loader.getController();
+            controller.setTenantNickname(this.tenantNickname);
+            controller.setStage(this.stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            PopUp.getInstance().showPopUp(this.window, e.toString());
             return;
         }
 

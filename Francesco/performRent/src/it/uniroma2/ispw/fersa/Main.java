@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa;
 
+import it.uniroma2.ispw.fersa.boundary.LoginPageController;
 import it.uniroma2.ispw.fersa.boundary.PerformContractRequestBoundary;
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
 import javafx.application.Application;
@@ -10,13 +11,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    /*
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /**Parent root = FXMLLoader.load(getClass().getResource("boundary/contractRequestForm.fxml"));
-        primaryStage.setTitle("Contract Request Form");
 
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();**/
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/contractRequestForm.fxml"));
         Parent root = loader.load();
@@ -27,6 +25,19 @@ public class Main extends Application {
         PerformContractRequestBoundary boundary = loader.getController();
         boundary.setModel(control);
 
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
+    }*/
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/LoginPage.fxml"));
+        Parent root = loader.load();
+        primaryStage.setTitle("FERSA - Login");
+
+        LoginPageController controller = loader.getController();
+        controller.setStage(primaryStage);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

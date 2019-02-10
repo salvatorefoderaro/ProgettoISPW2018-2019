@@ -6,16 +6,16 @@ import java.time.LocalDate;
 
 public class RequestLabelBean {
     private int contractRequestId;
-    private String tenantNickname;
+    private String nickname;
     private LocalDate creationDate;
     private LocalDate startDate;
     private LocalDate endDate;
     private int totalPrice;
     private RequestStateEnum state;
 
-    public RequestLabelBean(int contractRequestId, String tenantNickname, LocalDate creationDate, LocalDate startDate, LocalDate endDate, int totalPrice, RequestStateEnum state){
+    public RequestLabelBean(int contractRequestId, String nickname, LocalDate creationDate, LocalDate startDate, LocalDate endDate, int totalPrice, RequestStateEnum state){
         this.contractRequestId = contractRequestId;
-        this.tenantNickname = tenantNickname;
+        this.nickname = nickname;
         this.creationDate = creationDate;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -27,8 +27,8 @@ public class RequestLabelBean {
         return contractRequestId;
     }
 
-    public String getTenantNickname() {
-        return tenantNickname;
+    public String getNickname() {
+        return nickname;
     }
 
     public LocalDate getCreationDate() {

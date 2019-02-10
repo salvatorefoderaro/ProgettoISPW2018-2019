@@ -269,6 +269,17 @@ public class ContractJDBC {
 
     }
 
+    public List<ContractId> getAllContractsIdByTenantNickname(String tenantNickname) throws SQLException, ClassNotFoundException,
+            ConfigFileException, ConfigException {
+        return getContractsId("SELECT contractId FROM Contract WHERE tenantNickname = '" + tenantNickname + "'");
+    }
+
+    public List<ContractId> getContractsIdByAptId(ApartmentId aptId) throws SQLException, ClassNotFoundException,
+            ConfigFileException, ConfigException {
+        return getContractsId("SELECT contractId FROM Contract INNER JOIN AptToRent " +
+                "ON Contract.aptId = AptToRent.id WHERE aptId = " + aptId.getAptId());
+    }
+
 
     public List<ContractId> getAllContractsIdByRenterNickname(String nickname) throws SQLException, ClassNotFoundException,
             ConfigFileException, ConfigException {
@@ -315,7 +326,7 @@ public class ContractJDBC {
         return contracts;
     }
 
-    public List<ContractId> getContractsIdByAptId(ApartmentId aptId) throws SQLException, ClassNotFoundException,
+    public List<ContractId> getContractsId(String sql) throws SQLException, ClassNotFoundException,
             ConfigFileException, ConfigException {
 
         List<ContractId> contracts = new ArrayList<>();
@@ -328,8 +339,6 @@ public class ContractJDBC {
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            String sql = "SELECT contractId FROM Contract INNER JOIN AptToRent " +
-                    "ON Contract.aptId = AptToRent.id WHERE aptId = " + aptId.getAptId();
 
             ResultSet rs = stmt.executeQuery(sql);
 

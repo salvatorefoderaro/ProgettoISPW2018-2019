@@ -18,16 +18,16 @@
          <children>
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <ComboBox fx:id="contractSelector" onAction="#getContractInfo" promptText="Select a contract..." />
-                  <Button mnemonicParsing="false" onAction="#selectContract" text="Submit contract" />
+                  <ComboBox fx:id="contractSelector" onAction="#getContractInfo" promptText="Seleziona un contratto" />
+                  <Button mnemonicParsing="false" onAction="#selectContract" text="Inserisci contratto" />
                </children>
             </HBox>
             <TextArea fx:id="contractDescription" editable="false" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
-                  <DatePicker fx:id="startDate" promptText="Enter the begin date" />
-                  <DatePicker fx:id="endDate" promptText="Enter the end date" />
-                  <Button mnemonicParsing="false" onAction="#insertDate" text="Submit Period" />
+                  <DatePicker fx:id="startDate" promptText="Inserisci la data di inizio" />
+                  <DatePicker fx:id="endDate" promptText="Inserisci la data di fine" />
+                  <Button mnemonicParsing="false" onAction="#insertDate" text="Inserisci periodo" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -42,13 +42,6 @@
          </padding>
       </VBox>
    </center>
-   <bottom>
-      <Button mnemonicParsing="false" onAction="#confirmRequest" text="Submit Contract Request" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
    <top>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -69,4 +62,15 @@
          </children>
       </VBox>
    </top>
+   <bottom>
+      <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#undo" text="Indietro" />
+            <Button mnemonicParsing="false" onAction="#confirmRequest" text="Invia richiesta di contratto" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
 </BorderPane>
