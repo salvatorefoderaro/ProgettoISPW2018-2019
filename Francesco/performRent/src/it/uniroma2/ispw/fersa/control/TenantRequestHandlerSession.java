@@ -32,7 +32,7 @@ public class TenantRequestHandlerSession {
                         new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
                 ContractRequest contractRequest = contractsAndRequestRetriver.retriveContractRequest();
                 requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(),
-                        contractRequest.getTenantNickname(), contractRequest.getCreationDate(),
+                        contractRequest.getRenterNickname(), contractRequest.getCreationDate(),
                         contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(),
                         contractRequest.getState()));
             } catch (ContractPeriodException e) {
@@ -73,9 +73,8 @@ public class TenantRequestHandlerSession {
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal(), this.contractRequest.getState(), this.contractRequest.getDeclineMotivation());
     }
 
+    public void cancelRequest() throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException{
+        ContractRequestJDBC.getInstance().cancelRequest(this.contractRequest.getContractRequestId());
 
-
-
-
-
+    }
 }

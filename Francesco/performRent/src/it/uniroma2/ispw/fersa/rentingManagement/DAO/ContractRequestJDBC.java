@@ -269,5 +269,53 @@ public class ContractRequestJDBC implements ContractRequestDAO{
             }
         }
     }
+    
+    public void cancelRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+        Connection conn = ConnectionFactory.getInstance().openConnection();
+        Statement stmt = null;
+
+        try {
+            boolean autocommit = conn.getAutoCommit();
+            int isolation = conn.getTransactionIsolation();
+            conn.setAutoCommit(false);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+
+            String sql = "SELECT state FROM ContractRequest WHERE id = " + requestId.getId();
+
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+
+            if (!rs.first() | RequestStateEnum.valueOf(rs.getString("state")) != RequestStateEnum.INSERTED) {
+                conn.rollback();
+                throw new SQLException(); //TODO Cambiare eccezione
+            }
+
+            sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.CANCELED.toString() + "' WHERE id = " + requestId.getId();
+
+            stmt.executeUpdate(sql);
+
+            conn.commit();
+            conn.setAutoCommit(autocommit);
+            conn.setTransactionIsolation(isolation);
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                if (conn != null) conn.rollback();
+                if (stmt != null) stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

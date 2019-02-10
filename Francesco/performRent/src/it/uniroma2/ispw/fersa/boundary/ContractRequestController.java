@@ -106,7 +106,8 @@ public class ContractRequestController {
 
         switch (contractRequestInfoBean.getState()) {
             case INSERTED:
-                Button cancel = new Button("Annulla");
+                Button cancel = new Button("Annulla richiesta");
+                cancel.setOnAction(event -> cancelRequest());
                 this.buttons.getChildren().addAll(cancel);
                 break;
             case REFUSUED:
@@ -121,6 +122,19 @@ public class ContractRequestController {
             case CANCELED:
                 break;
         }
+    }
+
+    public void cancelRequest() {
+        try {
+            this.model.cancelRequest();
+        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            return;
+        }
+
+        PopUp.getInstance().showPopUp(this.window, "Richiesta annullata");
+        undo();
+
     }
 
     public void undo(){

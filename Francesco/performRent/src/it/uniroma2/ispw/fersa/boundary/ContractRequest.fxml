@@ -37,6 +37,6 @@
       </VBox>
    </center>
    <bottom>
-      <HBox fx:id="buttons" alignment="CENTER" BorderPane.alignment="CENTER" />
+      <HBox fx:id="buttons" alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
