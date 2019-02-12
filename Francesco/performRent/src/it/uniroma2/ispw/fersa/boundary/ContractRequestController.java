@@ -113,16 +113,19 @@ public class ContractRequestController {
                 break;
             case REFUSUED:
                 TextArea textArea = new TextArea();
+                textArea.setEditable(false);
                 textArea.setWrapText(true);
                 textArea.appendText(contractRequestInfoBean.getDeclineMotivation());
                 Label title = new Label("Motivo del rifiuto");
                 title.setFont(Font.font("System", FontWeight.BOLD, 18));
                 this.body.getChildren().addAll(title, textArea);
+                textArea.autosize();
                 break;
             case APPROVED:
             case CANCELED:
                 break;
         }
+        this.body.autosize();
     }
 
     public void cancelRequest() {

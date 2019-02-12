@@ -32,9 +32,6 @@ public class ContractsController {
     @FXML
     private GridPane requestsTable;
 
-    private List<Label> requestIds = new ArrayList<>();
-
-    private List<Button> viewRequests = new ArrayList<>();
 
     private TenantContractHandlerSession model;
 
@@ -77,11 +74,9 @@ public class ContractsController {
         for (ContractLabelBean contractLabelBean : contractLabelBeans) {
             Label contractId = new Label(Integer.toString(contractLabelBean.getContractId()));
 
-            Button viewRequest = new Button("Visualizza");
-            viewRequest.setOnAction(event -> viewRequest(contractId));
+            Button viewContract = new Button("Visualizza");
+            viewContract.setOnAction(event -> viewContract(contractId));
 
-            this.requestIds.add(contractId);
-            this.viewRequests.add(viewRequest);
 
             Label stipulationDate = new Label();
 
@@ -96,14 +91,14 @@ public class ContractsController {
                     new Label(contractLabelBean.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))),
                     new Label(contractLabelBean.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))),
                     new Label(contractLabelBean.getTotalPrice() + " €"),
-                    new Label(contractLabelBean.getState().getTenantState()), viewRequest);
+                    new Label(contractLabelBean.getState().getTenantState()), viewContract);
 
             row++;
         }
     }
 
-    public void viewRequest(Label requestId) {
-        /*ContractId contractId = new ContractId(Integer.parseInt(requestId.getText()));
+    public void viewContract(Label contractIdLabel) {
+        ContractId contractId = new ContractId(Integer.parseInt(contractIdLabel.getText()));
         try {
             this.model.selectContract(contractId);
         } catch (SQLException | ConfigException | ConfigFileException | ClassNotFoundException e) {
@@ -112,16 +107,16 @@ public class ContractsController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ContractRequest.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Contract.fxml"));
             Parent root = loader.load();
-            this.stage.setTitle("FERSA - Lista richieste");
+            this.stage.setTitle("FERSA - Informazioni contratto");
 
-            ContractRequestController controller = loader.getController();
+            ContractController controller = loader.getController();
             controller.setStage(this.stage);
             controller.setTenantNickname(this.tenantNickname);
             controller.setModel(this.model);
             controller.setPropertyInfo();
-            controller.setRequestInfo();
+            controller.setContractInfo();
 
 
             this.stage.setScene(new Scene(root));
@@ -132,8 +127,7 @@ public class ContractsController {
             e.printStackTrace();
             PopUp.getInstance().showPopUp(this.window, e.toString());
             return;
-        }*/
-        //TODO Aggiungere metodo
+        }
     }
 
     public void undo(){
@@ -155,7 +149,6 @@ public class ContractsController {
         }
 
     }
-
 
 
 

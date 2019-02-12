@@ -86,8 +86,8 @@ public class TenantContractHandlerSession {
         services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId(), service.getName(),
                 service.getDescriprion(), service.getPrice())));
 
-        return new ContractInfoBean(this.contract.getContractTypeName(), this.contract.getTenantNickname(),
-                this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(),
+        return new ContractInfoBean(this.contract.getContractTypeName(), this.contract.getRenterNickname(),
+                this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(),
                 this.contract.getCreationDate(), this.contract.getStipulationDate(), this.contract.getStartDate(),
                 this.contract.getEndDate(), this.contract.getPropertyPrice(), this.contract.getDeposit(), serviceBeans,
                 this.contract.getGrossPrice(), this.contract.getState());

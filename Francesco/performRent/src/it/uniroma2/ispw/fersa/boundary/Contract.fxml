@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="window" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.ispw.fersa.boundary.ContractRequestController">
+<BorderPane fx:id="window" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.ispw.fersa.boundary.ContractController">
    <center>
-      <VBox fx:id="body" alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Informazioni immobile" textAlignment="CENTER">
                <font>
@@ -24,12 +24,18 @@
                   <TextArea fx:id="propertyInfo" editable="false" wrapText="true" />
                </children>
             </HBox>
-            <Label text="Informazioni richiesta" textAlignment="CENTER">
+            <Label text="Informazioni contratto" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextArea fx:id="requestInfo" editable="false" wrapText="true" />
+            <TextArea fx:id="contractInfo" editable="false" wrapText="true" />
+            <Label text="Informazioni locatore" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="renterInfo" editable="false" wrapText="true" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

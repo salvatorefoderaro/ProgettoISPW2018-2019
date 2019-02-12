@@ -30,9 +30,6 @@ public class RequestsController {
     @FXML
     private GridPane requestsTable;
 
-    private List<Label> requestIds = new ArrayList<>();
-
-    private List<Button> viewRequests = new ArrayList<>();
 
     private TenantRequestHandlerSession control;
 
@@ -77,9 +74,6 @@ public class RequestsController {
 
             Button viewRequest = new Button("Visualizza");
             viewRequest.setOnAction(event -> viewRequest(requestId));
-
-            this.requestIds.add(requestId);
-            this.viewRequests.add(viewRequest);
 
 
             this.requestsTable.addRow(row, requestId, new Label(requestLabelBean.getNickname()),
