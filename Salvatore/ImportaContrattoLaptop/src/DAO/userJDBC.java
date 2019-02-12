@@ -55,7 +55,7 @@ public class userJDBC implements userDAO {
     }
 
     @Override
-    public userBean getLocatario(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult {
+    public userBean getTenant(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult {
 
         Connection dBConnection = null;
         try {

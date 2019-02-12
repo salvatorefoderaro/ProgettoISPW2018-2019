@@ -11,8 +11,8 @@
       -post-init:                called after initialization of project properties
       -pre-compile:              called before javac compilation
       -post-compile:             called after javac compilation
-      -pre-compile-test:         called before javac compilation of JUnit tests
-      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-makeLogin:         called before javac compilation of JUnit tests
+      -post-compile-makeLogin:        called after javac compilation of JUnit tests
       -pre-jfx-jar:              called before FX SDK specific <fx:jar> task
       -post-jfx-jar:             called after FX SDK specific <fx:jar> task
       -pre-jfx-deploy:           called before FX SDK specific <fx:deploy> task

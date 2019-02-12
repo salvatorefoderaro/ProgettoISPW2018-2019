@@ -39,7 +39,7 @@ private String claimDeadline = null;
 private Controller controller = null;
 private userSessionBean userSession = null;
 
-public void initialize(Controller parentController, userSessionBean bean){
+public void createPaymentClaim(Controller parentController, userSessionBean bean){
 
     this.controller = parentController;
     userSession = bean;

@@ -11,15 +11,12 @@ import Controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -65,7 +62,7 @@ private userSessionBean userSession;
         Parent root = loader.load();
         
         createPaymentClaim controllerGraphic = loader.<createPaymentClaim>getController();
-        controllerGraphic.initialize(this.controller, this.userSession);
+        controllerGraphic.createPaymentClaim(this.controller, this.userSession);
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);

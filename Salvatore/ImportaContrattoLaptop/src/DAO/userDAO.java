@@ -17,5 +17,5 @@ import java.sql.SQLException;
 public interface userDAO {
     userBean renterLogin(userBean sessionBean) throws emptyResult, SQLException, dbConfigMissing;
 
-    userBean getLocatario(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult;
+    userBean getTenant(rentableBean bean) throws SQLException, dbConfigMissing, emptyResult;
 }

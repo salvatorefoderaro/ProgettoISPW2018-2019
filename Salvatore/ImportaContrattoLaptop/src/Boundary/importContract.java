@@ -62,11 +62,10 @@ public class importContract {
         descrizione.setText(bean.getDescription());
     }
     
-    public void test(){
+    public void makeImportContract(){
 
-        userBean tenant1 = new userBean();
-        tenant1.setTypeUSer(TypeOfUser.TENANT);
         tenant = new userBean();
+        tenant.setTypeUSer(TypeOfUser.TENANT);
 
         System.out.println(TypeOfContract.idFromString((String) this.contractType.getValue()));
 

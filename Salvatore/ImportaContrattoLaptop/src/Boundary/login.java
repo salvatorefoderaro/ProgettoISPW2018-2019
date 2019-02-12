@@ -29,7 +29,7 @@ public class login {
     private userBean loggedUser;
 
     @FXML
-    public void test() throws IOException {
+    public void makeLogin() throws IOException {
 
         userBean loginBean = new userBean();
         loginBean.setNickname(nickname.getText());
@@ -64,7 +64,7 @@ public class login {
         Parent root = loader.load();
         seeRentable controller = loader.getController();
 
-        controller.initialize(loggedUser, parentController);
+        controller.makeSeeRentable(loggedUser, parentController);
 
         Scene scene = new Scene(root, 704, 437);
         st.setScene(scene);
@@ -95,7 +95,7 @@ public class login {
                 close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
-                stageScene.getStylesheets().add(getClass().getResource("test.css").toExternalForm());
+                stageScene.getStylesheets().add(getClass().getResource("makeLogin.css").toExternalForm());
 
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);

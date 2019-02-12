@@ -12,9 +12,9 @@ is divided into following sections:
   - execution
   - debugging
   - javadoc
-  - test compilation
-  - test execution
-  - test debugging
+  - makeLogin compilation
+  - makeLogin execution
+  - makeLogin debugging
   - applet
   - cleanup
 

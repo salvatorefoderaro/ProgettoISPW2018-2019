@@ -32,16 +32,16 @@ public class seeRentable {
     
     @FXML GridPane table;
     @FXML ScrollPane scrollPane;
-    private List<rentableBean> test;
+    private List<rentableBean> userRentable;
     private controller parentController;
     private userBean loggedRenter;
 
-    public void initialize(userBean loggedRenter, controller parentController) throws FileNotFoundException{
+    public void makeSeeRentable(userBean loggedRenter, controller parentController) throws FileNotFoundException{
 
         this.parentController = parentController;
         this.loggedRenter = loggedRenter;
             try {
-                this.test = this.parentController.getRentableFromUser(this.loggedRenter);
+                this.userRentable = this.parentController.getRentableFromUser(this.loggedRenter);
             } catch (Exceptions.emptyResult emptyResult) {
                 popup("Nessuna risorsa al momento disponibile!", true);
                 return;
@@ -53,20 +53,20 @@ public class seeRentable {
                 return;
             }
 
-            for (int i = 0; i < test.size(); i++) {
+            for (int i = 0; i < userRentable.size(); i++) {
 
                 ImageView photo = new ImageView();
                 photo.setFitHeight(125.0);
                 photo.setFitWidth(125.0);
                 photo.setPickOnBounds(true);
                 photo.setPreserveRatio(true);
-                photo.setImage(SwingFXUtils.toFXImage((BufferedImage) test.get(i).getImage1(), null));
+                photo.setImage(SwingFXUtils.toFXImage((BufferedImage) userRentable.get(i).getImage1(), null));
                 table.add(photo, 0, i);
 
                 Label rentableInfo = new Label();
                 rentableInfo.setPrefHeight(25.0);
                 rentableInfo.setPrefWidth(300.0);
-                rentableInfo.setText(test.get(i).getName());
+                rentableInfo.setText(userRentable.get(i).getName());
                 rentableInfo.setId("descrizione");
                 table.add(rentableInfo, 1, i);
 
@@ -85,8 +85,8 @@ public class seeRentable {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("importContract.fxml"));
                             Parent root = loader.load();
                             importContract controller = loader.getController();
-                            System.out.println(test.get(finalI).getType());
-                            controller.initialize(test.get(finalI), parentController, loggedRenter);
+                            System.out.println(userRentable.get(finalI).getType());
+                            controller.initialize(userRentable.get(finalI), parentController, loggedRenter);
 
                             Scene scene = new Scene(root, 704, 437);
                             st.setScene(scene);
@@ -125,7 +125,7 @@ public class seeRentable {
                 close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
-                stageScene.getStylesheets().add(getClass().getResource("test.css").toExternalForm());
+                stageScene.getStylesheets().add(getClass().getResource("makeLogin.css").toExternalForm());
 
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);
