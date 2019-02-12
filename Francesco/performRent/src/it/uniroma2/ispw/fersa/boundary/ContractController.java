@@ -118,6 +118,7 @@ public class ContractController {
         switch (contractInfoBean.getState()) {
             case SIGNATURE:
                 Button sign = new Button("Firma");
+                sign.setOnAction(event -> signContract());
                 this.buttons.getChildren().add(sign);
                 break;
             case CANCELED:
@@ -139,6 +140,26 @@ public class ContractController {
             controller.setTenantNickname(this.tenantNickname);
             controller.setModel(this.model);
             controller.getAllContracts();
+            controller.setStage(this.stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            return;
+        }
+    }
+
+    public void signContract(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ContractText.fxml"));
+            Parent root = loader.load();
+            stage.setTitle("FERSA - Firma contratto");
+            ContractTextController controller = loader.getController();
+            controller.setTenantNickname(this.tenantNickname);
+            controller.setModel(this.model);
+            controller.getContractText();
             controller.setStage(this.stage);
             stage.setScene(new Scene(root));
             stage.show();
