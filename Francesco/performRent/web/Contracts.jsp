@@ -61,7 +61,7 @@
             <th align="center" scope="col">Data inizio affitto</th>
             <th align="center" scope="col">Data fine affitto</th>
             <th align="center" scope="col">Prezzo</th>
-            <th align="center" scope="col">Stato della richiesta</th>
+            <th align="center" scope="col">Stato del contratto</th>
             <th align="center" scope="col"></th>
         </tr>
         </thead>
