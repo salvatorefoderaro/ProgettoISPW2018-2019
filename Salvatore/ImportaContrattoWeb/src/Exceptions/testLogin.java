@@ -3,7 +3,7 @@ package Exceptions;
 import Bean.userBean;
 import DAO.readDBConf;
 import DAO.userJDBC;
-import Entity.TypeOfRentable;
+import Entity.Enum.TypeOfRentable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

@@ -6,9 +6,9 @@
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Control.controller" %>
 <%@ page import="Bean.rentableBean" %>
-<%@ page import="Entity.TypeOfRentable" %>
-<%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="Entity.TitleOfWindows" %>
+<%@ page import="Entity.Enum.TypeOfRentable" %>
+<%@ page import="Entity.Enum.TypeOfMessage" %>
+<%@ page import="Entity.Enum.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />

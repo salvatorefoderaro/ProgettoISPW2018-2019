@@ -7,6 +7,7 @@ package Boundary;
 
 import Bean.notificationBean;
 import Bean.userSessionBean;
+import Boundary.Enum.TitleOfWindows;
 import Controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,7 +42,7 @@ private userSessionBean userSession;
         this.controller.deleteObserver(this);
 
         Stage st = (Stage)seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("seePaymentClaim.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/seePaymentClaim.fxml"));
         Parent root = loader.load();
         
         seePaymentClaims controllerGraphic = loader.<seePaymentClaims>getController();
@@ -58,7 +59,7 @@ private userSessionBean userSession;
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
         this.controller.deleteObserver(this);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createPaymentClaim.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/createPaymentClaim.fxml"));
         Parent root = loader.load();
         
         createPaymentClaim controllerGraphic = loader.<createPaymentClaim>getController();
@@ -74,7 +75,7 @@ private userSessionBean userSession;
     public void login() throws IOException{
         this.controller.deleteObserver(this);
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = loader.load();
         
         login controllerGraphic = loader.<login>getController();

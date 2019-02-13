@@ -1,20 +1,24 @@
-package DAO.contractDaoTest;
+package Test.TestTiziana;
 
-import DAO.C3poDataSource;
-import org.junit.Test;
+import DAO.Configuration.readDBConf;
 
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public class afterTest {
     /**
      * pulisce l'ambiente per l'esecuzione del test
      * @throws SQLException
      */
-    public void clear_table()throws SQLException{
+    public void clear_table() throws SQLException, IOException {
         String clear_table ="delete from ActiveContract where true";
-        try(Connection conn = C3poDataSource.getConnection(); Statement st = conn.createStatement()){
+        try(Connection connection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+
+            Statement st = connection.createStatement()){
             st.executeUpdate(clear_table);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -23,7 +27,7 @@ public class afterTest {
     }
 
     @Test
-    public void clear()throws SQLException{
+    public void clear() throws SQLException, IOException {
         clear_table();
     }
 }

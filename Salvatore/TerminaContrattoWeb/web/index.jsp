@@ -2,21 +2,21 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import= "Controller.Controller, Bean.userSessionBean" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="Entity.TypeOfUser" %>
-<%@ page import="Controller.sampleThread" %>
+<%@ page import="Entity.Enum.TypeOfUser" %>
+<%@ page import="projectThread.checkPaymentclaimDate" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="Entity.TitleOfWindows" %>
+<%@ page import="Entity.Enum.TypeOfMessage" %>
+<%@ page import="Entity.Enum.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 
 <%
 
-    // java.util.concurrent.TimeUnit.SECONDS.sleep(5);
-    // sampleThread.startTask(request.getContextPath());
+    java.util.concurrent.TimeUnit.SECONDS.sleep(5);
+    checkPaymentclaimDate.startTask();
 
 
     if (request.getParameter("login") != null) {

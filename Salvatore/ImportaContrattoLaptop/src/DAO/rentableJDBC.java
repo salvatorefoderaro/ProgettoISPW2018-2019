@@ -3,7 +3,9 @@ package DAO;
 import Bean.availabilityPeriodBean;
 import Bean.rentableBean;
 import Bean.userBean;
-import Entity.TypeOfRentable;
+import DAO.Configuration.readDBConf;
+import DAO.Configuration.transactionConnection;
+import Entity.Enum.TypeOfRentable;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 
@@ -13,7 +15,6 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-import Entity.TypeOfContract;
 import Exceptions.transactionError;
 
 import javax.imageio.ImageIO;
@@ -192,7 +193,6 @@ public class rentableJDBC implements rentableDAO{
                     rentable.setBedID(rentable.getID());
                     rentable.setRoomID(resultSet.getInt("roomId"));
                     rentable.setAptID(resultSet.getInt("aptId"));
-                    System.out.println("L'ID del letto è" + rentable.getBedID());
                     break;
 
                 case APARTMENT:

@@ -1,7 +1,7 @@
 package Bean;
 
-import Entity.TypeOfRentable;
-import Entity.TypeOfUser;
+import Entity.Enum.TypeOfRentable;
+import Entity.Enum.TypeOfUser;
 
 public class userBean {
     private int ID;

@@ -20,7 +20,11 @@ public class availabilityPeriod {
     }
 
     public boolean isEqual(LocalDate startPeriod, LocalDate endPeriod){
-        return startPeriod.equals(this.startDate) && endPeriod.equals(this.endDate);
+        if (startPeriod.equals(this.startDate) && endPeriod.equals(this.endDate)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public availabilityPeriodBean makeBean(){

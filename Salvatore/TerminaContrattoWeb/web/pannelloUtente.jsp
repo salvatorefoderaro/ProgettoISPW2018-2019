@@ -2,14 +2,14 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import= "Controller.Controller, Bean.userSessionBean" %>
-<%@ page import="Entity.TypeOfUser" %>
+<%@ page import="Entity.Enum.TypeOfUser" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="Entity.TitleOfWindows" %>
+<%@ page import="Entity.Enum.TypeOfMessage" %>
+<%@ page import="Entity.Enum.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 

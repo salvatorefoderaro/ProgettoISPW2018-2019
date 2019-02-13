@@ -6,6 +6,7 @@ import Bean.paymentClaimBean;
 import Bean.userSessionBean;
 import DAO.*;
 import Entity.*;
+import Entity.Enum.TypeOfUser;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
@@ -17,8 +18,8 @@ import java.util.Observable;
 
 public class Controller extends Observable implements Runnable {
     
-    private  Map<Integer, PaymentClaim> dictionarySegnalazionePagamento  = new HashMap<Integer, PaymentClaim>();
-    private  Map<Integer, Contract> dictionaryContratto  = new HashMap<Integer, Contract>();
+    private  Map<Integer, PaymentClaim> dictionarySegnalazionePagamento  = new HashMap<>();
+    private  Map<Integer, Contract> dictionaryContratto  = new HashMap<>();
     private  userSessionBean loggedUser;
 
     public Controller(userSessionBean user){ this.loggedUser = user; }
@@ -125,10 +126,6 @@ public class Controller extends Observable implements Runnable {
             notifyObservers(changes);
         }
 
-    public void checkPaymentClaimDateScadenza() throws dbConfigMissing, SQLException {
-            paymentClaimJDBC.getInstance().checkPaymentClaimDate();
-    }
-
     @Override
     public void run() {
 
@@ -143,13 +140,7 @@ public class Controller extends Observable implements Runnable {
             } catch (Exceptions.dbConfigMissing dbConfigMissing) {
                 dbConfigMissing.printStackTrace();
             }
-            try {
-                checkPaymentClaimDateScadenza();
-            } catch (Exceptions.dbConfigMissing dbConfigMissing) {
-                dbConfigMissing.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
             try {
                 Thread.sleep(60000);
             } catch (InterruptedException e) {

@@ -1,4 +1,4 @@
-package DAO.contractDaoTest;
+package Test.TestTiziana;
 
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;

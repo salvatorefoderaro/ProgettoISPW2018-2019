@@ -2,6 +2,8 @@ package Boundary;
 
 import Bean.rentableBean;
 import Bean.userBean;
+import Boundary.Enum.TitleOfWindows;
+import Boundary.Enum.TypeOfMessage;
 import Control.controller;
 
 import java.awt.image.BufferedImage;
@@ -82,7 +84,7 @@ public class seeRentable {
                     public void handle(ActionEvent event) {
                         try {
                             Stage st = (Stage) table.getScene().getWindow();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("importContract.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/importContract.fxml"));
                             Parent root = loader.load();
                             importContract controller = loader.getController();
                             System.out.println(userRentable.get(finalI).getType());
@@ -173,7 +175,7 @@ public class seeRentable {
     @FXML
     public void backToLogin(){
         Stage st = (Stage) scrollPane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = null;
         try {
             root = loader.load();

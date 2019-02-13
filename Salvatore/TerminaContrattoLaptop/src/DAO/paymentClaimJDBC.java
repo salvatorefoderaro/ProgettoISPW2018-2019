@@ -4,12 +4,11 @@ import Bean.paymentClaimBean;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import Bean.userSessionBean;
-import Entity.TypeOfUser;
+import DAO.Configuration.readDBConf;
+import DAO.Configuration.transactionConnection;
+import Entity.Enum.TypeOfUser;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;

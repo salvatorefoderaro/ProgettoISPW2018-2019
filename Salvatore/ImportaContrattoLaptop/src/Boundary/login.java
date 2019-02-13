@@ -1,6 +1,7 @@
 package Boundary;
 
 import Bean.userBean;
+import Boundary.Enum.TypeOfMessage;
 import Control.controller;
 import Control.loginController;
 import Exceptions.emptyResult;
@@ -60,7 +61,7 @@ public class login {
         }
 
         Stage st = (Stage) loginButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("seeRentable.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/seeRentable.fxml"));
         Parent root = loader.load();
         seeRentable controller = loader.getController();
 

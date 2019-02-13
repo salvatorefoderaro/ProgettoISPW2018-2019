@@ -2,6 +2,7 @@ package Control;
 
 import Bean.*;
 import Entity.*;
+import Entity.Enum.TypeOfRentable;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;
@@ -118,7 +119,7 @@ public class controller {
         rentableList.addAll(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
 
         if(rentableList.isEmpty()){
-            throw new emptyResult("Errore! Nessun utente associato al nickname indicato!");
+            throw new emptyResult("");
         }
 
         for (rentableBean temp : rentableList) {
@@ -146,7 +147,6 @@ public class controller {
                     }
                     roomToRent room = new roomToRent(temp.getAptID(), temp.getRoomID(), temp.getName(), temp.getDescription(), temp.getImage(), trueBedInRoom, listAvailability);
                     dictionaryRoomToRent.put(temp.getID(), room);
-                    System.out.println(temp.getID());
                 }
             }  else {
                 if (dictionaryAptToRent.get(temp.getID()) == null) {

@@ -4,14 +4,15 @@ import Bean.userSessionBean;
 import Bean.notificationBean;
 import Bean.contractBean;
 import Bean.paymentClaimBean;
+import Boundary.Enum.TitleOfWindows;
+import Boundary.Enum.TypeOfMessage;
 import Controller.Controller;
 
 import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 
-import Entity.TypeOfUser;
-import Exceptions.dbConfigMissing;
+import Entity.Enum.TypeOfUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;

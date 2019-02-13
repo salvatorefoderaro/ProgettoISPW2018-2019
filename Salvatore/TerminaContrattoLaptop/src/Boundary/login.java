@@ -5,18 +5,14 @@
  */
 package Boundary;
 
-import Bean.notificationBean;
 import Bean.userSessionBean;
+import Boundary.Enum.TitleOfWindows;
+import Boundary.Enum.TypeOfMessage;
 import Controller.Controller;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import Entity.TypeOfUser;
-import Exceptions.dbConfigMissing;
+import Entity.Enum.TypeOfUser;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +26,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import projectThread.checkPaymentclaimDate;
 
 /**
  *
@@ -75,7 +72,11 @@ public class login {
                 return;
             }
 
-            (new Thread(this.controller)).start();
+            Thread controllerThread = new Thread(this.controller);
+            controllerThread.start();
+
+            Thread checkPaymentclaimDate = new Thread(new checkPaymentclaimDate());
+            checkPaymentclaimDate.start();
 
             if (user.getUserType() == TypeOfUser.RENTER){
                 isRenter();
@@ -88,7 +89,7 @@ public class login {
     private void isRenter() {
         
         Stage st = (Stage)login.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("userPanelRenter.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/userPanelRenter.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -112,7 +113,7 @@ public class login {
     private void isTenant(){
         
         Stage st = (Stage)login.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("userPanelTenant.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/userPanelTenant.fxml"));
         Parent root = null;
         try {
             root = loader.load();

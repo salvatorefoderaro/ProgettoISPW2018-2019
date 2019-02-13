@@ -7,6 +7,8 @@ package DAO;
 
 import Bean.contractBean;
 import Bean.userSessionBean;
+import DAO.Configuration.readDBConf;
+import DAO.Configuration.transactionConnection;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;

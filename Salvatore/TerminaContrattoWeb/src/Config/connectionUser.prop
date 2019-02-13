@@ -1,6 +1,0 @@
-Dname=RentingManagement
-Driver=mysql
-URL=localhost
-PortNumber=8000
-Uname=testUser
-Password=

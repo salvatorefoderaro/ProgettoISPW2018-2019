@@ -7,10 +7,9 @@ package Boundary;
 
 import Bean.notificationBean;
 import Bean.userSessionBean;
+import Boundary.Enum.TitleOfWindows;
 import Controller.Controller;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,8 +22,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class userPanelTenant implements Observer {
     
@@ -45,7 +42,7 @@ private userSessionBean userSession;
         this.controller.deleteObserver(this);
 
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("seePaymentClaim.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/seePaymentClaim.fxml"));
         Parent root = loader.load();
         
         seePaymentClaims controllerGraphic = loader.<seePaymentClaims>getController();
@@ -62,7 +59,7 @@ private userSessionBean userSession;
     public void login() throws IOException{
         this.controller.deleteObserver(this);
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = loader.load();
         
         login controllerGraphic = loader.<login>getController();

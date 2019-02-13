@@ -12,8 +12,8 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.DateFormat" %>
-<%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="Entity.TitleOfWindows" %>
+<%@ page import="Entity.Enum.TypeOfMessage" %>
+<%@ page import="Entity.Enum.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 

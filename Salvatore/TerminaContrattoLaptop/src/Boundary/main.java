@@ -1,6 +1,7 @@
 package Boundary;
 
 
+import Boundary.Enum.TitleOfWindows;
 import Controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Resource/login.fxml"));
         primaryStage.setScene(new Scene(root, 640, 400));
         primaryStage.setTitle(TitleOfWindows.LOGIN.getString());
         primaryStage.show();

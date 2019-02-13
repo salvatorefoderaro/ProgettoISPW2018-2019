@@ -1,9 +1,8 @@
 package Bean;
 
-import Entity.OptionalService;
-import Entity.TypeOfContract;
-import Entity.TypeOfPayment;
-import Entity.TypeOfRentable;
+import Entity.Enum.TypeOfContract;
+import Entity.Enum.TypeOfPayment;
+import Entity.Enum.TypeOfRentable;
 
 import java.time.LocalDate;
 import java.util.List;

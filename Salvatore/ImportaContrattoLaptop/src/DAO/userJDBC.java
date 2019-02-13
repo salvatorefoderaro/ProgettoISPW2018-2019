@@ -2,7 +2,8 @@ package DAO;
 
 import Bean.rentableBean;
 import Bean.userBean;
-import Entity.TypeOfUser;
+import DAO.Configuration.readDBConf;
+import Entity.Enum.TypeOfUser;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 

@@ -2,7 +2,7 @@
 package Bean;
 
 import Controller.Controller;
-import Entity.TypeOfUser;
+import Entity.Enum.TypeOfUser;
 /**
  *
  * @author root

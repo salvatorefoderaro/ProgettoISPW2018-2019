@@ -5,7 +5,7 @@
  */
 package Bean;
 
-import Entity.TypeOfRentable;
+import Entity.Enum.TypeOfRentable;
 
 import java.awt.*;
 import java.util.List;

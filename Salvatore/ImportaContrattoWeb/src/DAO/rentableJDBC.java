@@ -3,6 +3,7 @@ package DAO;
 import Bean.availabilityPeriodBean;
 import Bean.rentableBean;
 import Bean.userBean;
+import DAO.Configuration.transactionConnection;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
-import Entity.TypeOfRentable;
+import Entity.Enum.TypeOfRentable;
 import Exceptions.transactionError;
 
 public class rentableJDBC implements  rentableDAO{

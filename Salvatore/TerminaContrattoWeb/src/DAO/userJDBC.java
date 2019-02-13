@@ -1,7 +1,8 @@
 package DAO;
 
 import Bean.userSessionBean;
-import Entity.TypeOfUser;
+import DAO.Configuration.readDBConf;
+import Entity.Enum.TypeOfUser;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import java.sql.*;

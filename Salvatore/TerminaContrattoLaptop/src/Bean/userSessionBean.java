@@ -1,6 +1,6 @@
 package Bean;
 
-import Entity.TypeOfUser;
+import Entity.Enum.TypeOfUser;
 
 public class userSessionBean
 { 

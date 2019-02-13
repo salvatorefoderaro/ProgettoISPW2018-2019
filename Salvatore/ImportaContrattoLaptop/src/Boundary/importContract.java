@@ -1,14 +1,16 @@
 package Boundary;
 
 import Bean.*;
+import Boundary.Enum.TitleOfWindows;
+import Boundary.Enum.TypeOfMessage;
 import Control.controller;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
-import Entity.TypeOfContract;
-import Entity.TypeOfUser;
+import Entity.Enum.TypeOfContract;
+import Entity.Enum.TypeOfUser;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -234,7 +236,7 @@ public class importContract {
     @FXML
     public void backToLogin(){
         Stage st = (Stage) dataInizio.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -248,7 +250,7 @@ public class importContract {
         st.show();
     }
 
-    /*@FXML
+    /*@Resource
     public void backToUserPanel(){
         Stage st = (Stage) dataInizio.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));

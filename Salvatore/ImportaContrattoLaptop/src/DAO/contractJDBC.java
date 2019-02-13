@@ -1,6 +1,7 @@
 package DAO;
 
 import Bean.contractBean;
+import DAO.Configuration.transactionConnection;
 import Exceptions.dbConfigMissing;
 import Exceptions.transactionError;
 import java.sql.Connection;

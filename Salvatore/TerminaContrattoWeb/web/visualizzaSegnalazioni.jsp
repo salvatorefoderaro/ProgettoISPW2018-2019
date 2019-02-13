@@ -7,9 +7,9 @@
 <%@ page import="Bean.paymentClaimBean" %>
 <%@ page import="Exceptions.transactionError" %>
 <%@ page import="Exceptions.emptyResult" %>
-<%@ page import="Entity.TypeOfUser" %>
-<%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="Entity.TitleOfWindows" %>
+<%@ page import="Entity.Enum.TypeOfUser" %>
+<%@ page import="Entity.Enum.TypeOfMessage" %>
+<%@ page import="Entity.Enum.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
 

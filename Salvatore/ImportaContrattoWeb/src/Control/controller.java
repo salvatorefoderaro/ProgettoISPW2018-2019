@@ -2,6 +2,7 @@ package Control;
 
 import Bean.*;
 import Entity.*;
+import Entity.Enum.TypeOfRentable;
 import Exceptions.dbConfigMissing;
 import Exceptions.emptyResult;
 import Exceptions.transactionError;

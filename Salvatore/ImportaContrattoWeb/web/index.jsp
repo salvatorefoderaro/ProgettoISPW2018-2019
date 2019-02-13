@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import= "Control.controller" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="Control.controller" %>
 <%@ page import="Exceptions.emptyResult" %>
 <%@ page import="Bean.userBean" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
-<%@ page import="Entity.TypeOfMessage" %>
+<%@ page import="Entity.Enum.TypeOfMessage" %>
 <%@ page import="Control.loginController" %>
-<%@ page import="Entity.TitleOfWindows" %>
+<%@ page import="Entity.Enum.TitleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
 

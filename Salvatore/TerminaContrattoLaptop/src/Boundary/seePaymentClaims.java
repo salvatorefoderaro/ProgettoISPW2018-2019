@@ -8,10 +8,12 @@ package Boundary;
 import Bean.userSessionBean;
 import Bean.notificationBean;
 import Bean.paymentClaimBean;
+import Boundary.Enum.TitleOfWindows;
+import Boundary.Enum.TypeOfMessage;
 import Controller.Controller;
 import java.util.Observable;
 import java.util.Observer;
-import Entity.TypeOfUser;
+import Entity.Enum.TypeOfUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;
@@ -355,7 +357,7 @@ public void initialize(Controller parentController, userSessionBean session){
             this.claimDeadline.deleteObserver(this);
 
             Stage st = (Stage)gridPane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
             Parent root = null;
             try {
                 root = loader.load();
