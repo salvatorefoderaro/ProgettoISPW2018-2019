@@ -40,7 +40,7 @@ public class ContractRequestJDBC implements ContractRequestDAO{
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
 
-            String sql = "SELECT startDate, endDate FROM AvailabilityCalendar WHERE renterFeaturesId = " + contractRequestBean.getRentalFeatureId() + " AND startDate <= DATE('" + contractRequestBean.getStartDate().toString() + "') AND endDate >= DATE('" + contractRequestBean.getEndDate().toString() + "')";
+            String sql = "SELECT startDate, endDate FROM AvailabilityCalendar WHERE rentalFeaturesId = " + contractRequestBean.getRentalFeatureId() + " AND startDate <= DATE('" + contractRequestBean.getStartDate().toString() + "') AND endDate >= DATE('" + contractRequestBean.getEndDate().toString() + "')";
 
 
             ResultSet rs1 = stmt.executeQuery(sql);

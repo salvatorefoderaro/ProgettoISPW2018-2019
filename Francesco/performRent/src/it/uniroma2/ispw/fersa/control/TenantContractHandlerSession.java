@@ -5,6 +5,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -93,7 +94,8 @@ public class TenantContractHandlerSession {
                 this.contract.getGrossPrice(), this.contract.getState());
     }
 
-    public boolean isContractSelected() {
-        return this.contract != null;
+    public void signContract() throws SQLException, ConfigFileException, ClassNotFoundException, ConfigException, ContractPeriodException {
+        ContractJDBC.getInstance().signContract(this.contract.getContractId());
+
     }
 }

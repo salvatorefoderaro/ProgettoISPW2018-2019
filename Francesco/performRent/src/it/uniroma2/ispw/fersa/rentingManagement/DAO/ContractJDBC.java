@@ -240,10 +240,10 @@ public class ContractJDBC {
         try {
 
             String sql = "SELECT startDate, endDate FROM Contract WHERE " + idType + " = " + id + " AND state = '" +
-                    ContractStateEnum.SIGNATURE.toString() +"' AND (startDate <= DATE('" + endDate.toString() + "') " +
+                    ContractStateEnum.SIGNATURE.toString() +"' AND ((startDate <= DATE('" + endDate.toString() + "') " +
                     "AND startDate >= DATE('" + startDate.toString() + "')) " +
                     "OR (endDate <= DATE('" + endDate.toString() + "') " +
-                    "AND endDate >= DATE('" + startDate + "'))";
+                    "AND endDate >= DATE('" + startDate + "')))";
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
@@ -444,6 +444,241 @@ public class ContractJDBC {
                 rs.getString("renterCF"), rs.getString("renterAddress"),
                 rs.getInt("propertyPrice"), rs.getInt("deposit"),
                 null, null);
+    }
+
+    public void signContract(ContractId contractId) throws SQLException, ConfigException, ConfigFileException, ClassNotFoundException, ContractPeriodException{
+
+        Connection conn = ConnectionFactory.getInstance().openConnection();
+        Statement stmt = null;
+
+
+        try {
+
+            boolean autocommit = conn.getAutoCommit();
+            int isolation = conn.getTransactionIsolation();
+            conn.setAutoCommit(false);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+            //Controllo che il contratto sia ancora firmabile
+
+
+            String sql = "SELECT aptId, aptToRentId, roomToRentId, bedToRentId, type, "
+                    + "state, startDate, endDate FROM Contract WHERE contractId = " + contractId.getContractId();
+
+
+            ResultSet rs1 = stmt.executeQuery(sql);
+
+            if(!rs1.first() | ContractStateEnum.valueOf(rs1.getString("state")) != ContractStateEnum.SIGNATURE) {
+                conn.rollback();
+                throw new ContractPeriodException(); //TODO Cambiare eccezione
+            }
+
+
+            //Aggiornamento del calendario dell'appartamento
+
+            sql = "SELECT id FROM RentalFeatures WHERE aptToRentId = " + rs1.getInt("aptId");
+            ResultSet rs2 = stmt.executeQuery(sql);
+
+            if (!rs2.first()) {
+                conn.rollback();
+                throw new ContractPeriodException(); //TODO Cambiare eccezione
+            }
+
+            this.updateAvaibility(conn, rs2.getInt("id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+            this.refuseRequests(conn, "aptToRentId", rs1.getInt("aptId"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+
+            String column = null;
+
+            //Trovo la tipologia di affittabile
+
+            switch (RentableTypeEnum.valueOf(rs1.getString("type"))) {
+                case APTTORENT:
+                    break;
+                case ROOMTORENT:
+                    column = "roomToRentId";
+                    sql = "SELECT RoomToRent.id, RentalFeatures.id FROM RoomToRent INNER JOIN RentalFeatures ON RoomToRent.id = RentalFeatures.roomToRentId WHERE RoomToRent.id = " + rs1.getInt("roomToRentId");
+
+                    ResultSet rs3 = stmt.executeQuery(sql);
+
+                    if (!rs3.first()) break;
+
+                    do {
+                        this.updateAvaibility(conn, rs3.getInt("RentalFeatures.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                        this.refuseRequests(conn, "roomToRentId", rs3.getInt("RoomToRent.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+
+                        sql = "SELECT BedToRent.id, RentalFeatures.id FROM BedToRent INNER JOIN RentalFeatures ON BedToRent.id = RentalFeatures.bedToRentId WHERE roomId = " + rs3.getInt("id");
+
+                        ResultSet rs4 = stmt.executeQuery(sql);
+
+                        if(!rs4.first()) break;
+
+                        do {
+                            this.updateAvaibility(conn, rs4.getInt("RentalFeatures.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                            this.refuseRequests(conn, "bedToRentId", rs4.getInt("BedToRent.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                        } while (rs4.next());
+
+                    } while (rs3.next());
+                    break;
+
+                case BEDTORENT:
+                    column = "bedToRentId";
+
+                    sql = "SELECT BedToRent.id, RentalFeatures.id, roomId FROM BedToRent INNER JOIN RentalFeatures ON BedToRent.id = RentalFeatures.bedToRentId WHERE id = " + rs1.getInt("bedToRentId");
+
+                    ResultSet rs5 = stmt.executeQuery(sql);
+
+                    if (!rs5.first()) throw new SQLException(); //TODO Da Cambiare
+
+                    this.updateAvaibility(conn, rs5.getInt("RentalFeatures.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                    this.refuseRequests(conn, "bedToRent", rs5.getInt("BedToRent.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+
+
+                    sql = "SELECT RoomToRent.id, RentalFeatures.id FROM RoomToRent INNER JOIN RentalFeatures ON RoomToRent.id = Feature.roomToRentId  WHERE RoomToRent.id = " + rs5.getInt("roomId");
+
+                    ResultSet rs6 = stmt.executeQuery(sql);
+
+                    if(!rs6.first()) throw new SQLException(); //TODO Cambiare eccezione
+
+                    this.updateAvaibility(conn, rs6.getInt("RentalFeatures.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                    this.refuseRequests(conn, "roomToRentId", rs6.getInt("RoomToRent.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                    break;
+            }
+
+
+            sql = "UPDATE Contract SET state = '" + ContractStateEnum.ACTIVE.toString() + "', stipulationDate = '" + Date.valueOf(LocalDate.now()).toString() + "' WHERE contractId = " + contractId.getContractId();
+
+            stmt.executeUpdate(sql);
+
+            conn.commit();
+            conn.setAutoCommit(autocommit);
+            conn.setTransactionIsolation(isolation);
+
+
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }  finally {
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                    conn.close();
+                }
+                if (stmt != null) stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void updateAvaibility(Connection conn, int rentalFeaturesId, LocalDate startDate, LocalDate endDate) throws SQLException, ContractPeriodException {
+
+        Statement stmt = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
+
+
+        try {
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+            String sql = "SELECT id, startDate, endDate FROM AvailabilityCalendar WHERE startDate <= DATE(?) AND endDate >= DATE(?) AND rentalFeaturesId = ?";
+
+            preparedStatement1 = conn.prepareStatement(sql);
+            preparedStatement1.setString(1, startDate.toString());
+            preparedStatement1.setString(2, endDate.toString());
+            preparedStatement1.setInt(3, rentalFeaturesId);
+            ResultSet rs = preparedStatement1.executeQuery();
+
+
+            if (!rs.first()) {
+                throw new ContractPeriodException();
+            }
+
+            sql = "INSERT INTO AvailabilityCalendar (rentalFeaturesId, startDate, endDate) VALUES (?, ?, ?)";
+            preparedStatement2 = conn.prepareStatement(sql);
+
+            IntervalDate intervalDate1 = new IntervalDate(rs.getDate("startDate").toLocalDate(), startDate);
+
+            if (((int) intervalDate1.getNumMonths()) != 0) {
+
+
+
+
+                preparedStatement2.setInt(1, rentalFeaturesId);
+                preparedStatement2.setDate(2, rs.getDate("startDate"));
+                preparedStatement2.setDate(3, Date.valueOf(startDate));
+
+                preparedStatement2.executeUpdate();
+
+            }
+
+            IntervalDate intervalDate2 = new IntervalDate(endDate, rs.getDate("endDate").toLocalDate());
+
+            if (((int) intervalDate2.getNumMonths()) != 0) {
+
+                preparedStatement2.setInt(1, rentalFeaturesId);
+                preparedStatement2.setDate(2, Date.valueOf(endDate));
+                preparedStatement2.setDate(3, rs.getDate("endDate"));
+
+                preparedStatement2.executeUpdate();
+
+            }
+
+
+            sql = "DELETE FROM AvailabilityCalendar WHERE id = " + rs.getInt("id");
+
+            preparedStatement2 = conn.prepareStatement(sql);
+            preparedStatement2.executeUpdate();
+
+            rs.close();
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (preparedStatement1 != null) preparedStatement1.close();
+            if (preparedStatement2 != null) preparedStatement1.close();
+
+        }
+    }
+
+    private void refuseRequests(Connection conn, String idType, int id, LocalDate startDate, LocalDate endDate) throws SQLException{
+        Statement stmt = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+            String sql = "SELECT id FROM ContractRequest WHERE " + idType + " = " + id + " AND state = '" + RequestStateEnum.INSERTED.toString() + "' AND ((startDate <= DATE('" + endDate.toString() + "') " +
+                    "AND startDate >= DATE('" + startDate.toString() + "')) " +
+                    "OR (endDate <= DATE('" + endDate.toString() + "') " +
+                    "AND endDate >= DATE('" + startDate + "')))";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            if (!rs.first()) return;
+            sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.REFUSUED.toString() + "', declineMotivation = 'Periodo non più disponibile.' WHERE id = ?";
+
+            preparedStatement = conn.prepareStatement(sql);
+
+            do {
+                preparedStatement.setInt(1, rs.getInt("id"));
+                preparedStatement.executeUpdate();
+            } while (rs.next());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (preparedStatement != null) preparedStatement.close();
+        }
     }
 
 

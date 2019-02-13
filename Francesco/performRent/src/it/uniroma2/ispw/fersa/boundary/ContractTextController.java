@@ -4,6 +4,7 @@ import it.uniroma2.ispw.fersa.control.TenantContractHandlerSession;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTextBean;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -229,7 +230,36 @@ public class ContractTextController {
     }
 
     public void sign() {
+        try {
+            this.model.signContract();
+        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException | ContractPeriodException e) {
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            goToTenantPage();
+            return;
+        }
 
+        PopUp.getInstance().showPopUp(this.window, "Contratto firmato correttamente");
+        goToTenantPage();
+
+
+    }
+
+    private void goToTenantPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TenantPage.fxml"));
+            Parent root = loader.load();
+            stage.setTitle("FERSA - Pagina locatario");
+            TenantPageController controller = loader.getController();
+            controller.setTenantNickname(this.tenantNickname);
+            controller.setStage(this.stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            return;
+        }
     }
 
 }

@@ -40,7 +40,7 @@ public class RentalFeaturesJDBC implements RentalFeaturesDAO {
 
             ResultSet rs1 = stmt.executeQuery(sql);
 
-            sql = "SELECT startDate, endDate FROM AvailabilityCalendar WHERE renterFeaturesId = " + rentalFeaturesId;
+            sql = "SELECT startDate, endDate FROM AvailabilityCalendar WHERE rentalFeaturesId = " + rentalFeaturesId;
 
             ResultSet rs2 = stmt.executeQuery(sql);
 
