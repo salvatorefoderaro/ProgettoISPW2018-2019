@@ -125,6 +125,7 @@ public class ContractController {
             case ACTIVE:
             case EXPIRED:
                 Button seeContract = new Button("Visualizza contratto");
+                seeContract.setOnAction(event -> seeContract());
                 this.buttons.getChildren().add(seeContract);
                 break;
         }
@@ -159,7 +160,27 @@ public class ContractController {
             ContractTextController controller = loader.getController();
             controller.setTenantNickname(this.tenantNickname);
             controller.setModel(this.model);
-            controller.getContractText();
+            controller.signContract();
+            controller.setStage(this.stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            return;
+        }
+    }
+
+    public void seeContract() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ContractText.fxml"));
+            Parent root = loader.load();
+            stage.setTitle("FERSA - Visualizza contratto");
+            ContractTextController controller = loader.getController();
+            controller.setTenantNickname(this.tenantNickname);
+            controller.setModel(this.model);
+            controller.viewContract();
             controller.setStage(this.stage);
             stage.setScene(new Scene(root));
             stage.show();

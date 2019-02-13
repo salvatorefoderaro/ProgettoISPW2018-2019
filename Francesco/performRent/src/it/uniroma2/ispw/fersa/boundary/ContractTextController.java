@@ -52,7 +52,7 @@ public class ContractTextController {
         this.model = model;
     }
 
-    public void getContractText() {
+    private void getContractText() {
         ContractTextBean contractText;
 
         try {
@@ -109,9 +109,10 @@ public class ContractTextController {
                 + contractText.getTotalPrice() + "che il conduttore si obbliga a corrispondere, rispettivamente, in "
                 + contractText.getNumMonths() + " rate eguali mensili entro i primi di ogni mese, ciascuna di euro "
                 + (int) contractText.getTotalPrice() / contractText.getNumMonths() + ".");
-        payment.autosize();
+
         payment.setWrapText(true);
         payment.setEditable(false);
+        payment.autosize();
 
         Label depositTitle = new Label("Deposito cauzionale");
         depositTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
@@ -178,13 +179,28 @@ public class ContractTextController {
 
         this.contract.autosize();
 
+    }
+
+    public void viewContract() {
+        this.getContractText();
         Button undo = new Button("Indietro");
 
         undo.setOnAction(event -> undo());
 
         this.buttons.getChildren().addAll(undo);
+    }
+
+    public void signContract() {
+        this.viewContract();
+        Button signContract = new Button("Firma");
+
+        signContract.setOnAction(event -> sign());
+
+        this.buttons.getChildren().add(signContract);
+
 
     }
+
 
     public void undo() {
 
@@ -209,6 +225,10 @@ public class ContractTextController {
             PopUp.getInstance().showPopUp(this.window, e.toString());
             return;
         }
+
+    }
+
+    public void sign() {
 
     }
 
