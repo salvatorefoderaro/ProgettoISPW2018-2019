@@ -22,16 +22,16 @@ public class TenantContractHandlerSession {
         List<ContractLabelBean> contractLabelBeans = new ArrayList<>();
         List<ContractId> contractIds;
         try {
-            contractIds = ContractJDBC.getInstance().getAllContractsIdByTenantNickname(this.tenant);
+            contractIds = ContractDAO.getInstance().getAllContractsIdByTenantNickname(this.tenant);
         } catch (SQLException | ConfigException | ConfigFileException | ClassNotFoundException e) {
             e.printStackTrace();
             throw e;
         }
 
         for (ContractId contractId : contractIds) {
-            ContractsAndRequestRetriver contractsAndRequestRetriver = new ServiceDecorator(new ContractsAndRequestSimpleRetriver(contractId));
+            ContractsAndRequestLoader contractsAndRequestLoader = new ServiceDecorator(new ContractsAndRequestSimpleLoader(contractId));
 
-            Contract contract = contractsAndRequestRetriver.retriveContract();
+            Contract contract = contractsAndRequestLoader.retriveContract();
 
             contractLabelBeans.add(new ContractLabelBean(contract.getContractId().getContractId(),
                     contract.getRenterNickname(), contract.getCreationDate(), contract.getStipulationDate(),
@@ -44,13 +44,13 @@ public class TenantContractHandlerSession {
 
     public void selectContract(ContractId contractId) throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException {
-        ContractsAndRequestRetriver contractsAndRequestRetriver =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(contractId)));
-        this.contract = contractsAndRequestRetriver.retriveContract();
+        ContractsAndRequestLoader contractsAndRequestLoader =
+                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(contractId)));
+        this.contract = contractsAndRequestLoader.retriveContract();
     }
 
     public ContractTextBean getContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
-        EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
+        EquippedApt equippedApt = EquippedAptDAO.getInstance().getEquippedAptByContractId(this.contract.getContractId());
 
         List<ServiceBean> serviceBeans = new ArrayList<>();
 
@@ -69,9 +69,9 @@ public class TenantContractHandlerSession {
 
     public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, IOException {
-        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractId(this.contract.getContractId());
+        EquippedApt apt = EquippedAptDAO.getInstance().getEquippedAptByContractId(this.contract.getContractId());
 
-        Property property = RentableJDBC.getInstance().getRentableByContractId(
+        Property property = PropertyDAO.getInstance().getRentableByContractId(
                 this.contract.getContractId());
         return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
                 property.getDescription());
@@ -93,7 +93,7 @@ public class TenantContractHandlerSession {
     }
 
     public void signContract() throws SQLException, ConfigFileException, ClassNotFoundException, ConfigException, CanceledContractException {
-        ContractJDBC.getInstance().signContract(this.contract.getContractId());
+        ContractDAO.getInstance().signContract(this.contract.getContractId());
 
     }
 }

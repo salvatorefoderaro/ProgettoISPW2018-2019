@@ -11,22 +11,20 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.sql.*;
 
-public class RentableJDBC implements RentableDAO{
-    private static RentableJDBC ourInstance = new RentableJDBC();
+public class PropertyDAO {
+    private static PropertyDAO ourInstance = new PropertyDAO();
 
-    public static RentableJDBC getInstance() {
+    public static PropertyDAO getInstance() {
         return ourInstance;
     }
 
-    private RentableJDBC() {
+    private PropertyDAO() {
     }
 
-    @Override
     public Property getRentableByRentalFeaturesId(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
       return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM RentalFeatures WHERE id = " + rentalFeaturesId);
     }
 
-    @Override
     public Property getRentableByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
         return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM ContractRequest WHERE id = " + contractRequestId.getId());
     }

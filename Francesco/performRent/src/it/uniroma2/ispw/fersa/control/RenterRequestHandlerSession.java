@@ -28,12 +28,12 @@ public class RenterRequestHandlerSession {
         List<RequestLabelBean> requestLabelBeans = new ArrayList<>();
 
         List<ContractRequestId> contractRequestIds =
-                ContractRequestJDBC.getInstance().findContractRequestIdsByRenterNickname(this.renterNickname);
+                ContractRequestDAO.getInstance().findContractRequestIdsByRenterNickname(this.renterNickname);
         for (ContractRequestId requestId : contractRequestIds) {
             try {
-                ContractsAndRequestRetriver contractsAndRequestRetriver =
-                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
-                ContractRequest contractRequest = contractsAndRequestRetriver.retriveContractRequest();
+                ContractsAndRequestLoader contractsAndRequestLoader =
+                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
+                ContractRequest contractRequest = contractsAndRequestLoader.retriveContractRequest();
                 requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(),
                         contractRequest.getTenantNickname(), contractRequest.getCreationDate(),
                         contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(),
@@ -48,9 +48,9 @@ public class RenterRequestHandlerSession {
 
     public void selectRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, ContractPeriodException {
-        ContractsAndRequestRetriver contractsAndRequestRetriver =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
-        this.contractRequest = contractsAndRequestRetriver.retriveContractRequest();
+        ContractsAndRequestLoader contractsAndRequestLoader =
+                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
+        this.contractRequest = contractsAndRequestLoader.retriveContractRequest();
     }
 
     public ContractRequestInfoBean getRequestInfo() {
@@ -68,7 +68,7 @@ public class RenterRequestHandlerSession {
     }
 
     public ContractTextBean getContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException{
-        EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
+        EquippedApt equippedApt = EquippedAptDAO.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
         List<ServiceBean> serviceBeans = new ArrayList<>();
 
@@ -86,9 +86,9 @@ public class RenterRequestHandlerSession {
 
     public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, IOException {
-        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
+        EquippedApt apt = EquippedAptDAO.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
-        Property property = RentableJDBC.getInstance().getRentableByContractRequestId(
+        Property property = PropertyDAO.getInstance().getRentableByContractRequestId(
                 this.contractRequest.getContractRequestId());
         return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
                 property.getDescription());
@@ -101,7 +101,7 @@ public class RenterRequestHandlerSession {
 
         tenantInfo = userProfile.getUserInfo(this.contractRequest.getTenantNickname(), UserInfoType.TENANT);
         renterInfo = userProfile.getUserInfo(this.renterNickname, UserInfoType.RENTER);
-        contractType = ContractTypeJDBC.getIstance().getContractTypeById(this.contractRequest.getContractTypeId());
+        contractType = ContractTypeDAO.getIstance().getContractTypeById(this.contractRequest.getContractTypeId());
 
 
 
@@ -114,7 +114,7 @@ public class RenterRequestHandlerSession {
     }
 
     public void declineRequest(String declineMotivation) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
-        ContractRequestJDBC.getInstance().refuseRequest(this.contractRequest.getContractRequestId(), declineMotivation);
+        ContractRequestDAO.getInstance().refuseRequest(this.contractRequest.getContractRequestId(), declineMotivation);
     }
 
     public boolean isRequestSelected() {
@@ -123,6 +123,6 @@ public class RenterRequestHandlerSession {
 
     public void signContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ConflictException {
         ContractBean contractBean = new ContractBean(this.contractRequest.getContractRequestId(), this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(), this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(), this.contract.getTenantAddress(), this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(), this.contract.getGrossPrice(), this.contract.getNetPrice(), 1);
-        ContractJDBC.getInstance().createContract(contractBean);
+        ContractDAO.getInstance().createContract(contractBean);
     }
 }

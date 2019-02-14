@@ -8,22 +8,22 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodExceptio
 
 import java.sql.SQLException;
 
-public abstract class ContractsAndRequestRetriverDecorator extends ContractsAndRequestRetriver {
-    private ContractsAndRequestRetriver contractsAndRequestRetriver;
+public abstract class ContractsAndRequestLoaderDecorator extends ContractsAndRequestLoader {
+    private ContractsAndRequestLoader contractsAndRequestLoader;
 
-    public ContractsAndRequestRetriverDecorator(ContractsAndRequestRetriver contractsAndRequestRetriver) {
-        this.contractsAndRequestRetriver = contractsAndRequestRetriver;
+    public ContractsAndRequestLoaderDecorator(ContractsAndRequestLoader contractsAndRequestLoader) {
+        this.contractsAndRequestLoader = contractsAndRequestLoader;
     }
 
     @Override
     public ContractRequest retriveContractRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
-        ContractRequest contractRequest = this.contractsAndRequestRetriver.retriveContractRequest();
+        ContractRequest contractRequest = this.contractsAndRequestLoader.retriveContractRequest();
         return contractRequest;
     }
 
     @Override
     public Contract retriveContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
-        Contract contract = this.contractsAndRequestRetriver.retriveContract();
+        Contract contract = this.contractsAndRequestLoader.retriveContract();
         return contract;
     }
 }

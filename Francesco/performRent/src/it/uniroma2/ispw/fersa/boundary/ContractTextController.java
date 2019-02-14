@@ -240,8 +240,6 @@ public class ContractTextController {
 
         PopUp.getInstance().showPopUp(this.window, "Contratto firmato correttamente");
         goToTenantPage();
-
-
     }
 
     private void goToTenantPage() {

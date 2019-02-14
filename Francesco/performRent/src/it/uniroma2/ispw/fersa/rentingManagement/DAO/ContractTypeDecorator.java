@@ -7,20 +7,20 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodExceptio
 
 import java.sql.SQLException;
 
-public class ContractTypeDecorator extends ContractsAndRequestRetriverDecorator {
-    public ContractTypeDecorator(ContractsAndRequestRetriver contractsAndRequestRetriver) {
-        super(contractsAndRequestRetriver);
+public class ContractTypeDecorator extends ContractsAndRequestLoaderDecorator {
+    public ContractTypeDecorator(ContractsAndRequestLoader contractsAndRequestLoader) {
+        super(contractsAndRequestLoader);
     }
 
     public ContractRequest setContractType(ContractRequest contractRequest) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
         ContractRequestId contractRequestId = contractRequest.getRequestId();
-        ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByRequestId(contractRequestId);
+        ContractType contractType = ContractTypeDAO.getIstance().getContractTypeByRequestId(contractRequestId);
         contractRequest.setContractType(contractType);
         return contractRequest;
     }
     public Contract setContractType(Contract contract) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
         ContractId contractId = contract.getContractId();
-        ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByContractId(contractId);
+        ContractType contractType = ContractTypeDAO.getIstance().getContractTypeByContractId(contractId);
         contract.setContractType(contractType);
         return contract;
     }

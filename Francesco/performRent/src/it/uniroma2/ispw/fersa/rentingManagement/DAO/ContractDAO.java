@@ -9,14 +9,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContractJDBC {
-    private static ContractJDBC ourInstance = new ContractJDBC();
+public class ContractDAO {
+    private static ContractDAO ourInstance = new ContractDAO();
 
-    public static ContractJDBC getInstance() {
+    public static ContractDAO getInstance() {
         return ourInstance;
     }
 
-    private ContractJDBC() {
+    private ContractDAO() {
     }
 
     public void createContract(ContractBean contractBean) throws SQLException, ClassNotFoundException,

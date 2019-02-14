@@ -8,21 +8,21 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodExceptio
 import java.sql.SQLException;
 import java.util.List;
 
-public class ServiceDecorator extends ContractsAndRequestRetriverDecorator {
-    public ServiceDecorator(ContractsAndRequestRetriver contractsAndRequestRetriver) {
-        super(contractsAndRequestRetriver);
+public class ServiceDecorator extends ContractsAndRequestLoaderDecorator {
+    public ServiceDecorator(ContractsAndRequestLoader contractsAndRequestLoader) {
+        super(contractsAndRequestLoader);
     }
 
     public ContractRequest setServices(ContractRequest contractRequest) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
         ContractRequestId requestId = contractRequest.getRequestId();
-        List<Service> services = ServiceJDBC.getInstance().getServiceByContractRequestId(requestId);
+        List<Service> services = ServiceDAO.getInstance().getServiceByContractRequestId(requestId);
         contractRequest.setServices(services);
         return contractRequest;
     }
 
     public Contract setServices(Contract contract) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
         ContractId contractId = contract.getContractId();
-        List<Service> services = ServiceJDBC.getInstance().getServiceByContractId(contractId);
+        List<Service> services = ServiceDAO.getInstance().getServiceByContractId(contractId);
         contract.setServices(services);
         return contract;
     }
