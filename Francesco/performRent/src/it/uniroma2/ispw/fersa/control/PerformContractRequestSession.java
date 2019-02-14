@@ -35,13 +35,13 @@ public class PerformContractRequestSession {
 
     public RentableInfoBean makeNewRequest() throws ClassNotFoundException, ConfigException, ConfigFileException,
             SQLException, NotFoundException, IOException {
-        this.rentalFeatures = RentalFeaturesJDBC.getInstance().getRentalFeatures(this.rentalFeaturesId);
+        this.rentalFeatures = RentalFeaturesDAO.getInstance().getRentalFeatures(this.rentalFeaturesId);
 
         List<String> intervalDates = new ArrayList<>();
 
         rentalFeatures.getAvailability().forEach(intervalDate -> intervalDates.add(intervalDate.toString()));
 
-        Property property = RentableJDBC.getInstance().getRentableByRentalFeaturesId(this.rentalFeaturesId);
+        Property property = PropertyDAO.getInstance().getRentableByRentalFeaturesId(this.rentalFeaturesId);
 
         if (property == null) throw new NotFoundException("Errore: informazioni sull'immobile selezionato non trovate");
 
@@ -49,7 +49,7 @@ public class PerformContractRequestSession {
                 property.getType(), property.getDescription(), rentalFeatures.getDescription(),
                 rentalFeatures.getPrice(), rentalFeatures.getDeposit(), intervalDates);
 
-        EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptById(this.apartmentId);
+        EquippedApt equippedApt = EquippedAptDAO.getInstance().getEquippedAptById(this.apartmentId);
 
         this.contractRequest = new ContractRequest(equippedApt.getRenterNickname(), this.tenantNickname,
                 property.getRentableId(), this.rentalFeatures.getPrice(), this.rentalFeatures.getDeposit());
@@ -59,7 +59,7 @@ public class PerformContractRequestSession {
 
     public ContractTypeBean getContractType(String contractTypeName) throws ClassNotFoundException, SQLException,
             ConfigException, ConfigFileException, NotFoundException {
-        ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByName(contractTypeName);
+        ContractType contractType = ContractTypeDAO.getIstance().getContractTypeByName(contractTypeName);
         if (contractType == null) throw new NotFoundException("Errore: contratto selezionato non trovato");
         return new ContractTypeBean(contractType.getContractTypeId(), contractType.getName(),
                 contractType.getDescription(), contractType.getMinDuration(), contractType.getMaxDuration());
@@ -67,14 +67,14 @@ public class PerformContractRequestSession {
 
     public void selectContract(String contractTypeName) throws ClassNotFoundException, SQLException, ConfigException,
             ConfigFileException, NotFoundException, ContractPeriodException {
-        ContractType contractType = ContractTypeJDBC.getIstance().getContractTypeByName(contractTypeName);
+        ContractType contractType = ContractTypeDAO.getIstance().getContractTypeByName(contractTypeName);
         if (contractType == null) throw new NotFoundException("Errore: contratto selezionato non trovato");
         this.contractRequest.setContractType(contractType);
     }
 
     public List<ServiceBean> getAllServices() throws ConfigFileException, ConfigException, ClassNotFoundException,
             SQLException {
-        List<Service> services = ServiceJDBC.getInstance().getServicesByAptId(this.apartmentId);
+        List<Service> services = ServiceDAO.getInstance().getServicesByAptId(this.apartmentId);
         List<ServiceBean> serviceBeans = new ArrayList<>();
         services.forEach(service -> serviceBeans.add(new ServiceBean(service.getId() ,service.getName(),
                 service.getDescriprion(), service.getPrice())));
@@ -83,7 +83,7 @@ public class PerformContractRequestSession {
 
     public ContractNamesBean getAllContractTypes() throws ClassNotFoundException, SQLException, ConfigException,
             ConfigFileException {
-        List<ContractType> contractTypes = ContractTypeJDBC.getIstance().getAllContractTypes();
+        List<ContractType> contractTypes = ContractTypeDAO.getIstance().getAllContractTypes();
 
         List<String> contractNames = new ArrayList<>();
 
@@ -103,7 +103,7 @@ public class PerformContractRequestSession {
 
 
         for (ServiceBean serviceBean : serviceBeans) {
-            services.add(ServiceJDBC.getInstance().getServiceByContractRequestId(serviceBean.getServiceId()));
+            services.add(ServiceDAO.getInstance().getServiceByContractRequestId(serviceBean.getServiceId()));
         }
 
         this.contractRequest.setServices(services);
@@ -144,7 +144,7 @@ public class PerformContractRequestSession {
                 this.contractRequest.getEndDate(), this.contractRequest.getRentablePrice(),
                 this.contractRequest.getDeposit(), serviceIds);
 
-        ContractRequestJDBC.getInstance().insertNewRequest(contractRequestBean);
+        ContractRequestDAO.getInstance().insertNewRequest(contractRequestBean);
 
     }
 

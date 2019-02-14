@@ -8,7 +8,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodExceptio
 
 import java.sql.SQLException;
 
-public abstract class ContractsAndRequestRetriver {
+public abstract class ContractsAndRequestLoader {
 
     public abstract ContractRequest retriveContractRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException;
     public abstract Contract retriveContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException;

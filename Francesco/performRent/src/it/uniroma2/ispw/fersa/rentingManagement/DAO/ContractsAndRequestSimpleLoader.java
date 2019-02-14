@@ -6,32 +6,31 @@ import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequest;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 
 import java.sql.SQLException;
 
-public class ContractsAndRequestSimpleRetriver extends ContractsAndRequestRetriver {
+public class ContractsAndRequestSimpleLoader extends ContractsAndRequestLoader {
 
     private ContractRequestId contractRequestId;
     private ContractId contractId;
 
-    public ContractsAndRequestSimpleRetriver(ContractRequestId contractRequestId) {
+    public ContractsAndRequestSimpleLoader(ContractRequestId contractRequestId) {
         this.contractRequestId = contractRequestId;
     }
 
-    public ContractsAndRequestSimpleRetriver(ContractId contractId) {
+    public ContractsAndRequestSimpleLoader(ContractId contractId) {
         this.contractId = contractId;
     }
 
 
     @Override
     public ContractRequest retriveContractRequest() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
-        return ContractRequestJDBC.getInstance().getContractRequest(this.contractRequestId);
+        return ContractRequestDAO.getInstance().getContractRequest(this.contractRequestId);
     }
 
     @Override
     public Contract retriveContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
-        return ContractJDBC.getInstance().getContractById(this.contractId);
+        return ContractDAO.getInstance().getContractById(this.contractId);
     }
 
 }

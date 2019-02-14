@@ -2,9 +2,9 @@ package it.uniroma2.ispw.fersa.boundary;
 
 import it.uniroma2.ispw.fersa.control.TenantContractHandlerSession;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractTextBean;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledContractException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -232,7 +232,7 @@ public class ContractTextController {
     public void sign() {
         try {
             this.model.signContract();
-        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException | ContractPeriodException e) {
+        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException | CanceledContractException e) {
             PopUp.getInstance().showPopUp(this.window, e.toString());
             goToTenantPage();
             return;
@@ -240,8 +240,6 @@ public class ContractTextController {
 
         PopUp.getInstance().showPopUp(this.window, "Contratto firmato correttamente");
         goToTenantPage();
-
-
     }
 
     private void goToTenantPage() {

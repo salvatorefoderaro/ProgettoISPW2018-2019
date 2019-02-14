@@ -4,7 +4,7 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.userProfileAndServices.NicknameNotFoundException" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException" %>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConflictException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>
 <jsp:useBean id="sessionRequest" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionRequestBean"></jsp:useBean>
@@ -26,7 +26,7 @@
         try {
             sessionRequest.getRenterRequestHandlerSession().signContract();
 
-        } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException | ContractPeriodException e) {
+        } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException | ConflictException e) {
             session.setAttribute("warningMessage", e.toString());
             response.sendRedirect(response.encodeRedirectURL("RenterPage.jsp"));
             return;

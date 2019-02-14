@@ -3,6 +3,7 @@ package it.uniroma2.ispw.fersa.control;
 import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledRequestException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
@@ -25,12 +26,12 @@ public class TenantRequestHandlerSession {
         List<RequestLabelBean> requestLabelBeans = new ArrayList<>();
 
         List<ContractRequestId> contractRequestIds =
-                ContractRequestJDBC.getInstance().findContractRequestIdsByTenantNickname(this.tenantNickname);
+                ContractRequestDAO.getInstance().findContractRequestIdsByTenantNickname(this.tenantNickname);
         for (ContractRequestId requestId : contractRequestIds) {
             try {
-                ContractsAndRequestRetriver contractsAndRequestRetriver =
-                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
-                ContractRequest contractRequest = contractsAndRequestRetriver.retriveContractRequest();
+                ContractsAndRequestLoader contractsAndRequestLoader =
+                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
+                ContractRequest contractRequest = contractsAndRequestLoader.retriveContractRequest();
                 requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(),
                         contractRequest.getRenterNickname(), contractRequest.getCreationDate(),
                         contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(),
@@ -44,16 +45,16 @@ public class TenantRequestHandlerSession {
 
     public void selectRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, ContractPeriodException {
-        ContractsAndRequestRetriver contractsAndRequestRetriver =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleRetriver(requestId)));
-        this.contractRequest = contractsAndRequestRetriver.retriveContractRequest();
+        ContractsAndRequestLoader contractsAndRequestLoader =
+                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
+        this.contractRequest = contractsAndRequestLoader.retriveContractRequest();
     }
 
     public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, IOException {
-        EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
+        EquippedApt apt = EquippedAptDAO.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
-        Property property = RentableJDBC.getInstance().getRentableByContractRequestId(
+        Property property = PropertyDAO.getInstance().getRentableByContractRequestId(
                 this.contractRequest.getContractRequestId());
         return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
                 property.getDescription());
@@ -73,8 +74,8 @@ public class TenantRequestHandlerSession {
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal(), this.contractRequest.getState(), this.contractRequest.getDeclineMotivation());
     }
 
-    public void cancelRequest() throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException{
-        ContractRequestJDBC.getInstance().cancelRequest(this.contractRequest.getContractRequestId());
+    public void cancelRequest() throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException, CanceledRequestException {
+        ContractRequestDAO.getInstance().cancelRequest(this.contractRequest.getContractRequestId());
 
     }
 }
