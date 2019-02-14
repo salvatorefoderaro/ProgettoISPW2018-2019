@@ -197,11 +197,12 @@ public class ContractJDBC {
                     preparedStatement2.executeUpdate();
                 } while (rs6.next());
 
-                sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.APPROVED.toString() + "'WHERE id = "
-                        + contractBean.getContractRequestId().getId();
-
-                stmt.executeQuery(sql);
             }
+
+            sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.APPROVED.toString() + "'WHERE id = "
+                    + contractBean.getContractRequestId().getId();
+
+            stmt.executeQuery(sql);
 
             conn.commit();
             conn.setAutoCommit(autocommit);
