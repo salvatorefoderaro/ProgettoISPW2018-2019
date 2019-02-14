@@ -64,15 +64,9 @@ public class ContractTextController {
             return;
         }
 
-        Label title = new Label(contractText.getContracTypeName());
+        Label title = new Label(contractText.getContractName());
         title.setFont(Font.font("System", FontWeight.BOLD, 18));
-        TextArea intro = new TextArea("Il/la Sig./Sig.ra " + contractText.getRenterSurname() + " " +
-                contractText.getRenterName() + "denominato/a locatore concede in locazione al Sig./Sig.ra " +
-                contractText.getTenantSurname() + " " + contractText.getTenantName() + ", nato/a a " + contractText.getTenantCityOfBirth() + " e residente a " +
-                contractText.getTenantAddress() + " C.F. " + contractText.getTenantCF() + " di seguito denominato/a" +
-                " conduttore, che accetta di per sè, una porzione dell'unità immobiliare posta in " +
-                contractText.getAptAddress() + ". Il locatore dichiara che gli impianti sono a normza con le vigenti " +
-                "normative in materia.\nLa locazione è regolata da: ");
+        TextArea intro = new TextArea(contractText.getIntro());
         intro.autosize();
         intro.setWrapText(true);
         intro.setEditable(false);
@@ -80,9 +74,7 @@ public class ContractTextController {
         Label durationTitle = new Label("Durata");
         durationTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
 
-        TextArea duration = new TextArea("Il contratto è stipulato per la durata di " + contractText.getNumMonths() +
-                "mesi, a decorrere dal " + contractText.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                + " e fino al " + contractText.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".");
+        TextArea duration = new TextArea(contractText.getDuration());
         duration.autosize();
         duration.setWrapText(true);
         duration.setEditable(false);
@@ -91,12 +83,10 @@ public class ContractTextController {
 
         TextArea transitory = null;
 
-        if (contractText.isTransitory()) {
+        if (contractText.getTransitory() != null) {
             transitoryTitle = new Label("Natura transitoria");
             transitoryTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
-            transitory = new TextArea("Le parti concordano che la presente locazione ha natura transitoria" +
-                    " in quanto il conduttore espressamente ha l'esigenza di abitare l'immobile per motivi" +
-                    " di studio o lavoro.");
+            transitory = new TextArea(contractText.getTransitory());
 
             transitory.autosize();
             transitory.setWrapText(true);
@@ -106,10 +96,7 @@ public class ContractTextController {
         Label paymentTitle = new Label("Canone");
         paymentTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
 
-        TextArea payment = new TextArea("Il canone di locazione è convenuto complessivamente in euro"
-                + contractText.getTotalPrice() + "che il conduttore si obbliga a corrispondere, rispettivamente, in "
-                + contractText.getNumMonths() + " rate eguali mensili entro i primi di ogni mese, ciascuna di euro "
-                + (int) contractText.getTotalPrice() / contractText.getNumMonths() + ".");
+        TextArea payment = new TextArea(contractText.getPayment());
 
         payment.setWrapText(true);
         payment.setEditable(false);
@@ -118,34 +105,15 @@ public class ContractTextController {
         Label depositTitle = new Label("Deposito cauzionale");
         depositTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
 
-        TextArea deposit = new TextArea("A garanzia delle obbligazioni assunte col presente contratto, " +
-                "il conduttore versa al locatore (che con la firma del contratto ne rilascia, in caso, quietanza) " +
-                "una somma di euro " + contractText.getDeposit() + ".");
+        TextArea deposit = new TextArea(contractText.getDeposit());
         deposit.autosize();
         deposit.setWrapText(true);
         deposit.setEditable(false);
 
-        Label cuponTitle = new Label("Cedolare secca");
-        cuponTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
-
-        TextArea cupon = new TextArea("Il locatore dichiara di aderire alla cedolare secca.");
-        cupon.autosize();
-        cupon.setWrapText(true);
-        cupon.setEditable(false);
-
         Label resolutionTitle = new Label("Pagamento, risoluzione e prelazione");
         resolutionTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
 
-        TextArea resolution = new TextArea("Le obbligazioni di pagamento scaturenti dal presente contratto " +
-                "costituiscono obbligazioni parziarie e divisibili ai sensi dell'art. 1314 C.C. e ciascuno dei " +
-                "debitori non è tenuto a pagare il debito che per la sua parle. Le spese sono escluse dal canone " +
-                "di locazione mensilmente corrisposto. 11 pagamento del canone o di quant'altro dovuto anche per" +
-                " oneri accessori non può venire sospeso o ritardato da pretese o eccezioni del conduttore, quale ne" +
-                " sia il titolo. Il mancato puntuale pagamento, per qualsiasi causa, anche di una sola rata del canone" +
-                " (nonché di quant'altro dovuto, ove di imporlo pari almeno ad una mensilità del canone), " +
-                "costituisce in mora il conduttore inadempiente, fatto salvo quanto previsto dall'articolo 55 " +
-                "della Legge n. 392/78. La vendita dell'unità immobiliare locata - in relazione alla quale " +
-                "non viene concessa la prelazione al conduttore - non costituisce motivo di risoluzione del contratto.");
+        TextArea resolution = new TextArea(contractText.getResolution());
         resolution.autosize();
         resolution.setWrapText(true);
         resolution.setEditable(false);
@@ -153,11 +121,7 @@ public class ContractTextController {
         Label useTitle = new Label("Uso");
         useTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
 
-        TextArea use = new TextArea("L'immobile deve ssere destinato esclusivamente ad uso di civile abitazione dei " +
-                "conduttori . È fatto divieto di sublocare o dare in comodato, int tutto o in parte, l'unità immobiliare, " +
-                "pena la risoluzione i diritto del contratto. Il conduttore dovrà riconsegnare l ímmobile pulito ed integro, " +
-                "in ogni sua componente anche mobiliare; nel caso in cui si dovessero riscontrare es. muri sporchi, mobili, " +
-                "oggetti rotti o quant'altro, il conduttore si impegna a ripristinare il tutto a proprie spese.");
+        TextArea use = new TextArea(contractText.getUse());
         use.autosize();
         use.setWrapText(true);
         use.setEditable(false);
@@ -165,18 +129,16 @@ public class ContractTextController {
         Label variousTitle = new Label("Varie");
         variousTitle.setFont(Font.font("System", FontWeight.BOLD, 18));
 
-        TextArea various = new TextArea("Per quanto non previsto dal presente contratto le parti rinviano a quanto disposto in " +
-                "materia dal Codice Civile, dalle Leggi n. 392/78 e n. 431/98 o ccomunque dalle normi vigenti, " +
-                "dagli usi locali e dagli Accordi Territoriali.");
+        TextArea various = new TextArea(contractText.getVarious());
         various.autosize();
         various.setWrapText(true);
         various.setEditable(false);
 
         this.contract.getChildren().addAll(title, intro, durationTitle, duration);
 
-        if (contractText.isTransitory()) this.contract.getChildren().addAll(transitoryTitle, transitory);
+        if (contractText.getTransitory() != null) this.contract.getChildren().addAll(transitoryTitle, transitory);
 
-        this.contract.getChildren().addAll(paymentTitle, payment, depositTitle, deposit, cuponTitle, cupon, resolutionTitle, resolution, useTitle, use, variousTitle, various);
+        this.contract.getChildren().addAll(paymentTitle, payment, depositTitle, deposit, resolutionTitle, resolution, useTitle, use, variousTitle, various);
 
         this.contract.autosize();
 

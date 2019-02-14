@@ -4,127 +4,88 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ContractTextBean {
-    private String contracTypeName;
-    private boolean transitory;
-    private String aptAddress;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String tenantName;
-    private String tenantSurname;
-    private String tenantCF;
-    private LocalDate tenantDateOfBirth;
-    private String tenantCityOfBirth;
-    private String tenantAddress;
-    private String renterName;
-    private String renterSurname;
-    private String renterCF;
-    private String renterAddress;
-    private int numMonths;
-    private int totalPrice;
-    private int deposit;
-    private List<ServiceBean> services;
+    private String contractName;
+    private String intro;
+    private String duration;
+    private String transitory;
+    private String payment;
+    private String deposit;
+    private String resolution;
+    private String use;
+    private String various;
 
-    public ContractTextBean(String contracTypeName, boolean transitory, String aptAddress, LocalDate startDate, LocalDate endDate,
-                            String tenantName, String tenantSurname, String tenantCF, LocalDate tenantDateOfBirth,
-                            String tenantCityOfBirth, String tenantAddress, String renterName, String renterSurname,
-                            String renterCF, String renterAddress, int numMonths, int totalPrice, int deposit,
-                            List<ServiceBean> services) {
+    public ContractTextBean(){}
 
-        this.contracTypeName = contracTypeName;
-        this.transitory = transitory;
-        this.aptAddress = aptAddress;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.tenantName = tenantName;
-        this.tenantSurname = tenantSurname;
-        this.tenantCF = tenantCF;
-        this.tenantDateOfBirth = tenantDateOfBirth;
-        this.tenantCityOfBirth = tenantCityOfBirth;
-        this.tenantAddress = tenantAddress;
-        this.renterName = renterName;
-        this.renterSurname = renterSurname;
-        this.renterCF = renterCF;
-        this.renterAddress = renterAddress;
-        this.numMonths = numMonths;
-        this.totalPrice = totalPrice;
-        this.deposit = deposit;
-        this.services = services;
+    public String getContractName() {
+        return contractName;
     }
 
-    public String getContracTypeName() {
-        return contracTypeName;
+    public String getIntro() {
+        return intro;
     }
 
-    public boolean isTransitory(){
-        return this.transitory;
+    public String getDuration() {
+        return duration;
     }
 
-    public String getAptAddress() {
-        return aptAddress;
+    public String getTransitory() {
+        return transitory;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public String getPayment() {
+        return payment;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public String getTenantName() {
-        return tenantName;
-    }
-
-    public String getTenantSurname() {
-        return tenantSurname;
-    }
-
-    public String getTenantCF() {
-        return tenantCF;
-    }
-
-    public LocalDate getTenantDateOfBirth() {
-        return tenantDateOfBirth;
-    }
-
-    public String getTenantCityOfBirth() {
-        return tenantCityOfBirth;
-    }
-
-    public String getTenantAddress() {
-        return tenantAddress;
-    }
-
-    public String getRenterName() {
-        return renterName;
-    }
-
-    public String getRenterSurname() {
-        return renterSurname;
-    }
-
-    public String getRenterCF() {
-        return renterCF;
-    }
-
-    public String getRenterAddress() {
-        return renterAddress;
-    }
-
-    public int getNumMonths() {
-        return numMonths;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public int getDeposit() {
+    public String getDeposit() {
         return deposit;
     }
 
-    public List<ServiceBean> getServices() {
-        return services;
+    public String getResolution() {
+        return resolution;
+    }
+
+    public String getUse() {
+        return use;
+    }
+
+    public String getVarious() {
+        return various;
+    }
+
+    public void setContractName(String contractName) {
+        this.contractName = contractName;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public void setTransitory(String transitory) {
+        this.transitory = transitory;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public void setDeposit(String deposit) {
+        this.deposit = deposit;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
+    public void setUse(String use) {
+        this.use = use;
+    }
+
+    public void setVarious(String various) {
+        this.various = various;
     }
 }
 

@@ -5,14 +5,13 @@ import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.*;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TenantContractHandlerSession {
+public class TenantContractHandlerSession extends ContractHandlerSession {
     private String tenant;
-    private Contract contract;
+
 
     public TenantContractHandlerSession(String tenant) {
         this.tenant = tenant;
@@ -40,41 +39,6 @@ public class TenantContractHandlerSession {
         }
 
         return contractLabelBeans;
-    }
-
-    public void selectContract(ContractId contractId) throws SQLException, ClassNotFoundException, ConfigException,
-            ConfigFileException {
-        ContractsAndRequestLoader contractsAndRequestLoader =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(contractId)));
-        this.contract = contractsAndRequestLoader.retriveContract();
-    }
-
-    public ContractTextBean getContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
-        EquippedApt equippedApt = EquippedAptDAO.getInstance().getEquippedAptByContractId(this.contract.getContractId());
-
-        List<ServiceBean> serviceBeans = new ArrayList<>();
-
-        this.contract.getServices().forEach(service -> serviceBeans.add(new ServiceBean(service.getId(),
-                service.getName(), service.getDescriprion(), service.getPrice())));
-
-        return new ContractTextBean(this.contract.getContractTypeName(), this.contract.isTransitory(),
-                equippedApt.getAddress(), this.contract.getStartDate(), this.contract.getEndDate(),
-                this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(),
-                this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(),
-                this.contract.getTenantAddress(), this.contract.getRenterName(),
-                this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(),
-                this.contract.getNumMonths(), this.contract.getNetPrice(), this.contract.getDeposit(), serviceBeans);
-
-    }
-
-    public PropertyBean getPropertyInfo()  throws SQLException, ClassNotFoundException, ConfigException,
-            ConfigFileException, IOException {
-        EquippedApt apt = EquippedAptDAO.getInstance().getEquippedAptByContractId(this.contract.getContractId());
-
-        Property property = PropertyDAO.getInstance().getRentableByContractId(
-                this.contract.getContractId());
-        return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
-                property.getDescription());
     }
 
     public ContractInfoBean getContractInfo() {
