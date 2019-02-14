@@ -3,26 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Entity/rentableFactory.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Boundary/main.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Boundary/importaContrattoSchermata.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Entity/bedToRent.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Entity/roomToRent.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/aptToRentDAO.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/databaseConnection.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Entity/rentable.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Entity/aptToRent.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Boundary/testImportaSchermata.fxml</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Bean/rentableBean.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/roomToRentJDBC.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Control/controller.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Boundary/testImportaContratto.fxml</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/bedToRentJDBC.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/roomToRentDAO.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/bedToRentDAO.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/DAO/aptToRentJDBC.java</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Boundary/test.css</file>
-            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/Resource/Boundary/graphicController.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Entity/rentableFactory.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Boundary/main.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Boundary/importaContrattoSchermata.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Entity/bedToRent.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Entity/roomToRent.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/aptToRentDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/databaseConnection.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Entity/rentable.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Entity/aptToRent.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Boundary/testImportaSchermata.fxml</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Bean/rentableBean.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/roomToRentJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Control/controller.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Boundary/testImportaContratto.fxml</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/bedToRentJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/roomToRentDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/bedToRentDAO.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.DAO/aptToRentJDBC.java</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Boundary/test.css</file>
+            <file>file:/home/salvatore/Scrivania/ImportaContrattoLaptop/it.uniroma2.ispw.fersa.Resource/it.uniroma2.ispw.fersa.Boundary/graphicController.java</file>
         </group>
     </open-files>
 </project-private>

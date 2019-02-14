@@ -16,6 +16,6 @@
     <jar href="lib/protobuf-java-3.6.1.jar" size="1421323" download="eager" />
     <jar href="lib/slf4j-api-1.6.1.jar" size="25496" download="eager" />
   </resources>
-  <jfx:javafx-desc  width="800" height="600" main-class="Boundary.main"  name="TerminaContratto" />
+  <jfx:javafx-desc width="800" height="600" main-class="it.uniroma2.ispw.fersa.Boundary.main" name="TerminaContratto" />
   <update check="always"/>
 </jnlp>

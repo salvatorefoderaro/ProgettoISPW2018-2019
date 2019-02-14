@@ -1439,7 +1439,7 @@
                         }
                         return false;
                     }
-                    var Resource = new String(project.getProperty("manifest.file.temp"));
+                    var it.uniroma2.ispw.fersa.Resource = new String(project.getProperty("manifest.file.temp"));
                     var srf = new java.io.File(src);
                     var manifest;
                     try {

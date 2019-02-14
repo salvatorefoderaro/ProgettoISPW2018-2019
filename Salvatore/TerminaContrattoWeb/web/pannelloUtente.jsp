@@ -1,17 +1,17 @@
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import= "Controller.Controller, Bean.userSessionBean" %>
-<%@ page import="Entity.Enum.TypeOfUser" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Controller.Controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="Entity.Enum.TypeOfMessage" %>
-<%@ page import="Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
 
-<jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
+<jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
 <%
 /*
@@ -21,7 +21,7 @@
     TimerTask task = new TimerTask() {
         public void run() {
             try {
-                Controller controller = new Controller();
+                it.uniroma2.ispw.fersa.Controller controller = new it.uniroma2.ispw.fersa.Controller();
                 controller.checkPaymentClaimDateScadenza();
             } catch (SQLException e) {
                 System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " - Errore nella connessione al database");

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import= "Control.controller" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Control.controller" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="Exceptions.emptyResult" %>
-<%@ page import="Bean.userBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
+<%@ page import="it.uniroma2.ispw.fersa.Bean.userBean" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
-<%@ page import="Entity.Enum.TypeOfMessage" %>
-<%@ page import="Control.loginController" %>
-<%@ page import="Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Control.loginController" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
 
-<jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
+<jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
 
 <%
     if (request.getParameter("login") != null) {
@@ -33,12 +33,12 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
             return;
-        } catch (Exceptions.emptyResult emptyResult) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             session.setAttribute("infoMessage", "Controllare nome utente e/o password, nessun utente associato!");
             return;
-        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
             session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));

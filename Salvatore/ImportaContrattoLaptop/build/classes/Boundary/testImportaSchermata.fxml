@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import java.net.*?>
 
-<VBox prefHeight="437.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.importContract" >
+<VBox prefHeight="437.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.ispw.fersa.Boundary.importContract" >
 <stylesheets>
     <URL value="@test.css" />
   </stylesheets>

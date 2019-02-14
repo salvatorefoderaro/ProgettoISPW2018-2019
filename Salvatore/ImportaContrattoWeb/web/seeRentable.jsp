@@ -2,16 +2,16 @@
 <%@ page import="java.sql.SQLException"%>
 <%@ page import="java.util.LinkedList"%>
 <%@ page import="java.util.List"%>
-<%@ page import="Exceptions.transactionError" %>
-<%@ page import="Exceptions.emptyResult" %>
-<%@ page import="Control.controller" %>
-<%@ page import="Bean.rentableBean" %>
-<%@ page import="Entity.Enum.TypeOfRentable" %>
-<%@ page import="Entity.Enum.TypeOfMessage" %>
-<%@ page import="Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.transactionError" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
+<%@ page import="it.uniroma2.ispw.fersa.Control.controller" %>
+<%@ page import="it.uniroma2.ispw.fersa.Bean.rentableBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
 
-<jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
-<jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
+<jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
+<jsp:useBean id="toRent" scope="session" class="it.uniroma2.ispw.fersa.Bean.rentableBean" />
 
 <%
     if (sessionBean.getNickname() == null){
@@ -109,12 +109,12 @@ if (request.getParameter("importContract") != null) {
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        } catch (Exceptions.emptyResult emptyResult) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
             session.setAttribute("infoMessage", "Nessuna risposta al momento disponibile!");
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
             session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));

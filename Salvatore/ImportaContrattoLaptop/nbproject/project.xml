@@ -16,10 +16,10 @@
             <name>ImportaContrattoLaptop</name>
             <explicit-platform explicit-source-supported="true"/>
             <source-roots>
-                <root id="Resource.dir"/>
+                <root id="it.uniroma2.ispw.fersa.Resource.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.Resource.dir"/>
+                <root id="test.it.uniroma2.ispw.fersa.Resource.dir"/>
             </test-roots>
         </data>
     </configuration>

@@ -3,15 +3,15 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import= "Controller.Controller, Bean.userSessionBean" %>
-<%@ page import="Bean.paymentClaimBean" %>
-<%@ page import="Exceptions.transactionError" %>
-<%@ page import="Exceptions.emptyResult" %>
-<%@ page import="Entity.Enum.TypeOfUser" %>
-<%@ page import="Entity.Enum.TypeOfMessage" %>
-<%@ page import="Entity.Enum.TitleOfWindows" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Controller.Controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Bean.paymentClaimBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.transactionError" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
 
-<jsp:useBean id="sessionBean" scope="session" class="Bean.userSessionBean"/>
+<jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
 <%
     if (sessionBean.getId() == 0){
@@ -55,12 +55,12 @@
                 String destination = "index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
-            } catch (Exceptions.transactionError transactionError) {
+            } catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
                 session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
                 String destination = "index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
-            } catch (Exceptions.dbConfigMissing missingConfig) {
+            } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                 missingConfig.printStackTrace();
                 session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
@@ -86,12 +86,12 @@
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
-            catch (Exceptions.transactionError transactionError) {
+            catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
                 session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
-            } catch (Exceptions.dbConfigMissing missingConfig) {
+            } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                 missingConfig.printStackTrace();
                 session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
@@ -117,12 +117,12 @@
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
-            catch (Exceptions.transactionError transactionError) {
+            catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
                 session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
-            } catch (Exceptions.dbConfigMissing missingConfig) {
+            } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                 missingConfig.printStackTrace();
                 session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
@@ -147,12 +147,12 @@
               response.sendRedirect(response.encodeRedirectURL(destination));
               return;
           }
-          catch (Exceptions.transactionError transactionError) {
+          catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
               session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
               String destination ="index.jsp";
               response.sendRedirect(response.encodeRedirectURL(destination));
               return;
-          } catch (Exceptions.dbConfigMissing missingConfig) {
+          } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
               missingConfig.printStackTrace();
               session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
               String destination ="index.jsp";
@@ -176,12 +176,12 @@
                    response.sendRedirect(response.encodeRedirectURL(destination));
                    return;
                }
-               catch (Exceptions.transactionError transactionError) {
+               catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
                    session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
                    String destination ="index.jsp";
                    response.sendRedirect(response.encodeRedirectURL(destination));
                    return;
-               } catch (Exceptions.dbConfigMissing missingConfig) {
+               } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                    missingConfig.printStackTrace();
                    session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
                    String destination ="index.jsp";
@@ -199,7 +199,7 @@
 
       try {
           listaResult = parentController.getPaymentClaims(sessionBean);
-      } catch (Exceptions.emptyResult emptyResult) {
+      } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
           session.setAttribute("infoMessage", "Nessuna segnalazione di pagamento al momento disponibile!");
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
@@ -209,7 +209,7 @@
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
-      } catch (Exceptions.dbConfigMissing missingConfig) {
+      } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
           missingConfig.printStackTrace();
           session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
           String destination ="index.jsp";

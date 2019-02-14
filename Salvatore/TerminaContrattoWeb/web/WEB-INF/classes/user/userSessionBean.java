@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bean;
+package it.uniroma2.ispw.fersa.Bean;
 
 /**
  *
