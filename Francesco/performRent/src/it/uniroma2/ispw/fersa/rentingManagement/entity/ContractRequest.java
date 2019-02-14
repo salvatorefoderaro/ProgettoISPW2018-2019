@@ -15,7 +15,7 @@ public class ContractRequest {
     private ContractType contractType;
     private RequestStateEnum state;
     private LocalDate creationDate;
-    private IntervalDate intervalDate;
+    private DateRange dateRange;
     private int rentablePrice;
     private int deposit;
     private List<Service> services = new ArrayList<>();
@@ -35,26 +35,26 @@ public class ContractRequest {
         this.tenantNickname = tenantNickname;
         this.state = state;
         this.creationDate = creationDate;
-        this.intervalDate = new IntervalDate(beginDate, endDate);
+        this.dateRange = new DateRange(beginDate, endDate);
         this.rentablePrice = rentablePrice;
         this.deposit=deposit;
         this.declineMotivation = declineMotivation;
     }
 
     public void setContractType(ContractType contractType) throws ContractPeriodException {
-        if (this.intervalDate != null) {
+        if (this.dateRange != null) {
             this.contractType = contractType;
-            IntervalDate period = this.intervalDate;
-            this.intervalDate = null;
+            DateRange period = this.dateRange;
+            this.dateRange = null;
             this.insertPeriod(period);
             return;
         }
         this.contractType = contractType;
     }
 
-    public void insertPeriod(IntervalDate intervalDate) throws ContractPeriodException {
-        if (this.contractType != null && this.contractType.checkPeriod(intervalDate)) throw new ContractPeriodException();
-        this.intervalDate = intervalDate;
+    public void insertPeriod(DateRange dateRange) throws ContractPeriodException {
+        if (this.contractType != null && this.contractType.checkPeriod(dateRange)) throw new ContractPeriodException();
+        this.dateRange = dateRange;
     }
 
     public void setServices(List<Service> services) {
@@ -86,11 +86,11 @@ public class ContractRequest {
     }
 
     public LocalDate getStartDate() {
-        return this.intervalDate.getBeginDate();
+        return this.dateRange.getBeginDate();
     }
 
     public LocalDate getEndDate() {
-        return this.intervalDate.getEndDate();
+        return this.dateRange.getEndDate();
     }
 
     public int getRentablePrice() {
@@ -116,10 +116,10 @@ public class ContractRequest {
     public int getTotal() {
         int total = 0;
 
-        total += (int) (this.intervalDate.getNumMonths() * this.rentablePrice);
+        total += (int) (this.dateRange.getNumMonths() * this.rentablePrice);
 
         for (int i = 0; i < this.services.size(); i++) {
-            total += (int) (this.intervalDate.getNumMonths() * this.services.get(i).getPrice());
+            total += (int) (this.dateRange.getNumMonths() * this.services.get(i).getPrice());
         }
 
         return total;
@@ -129,7 +129,7 @@ public class ContractRequest {
     }
 
     public boolean check() {
-        return this.contractType != null && this.intervalDate != null;
+        return this.contractType != null && this.dateRange != null;
     }
 
     public ContractRequestId getRequestId() {

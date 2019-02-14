@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
-import it.uniroma2.ispw.fersa.rentingManagement.entity.IntervalDate;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.DateRange;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.RentalFeatures;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
@@ -46,14 +46,14 @@ public class RentalFeaturesJDBC implements RentalFeaturesDAO {
 
             if (!rs1.first() | !rs2.first()) return null;
 
-            List<IntervalDate> intervalDates = new ArrayList<>();
+            List<DateRange> dateRanges = new ArrayList<>();
 
             do {
-                intervalDates.add(new IntervalDate(rs2.getDate("startDate").toLocalDate(), rs2.getDate("endDate").toLocalDate()));
+                dateRanges.add(new DateRange(rs2.getDate("startDate").toLocalDate(), rs2.getDate("endDate").toLocalDate()));
             } while (rs2.next());
 
 
-            rentalFeatures = new RentalFeatures(rentalFeaturesId, rs1.getString("description"), rs1.getInt("price"), rs1.getInt("deposit"), intervalDates);
+            rentalFeatures = new RentalFeatures(rentalFeaturesId, rs1.getString("description"), rs1.getInt("price"), rs1.getInt("deposit"), dateRanges);
 
 
             rs1.close();

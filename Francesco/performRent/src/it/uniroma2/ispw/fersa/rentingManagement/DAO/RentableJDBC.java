@@ -2,8 +2,8 @@ package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractId;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.ContractRequestId;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.Rentable;
-import it.uniroma2.ispw.fersa.rentingManagement.entity.RentableTypeEnum;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.Property;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.PropertyTypeEnum;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 
@@ -22,23 +22,23 @@ public class RentableJDBC implements RentableDAO{
     }
 
     @Override
-    public Rentable getRentableByRentalFeaturesId(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+    public Property getRentableByRentalFeaturesId(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
       return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM RentalFeatures WHERE id = " + rentalFeaturesId);
     }
 
     @Override
-    public Rentable getRentableByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+    public Property getRentableByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
         return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM ContractRequest WHERE id = " + contractRequestId.getId());
     }
 
 
-    public Rentable getRentableByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+    public Property getRentableByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
         return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM Contract WHERE contractId = " + contractId.getContractId());
     }
 
 
-    private Rentable getRentable(String sql) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
-        Rentable rentable = null;
+    private Property getRentable(String sql) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+        Property property = null;
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
@@ -56,7 +56,7 @@ public class RentableJDBC implements RentableDAO{
 
             if (!rs1.first()) return null;
 
-            switch(RentableTypeEnum.valueOf(rs1.getString("type"))) {
+            switch(PropertyTypeEnum.valueOf(rs1.getString("type"))) {
                 case APTTORENT:
                     tabel = "AptToRent";
                     column = "aptToRentId";
@@ -79,7 +79,7 @@ public class RentableJDBC implements RentableDAO{
             if (!rs2.first()) return null;
 
 
-            rentable = new Rentable(rs1.getInt(column), RentableTypeEnum.valueOf(rs1.getString("type")),rs2.getString("name"), rs2.getString("description"), ImageIO.read(rs2.getBinaryStream("image")));
+            property = new Property(rs1.getInt(column), PropertyTypeEnum.valueOf(rs1.getString("type")),rs2.getString("name"), rs2.getString("description"), ImageIO.read(rs2.getBinaryStream("image")));
 
 
             rs1.close();
@@ -96,7 +96,7 @@ public class RentableJDBC implements RentableDAO{
                 e2.printStackTrace();
             }
         }
-        return rentable;
+        return property;
     }
 
 

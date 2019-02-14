@@ -9,15 +9,15 @@ public class RentalFeatures {
     private String description;
     private int price;
     private int deposit;
-    private List<IntervalDate> avaibility;
+    private List<DateRange> availability;
 
 
-    public RentalFeatures(int rentalFeaturesId, String description, int price, int deposit, List<IntervalDate> avaibility) {
+    public RentalFeatures(int rentalFeaturesId, String description, int price, int deposit, List<DateRange> availability) {
         this.rentalFeaturesId = rentalFeaturesId;
         this.description = description;
         this.price = price;
         this.deposit = deposit;
-        this.avaibility = avaibility;
+        this.availability = availability;
 
     }
 
@@ -37,15 +37,15 @@ public class RentalFeatures {
         return deposit;
     }
 
-    public List<IntervalDate> getAvaibility() {
-        return avaibility;
+    public List<DateRange> getAvailability() {
+        return availability;
     }
 
     public boolean checkPeriod(LocalDate begin, LocalDate end) {
-        for (int i=0; i<this.avaibility.size(); i++) {
-            IntervalDate intervalDate = this.avaibility.get(i);
-            if ((intervalDate.getBeginDate().isBefore(begin) | intervalDate.getBeginDate().isEqual(begin)) &
-                    (intervalDate.getEndDate().isAfter(end) | intervalDate.getEndDate().isEqual(end))) return true;
+        for (int i = 0; i<this.availability.size(); i++) {
+            DateRange dateRange = this.availability.get(i);
+            if ((dateRange.getBeginDate().isBefore(begin) | dateRange.getBeginDate().isEqual(begin)) &
+                    (dateRange.getEndDate().isAfter(end) | dateRange.getEndDate().isEqual(end))) return true;
         }
 
         return false;

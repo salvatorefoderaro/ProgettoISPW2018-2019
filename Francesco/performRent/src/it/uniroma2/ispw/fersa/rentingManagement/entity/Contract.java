@@ -12,7 +12,7 @@ public class Contract {
     private String tenantNickname;
     private LocalDate creationDate;
     private LocalDate stipulationDate;
-    private IntervalDate intervalDate;
+    private DateRange dateRange;
     private String tenantName;
     private String tenantSurname;
     private String tenantCF;
@@ -37,7 +37,7 @@ public class Contract {
         this.rentableId = rentableId;
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
-        this.intervalDate = new IntervalDate(startDate, endDate);
+        this.dateRange = new DateRange(startDate, endDate);
         this.tenantName = tenantName;
         this.tenantSurname = tenantSurname;
         this.tenantCF = tenantCF;
@@ -99,11 +99,11 @@ public class Contract {
     }
 
     public LocalDate getStartDate() {
-        return this.intervalDate.getBeginDate();
+        return this.dateRange.getBeginDate();
     }
 
     public LocalDate getEndDate() {
-        return this.intervalDate.getEndDate();
+        return this.dateRange.getEndDate();
     }
 
     public String getTenantName() {
@@ -163,7 +163,7 @@ public class Contract {
     }
 
     public int getNumMonths() {
-        return (int) this.intervalDate.getNumMonths();
+        return (int) this.dateRange.getNumMonths();
     }
 
     public boolean isTransitory(){
@@ -171,7 +171,7 @@ public class Contract {
     }
 
     public int getNetPrice() {
-        return (int) (this.intervalDate.getNumMonths() * this.propertyPrice);
+        return (int) (this.dateRange.getNumMonths() * this.propertyPrice);
     }
 
     public int getGrossPrice() {
@@ -180,7 +180,7 @@ public class Contract {
         total += getNetPrice();
 
         for (int i = 0; i < this.services.size(); i++) {
-            total += (int) (intervalDate.getNumMonths() * this.services.get(i).getPrice());
+            total += (int) (dateRange.getNumMonths() * this.services.get(i).getPrice());
         }
 
         return total;

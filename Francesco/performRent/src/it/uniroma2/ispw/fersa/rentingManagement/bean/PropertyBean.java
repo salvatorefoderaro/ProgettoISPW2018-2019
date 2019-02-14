@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.bean;
 
-import it.uniroma2.ispw.fersa.rentingManagement.entity.RentableTypeEnum;
+import it.uniroma2.ispw.fersa.rentingManagement.entity.PropertyTypeEnum;
 
 import java.awt.image.BufferedImage;
 
@@ -8,10 +8,10 @@ public class PropertyBean {
     private String aptAddress;
     private String title;
     private BufferedImage image;
-    private RentableTypeEnum type;
+    private PropertyTypeEnum type;
     private String rentableDescription;
 
-    public PropertyBean(String aptAddress, String title, BufferedImage image, RentableTypeEnum type, String rentableDescription) {
+    public PropertyBean(String aptAddress, String title, BufferedImage image, PropertyTypeEnum type, String rentableDescription) {
         this.aptAddress = aptAddress;
         this.title = title;
         this.image = image;
@@ -31,7 +31,7 @@ public class PropertyBean {
         return image;
     }
 
-    public RentableTypeEnum getType() {
+    public PropertyTypeEnum getType() {
         return type;
     }
 

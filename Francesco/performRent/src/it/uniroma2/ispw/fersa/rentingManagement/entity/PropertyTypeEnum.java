@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.entity;
 
-public enum RentableTypeEnum {
+public enum PropertyTypeEnum {
     APTTORENT ("Appartamento"),
     ROOMTORENT ("Camera"),
     BEDTORENT ("Letto");
@@ -8,7 +8,7 @@ public enum RentableTypeEnum {
     private final String name;
 
 
-    private RentableTypeEnum(String name) {
+    private PropertyTypeEnum(String name) {
         this.name = name;
     }
 

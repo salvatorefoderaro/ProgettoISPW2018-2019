@@ -41,8 +41,8 @@ public class ContractType {
         return this.transitory;
     }
 
-    public boolean checkPeriod(IntervalDate intervalDate) {
-        int period = (int) intervalDate.getNumMonths();
+    public boolean checkPeriod(DateRange dateRange) {
+        int period = (int) dateRange.getNumMonths();
 
         return period < minDuration | period > maxDuration;
     }

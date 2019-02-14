@@ -2,14 +2,14 @@ package it.uniroma2.ispw.fersa.rentingManagement.entity;
 
 import java.awt.image.BufferedImage;
 
-public class Rentable {
+public class Property {
     private int rentableId;
-    private RentableTypeEnum type;
+    private PropertyTypeEnum type;
     private String name;
     private String description;
     private BufferedImage image;
 
-    public Rentable(int rentableId, RentableTypeEnum type ,String name, String description, BufferedImage image) {
+    public Property(int rentableId, PropertyTypeEnum type , String name, String description, BufferedImage image) {
         this.rentableId = rentableId;
         this.type = type;
         this.name = name;
@@ -25,7 +25,7 @@ public class Rentable {
         return name;
     }
 
-    public RentableTypeEnum getType(){
+    public PropertyTypeEnum getType(){
         return this.type;
     }
 

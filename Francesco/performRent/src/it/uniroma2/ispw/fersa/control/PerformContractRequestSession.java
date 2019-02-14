@@ -39,20 +39,20 @@ public class PerformContractRequestSession {
 
         List<String> intervalDates = new ArrayList<>();
 
-        rentalFeatures.getAvaibility().forEach(intervalDate -> intervalDates.add(intervalDate.toString()));
+        rentalFeatures.getAvailability().forEach(intervalDate -> intervalDates.add(intervalDate.toString()));
 
-        Rentable rentable = RentableJDBC.getInstance().getRentableByRentalFeaturesId(this.rentalFeaturesId);
+        Property property = RentableJDBC.getInstance().getRentableByRentalFeaturesId(this.rentalFeaturesId);
 
-        if (rentable == null) throw new NotFoundException("Errore: informazioni sull'immobile selezionato non trovate");
+        if (property == null) throw new NotFoundException("Errore: informazioni sull'immobile selezionato non trovate");
 
-        RentableInfoBean rentableInfoBean = new RentableInfoBean(rentable.getName(), rentable.getImage(),
-                rentable.getType(),rentable.getDescription(), rentalFeatures.getDescription(),
+        RentableInfoBean rentableInfoBean = new RentableInfoBean(property.getName(), property.getImage(),
+                property.getType(), property.getDescription(), rentalFeatures.getDescription(),
                 rentalFeatures.getPrice(), rentalFeatures.getDeposit(), intervalDates);
 
         EquippedApt equippedApt = EquippedAptJDBC.getInstance().getEquippedAptById(this.apartmentId);
 
         this.contractRequest = new ContractRequest(equippedApt.getRenterNickname(), this.tenantNickname,
-                rentable.getRentableId(), this.rentalFeatures.getPrice(), this.rentalFeatures.getDeposit());
+                property.getRentableId(), this.rentalFeatures.getPrice(), this.rentalFeatures.getDeposit());
 
         return rentableInfoBean;
     }
@@ -94,7 +94,7 @@ public class PerformContractRequestSession {
 
     public void setPeriod(LocalDate start, LocalDate end) throws ContractPeriodException, PeriodException {
         if (!this.rentalFeatures.checkPeriod(start, end)) throw new PeriodException();
-        this.contractRequest.insertPeriod(new IntervalDate(start, end));
+        this.contractRequest.insertPeriod(new DateRange(start, end));
     }
 
     public void setServices(List<ServiceBean> serviceBeans) throws ConfigFileException, ConfigException,

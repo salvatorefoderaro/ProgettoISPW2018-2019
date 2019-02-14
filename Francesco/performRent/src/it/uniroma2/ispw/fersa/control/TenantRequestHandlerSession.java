@@ -53,10 +53,10 @@ public class TenantRequestHandlerSession {
             ConfigFileException, IOException {
         EquippedApt apt = EquippedAptJDBC.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
-        Rentable rentable = RentableJDBC.getInstance().getRentableByContractRequestId(
+        Property property = RentableJDBC.getInstance().getRentableByContractRequestId(
                 this.contractRequest.getContractRequestId());
-        return new PropertyBean(apt.getAddress(), rentable.getName(), rentable.getImage(), rentable.getType(),
-                rentable.getDescription());
+        return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
+                property.getDescription());
     }
 
     public ContractRequestInfoBean getRequestInfo() {
