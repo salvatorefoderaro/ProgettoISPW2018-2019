@@ -33,7 +33,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 
-public class seePaymentClaims implements Observer {
+public class seePaymentClaims {
     
 @FXML private GridPane gridPane;
 @FXML private ScrollPane scrollPane;
@@ -46,7 +46,6 @@ public void interactWithPaymentClaim(Controller parentController, userSessionBea
 
     this.claimDeadline = parentController;
     userSession = session;
-    this.claimDeadline.addObserver(this);
 
     userPanelButton.setId("tenantButton");
     scrollPane.setStyle("-fx-background-color:transparent;");
@@ -291,44 +290,13 @@ public void interactWithPaymentClaim(Controller parentController, userSessionBea
         });
 }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        Platform.runLater(() -> {
-            notificationBean dati = (notificationBean)arg;
-            Stage newStage = new Stage();
-            newStage.setTitle(dati.getNotificationsNumber() + " nuove notifiche - Termina contratto - FERSA");
-            Pane comp = new Pane();
-
-            Label nameField = new Label();
-            nameField.setLayoutX(71.0);
-            nameField.setLayoutY(42.0);
-
-            if(dati.getNotificationsNumber() > 1){
-                nameField.setText("Sono disponibili " + dati.getNotificationsNumber() + " nuove notifiche!");
-            } else {
-                nameField.setText("E' disponibile 1 nuova notifica!");
-            }
-
-            Button close = new Button();
-            close.setLayoutX(154.0);
-            close.setLayoutY(99.0);
-            close.setText("Chiudi");
-
-            Scene stageScene = new Scene(comp, 368, 159);
-            newStage.setScene(stageScene);
-            comp.getChildren().addAll(nameField, close);
-            newStage.show();
-        });
-    }
-
     @FXML
     private void userPanel() throws IOException{
-        this.claimDeadline.deleteObserver(this);
         String destination = null;
         if (userSession.getUserType() == TypeOfUser.RENTER){
-            destination = "userPanelRenter.fxml";
+            destination = "Resource/userPanelRenter.fxml";
         } else if (userSession.getUserType() == TypeOfUser.TENANT) {
-            destination = "userPanelTenant.fxml";
+            destination = "Resource/userPanelTenant.fxml";
         }
 
         Stage st = (Stage)gridPane.getScene().getWindow();
@@ -354,7 +322,6 @@ public void interactWithPaymentClaim(Controller parentController, userSessionBea
     }
         @FXML
     private void login() throws IOException{
-            this.claimDeadline.deleteObserver(this);
 
             Stage st = (Stage)gridPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));

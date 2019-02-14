@@ -1,6 +1,5 @@
 package it.uniroma2.ispw.fersa.DAO.Configuration;
 
-import it.uniroma2.ispw.fersa.DAO.readDBConf;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 
 import java.sql.Connection;

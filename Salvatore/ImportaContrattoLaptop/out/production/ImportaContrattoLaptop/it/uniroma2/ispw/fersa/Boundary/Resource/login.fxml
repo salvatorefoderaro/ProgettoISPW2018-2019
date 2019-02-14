@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.PasswordField?>
+<?import java.net.URL?>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniroma2.ispw.fersa.Boundary.login">
+    <stylesheets>
+        <URL value="@../../Resource/test.css" />
+    </stylesheets>
+    <children>
+      <MenuBar style="-fx-background-color: #343a40; -fx-text-fill: red;" VBox.vgrow="NEVER">
+          <menus>
+              <Menu mnemonicParsing="false" text="FERSA">
+                  <items>
+                  </items>
+              </Menu>
+          </menus>
+      </MenuBar>
+      <Pane prefHeight="442.0" prefWidth="640.0">
+         <children>
+            <TextField fx:id="nickname" layoutX="51.0" layoutY="160.0" promptText="Nickname"/>
+            <PasswordField fx:id="password" layoutX="386.0" layoutY="160.0" promptText="Password" />
+            <Button id="aButton" fx:id="loginButton" layoutX="209.0" layoutY="222.0" mnemonicParsing="false" onAction="#makeLogin" prefHeight="77.0" prefWidth="222.0" text="Login" />
+         </children>
+      </Pane>
+  </children>
+</VBox>

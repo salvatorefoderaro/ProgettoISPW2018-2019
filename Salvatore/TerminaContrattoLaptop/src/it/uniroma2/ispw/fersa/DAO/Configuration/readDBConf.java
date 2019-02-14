@@ -9,9 +9,9 @@ public class readDBConf {
     public static String getDBConf(String type) throws IOException {
         FileReader fis = null;
         if("admin".equals(type)){
-            fis = new FileReader("src/it.uniroma2.ispw.fersa.DAO/connectionAdmin.prop");
+            fis = new FileReader("src/it/uniroma2/ispw/fersa/DAO/Configuration/connectionAdmin.prop");
         } else {
-            fis = new FileReader("src/it.uniroma2.ispw.fersa.DAO/connectionUser.prop");
+            fis = new FileReader("src/it/uniroma2/ispw/fersa/DAO/Configuration/connectionUser.prop");
         }
         Properties p=new Properties ();
         p.load(fis);

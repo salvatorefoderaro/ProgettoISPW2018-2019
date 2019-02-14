@@ -84,7 +84,7 @@ public class seeRentable {
                     public void handle(ActionEvent event) {
                         try {
                             Stage st = (Stage) table.getScene().getWindow();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("it/uniroma2/ispw/fersa/Resource/importContract.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/importContract.fxml"));
                             Parent root = loader.load();
                             importContract controller = loader.getController();
                             System.out.println(userRentable.get(finalI).getType());
@@ -175,7 +175,7 @@ public class seeRentable {
     @FXML
     public void backToLogin(){
         Stage st = (Stage) scrollPane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("it/uniroma2/ispw/fersa/Resource/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -183,7 +183,7 @@ public class seeRentable {
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root, 704, 437);
+        Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();

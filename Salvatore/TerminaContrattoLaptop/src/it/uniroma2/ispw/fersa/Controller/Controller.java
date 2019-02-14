@@ -23,6 +23,8 @@ public class Controller extends Observable implements Runnable {
     private  userSessionBean loggedUser;
 
     public Controller(userSessionBean user){ this.loggedUser = user; }
+
+    public void setTypeOfUSer(TypeOfUser type){ this.loggedUser.setTypeOfUser(type); }
     
     public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().login(loginUser);
@@ -55,8 +57,7 @@ public class Controller extends Observable implements Runnable {
 
     public List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult, dbConfigMissing {
 
-        contractJDBC jdbcContratto = contractJDBC.getInstance();
-        List<contractBean> Result = jdbcContratto.getContracts(user);
+        List<contractBean> Result = contractJDBC.getInstance().getContracts(user);
 
         for (contractBean temp : Result) {
             Contract contract = new Contract(temp.getContractId(), temp.getContractState(), temp.getTenantNickname(), temp.getRenterNickname());
@@ -117,26 +118,23 @@ public class Controller extends Observable implements Runnable {
     }
 
     public void checkNotifications() throws SQLException, emptyResult, dbConfigMissing {
-        List<paymentClaimBean> Result;
-            Result = paymentClaimJDBC.getInstance().getPaymentClaims(loggedUser);
-            int count = Result.size();
-            notificationBean changes = new notificationBean();
-            changes.setNotificationsNumber(count);
-            setChanged();
-            notifyObservers(changes);
+            notificationBean Result = paymentClaimJDBC.getInstance().getPaymentClaimCount(loggedUser);
+            int count = Result.getNotificationsNumber();
+            if (count > 0) {
+                setChanged();
+                notifyObservers(Result);
+            }
         }
 
     @Override
     public void run() {
 
         while(true){
-            System.out.println("Faccio il check");
             try {
                 checkNotifications();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
-                System.out.println("Nothing to show...");
             } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
                 dbConfigMissing.printStackTrace();
             }

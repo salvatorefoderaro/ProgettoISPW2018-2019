@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.SQLException"%>
-<%@ page import="Bean.contractBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Bean.contractBean" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="Bean.userBean" %>
-<%@ page import="Entity.TypeOfMessage" %>
-<%@ page import="Entity.TypeOfContract" %>
+<%@ page import="it.uniroma2.ispw.fersa.Bean.userBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfContract" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="java.io.*" %>
 
-<jsp:useBean id="sessionBean" scope="session" class="Bean.userBean"/>
-<jsp:useBean id="toRent" scope="session" class="Bean.rentableBean" />
+<jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
+<jsp:useBean id="toRent" scope="session" class="it.uniroma2.ispw.fersa.Bean.rentableBean" />
 
 <%
 
@@ -22,7 +24,7 @@
     TypeOfContract selectedContractType = TypeOfContract.typeFromString(request.getParameter("contractType"));
 
     if (request.getParameter("trueImportContract") != null){
-
+    System.out.println("Ma lo prendo almeno?");
     toRent.setTenantnNickname(request.getParameter("tenantNickname"));
     toRent.setEndDateRequest(request.getParameter("endDateRequest"));
     toRent.setStartDateRequest(request.getParameter("startDateRequest"));
@@ -30,13 +32,32 @@
     LocalDate localStartDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
     LocalDate localEndDate = LocalDate.parse ( request.getParameter("endDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
 
+    // obtains the upload file part in this multipart request
+    Part filePart = request.getPart("contractFile");
+        System.out.println("Ci arrivo?1");
+    InputStream inputStream = filePart.getInputStream();
+        System.out.println("Ci arrivo?2");
+    byte[] buffer = new byte[inputStream.available()];
+        System.out.println("Ci arrivo?3");
+    inputStream.read(buffer);
+        System.out.println("Ci arrivo?4");
+
+    File contractFile = File.createTempFile("prefix-", "-suffix");
+        System.out.println("Ci arrivo?5");
+    OutputStream outStream = new FileOutputStream(contractFile);
+        System.out.println("Ci arrivo?6");
+    outStream.write(buffer);
+        System.out.println("Ci arrivo?7");
+    contractFile.deleteOnExit();
+
+    System.out.println("Ci arrivo?");
+
     if (localEndDate.isBefore(localStartDate)){
         session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
-    System.out.println(localStartDate.toString() + localEndDate.toString() + selectedContractType.minDuration + selectedContractType.maxDuration);
     if (localEndDate.isBefore(localStartDate.plusMonths(selectedContractType.minDuration))){
         session.setAttribute("infoMessage", "Per la tipologia di contratto scelta, l'intervallo minimo è di " + selectedContractType.minDuration + " mesi!");
         String destination ="importContract.jsp";
@@ -60,12 +81,12 @@
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
-    } catch (Exceptions.emptyResult emptyResult) {
+    } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
         session.setAttribute("infoMessage", "Nessun utente associato al nickname indicato!");
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
-    } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+    } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
         session.setAttribute("infoMessage1", "Nessun utente associato al nickname indicato!");
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
@@ -74,7 +95,7 @@
 
         try {
             sessionBean.getController().setNewAvailabilityCalendar(toRent);
-        } catch (Exceptions.transactionError transactionError) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
             session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
@@ -85,12 +106,12 @@
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        } catch (Exceptions.emptyResult emptyResult) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
             session.setAttribute("infoMessage", "La risorsa non è disponibile per le date indicate!");
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
             session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
@@ -127,7 +148,8 @@
                 null,
                 toRent.getType(),
                 Integer.parseInt(request.getParameter("contractDeposito")),
-                selectedContractType
+                selectedContractType,
+                contractFile
         );
         }
 
@@ -140,20 +162,19 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
-        catch (Exceptions.transactionError transactionError) {
+        catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
             session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
-        } catch (Exceptions.dbConfigMissing dbConfigMissing) {
+        } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
             session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
 
-
-        session.setAttribute("warningMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        session.setAttribute("successMessage", TypeOfMessage.SUCCESSOPERATION.getString());
         String destination ="seeRentable.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -164,7 +185,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title><%=TitleOfWindows.IMPORTCONTRACT.getString() %></title>
 
     <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/jquery-1.8.3.min.js'></script>
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>
@@ -238,7 +259,7 @@
         } %>
 
 
-<form action="importContract.jsp" method="POST">
+<form ENCTYPE='multipart/form-data' action='importContract.jsp' method='POST'>
 
     <div class="row">
         <div class="col-5 .text-center">
@@ -316,6 +337,9 @@
                 <option value="Contratto di locazione convenzionato o a canone concordato">Contratto di locazione convenzionato o a canone concordato</option>
                 <option value="Contratto transitorio per studenti">Contratto transitorio per studenti</option>
             </select>
+        </div>
+        <div class="col .text-center" >
+            <input type="file" class="form-control-file" name="contractFile" accept=".pdf" required>
         </div>
     </div>
 

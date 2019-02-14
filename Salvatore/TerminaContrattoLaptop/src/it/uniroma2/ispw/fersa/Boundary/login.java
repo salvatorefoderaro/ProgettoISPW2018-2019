@@ -78,6 +78,7 @@ public class login {
             Thread checkPaymentclaimDate = new Thread(new checkPaymentclaimDate());
             checkPaymentclaimDate.start();
 
+            this.controller.setTypeOfUSer(user.getUserType());
             if (user.getUserType() == TypeOfUser.RENTER){
                 isRenter();
             } else {
@@ -97,6 +98,7 @@ public class login {
             e.printStackTrace();
         }
         userPanelRenter controller = loader.<userPanelRenter>getController();
+        user.setTypeOfUser(TypeOfUser.RENTER);
 
         controller.initialize(this.controller, user);
         Thread t1 = new Thread(this.controller);
@@ -121,9 +123,9 @@ public class login {
             e.printStackTrace();
         }
         userPanelTenant controller = loader.<userPanelTenant>getController();
+        user.setTypeOfUser(TypeOfUser.TENANT);
         controller.initialize(this.controller, user);
 
-        controller.initialize(this.controller, user);
         Thread t1 = new Thread(this.controller);
         t1.start();
 
@@ -155,7 +157,7 @@ public class login {
                 close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
-                stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                stageScene.getStylesheets().add(getClass().getResource("Resource/style.css").toExternalForm());
 
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);

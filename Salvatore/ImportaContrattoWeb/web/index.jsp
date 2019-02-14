@@ -127,7 +127,7 @@ return; } %>
    <input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
 
                   </div>
-         <button type="sumbit" name="login" class="btn btn-primary btn-lg">Effettua il Login</button>
+             <center><button type="sumbit" name="login" class="btn btn-primary btn-lg">Effettua il Login</button></center>
      </form></center>
 </div>      
 

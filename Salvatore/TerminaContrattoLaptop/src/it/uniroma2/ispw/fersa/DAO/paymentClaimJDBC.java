@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.fersa.DAO;
 
+import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.paymentClaimBean;
 import java.sql.*;
 import java.util.LinkedList;
@@ -24,6 +25,42 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     }
 
     private paymentClaimJDBC(){ }
+
+    @Override
+    public notificationBean getPaymentClaimCount(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
+        System.out.println(bean.getUserType() + bean.getNickname());
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (Exception e) {
+            throw new dbConfigMissing("");
+        }
+
+        String query;
+
+        if (TypeOfUser.TENANT == bean.getUserType()){
+            query = "SELECT COUNT(*) as Number FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Claim.claimNotified = 0 and (Claim.claimState = 0 or Claim.claimState = 3)";
+        } else {
+            query = "SELECT COUNT(*) as Number FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Claim.claimNotified = 0 and (Claim.claimState = 1 or Claim.claimState = 2 or Claim.claimState = 4)";
+        }
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
+        preparedStatement.setString(1, bean.getNickname());
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        resultSet.next();
+        if(resultSet.getInt("Number") == 0){
+            throw new emptyResult("Errore! Nessuna segnalazione di pagamento al momento disponibile!");
+        }
+        notificationBean numberNotify = new notificationBean();
+        numberNotify.setNotificationsNumber(resultSet.getInt("Number"));
+        resultSet.close();
+        preparedStatement.close();
+        dBConnection.close();
+
+            return numberNotify;
+        }
+
 
     @Override
     public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {

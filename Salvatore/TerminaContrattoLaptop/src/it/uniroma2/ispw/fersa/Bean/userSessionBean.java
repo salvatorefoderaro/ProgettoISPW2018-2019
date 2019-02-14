@@ -20,7 +20,9 @@ public class userSessionBean
         this.paymentClaim = paymentClaim;
         this.password = password;
     }
-    
+
+    public void setTypeOfUser(TypeOfUser type){ this.type = type; }
+
     public String getNickname(){
         return this.nickname;
     }

@@ -41,13 +41,10 @@ public class userJDBC implements userDAO {
             userSessionBean loggedUser = null;
             while(resultSet.next()){
                 loggedUser = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), TypeOfUser.getType(resultSet.getString("type")), resultSet.getInt("paymentClaim"), "", null);
-                System.out.println(resultSet.getString("type"));
-                System.out.println("Tipo è: " + loggedUser.getUserType());
             }
             resultSet.close();
             preparedStatement.close();
             dBConnection.close();
-
             return loggedUser;
         }
     }

@@ -20,7 +20,7 @@ public enum TypeOfMessage {
     }
 
     public static TypeOfMessage getType(String value) {
-        for (TypeOfMessage type : TypeOfMessage.values()) {
+        for (TypeOfMessage type : values()) {
             if (type.getString().equals(value)){
                 return type;
             }

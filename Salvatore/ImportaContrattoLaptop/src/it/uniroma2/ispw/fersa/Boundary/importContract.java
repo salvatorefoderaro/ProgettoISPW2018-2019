@@ -5,6 +5,7 @@ import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TypeOfMessage;
 import it.uniroma2.ispw.fersa.Control.controller;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class importContract {
@@ -60,16 +62,16 @@ public class importContract {
                 "Contratto transitorio per studenti"
         );
 
+
         immagine.setImage(SwingFXUtils.toFXImage((BufferedImage) theBean.getImage1(), null));
         descrizione.setText(bean.getDescription());
     }
-    
+
     public void makeImportContract(){
 
         tenant = new userBean();
         tenant.setTypeUSer(TypeOfUser.TENANT);
 
-        System.out.println(TypeOfContract.idFromString((String) this.contractType.getValue()));
 
         TypeOfContract selectedContractType = TypeOfContract.typeFromString((String) this.contractType.getValue());
 
@@ -98,7 +100,7 @@ public class importContract {
             return;
         }
 
-        if (dataFine.getValue().isAfter(dataInizio.getValue().plusDays(selectedContractType.maxDuration))){
+        if (dataFine.getValue().isAfter(dataInizio.getValue().plusMonths(selectedContractType.maxDuration))){
             popup("Per la tipologia di contratto scelta, l'intervallo massimo è di " + selectedContractType.maxDuration + " mesi!", false);
             return;
         }
@@ -146,7 +148,8 @@ public class importContract {
         contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
                 loggedUser.getNickname(), locatoreNome.getText(), locatarioNome.getText(),
                 locatarioCF.getText(), locatoreCF.getText(), locatoreIndirizzo.getText(),
-                locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false, null, theBean.getType(), Integer.parseInt(contractDeposito.getText()), selectedContractType);
+                locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false,
+                null, theBean.getType(), Integer.parseInt(contractDeposito.getText()), selectedContractType);
 
         try {
             parentController.createContract(contract);
@@ -236,7 +239,7 @@ public class importContract {
     @FXML
     public void backToLogin(){
         Stage st = (Stage) dataInizio.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("it/uniroma2/ispw/fersa/Resource/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -244,7 +247,7 @@ public class importContract {
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root, 704, 437);
+        Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();

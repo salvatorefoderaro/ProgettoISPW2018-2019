@@ -39,7 +39,7 @@ public class contractJDBC implements contractDAO {
         }
 
         List<contractBean> listBean = new LinkedList<>();
-        String query = "select contractID, tenantNickname, renterNickname from Contract where renterNickname = ? and claimReported = 0";
+        String query = "select contractID, tenantNickname, renterNickname, endDate from Contract where renterNickname = ? and claimReported = 0";
         PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setString(1, user.getNickname());
 
@@ -55,6 +55,7 @@ public class contractJDBC implements contractDAO {
                 bean.setContractId(resultSet.getInt("contractID"));
                 bean.setRenterNickname(resultSet.getString("renterNickname"));
                 bean.setTenantNickname(resultSet.getString("tenantNickname"));
+                bean.setEndDate(resultSet.getString("endDate"));
                 listBean.add(bean);
             }
             resultSet.close();

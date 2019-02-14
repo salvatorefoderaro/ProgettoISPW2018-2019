@@ -32,7 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Pane;
 
-public class createPaymentClaim implements Observer{
+public class createPaymentClaim{
     
 @FXML private GridPane gridPane;
 @FXML private Button userPanelButton;
@@ -44,8 +44,7 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
 
     this.controller = parentController;
     userSession = bean;
-    controller.addObserver(this);
-       
+
     List<contractBean> contractBeanList = null;
     try {
         contractBeanList = controller.getContracts(userSession);
@@ -62,20 +61,23 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
     for (int i = 0; i < contractBeanList.size(); i++) {
             contractBean contractBean = contractBeanList.get(i);
             Label element0 = new Label();
+            element0.setId("text-label");
             element0.setText("ID Contract: " + contractBean.getContractId());
             gridPane.add(element0, 0, i);
 
             Label element1 = new Label();
-            element1.setText("Numero reclamo: " + contractBean.getTenantNickname());
+            element1.setId("text-label");
+            element1.setText("Locatario: " + contractBean.getTenantNickname());
             gridPane.add(element1, 1, i);
 
             Label element2 = new Label();
-            element2.setText("Scadenza reclamo: " + contractBean.getContractState());
+            element2.setId("text-label");
+            element2.setText("Scadenza contratto: " + contractBean.getEndDate());
             gridPane.add(element2, 2, i);
             
             Button element3 = new Button();
            
-            element3.setText("Button");
+            element3.setText("Inoltra segnalazione");
             element3.setMnemonicParsing(false);
             element3.setId("buttonBlu");
             gridPane.add(element3, 3, i);
@@ -91,12 +93,11 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
 }
     @FXML
     private void userPanel() throws IOException{
-        controller.deleteObserver(this);
         String destination;
         if (userSession.getUserType() == TypeOfUser.RENTER){
-            destination = "userPanelRenter.fxml";
+            destination = "Resource/userPanelRenter.fxml";
         } else {
-            destination = "userPanelTenant.fxml";
+            destination = "Resource/userPanelTenant.fxml";
         }
 
         Stage st = (Stage)gridPane.getScene().getWindow();
@@ -123,11 +124,10 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
         @FXML
     private void login() throws IOException{
         Stage stage=(Stage) userPanelButton.getScene().getWindow();
-        controller.deleteObserver(this);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
-        Parent myNewScene = loader.load(getClass().getResource("login.fxml"));
+        Parent myNewScene = loader.load(getClass().getResource("Resource/login.fxml"));
         Scene scene = new Scene(myNewScene);
         stage.setScene(scene);
         stage.setTitle(TitleOfWindows.LOGIN.getString());
@@ -281,35 +281,5 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
         });
 
 }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        Platform.runLater(() -> {
-            notificationBean dati = (notificationBean)arg;
-            Stage newStage = new Stage();
-            newStage.setTitle(dati.getNotificationsNumber() + " nuove notifiche - Termina contratto - FERSA");
-            Pane comp = new Pane();
-
-            Label nameField = new Label();
-            nameField.setLayoutX(71.0);
-            nameField.setLayoutY(42.0);
-
-            if(dati.getNotificationsNumber() > 1){
-                nameField.setText("Sono disponibili " + dati.getNotificationsNumber() + " nuove notifiche!");
-            } else {
-                nameField.setText("E' disponibile 1 nuova notifica!");
-            }
-
-            Button close = new Button();
-            close.setLayoutX(154.0);
-            close.setLayoutY(99.0);
-            close.setText("Chiudi");
-
-            Scene stageScene = new Scene(comp, 368, 159);
-            newStage.setScene(stageScene);
-            comp.getChildren().addAll(nameField, close);
-            newStage.show();
-        });
-    }
 
 }

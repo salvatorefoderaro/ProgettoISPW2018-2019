@@ -13,7 +13,7 @@ public enum TypeOfRentable {
     }
 
     public static TypeOfRentable fromString(String text) {
-        for (TypeOfRentable b : TypeOfRentable.values()) {
+        for (TypeOfRentable b : values()) {
             if (b.type.equalsIgnoreCase(text)) {
                 return b;
             }

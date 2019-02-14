@@ -8,6 +8,7 @@ package it.uniroma2.ispw.fersa.Bean;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
 
 import java.awt.*;
+import java.io.File;
 import java.util.List;
 
 
@@ -33,7 +34,7 @@ public class rentableBean {
     private Image image1;
     private boolean JDBCcommit;
     private List<availabilityPeriodBean> listAvailability;
-    
+
     public rentableBean(){}
 
     public void setJDBCcommit(boolean JDBCcommit){
@@ -57,7 +58,6 @@ public class rentableBean {
     public String getTenantNickname(){ return this.tenantNickname; }
     public Image getImage1(){ return this.image1; }
     public List<availabilityPeriodBean> getListAvailability(){ return this.listAvailability; }
-
     public void setListAvailability(List<availabilityPeriodBean> list){ this.listAvailability = list;}
     public void setName(String name){ this.name = name; }
     public void setDescription(String description){ this.description = description; }

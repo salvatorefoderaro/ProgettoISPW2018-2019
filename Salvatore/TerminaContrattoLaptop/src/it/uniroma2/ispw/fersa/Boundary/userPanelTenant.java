@@ -34,7 +34,7 @@ private userSessionBean userSession;
         userSession = session;
         this.controller = parentController;
         this.controller.addObserver(this);
-        welcomeText.setText("Bentornato " + this.userSession.getNickname() + parentController);
+        welcomeText.setText("Bentornato " + this.userSession.getNickname());
     } 
 
     @FXML
@@ -48,7 +48,8 @@ private userSessionBean userSession;
         seePaymentClaims controllerGraphic = loader.<seePaymentClaims>getController();
         controllerGraphic.interactWithPaymentClaim(this.controller, this.userSession);
 
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 900, 400);
+        st.setResizable(false);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.SEEPAYMENTCLAIM.getString());
         st.show();
@@ -61,13 +62,12 @@ private userSessionBean userSession;
         Stage st = (Stage) seePaymentClaimButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/login.fxml"));
         Parent root = loader.load();
-        
-        login controllerGraphic = loader.<login>getController();
 
         Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();
+        st.setResizable(false);
     }
 
     @Override
@@ -92,6 +92,10 @@ private userSessionBean userSession;
             close.setLayoutX(154.0);
             close.setLayoutY(99.0);
             close.setText("Chiudi");
+            close.setOnAction(event -> {
+                Stage stage = (Stage)close.getScene().getWindow();
+                stage.close();
+            });
 
             Scene stageScene = new Scene(comp, 368, 159);
             newStage.setScene(stageScene);

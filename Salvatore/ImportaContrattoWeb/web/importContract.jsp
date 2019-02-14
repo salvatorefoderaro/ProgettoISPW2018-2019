@@ -7,6 +7,7 @@
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfContract" %>
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="java.io.*" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="it.uniroma2.ispw.fersa.Bean.rentableBean" />
@@ -37,7 +38,6 @@
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
     }
-    System.out.println(localStartDate.toString() + localEndDate.toString() + selectedContractType.minDuration + selectedContractType.maxDuration);
     if (localEndDate.isBefore(localStartDate.plusMonths(selectedContractType.minDuration))){
         session.setAttribute("infoMessage", "Per la tipologia di contratto scelta, l'intervallo minimo è di " + selectedContractType.minDuration + " mesi!");
         String destination ="importContract.jsp";
@@ -238,7 +238,7 @@
         } %>
 
 
-<form action="importContract.jsp" method="POST">
+<form ENCTYPE='multipart/form-data' action='importContract.jsp' method='POST'>
 
     <div class="row">
         <div class="col-5 .text-center">

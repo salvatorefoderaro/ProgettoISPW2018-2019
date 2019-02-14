@@ -9,6 +9,8 @@ import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
 import it.uniroma2.ispw.fersa.Controller.Controller;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.application.Platform;
@@ -17,6 +19,8 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,6 +38,7 @@ private userSessionBean userSession;
         userSession = session;
         this.controller = parentController;    
         welcomeText.setText("Bentornato " + this.userSession.getNickname());
+        welcomeText.setId("text-label");
         this.controller.addObserver(this);
     }
 
@@ -48,9 +53,10 @@ private userSessionBean userSession;
         seePaymentClaims controllerGraphic = loader.<seePaymentClaims>getController();
         controllerGraphic.interactWithPaymentClaim(this.controller, this.userSession);
 
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 900, 400);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.SEEPAYMENTCLAIM.getString());
+        st.setResizable(false);
         st.show();
     }
     
@@ -65,9 +71,10 @@ private userSessionBean userSession;
         createPaymentClaim controllerGraphic = loader.<createPaymentClaim>getController();
         controllerGraphic.createPaymentClaim(this.controller, this.userSession);
 
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 900, 500);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.CREATEPAYMENTCLAIM.getString());
+        st.setResizable(false);
         st.show();
     }
     
@@ -108,6 +115,11 @@ private userSessionBean userSession;
             close.setLayoutX(154.0);
             close.setLayoutY(99.0);
             close.setText("Chiudi");
+
+            close.setOnAction(event -> {
+                Stage stage = (Stage)close.getScene().getWindow();
+                stage.close();
+            });
 
             Scene stageScene = new Scene(comp, 368, 159);
             newStage.setScene(stageScene);

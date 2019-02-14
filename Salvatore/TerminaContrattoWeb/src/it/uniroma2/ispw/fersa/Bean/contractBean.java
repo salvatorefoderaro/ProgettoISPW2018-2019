@@ -16,16 +16,19 @@ public class contractBean {
     private String tenantNickname; 
     private String renterNickname;
     private boolean JDBCcommit;
+    private String endDate;
 
     public void setContractId(int contractId){this.contractId = contractId;}
     public void setContractState(int contractState){this.contractState = contractState;}
     public void setTenantNickname(String tenantNickname){this.tenantNickname = tenantNickname;}
     public void setRenterNickname(String renterNickname){this.renterNickname = renterNickname;}
     public void setJDBCcommit(boolean JDBCcommit){this.JDBCcommit = JDBCcommit;}
+    public void setEndDate(String endDate){ this.endDate = endDate; }
 
     public boolean getJDBCcommit(){ return this.JDBCcommit; }
     public int getContractId(){ return this.contractId;}
     public int getContractState(){ return this.contractState; }
     public String getTenantNickname(){ return this.tenantNickname; }
     public String getRenterNickname(){ return this.renterNickname; }
+    public String getEndDate(){ return this.endDate; }
 }

@@ -39,7 +39,7 @@ public class beforeTest {
         insertTable(6);
 
         testBean.setNickname("francesco");
-        controllerSingleton.getInstance().getRentableFromUser(testBean);
+        // controllerSingleton.getInstance().getRentableFromUser(testBean);
 
     }
 }

@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.fersa.Controller;
 
 import it.uniroma2.ispw.fersa.Bean.contractBean;
+import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.paymentClaimBean;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.DAO.*;
@@ -25,6 +26,13 @@ public class Controller {
     public userSessionBean login(userSessionBean loginUser) throws SQLException, emptyResult, dbConfigMissing {
         return userJDBC.getInstance().login(loginUser);
     }
+
+    public notificationBean getPaymentClaimNumber(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
+       return paymentClaimJDBC.getInstance().getPaymentClaimCount(bean);
+    }
+
+    public void setTypeOfUSer(TypeOfUser type){ this.loggedUser.setUserType(type); }
+
 
     public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws emptyResult, SQLException, dbConfigMissing {
         List<paymentClaimBean> Result = paymentClaimJDBC.getInstance().getPaymentClaims(bean);

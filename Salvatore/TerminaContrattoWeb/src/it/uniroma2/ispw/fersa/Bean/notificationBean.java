@@ -11,14 +11,14 @@ package it.uniroma2.ispw.fersa.Bean;
  */
 public class notificationBean {
     
-    private int numeroNotifiche;
+    private int notificationNumber;
     
-    public int getNumeroNotifiche(){
-        return this.numeroNotifiche;
+    public int getNotificationNumber(){
+        return this.notificationNumber;
     }
     
-    public void setNumeroNotifiche(int numero){
-        this.numeroNotifiche = numero;
+    public void setNotificationNumber(int numero){
+        this.notificationNumber = numero;
     }
     
 }

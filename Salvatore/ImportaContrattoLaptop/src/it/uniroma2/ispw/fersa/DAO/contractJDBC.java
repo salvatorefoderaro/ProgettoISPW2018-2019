@@ -4,6 +4,11 @@ import it.uniroma2.ispw.fersa.Bean.contractBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
+
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

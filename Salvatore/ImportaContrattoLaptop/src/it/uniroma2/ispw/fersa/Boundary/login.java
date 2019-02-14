@@ -61,13 +61,13 @@ public class login {
         }
 
         Stage st = (Stage) loginButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("it/uniroma2/ispw/fersa/Resource/seeRentable.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Resource/seeRentable.fxml"));
         Parent root = loader.load();
         seeRentable controller = loader.getController();
 
         controller.makeSeeRentable(loggedUser, parentController);
 
-        Scene scene = new Scene(root, 704, 437);
+        Scene scene = new Scene(root, 640, 400);
         st.setScene(scene);
         st.setTitle("Visualizza risorse affittabili - Importa contratto - FERSA");
         st.show();
@@ -96,7 +96,7 @@ public class login {
                 close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
-                stageScene.getStylesheets().add(getClass().getResource("makeLogin.css").toExternalForm());
+                stageScene.getStylesheets().add(getClass().getResource("Resource/test.css").toExternalForm());
 
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);

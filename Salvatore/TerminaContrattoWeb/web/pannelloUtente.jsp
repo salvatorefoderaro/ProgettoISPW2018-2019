@@ -10,6 +10,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
@@ -43,21 +45,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-    
-    
-        <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+      <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/jquery-1.8.3.min.js'></script>
+      <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>
+      <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap-datepicker3.min.css'>
+      <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/bootstrap-datepicker.min.js'></script>
 
 
       <title><%= TitleOfWindows.USERPANEL.getString() %></title>
              
   </head>
   <body>
-      
-      
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  
     <a class="navbar-brand" href="#">FERSA</a>
@@ -87,7 +84,7 @@
 
 
     <%
-        if (session.getAttribute("successMessage") != null) { %>
+        } if (session.getAttribute("successMessage") != null) { %>
 
     <div class="alert alert-success">
         <strong>Ok!</strong> <%= session.getAttribute("successMessage") %>
@@ -119,13 +116,37 @@
     <% session.setAttribute("warningMessage", null);
     } %>
 
-Bentornato <%= sessionBean.getNickname() %> <br>
+    <h4>Bentornato <%= sessionBean.getNickname() %></h4>
 
         <% if(sessionBean.getUserType() == TypeOfUser.RENTER){  %>
-        <a href="inoltraSegnalazione.jsp"><button userType="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
+        <a href="inoltraSegnalazione.jsp"><button type="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
         <% } %>
 
-        <a href="visualizzaSegnalazioni.jsp"><button userType="sumbit" name="Locatario" class="btn btn-secondary btn-lg">Visualizza segnalazioni</button></a>
+        <a href="visualizzaSegnalazioni.jsp">
+            <button type="submit" name="Locatario" class="btn btn-secondary btn-lg">
+                Visualizza segnalazioni <%
+                int counter = 0;
+                try {
+                    counter = sessionBean.getController().getPaymentClaimNumber(sessionBean).getNotificationNumber();
+                    %><span class="badge badge-light"><%= counter%></span><%
+                }catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
+                    System.out.println("Entro in errore1?");
+                    session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                    String destination ="index.jsp";
+                    response.sendRedirect(response.encodeRedirectURL(destination));
+                    return;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println("Entro in errore?2");
+                    session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+                    String destination ="index.jsp";
+                    response.sendRedirect(response.encodeRedirectURL(destination));
+                    return;
+                } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult ignored) {
+                    System.out.println("Entro in errore?3");
+                }                   %>
+            </button>
+        </a>
          </center>
 
 </div>      

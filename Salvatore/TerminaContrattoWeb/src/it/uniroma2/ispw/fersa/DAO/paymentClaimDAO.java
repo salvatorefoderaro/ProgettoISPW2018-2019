@@ -6,6 +6,7 @@
 package it.uniroma2.ispw.fersa.DAO;
 
 
+import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.paymentClaimBean;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface paymentClaimDAO {
     void incrementPaymentClaimNumber(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
 
     void createPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing;
+
+    notificationBean getPaymentClaimCount(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing;
 
     List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing;
 

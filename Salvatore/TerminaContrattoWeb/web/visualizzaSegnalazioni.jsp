@@ -27,13 +27,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-    
-    
-    <script userType='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+
 
 
       <title><%= TitleOfWindows.SEEPAYMENTCLAIM.getString() %></title>
@@ -210,7 +204,6 @@
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
       } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
-          missingConfig.printStackTrace();
           session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
@@ -222,7 +215,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  
     <a class="navbar-brand" href="#">FERSA</a>
-  <button class="navbar-toggler" userType="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -294,10 +287,10 @@
                 case 0: 
                     if(sessionBean.getUserType() == TypeOfUser.RENTER){
 %>
-                    <button userType="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
+                    <button type="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
             <% } else { %> 
-                    <button name ="0" userType="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
-                             <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+                    <button name ="0" type="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
+                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
    
                     <% 
                         }
@@ -306,12 +299,12 @@
                 case 1:
                 if(sessionBean.getUserType() == TypeOfUser.RENTER){
                 %>
-        <input name = "1" userType="submit" class="btn btn-info" value="Reinoltra segnalazione">
-        <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
-         <input userType="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>">
+        <input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
+        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+         <input type="hidden" id="custId" name="numeroReclamo" value="<%= temp.getClaimNumber() %>">
 
                 <%} else{ %>
-        <input  userType="submit" class="btn btn-info" value="In attesa del locatore" disabled>
+        <input  type="submit" class="btn btn-info" value="In attesa del locatore" disabled>
                     <%}
                 
                     break;
@@ -319,8 +312,8 @@
                 case 2:                        
                 if(sessionBean.getUserType() == TypeOfUser.RENTER){
                     %> 
-        <input name = "2" userType="submit" class="btn btn-info" value="Archivia contratto">
-        <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+        <input name = "2" type="submit" class="btn btn-info" value="Archivia contratto">
+        <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
             <% }else {%>
                     <input  class="btn btn-info" value="In attesa del locatore" disabled>
 
@@ -334,22 +327,22 @@
 
 
                     %>
-        <button userType="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
-                                     <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+        <button type="submit" name="3" class="btn btn-outline-secondary">Archivia notifica</button>
+                                     <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 
                     <% }else{ %>
-                            <button userType="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
+                            <button type="button" class="btn btn-outline-secondary" disabled>Archivia contratto</button>
 
         <%}   break;
             
         case 4:
 
         if(sessionBean.getUserType() == TypeOfUser.RENTER){ %>
-                            <button userType="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
-                             <input userType="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+                            <button type="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
+                             <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 
 <% }else { %>
-                            <button userType="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
+                            <button type="button" class="btn btn-outline-secondary" disabled>Conferma pagamento</button>
 <% }
 }
         %>
@@ -364,15 +357,11 @@
             %>
 </center></div>
 
-      
-      <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!-- Bootstrap Date-Picker Plugin -->
+
+<script type='text/javascript' src='${pageContext.request.contextPath}/Resource/jquery-1.8.3.min.js'></script>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap-datepicker3.min.css'>
+<script type='text/javascript' src='${pageContext.request.contextPath}/Resource/bootstrap-datepicker.min.js'></script>
 
 </body>
 </html>

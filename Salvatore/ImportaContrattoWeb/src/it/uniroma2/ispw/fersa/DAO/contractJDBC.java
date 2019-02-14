@@ -4,6 +4,11 @@ import it.uniroma2.ispw.fersa.Bean.contractBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
+
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -42,6 +47,8 @@ public class contractJDBC implements contractDAO {
                 query = "INSERT INTO Contract (aptToRentId, roomToRentId, bedToRentId, type, contractTypeId, state, tenantNickname, renterNickname, creationDate, stipulationDate, startDate, endDate, tenantName, tenantSurname, tenantCF, tenantAddress, renterName, renterSurname, renterCF, renterAddress, price, deposit, claimReported, serviceList, grossPrice) VALUES (null, ?, null, ?, ?, 'Active', ?, ?, ?, null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, null, ?)";
                 break;
         }
+
+
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setInt(1, bean.getRentableId());

@@ -2,6 +2,7 @@ package it.uniroma2.ispw.fersa.DAO;
 
 import it.uniroma2.ispw.fersa.Bean.rentableBean;
 import it.uniroma2.ispw.fersa.Bean.userBean;
+import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;

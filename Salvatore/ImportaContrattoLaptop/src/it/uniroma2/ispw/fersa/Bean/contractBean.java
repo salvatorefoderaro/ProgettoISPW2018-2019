@@ -4,6 +4,7 @@ import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfContract;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfPayment;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -120,5 +121,4 @@ public class contractBean {
     public TypeOfRentable getRentableType(){ return rentableType;
     }
     public TypeOfContract getContractType(){ return this.contractType; }
-
 }
