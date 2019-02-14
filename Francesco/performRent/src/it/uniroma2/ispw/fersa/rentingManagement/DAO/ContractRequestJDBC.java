@@ -2,6 +2,7 @@ package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractRequestBean;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledRequestException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
@@ -146,7 +147,6 @@ public class ContractRequestJDBC implements ContractRequestDAO{
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-
             ResultSet rs = stmt.executeQuery(sql);
 
             if (!rs.first()) return contractRequestIds;
@@ -269,7 +269,7 @@ public class ContractRequestJDBC implements ContractRequestDAO{
         }
     }
     
-    public void cancelRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+    public void cancelRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, CanceledRequestException {
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
 
@@ -290,7 +290,7 @@ public class ContractRequestJDBC implements ContractRequestDAO{
 
             if (!rs.first() | RequestStateEnum.valueOf(rs.getString("state")) != RequestStateEnum.INSERTED) {
                 conn.rollback();
-                throw new SQLException(); //TODO Cambiare eccezione
+                throw new CanceledRequestException();
             }
 
             sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.CANCELED.toString() + "' WHERE id = " + requestId.getId();

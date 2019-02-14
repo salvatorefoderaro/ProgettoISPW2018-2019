@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.exception;
 
-public class ConflictException extends Exception{
+public class ConflictException extends Exception {
     public ConflictException() {
         super("Errore nella firma del contratto");
     }

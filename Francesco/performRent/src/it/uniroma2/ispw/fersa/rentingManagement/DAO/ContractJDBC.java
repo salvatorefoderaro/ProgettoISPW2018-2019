@@ -624,7 +624,7 @@ public class ContractJDBC {
 
                 preparedStatement2.setInt(1, rentalFeaturesId);
                 preparedStatement2.setDate(2, rs.getDate("startDate"));
-                preparedStatement2.setDate(3, Date.valueOf(startDate));
+                preparedStatement2.setDate(3, Date.valueOf(startDate.minusDays(1)));
 
                 preparedStatement2.executeUpdate();
 
@@ -635,7 +635,7 @@ public class ContractJDBC {
             if (((int) dateRange2.getNumMonths()) != 0) {
 
                 preparedStatement2.setInt(1, rentalFeaturesId);
-                preparedStatement2.setDate(2, Date.valueOf(endDate));
+                preparedStatement2.setDate(2, Date.valueOf(endDate.plusDays(1)));
                 preparedStatement2.setDate(3, rs.getDate("endDate"));
 
                 preparedStatement2.executeUpdate();

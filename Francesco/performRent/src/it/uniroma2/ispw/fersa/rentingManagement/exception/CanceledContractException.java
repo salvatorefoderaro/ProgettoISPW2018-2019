@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.rentingManagement.exception;
 
-public class CanceledContractException extends Exception{
+public class CanceledContractException extends Exception {
     public CanceledContractException() {
         super("Errore nella firma del contratto");
     }
