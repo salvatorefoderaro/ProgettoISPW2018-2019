@@ -2,9 +2,7 @@ package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractBean;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -22,12 +20,17 @@ public class ContractJDBC {
     }
 
     public void createContract(ContractBean contractBean) throws SQLException, ClassNotFoundException,
-            ConfigFileException, ConfigException, ContractPeriodException{
+            ConfigFileException, ConfigException,ConflictException{
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
         PreparedStatement preparedStatement1 = null;
         PreparedStatement preparedStatement2 = null;
+        ResultSet rs1 = null;
+        ResultSet rs2 = null;
+        ResultSet rs3 = null;
+        ResultSet rs4 = null;
+        ResultSet generatedKeys = null;
 
         try {
 
@@ -45,22 +48,16 @@ public class ContractJDBC {
                     + "contractTypeId, startDate, endDate, price, deposit FROM ContractRequest WHERE id = "
                     + contractBean.getContractRequestId().getId();
 
-            ResultSet rs1 = stmt.executeQuery(sql);
+            rs1 = stmt.executeQuery(sql);
 
-            if(!rs1.first()) {
-                conn.rollback();
-                throw new ContractPeriodException(); //TODO Cambiare eccezione
-            }
+            if(!rs1.first()) throw new ConflictException();
 
 
             //Controllo dei contratti dell'appartamento
 
             if (!verifyAvaibility(conn, "aptToRentId", rs1.getInt("aptId"),
                     rs1.getDate("startDate").toLocalDate(),
-                    rs1.getDate("endDate").toLocalDate())) {
-                conn.rollback();
-                throw new ContractPeriodException(); //TODO Cambiare eccezione
-            }
+                    rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
 
             String column = null;
 
@@ -71,31 +68,27 @@ public class ContractJDBC {
                     column = "aptToRentId";
                     sql = "SELECT id FROM RoomToRent WHERE aptId = " + rs1.getInt("aptToRentId");
 
-                    ResultSet rs2 = stmt.executeQuery(sql);
+                    rs2 = stmt.executeQuery(sql);
 
                     if (!rs2.first()) break;
 
                     do {
                         if(!verifyAvaibility(conn, "roomToRentId", rs2.getInt("id"),
                                 rs1.getDate("startDate").toLocalDate(),
-                                rs1.getDate("endDate").toLocalDate())) {
-                            conn.rollback();
-                            throw new ContractPeriodException(); //TODO Cambiare eccezione
-                        }
+                                rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
+
                         sql = "SELECT id FROM BedToRent WHERE roomId = " + rs2.getInt("id");
 
-                        ResultSet rs3 = stmt.executeQuery(sql);
+                        rs3 = stmt.executeQuery(sql);
 
                         if (!rs3.first()) break;
 
                         do {
                             if(!verifyAvaibility(conn, "bedToRentId", rs3.getInt("id"),
                                     rs1.getDate("startDate").toLocalDate(),
-                                    rs1.getDate("endDate").toLocalDate())) {
-                                conn.rollback();
-                                throw new ContractPeriodException(); //TODO Cambiare eccezione
-                            }
+                                    rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
                         } while (rs3.next());
+                        rs3.close();
                     } while (rs2.next());
                     break;
 
@@ -103,46 +96,44 @@ public class ContractJDBC {
                     column = "roomToRentId";
                     sql = "SELECT id FROM BedToRent WHERE roomId = " + rs1.getInt("roomToRentId");
 
-                    ResultSet rs4 = stmt.executeQuery(sql);
+                    if(!verifyAvaibility(conn, "roomToRentId", rs1.getInt("roomToRentId"),
+                            rs1.getDate("startDate").toLocalDate(),
+                            rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
 
-                    if (!rs4.first()) break;
+                    rs2 = stmt.executeQuery(sql);
+
+                    if (!rs2.first()) break;
 
                     do {
-                        if(!verifyAvaibility(conn, "bedToRentId", rs4.getInt("id"),
+                        if(!verifyAvaibility(conn, "bedToRentId", rs2.getInt("id"),
                                 rs1.getDate("startDate").toLocalDate(),
-                                rs1.getDate("endDate").toLocalDate())) {
-                            conn.rollback();
-                            throw new ContractPeriodException(); //TODO Cambiare eccezione
-                        }
-                    } while (rs4.next());
+                                rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
+                    } while (rs2.next());
                     break;
 
                 case BEDTORENT:
                     column = "bedToRentId";
                     sql = "SELECT roomId FROM BedToRent WHERE id = " + rs1.getInt("bedToRentId");
 
-                    ResultSet rs5 = stmt.executeQuery(sql);
-
-                    if(!rs5.first()) break;
-
-                    if(!verifyAvaibility(conn, "roomToRentId", rs5.getInt("id"),
+                    if(!verifyAvaibility(conn, "bedToRentId", rs1.getInt("roomToRentId"),
                             rs1.getDate("startDate").toLocalDate(),
-                            rs1.getDate("endDate").toLocalDate())) {
-                        conn.rollback();
-                        throw new ContractPeriodException(); //TODO Cambiare eccezione
-                    }
+                            rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
+
+                    rs2 = stmt.executeQuery(sql);
+
+                    if(!rs2.first()) break;
+
+                    if(!verifyAvaibility(conn, "roomToRentId", rs2.getInt("id"),
+                            rs1.getDate("startDate").toLocalDate(),
+                            rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
                     break;
             }
-
-
 
             String insertString = "INSERT INTO Contract (aptId, tenantNickname, "+ column +", type, contractTypeId," +
                     " state,  creationDate, startDate, endDate, tenantName, tenantSurname, tenantCF, " +
                     "tenantDateOfBirth, tenantCityOfBirth, tenantAddress, renterName, renterSurname, renterCF, " +
                     "renterAddress, propertyPrice, deposit, grossPrice, netPrice, frequencyOfPayement) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            System.out.println(rs1.getInt("aptToRentId"));
 
             preparedStatement1 = conn.prepareStatement(insertString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement1.setInt(1, rs1.getInt("aptId"));
@@ -170,12 +161,11 @@ public class ContractJDBC {
             preparedStatement1.setInt(23, contractBean.getNetPrice());
             preparedStatement1.setInt(24, contractBean.getFrequencyOfPayement());
 
-
             preparedStatement1.executeUpdate();
 
-            ResultSet generatedKeys = preparedStatement1.getGeneratedKeys();
+            generatedKeys = preparedStatement1.getGeneratedKeys();
 
-            if (!generatedKeys.first()) return;
+            if (!generatedKeys.first()) throw new SQLException("impossibile inserire il contratto");
 
             int contractId = generatedKeys.getInt(1);
 
@@ -188,14 +178,14 @@ public class ContractJDBC {
                     + contractBean.getContractRequestId().getId();
 
 
-            ResultSet rs6 = stmt.executeQuery(sql);
+            rs4 = stmt.executeQuery(sql);
 
-            if (rs6.first()) {
+            if (rs4.first()) {
 
                 do {
-                    preparedStatement2.setInt(1, rs6.getInt("serviceId"));
+                    preparedStatement2.setInt(1, rs4.getInt("serviceId"));
                     preparedStatement2.executeUpdate();
-                } while (rs6.next());
+                } while (rs4.next());
 
             }
 
@@ -209,7 +199,8 @@ public class ContractJDBC {
             conn.setTransactionIsolation(isolation);
 
             rs1.close();
-            rs6.close();
+            rs2.close();
+            rs4.close();
             generatedKeys.close();
             stmt.close();
             preparedStatement1.close();
@@ -220,10 +211,18 @@ public class ContractJDBC {
             throw e;
         }  finally {
             try {
-                if (conn != null) conn.rollback();
+                if (conn != null) {
+                    conn.rollback();
+                    conn.close();
+                }
                 if (stmt != null) stmt.close();
                 if (preparedStatement1 != null) preparedStatement1.close();
                 if (preparedStatement2 != null) preparedStatement2.close();
+                if (generatedKeys != null) generatedKeys.close();
+                if (rs1 != null) rs1.close();
+                if (rs2 != null) rs2.close();
+                if (rs3 != null) rs3.close();
+                if (rs4 != null) rs4.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -235,6 +234,7 @@ public class ContractJDBC {
             throws SQLException {
 
         Statement stmt = null;
+        ResultSet rs = null;
 
         boolean result;
 
@@ -244,24 +244,22 @@ public class ContractJDBC {
                     ContractStateEnum.SIGNATURE.toString() +"' AND ((startDate <= DATE('" + endDate.toString() + "') " +
                     "AND startDate >= DATE('" + startDate.toString() + "')) " +
                     "OR (endDate <= DATE('" + endDate.toString() + "') " +
-                    "AND endDate >= DATE('" + startDate + "')))";
+                    "AND endDate >= DATE('" + startDate + "')) OR ((startDate <= DATE'" + startDate.toString() +
+                    "') AND endDate >= DATE ('"+ endDate.toString() +"')))";
 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
 
             result = !rs.first();
 
             rs.close();
             stmt.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
         } finally {
             try {
                 if (stmt != null) stmt.close();
-
+                if(rs != null) rs.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -660,7 +658,8 @@ public class ContractJDBC {
             String sql = "SELECT id FROM ContractRequest WHERE " + idType + " = " + id + " AND state = '" + RequestStateEnum.INSERTED.toString() + "' AND ((startDate <= DATE('" + endDate.toString() + "') " +
                     "AND startDate >= DATE('" + startDate.toString() + "')) " +
                     "OR (endDate <= DATE('" + endDate.toString() + "') " +
-                    "AND endDate >= DATE('" + startDate + "')))";
+                    "AND endDate >= DATE('" + startDate + "')) OR ((startDate <= DATE'" + startDate.toString() +
+            "') AND endDate >= DATE ('"+ endDate.toString() +"')))";;
 
             ResultSet rs = stmt.executeQuery(sql);
 

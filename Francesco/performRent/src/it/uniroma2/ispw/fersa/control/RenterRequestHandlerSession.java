@@ -5,6 +5,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.ConflictException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 import it.uniroma2.ispw.fersa.userProfileAndServices.*;
 
@@ -120,7 +121,7 @@ public class RenterRequestHandlerSession {
         return this.contractRequest != null;
     }
 
-    public void signContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ContractPeriodException {
+    public void signContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ConflictException {
         ContractBean contractBean = new ContractBean(this.contractRequest.getContractRequestId(), this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(), this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(), this.contract.getTenantAddress(), this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(), this.contract.getGrossPrice(), this.contract.getNetPrice(), 1);
         ContractJDBC.getInstance().createContract(contractBean);
     }

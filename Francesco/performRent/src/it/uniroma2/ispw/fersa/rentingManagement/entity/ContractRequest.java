@@ -116,10 +116,10 @@ public class ContractRequest {
     public int getTotal() {
         int total = 0;
 
-        total += (int) (this.dateRange.getNumMonths() * this.rentablePrice);
+        total += (int) ((this.dateRange.getNumMonths() * this.rentablePrice));
 
         for (int i = 0; i < this.services.size(); i++) {
-            total += (int) (this.dateRange.getNumMonths() * this.services.get(i).getPrice());
+            total += (int) ((this.dateRange.getNumMonths() * this.services.get(i).getPrice()));
         }
 
         return total;
