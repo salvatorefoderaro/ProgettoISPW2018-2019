@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class IntervalDate {
+public class DateRange {
     private LocalDate beginDate;
 
     private LocalDate endDate;
 
-    public IntervalDate(LocalDate beginDate, LocalDate endDate) {
+    public DateRange(LocalDate beginDate, LocalDate endDate) {
         this.beginDate = beginDate;
         this.endDate = endDate;
     }

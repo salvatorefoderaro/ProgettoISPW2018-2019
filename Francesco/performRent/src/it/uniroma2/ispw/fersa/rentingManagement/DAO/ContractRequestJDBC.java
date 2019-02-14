@@ -8,7 +8,6 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodExceptio
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class ContractRequestJDBC implements ContractRequestDAO{
 
             if (!rs2.first()) return;
 
-            switch(RentableTypeEnum.valueOf(rs2.getString("type"))) {
+            switch(PropertyTypeEnum.valueOf(rs2.getString("type"))) {
                 case APTTORENT:
                     column = "aptToRentId";
                     break;

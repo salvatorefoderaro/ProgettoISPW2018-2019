@@ -8,7 +8,6 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodExceptio
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class ContractJDBC {
 
             //Trovo la tipologia di affittabile
 
-            switch (RentableTypeEnum.valueOf(rs1.getString("type"))) {
+            switch (PropertyTypeEnum.valueOf(rs1.getString("type"))) {
                 case APTTORENT:
                     column = "aptToRentId";
                     sql = "SELECT id FROM RoomToRent WHERE aptId = " + rs1.getInt("aptToRentId");
@@ -191,17 +190,18 @@ public class ContractJDBC {
 
             ResultSet rs6 = stmt.executeQuery(sql);
 
-            rs6.first();
+            if (rs6.first()) {
 
-            do {
-                preparedStatement2.setInt(1, rs6.getInt("serviceId"));
-                preparedStatement2.executeUpdate();
-            } while (rs6.next());
+                do {
+                    preparedStatement2.setInt(1, rs6.getInt("serviceId"));
+                    preparedStatement2.executeUpdate();
+                } while (rs6.next());
 
-            sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.APPROVED.toString() + "'WHERE id = "
-                    + contractBean.getContractRequestId().getId();
+                sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.APPROVED.toString() + "'WHERE id = "
+                        + contractBean.getContractRequestId().getId();
 
-            stmt.executeQuery(sql);
+                stmt.executeQuery(sql);
+            }
 
             conn.commit();
             conn.setAutoCommit(autocommit);
@@ -409,7 +409,7 @@ public class ContractJDBC {
     private Contract createContract(ResultSet rs) throws SQLException {
         String column = null;
 
-        switch (RentableTypeEnum.valueOf(rs.getString("type"))) {
+        switch (PropertyTypeEnum.valueOf(rs.getString("type"))) {
             case APTTORENT:
                 column = "aptToRentId";
                 break;
@@ -493,7 +493,7 @@ public class ContractJDBC {
 
             //Trovo la tipologia di affittabile
 
-            switch (RentableTypeEnum.valueOf(rs1.getString("type"))) {
+            switch (PropertyTypeEnum.valueOf(rs1.getString("type"))) {
                 case APTTORENT:
                     break;
                 case ROOMTORENT:
@@ -602,9 +602,9 @@ public class ContractJDBC {
             sql = "INSERT INTO AvailabilityCalendar (rentalFeaturesId, startDate, endDate) VALUES (?, ?, ?)";
             preparedStatement2 = conn.prepareStatement(sql);
 
-            IntervalDate intervalDate1 = new IntervalDate(rs.getDate("startDate").toLocalDate(), startDate);
+            DateRange dateRange1 = new DateRange(rs.getDate("startDate").toLocalDate(), startDate);
 
-            if (((int) intervalDate1.getNumMonths()) != 0) {
+            if (((int) dateRange1.getNumMonths()) != 0) {
 
 
 
@@ -617,9 +617,9 @@ public class ContractJDBC {
 
             }
 
-            IntervalDate intervalDate2 = new IntervalDate(endDate, rs.getDate("endDate").toLocalDate());
+            DateRange dateRange2 = new DateRange(endDate, rs.getDate("endDate").toLocalDate());
 
-            if (((int) intervalDate2.getNumMonths()) != 0) {
+            if (((int) dateRange2.getNumMonths()) != 0) {
 
                 preparedStatement2.setInt(1, rentalFeaturesId);
                 preparedStatement2.setDate(2, Date.valueOf(endDate));
