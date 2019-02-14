@@ -7,6 +7,7 @@ import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.DAO.*;
 import it.uniroma2.ispw.fersa.Entity.*;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Exceptions.alreadyClaimed;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
@@ -87,12 +88,17 @@ public class Controller {
 
     public void setPaymentClaimPayed(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
-        operationBean.setJDBCcommit(true);
+        operationBean.setJDBCcommit(false);
         paymentClaimJDBC.getInstance().setPaymentClaimPayed(operationBean);
+
+        contractBean contractOperation = dictionaryContratto.get(bean.getContractId()).makeBean();
+        contractOperation.setJDBCcommit(true);
+        contractJDBC.getInstance().setContractNotClaimed(contractOperation);
+
     }
 
-    public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
-        Contract trueContract = null;
+    public void insertNewPaymentClaim(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing, alreadyClaimed {
+        Contract trueContract;
         if (dictionaryContratto.get(bean.getContractId()) == null){
             contractBean contract = new contractBean();
             contract.setContractId(bean.getContractId());
@@ -100,7 +106,11 @@ public class Controller {
             trueContract = new Contract(contract.getContractId(), contract.getContractState(), contract.getTenantNickname(), contract.getRenterNickname());
             dictionaryContratto.put(bean.getContractId(), trueContract);
         } else {
-            trueContract = dictionaryContratto.get(bean.getClaimId());
+            trueContract = dictionaryContratto.get(bean.getContractId());
+        }
+
+        if (trueContract.getClaimed() == true){
+            throw new alreadyClaimed("aa");
         }
 
         userSessionBean user = new userSessionBean(bean.getTenantNickname(), 0, TypeOfUser.TENANT, 0, "", null);
@@ -109,11 +119,16 @@ public class Controller {
         PaymentClaim claim = new PaymentClaim(bean.getClaimId(), trueContract, bean.getRenterNickname(), trueTenant, bean.getClaimNumber(), bean.getClaimDeadline(), bean.getClaimState(), bean.getClaimNotified());
         dictionarySegnalazionePagamento.put(bean.getClaimId(), claim);
 
+        user.setJDBCcommit(false);
+        userJDBC.getInstance().incrementPaymentClaimNumber(user);
+
         bean.setJDBCcommit(false);
         paymentClaimJDBC.getInstance().createPaymentClaim(bean);
         contractBean operationBean = dictionaryContratto.get(bean.getContractId()).makeBean();
         operationBean.setJDBCcommit(true);
-        contractJDBC.getInstance().setContrattoSegnalato(operationBean);
+        contractJDBC.getInstance().setContractReported(operationBean);
+
+        trueContract.setClaimed();
     }
 
     public void incrementPaymentClaim(paymentClaimBean bean) throws transactionError, SQLException, dbConfigMissing {

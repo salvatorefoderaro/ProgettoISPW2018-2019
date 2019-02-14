@@ -28,7 +28,6 @@ public class paymentClaimJDBC implements paymentClaimDAO {
 
     @Override
     public notificationBean getPaymentClaimCount(userSessionBean bean) throws SQLException, emptyResult, dbConfigMissing {
-        System.out.println(bean.getUserType() + bean.getNickname());
         Connection dBConnection = null;
         try {
             dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
@@ -74,7 +73,6 @@ public class paymentClaimJDBC implements paymentClaimDAO {
 
         List<paymentClaimBean> claimsList = new LinkedList<>();
             String query;
-            System.out.println(bean.getUserType());
             if (TypeOfUser.TENANT == bean.getUserType()){
                 query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Claim.claimNotified = 0";
             } else {
@@ -164,13 +162,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     @Override
     public void setPaymentClaimPayed(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("admin"));
-        } catch (Exception e) {
-            throw new dbConfigMissing("");
-        }
-        dBConnection.setAutoCommit(false);
+        Connection dBConnection = transactionConnection.getConnection();
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimState = 4  WHERE id = ?");
             preparedStatement.setInt(1, bean.getClaimId());

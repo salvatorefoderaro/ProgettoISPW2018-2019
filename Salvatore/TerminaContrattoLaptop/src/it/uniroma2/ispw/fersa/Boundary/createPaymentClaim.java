@@ -13,6 +13,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Exceptions.alreadyClaimed;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import java.util.List;
@@ -191,6 +192,8 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
                     return;
                 } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
                     popupToDestination(TypeOfMessage.DBCONFIGERROR.getString(), true);
+                } catch (it.uniroma2.ispw.fersa.Exceptions.alreadyClaimed alreadyClaimed) {
+                    popupToDestination("Per il contratto è già presente una segnalazione di pagamento in sospeso!", true);
                 }
                 element.setDisable(true);
                 claimDeadline = null;

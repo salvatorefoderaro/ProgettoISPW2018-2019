@@ -6,6 +6,7 @@
 package it.uniroma2.ispw.fersa.DAO;
 
 import it.uniroma2.ispw.fersa.Bean.contractBean;
+import it.uniroma2.ispw.fersa.Bean.paymentClaimBean;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
@@ -51,6 +52,7 @@ public class contractJDBC implements contractDAO {
             throw new emptyResult("");
         } else {
             while(resultSet.next()){
+
                 contractBean bean = new contractBean();
                 bean.setContractId(resultSet.getInt("contractID"));
                 bean.setRenterNickname(resultSet.getString("renterNickname"));
@@ -63,6 +65,28 @@ public class contractJDBC implements contractDAO {
             dBConnection.close();
 
             return listBean;
+        }
+    }
+
+    @Override
+    public void setContractNotClaimed(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
+
+        Connection dBConnection = transactionConnection.getConnection();
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE Contract SET claimReported = 0  WHERE contractID = ?");
+        preparedStatement.setInt(1, bean.getContractId());
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+
+        if (bean.getJDBCcommit()){
+            try {
+                dBConnection.commit();
+                dBConnection.close();
+            } catch (SQLException e){
+                dBConnection.rollback();
+                dBConnection.close();
+                throw new transactionError("");
+            }
         }
     }
     
@@ -83,7 +107,6 @@ public class contractJDBC implements contractDAO {
         contractBean contract = new contractBean();
         while(resultSet.next()){
                     contract.setContractId(bean.getContractId());
-                    contract.setContractState(resultSet.getInt("state"));
                     contract.setRenterNickname(resultSet.getString("renterNickname"));
                     contract.setTenantNickname(resultSet.getString("tenantNickname"));
 

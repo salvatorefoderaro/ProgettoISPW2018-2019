@@ -30,41 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/projectThread/checkPaymentclaimDate.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="25" column="50" selection-start-line="25" selection-end-line="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/inoltraSegnalazione.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1164">
-              <caret line="189" column="106" selection-start-line="189" selection-start-column="106" selection-end-line="189" selection-end-column="106" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/pannelloUtente.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="129" column="70" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/visualizzaSegnalazioni.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1071">
-              <caret line="206" selection-start-line="206" selection-end-line="206" />
+            <state relative-caret-position="285">
+              <caret line="90" column="83" lean-forward="true" selection-start-line="90" selection-start-column="83" selection-end-line="90" selection-end-column="83" />
             </state>
           </provider>
         </entry>
@@ -72,11 +42,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="57" column="60" selection-start-line="57" selection-start-column="60" selection-end-line="57" selection-end-column="60" />
+            <state relative-caret-position="263">
+              <caret line="136" selection-start-line="136" selection-end-line="136" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/alreadyClaimed.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -84,13 +63,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="33" column="76" selection-start-line="33" selection-start-column="76" selection-end-line="33" selection-end-column="76" />
+            <state relative-caret-position="354">
+              <caret line="115" column="110" selection-start-line="115" selection-start-column="110" selection-end-line="115" selection-end-column="110" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#768#791#0" expanded="true" />
-                <element signature="e#865#884#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -98,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="510">
+              <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -107,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+            <state relative-caret-position="2295">
+              <caret line="166" selection-start-line="166" selection-end-line="166" />
             </state>
           </provider>
         </entry>
@@ -119,7 +117,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-606">
+            <state relative-caret-position="450">
               <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
             </state>
           </provider>
@@ -139,9 +137,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Singleton" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -208,15 +206,18 @@
         <option value="$PROJECT_DIR$/src/DAO/Configuration/readDBConf.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Enum/TitleOfWindows.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/contractBean.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java" />
-        <option value="$PROJECT_DIR$/web/inoltraSegnalazione.jsp" />
         <option value="$PROJECT_DIR$/web/visualizzaSegnalazioni.jsp" />
         <option value="$PROJECT_DIR$/web/pannelloUtente.jsp" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/notificationBean.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java" />
         <option value="$PROJECT_DIR$/web/index.jsp" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/alreadyClaimed.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java" />
+        <option value="$PROJECT_DIR$/web/inoltraSegnalazione.jsp" />
       </list>
     </option>
   </component>
@@ -228,10 +229,10 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="589" />
-    <option name="y" value="67" />
-    <option name="width" value="602" />
-    <option name="height" value="737" />
+    <option name="x" value="602" />
+    <option name="y" value="27" />
+    <option name="width" value="681" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -241,6 +242,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -285,7 +288,44 @@
               <item name="TerminaContrattoWeb" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="DAO" type="462c0819:PsiDirectoryNode" />
+              <item name="Configuration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="Enum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
               <item name="projectThread" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoWeb" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="Test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TerminaContrattoWeb" type="b2602c69:ProjectViewProjectNode" />
@@ -305,8 +345,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -317,11 +355,11 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550163903119" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550175258392" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ImportaContrattoWeb" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -542,6 +580,9 @@
       <workItem from="1550134066624" duration="156000" />
       <workItem from="1550135350398" duration="80000" />
       <workItem from="1550155790029" duration="6145000" />
+      <workItem from="1550164966942" duration="145000" />
+      <workItem from="1550167537561" duration="1832000" />
+      <workItem from="1550174742514" duration="515000" />
     </task>
     <servers />
   </component>
@@ -578,12 +619,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68126000" />
+    <option name="totallyTimeSpent" value="70618000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1283" height="741" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14793856" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17057396" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -593,7 +634,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32792208" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.53733766" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4995958" weight="0.53733766" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -657,13 +698,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/jdk1.8.0_201/src.zip!/java/time/LocalDate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22905">
-          <caret line="1661" column="18" selection-start-line="1661" selection-start-column="18" selection-end-line="1661" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAO/renterJDBC.java" />
     <entry file="file://$PROJECT_DIR$/src/DAO/timerThread.java" />
     <entry file="file://$PROJECT_DIR$/src/DAO/tenantJDBC.java" />
@@ -674,13 +708,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -861,16 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -878,19 +895,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="57" column="60" selection-start-line="57" selection-start-column="60" selection-end-line="57" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/projectThread/checkPaymentclaimDate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
+        <state relative-caret-position="285">
           <caret line="25" column="50" selection-start-line="25" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -898,24 +905,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/inoltraSegnalazione.jsp">
+    <entry file="file://$PROJECT_DIR$/web/pannelloUtente.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1164">
-          <caret line="189" column="106" selection-start-line="189" selection-start-column="106" selection-end-line="189" selection-end-column="106" />
+        <state relative-caret-position="1935">
+          <caret line="129" column="70" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/visualizzaSegnalazioni.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1071">
+        <state relative-caret-position="3090">
           <caret line="206" selection-start-line="206" selection-end-line="206" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/pannelloUtente.jsp">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="129" column="70" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
+        <state relative-caret-position="960">
+          <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="166" selection-start-line="166" selection-end-line="166" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -926,39 +967,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="263">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/alreadyClaimed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="33" column="76" selection-start-line="33" selection-start-column="76" selection-end-line="33" selection-end-column="76" />
+        <state relative-caret-position="354">
+          <caret line="115" column="110" selection-start-line="115" selection-start-column="110" selection-end-line="115" selection-end-column="110" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#768#791#0" expanded="true" />
-            <element signature="e#865#884#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.jsp">
+    <entry file="file://$PROJECT_DIR$/web/inoltraSegnalazione.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-606">
-          <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+        <state relative-caret-position="285">
+          <caret line="90" column="83" lean-forward="true" selection-start-line="90" selection-start-column="83" selection-end-line="90" selection-end-column="83" />
         </state>
       </provider>
     </entry>

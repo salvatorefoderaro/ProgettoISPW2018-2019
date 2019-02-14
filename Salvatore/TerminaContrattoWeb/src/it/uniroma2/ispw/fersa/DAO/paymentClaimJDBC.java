@@ -163,13 +163,8 @@ public class paymentClaimJDBC implements paymentClaimDAO {
     @Override
     public void setPaymentClaimPayed(paymentClaimBean bean) throws SQLException, transactionError, dbConfigMissing {
 
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
-            throw new dbConfigMissing("");
-        }
-        dBConnection.setAutoCommit(false);
+        Connection dBConnection = transactionConnection.getConnection();
+
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE PaymentClaim SET claimState = 4  WHERE id = ?");
         preparedStatement.setInt(1, bean.getClaimId());

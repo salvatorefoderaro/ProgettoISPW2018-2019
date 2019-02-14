@@ -14,7 +14,7 @@ import java.sql.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class updateAvailabilityTest {
+public class test {
 
     public int countNewAvailability() throws SQLException, dbConfigMissing {
 

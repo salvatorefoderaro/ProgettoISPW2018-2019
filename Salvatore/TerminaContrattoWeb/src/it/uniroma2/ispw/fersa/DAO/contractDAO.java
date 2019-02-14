@@ -20,5 +20,8 @@ public interface contractDAO {
     contractBean getContract(contractBean bean)  throws SQLException, dbConfigMissing;
     List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult, dbConfigMissing;
     void setContractAchieved(contractBean bean) throws SQLException, transactionError, dbConfigMissing;
-    void setContrattoSegnalato(contractBean bean) throws SQLException, transactionError, dbConfigMissing;
+
+    void setContractNotClaimed(contractBean bean) throws SQLException, transactionError, dbConfigMissing;
+
+    void setContractReported(contractBean bean) throws SQLException, transactionError, dbConfigMissing;
 }

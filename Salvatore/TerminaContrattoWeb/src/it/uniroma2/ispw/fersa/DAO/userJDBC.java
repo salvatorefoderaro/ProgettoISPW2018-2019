@@ -2,9 +2,12 @@ package it.uniroma2.ispw.fersa.DAO;
 
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
+import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
+import it.uniroma2.ispw.fersa.Exceptions.transactionError;
+
 import java.sql.*;
 
 public class userJDBC implements userDAO {
@@ -50,22 +53,27 @@ public class userJDBC implements userDAO {
     }
 
     @Override
-    public void incrementPaymentClaimNumber(userSessionBean session) throws SQLException, dbConfigMissing {
+    public void incrementPaymentClaimNumber(userSessionBean session) throws SQLException, dbConfigMissing, transactionError {
 
-        Connection dBConnection = null;
-        try {
-            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
-        } catch (Exception e) {
-            throw new dbConfigMissing("");
-        }
-        dBConnection.setAutoCommit(false);
+        Connection dBConnection = transactionConnection.getConnection();
 
         PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE RentingUser SET paymentClaim = paymentClaim + 1 WHERE id = ?");
         preparedStatement.setInt(1, session.getId());
         preparedStatement.executeUpdate();
         preparedStatement.close();
-        dBConnection.close();
+
+        if (session.getJDBCcommit()){
+            try {
+                dBConnection.commit();
+                dBConnection.close();
+            } catch (SQLException e){
+                dBConnection.rollback();
+                dBConnection.close();
+                throw new transactionError("");
+            }
+        }
     }
+
 
     @Override
     public userSessionBean getTenant(userSessionBean session) throws SQLException, dbConfigMissing {

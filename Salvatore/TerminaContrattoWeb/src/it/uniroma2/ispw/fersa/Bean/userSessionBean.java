@@ -16,6 +16,7 @@ public class userSessionBean
     private int paymentClaim;
     private String password;
     private Controller controller;
+    private boolean JDBCcommit;
 
     // private constructor restricted to this class itself
     public userSessionBean() {    }
@@ -29,6 +30,10 @@ public class userSessionBean
         this.password = password;
         this.controller = controller;
     }
+
+    public void setJDBCcommit(boolean value){ this.JDBCcommit = value; }
+
+    public boolean getJDBCcommit(){ return this.JDBCcommit; }
 
     public void setId(int Id){ this.id = Id; }
 

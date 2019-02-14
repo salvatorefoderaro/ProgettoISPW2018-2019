@@ -17,6 +17,8 @@ import java.util.List;
 import java.sql.SQLException;
  
 public interface contractDAO {
+    void setContractNotClaimed(contractBean bean) throws SQLException, transactionError, dbConfigMissing;
+
     contractBean getContract(contractBean bean) throws SQLException, dbConfigMissing;
     List<contractBean> getContracts(userSessionBean user) throws SQLException, emptyResult, dbConfigMissing;
     void setContractAchieved(contractBean bean) throws SQLException, transactionError, dbConfigMissing;

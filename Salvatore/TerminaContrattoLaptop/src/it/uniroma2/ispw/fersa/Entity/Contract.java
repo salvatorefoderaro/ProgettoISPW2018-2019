@@ -8,12 +8,14 @@ public class Contract {
     private int contractState;
     private String tenantNickname;
     private String renterNickname;
+    private boolean claimed;
     
     public Contract(int contractId, int contractState, String tenantNickname, String renterNickname) throws SQLException{
         this.contractId = contractId;
         this.contractState = contractState;
         this.tenantNickname = tenantNickname;
         this.renterNickname = renterNickname;
+        this.claimed = false;
     }
 
     public contractBean makeBean(){
@@ -23,5 +25,13 @@ public class Contract {
         bean.setContractState(this.contractState);
         bean.setContractId(this.contractId);
         return bean;
+    }
+
+    public boolean getClaimed(){
+        return this.claimed;
+    }
+
+    public void setClaimed(){
+        this.claimed = true;
     }
 }

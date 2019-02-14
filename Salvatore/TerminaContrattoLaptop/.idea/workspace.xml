@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java" line="51" />
+    <bookmark url="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java" line="52" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
@@ -119,77 +119,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="39" column="19" lean-forward="true" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/projectThread/checkPaymentclaimDate.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="20" column="174" selection-start-line="20" selection-start-column="174" selection-end-line="20" selection-end-column="174" />
+            <state relative-caret-position="173">
+              <caret line="130" lean-forward="true" selection-start-line="86" selection-end-line="130" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/userPanelTenant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="36" column="74" selection-start-line="36" selection-start-column="74" selection-end-line="36" selection-end-column="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/userPanelRenter.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="21" column="30" selection-start-line="21" selection-end-line="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/userPanelTenant.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/createPaymentClaim.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="40" selection-start-line="40" selection-end-line="44" selection-end-column="9" />
+            <state relative-caret-position="198">
+              <caret line="195" column="113" selection-start-line="195" selection-start-column="40" selection-end-line="195" selection-end-column="113" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -198,19 +143,80 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/83ec5daf-87d9-466f-b05d-e5db3040b505/console_1.sql">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="219" lean-forward="true" selection-start-column="172" selection-end-column="219" />
+            <state relative-caret-position="304">
+              <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="120" column="75" lean-forward="true" selection-start-line="120" selection-start-column="75" selection-end-line="120" selection-end-column="75" />
+            <state relative-caret-position="318">
+              <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/beforeTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="37" column="93" selection-start-line="37" selection-start-column="93" selection-end-line="37" selection-end-column="93" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/afterTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-120">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/dbConfigMissing.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/alreadyClaimed.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+              <folding>
+                <element signature="e#138#139#0" expanded="true" />
+                <element signature="e#170#171#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/emptyResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="73" column="39" selection-start-line="73" selection-start-column="39" selection-end-line="73" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -223,8 +229,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -236,7 +242,6 @@
       <find>torna al</find>
       <find>System.out.println</find>
       <find>userPanelRenter</find>
-      <find>System.out</find>
       <find>System.out.print</find>
       <find>getContratti</find>
       <find>get</find>
@@ -255,6 +260,12 @@
       <find>600</find>
       <find>width</find>
       <find>900</find>
+      <find>notified</find>
+      <find>create</find>
+      <find>makeBean</find>
+      <find>System.ot</find>
+      <find>System.out</find>
+      <find>System</find>
     </findStrings>
     <replaceStrings>
       <replace>renter</replace>
@@ -268,22 +279,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Boundary/TypeOfMessage.java" />
-        <option value="$PROJECT_DIR$/src/Entity/user.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Contract.java" />
-        <option value="$PROJECT_DIR$/src/Entity/PaymentClaim.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Tenant.java" />
-        <option value="$PROJECT_DIR$/src/Entity/Renter.java" />
-        <option value="$PROJECT_DIR$/src/Exceptions/dbConfigMissing.java" />
-        <option value="$PROJECT_DIR$/src/Exceptions/dbConnection.java" />
-        <option value="$PROJECT_DIR$/src/Exceptions/emptyResult.java" />
-        <option value="$PROJECT_DIR$/src/Exceptions/transactionError.java" />
-        <option value="$PROJECT_DIR$/src/DAO/connectionUser.prop" />
-        <option value="$PROJECT_DIR$/src/DAO/connectionAdmin.prop" />
-        <option value="$PROJECT_DIR$/src/JUnit/testLogin.java" />
-        <option value="$PROJECT_DIR$/src/DAO/readDBConf.java" />
-        <option value="$PROJECT_DIR$/src/src/test.css" />
-        <option value="$PROJECT_DIR$/src/Boundary/style.css" />
         <option value="$PROJECT_DIR$/src/DAO/userJDBC.java" />
         <option value="$PROJECT_DIR$/src/DAO/contractJDBC.java" />
         <option value="$PROJECT_DIR$/src/DAO/paymentClaimJDBC.java" />
@@ -305,29 +300,45 @@
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/Configuration/readDBConf.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/JUnity.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/login.fxml" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/contractBean.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/createPaymentClaim.fxml" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/projectThread/checkPaymentclaimDate.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/createPaymentClaim.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/seePaymentClaims.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/userPanelRenter.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/seePaymentClaim.fxml" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/userPanelTenant.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/83ec5daf-87d9-466f-b05d-e5db3040b505/console_1.sql" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/beforeTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/controllerSingleton.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/afterTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/ContractDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/paymentClaimInsertTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/paymentClaimInsertTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/testSuite.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/afterTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/beforeTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/testSuite.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/test.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/beforeTest.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/alreadyClaimed.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/test.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/createPaymentClaim.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="589" />
-    <option name="y" value="67" />
-    <option name="width" value="602" />
-    <option name="height" value="737" />
+    <option name="x" value="602" />
+    <option name="y" value="27" />
+    <option name="width" value="681" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -337,8 +348,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -376,14 +385,6 @@
               <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fersa" type="462c0819:PsiDirectoryNode" />
-              <item name="Boundary" type="462c0819:PsiDirectoryNode" />
-              <item name="Resource" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fersa" type="462c0819:PsiDirectoryNode" />
               <item name="Controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -392,6 +393,20 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fersa" type="462c0819:PsiDirectoryNode" />
               <item name="DAO" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TerminaContrattoLaptop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="fersa" type="462c0819:PsiDirectoryNode" />
+              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TerminaContrattoLaptop" type="b2602c69:ProjectViewProjectNode" />
@@ -413,12 +428,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fersa" type="462c0819:PsiDirectoryNode" />
               <item name="Test" type="462c0819:PsiDirectoryNode" />
-              <item name="TestTiziana" type="462c0819:PsiDirectoryNode" />
+              <item name="testSetPaymentClaimPayed" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -437,7 +454,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550163896121" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550175256148" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../TerminaContrattoWeb" />
@@ -451,24 +468,26 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Boundary/Resource" />
+      <recent name="$PROJECT_DIR$/src/DAO/Configuration" />
+      <recent name="$PROJECT_DIR$/src/Boundary/Fxml" />
+    </key>
+    <key name="ImportMappingsDialog.RecentPackages">
+      <recent name="Bean" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="it.uniroma2.ispw.fersa.Test.TestTiziana" />
       <recent name="Boundary" />
       <recent name="Exceptions" />
       <recent name="Entity" />
       <recent name="DAO" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/DAO" />
       <recent name="$PROJECT_DIR$/src/Boundary" />
-    </key>
-    <key name="ImportMappingsDialog.RecentPackages">
-      <recent name="Bean" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Boundary/Resource" />
-      <recent name="$PROJECT_DIR$/src/DAO/Configuration" />
-      <recent name="$PROJECT_DIR$/src/Boundary/Fxml" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -483,7 +502,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.testSuite (1)">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -553,25 +572,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="finalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaFxApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.TestTiziana.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test.TestTiziana" />
-      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.TestTiziana.finalTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="testLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaFxApplication" />
       <extension name="coverage">
@@ -583,26 +583,6 @@
       <option name="PACKAGE_NAME" value="JUnit" />
       <option name="MAIN_CLASS_NAME" value="JUnit.testLogin" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="testLogin.testLoginNEw" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaFxApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="JUnit.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="JUnit" />
-      <option name="MAIN_CLASS_NAME" value="JUnit.testLogin" />
-      <option name="METHOD_NAME" value="testLoginNEw" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -623,6 +603,44 @@
       <option name="MAIN_CLASS_NAME" value="JUnit.testLogin" />
       <option name="METHOD_NAME" value="testLoginNEw1" />
       <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testSuite (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaFxApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.testSetPaymentClaimPayed.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test.testSetPaymentClaimPayed" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.testSetPaymentClaimPayed.testSuite" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testSuite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaFxApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.testInsertPaymentClaim.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test.testInsertPaymentClaim" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.testInsertPaymentClaim.testSuite" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -654,18 +672,18 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.testLogin" />
-      <item itemvalue="JUnit.testLogin.testLoginNEw" />
       <item itemvalue="JUnit.testLogin.testLoginNEw1" />
-      <item itemvalue="JUnit.finalTest" />
+      <item itemvalue="JUnit.testSuite" />
       <item itemvalue="JUnit.JUnity.emptyPaymentClaims" />
+      <item itemvalue="JUnit.testSuite (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testSuite (1)" />
+        <item itemvalue="JUnit.testSuite" />
         <item itemvalue="JUnit.JUnity.emptyPaymentClaims" />
-        <item itemvalue="JUnit.finalTest" />
         <item itemvalue="JUnit.testLogin.testLoginNEw1" />
         <item itemvalue="JUnit.testLogin" />
-        <item itemvalue="JUnit.testLogin.testLoginNEw" />
       </list>
     </recent_temporary>
   </component>
@@ -740,48 +758,50 @@
       <workItem from="1550075728820" duration="1422000" />
       <workItem from="1550132249819" duration="1757000" />
       <workItem from="1550150401390" duration="9827000" />
+      <workItem from="1550164965500" duration="8102000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="testLogin_testLoginNEw1 - 2019.02.04 at 15h 05m 23s.xml">
-      <configuration name="testLogin.testLoginNEw1" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 19h 55m 42s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 32m 45s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 19h 55m 51s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 38m 41s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 19h 57m 08s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 39m 38s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 19h 58m 36s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 40m 11s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 20h 00m 13s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 44m 35s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 20h 00m 40s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 45m 23s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 20h 04m 45s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 45m 48s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 20h 58m 37s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="finalTest - 2019.02.12 at 15h 46m 28s.xml">
-      <configuration name="finalTest" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 20h 59m 31s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JUnity_emptyPaymentClaims - 2019.02.14 at 15h 17m 08s.xml">
-      <configuration name="JUnity.emptyPaymentClaims" configurationId="JUnit" />
+    <history-entry file="testSuite_(1) - 2019.02.14 at 21h 03m 44s.xml">
+      <configuration name="testSuite (1)" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104474000" />
+    <option name="totallyTimeSpent" value="112576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1283" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.81229776" visible="true" weight="0.16491511" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.81229776" visible="true" weight="0.15117219" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -789,6 +809,7 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Persistence" order="7" sideWeight="0.18770227" side_tool="true" weight="0.26677853" />
+      <window_info anchor="bottom" id="Inspection Results" weight="0.32847896" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32524273" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3446602" />
@@ -808,12 +829,12 @@
       <window_info anchor="bottom" id="Database Changes" order="16" />
       <window_info anchor="bottom" id="Statistic" order="17" />
       <window_info anchor="bottom" id="Java Enterprise" order="18" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="19" visible="true" weight="0.32847896" />
+      <window_info anchor="bottom" id="Database Console" order="19" weight="0.32847896" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="JetGradle" order="3" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.2724333" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.024252223" />
       <window_info anchor="right" id="Palette" order="5" />
       <window_info anchor="right" id="Maven Projects" order="6" />
       <window_info anchor="right" id="Maven" order="7" />
@@ -834,99 +855,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/production/JavaFxApplication/Bean/contractBean.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/emptyResult.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/databaseConnection.java" />
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/dbConnection.java" />
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/transactionError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/dbConfigMissing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/Configuration/connectionUser.prop">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="9" selection-end-line="5" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/src/test.css" />
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/Configuration/connectionAdmin.prop">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JUnit/testLogin.java" />
-    <entry file="file://$PROJECT_DIR$/src/Entity/Renter.java" />
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/Configuration/transactionConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Tenant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JUnit/TestTiziana/afterTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/JUnit/TestTiziana/finalTest.java" />
-    <entry file="das://83ec5daf-87d9-466f-b05d-e5db3040b505/schema/RentingManagement/table/AvailabilityCalendar">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/afterTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/beforeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Enum/TitleOfWindows.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Enum/TypeOfMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -948,23 +876,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/PaymentClaim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://83ec5daf-87d9-466f-b05d-e5db3040b505/schema/RentingManagement/table/RentalFeatures">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -982,60 +893,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/finalTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/TestTiziana/ContractDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/paymentClaimBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="2" selection-start-line="21" selection-start-column="4" selection-end-line="24" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/JUnity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="28" column="83" selection-start-line="28" selection-start-column="83" selection-end-line="28" selection-end-column="83" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/login.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="57" column="64" selection-start-line="57" selection-start-column="64" selection-end-line="57" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/contractBean.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1045,27 +909,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/createPaymentClaim.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
           <caret line="40" column="126" selection-start-line="40" selection-start-column="126" selection-end-line="40" selection-end-column="126" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/notificationBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/createPaymentClaim.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1080,22 +934,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/seePaymentClaim.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
           <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/seePaymentClaims.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2535">
-          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/style.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -1104,35 +948,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/userPanelRenter.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="21" column="30" selection-start-line="21" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/userPanelTenant.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/userPanelTenant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="36" column="74" selection-start-line="36" selection-start-column="74" selection-end-line="36" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+        <state relative-caret-position="210">
+          <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
+        <state relative-caret-position="75">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1140,9 +965,152 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/userPanelTenant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="36" column="74" selection-start-line="36" selection-start-column="74" selection-end-line="36" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/userPanelRenter.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="30" selection-start-line="21" selection-end-line="22" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/userPanelTenant.fxml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/83ec5daf-87d9-466f-b05d-e5db3040b505/console_1.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="219" selection-start-column="172" selection-end-column="219" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/seePaymentClaims.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://83ec5daf-87d9-466f-b05d-e5db3040b505/schema/RentingManagement/table/AvailabilityCalendar">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://83ec5daf-87d9-466f-b05d-e5db3040b505/schema/RentingManagement/table/PaymentClaim">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://83ec5daf-87d9-466f-b05d-e5db3040b505/schema/RentingManagement/table/RentingUser">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/userSessionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/paymentClaimBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="8" lean-forward="true" selection-start-line="3" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/Configuration/transactionConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://83ec5daf-87d9-466f-b05d-e5db3040b505/schema/RentingManagement/table/Contract">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/testSuite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="133" selection-start-line="10" selection-start-column="133" selection-end-line="10" selection-end-column="133" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/userJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="88" column="17" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/PaymentClaim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Tenant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/transactionError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/projectThread/checkPaymentclaimDate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
+        <state relative-caret-position="105">
           <caret line="20" column="174" selection-start-line="20" selection-start-column="174" selection-end-line="20" selection-end-column="174" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1150,34 +1118,149 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/afterTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="39" column="19" lean-forward="true" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
+        <state relative-caret-position="129">
+          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/beforeTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="120" column="75" lean-forward="true" selection-start-line="120" selection-start-column="75" selection-end-line="120" selection-end-column="75" />
+        <state relative-caret-position="239">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/controllerSingleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/83ec5daf-87d9-466f-b05d-e5db3040b505/console_1.sql">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/testSuite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="219" lean-forward="true" selection-start-column="172" selection-end-column="219" />
+        <state relative-caret-position="180">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/paymentClaimJDBC.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/controllerSingleton.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="40" selection-start-line="40" selection-end-line="44" selection-end-column="9" />
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/JUnity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="28" column="83" selection-start-line="28" selection-start-column="83" selection-end-line="28" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Contract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1051#1052#0" expanded="true" />
+            <element signature="e#1086#1087#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="73" column="39" selection-start-line="73" selection-start-column="39" selection-end-line="73" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/emptyResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/dbConfigMissing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/alreadyClaimed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+          <folding>
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#170#171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/beforeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="37" column="93" selection-start-line="37" selection-start-column="93" selection-end-line="37" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/afterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testSetPaymentClaimPayed/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testInsertPaymentClaim/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="130" lean-forward="true" selection-start-line="86" selection-end-line="130" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/createPaymentClaim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="195" column="113" selection-start-line="195" selection-start-column="40" selection-end-line="195" selection-end-column="113" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1243,7 +1326,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1251,6 +1333,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>Hibernate 5.3.7-5.3.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

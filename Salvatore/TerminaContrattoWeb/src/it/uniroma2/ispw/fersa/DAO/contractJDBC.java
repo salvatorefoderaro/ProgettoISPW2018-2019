@@ -129,7 +129,29 @@ public class contractJDBC implements contractDAO {
     }
 
     @Override
-    public void setContrattoSegnalato(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
+    public void setContractNotClaimed(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
+
+        Connection dBConnection = transactionConnection.getConnection();
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE Contract SET claimReported = 0  WHERE contractID = ?");
+        preparedStatement.setInt(1, bean.getContractId());
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+
+        if (bean.getJDBCcommit()){
+            try {
+                dBConnection.commit();
+                dBConnection.close();
+            } catch (SQLException e){
+                dBConnection.rollback();
+                dBConnection.close();
+                throw new transactionError("");
+            }
+        }
+    }
+
+    @Override
+    public void setContractReported(contractBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection dBConnection = transactionConnection.getConnection();
 
