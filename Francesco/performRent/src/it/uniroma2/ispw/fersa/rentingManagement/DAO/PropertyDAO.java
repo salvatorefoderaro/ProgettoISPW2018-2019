@@ -64,7 +64,7 @@ public class PropertyDAO {
                     column = "roomToRentId";
                     break;
                 case BEDTORENT:
-                    tabel = "BedToTent";
+                    tabel = "BedToRent";
                     column = "bedToRentId";
                     break;
             }

@@ -123,7 +123,7 @@ public class ContractDAO {
 
                     if(!rs2.first()) break;
 
-                    if(!verifyAvaibility(conn, "roomToRentId", rs2.getInt("id"),
+                    if(!verifyAvaibility(conn, "roomToRentId", rs2.getInt("roomId"),
                             rs1.getDate("startDate").toLocalDate(),
                             rs1.getDate("endDate").toLocalDate())) throw new ConflictException();
                     break;
@@ -538,17 +538,17 @@ public class ContractDAO {
                 case BEDTORENT:
                     column = "bedToRentId";
 
-                    sql = "SELECT BedToRent.id, RentalFeatures.id, roomId FROM BedToRent INNER JOIN RentalFeatures ON BedToRent.id = RentalFeatures.bedToRentId WHERE id = " + rs1.getInt("bedToRentId");
+                    sql = "SELECT BedToRent.id, RentalFeatures.id, roomId FROM BedToRent INNER JOIN RentalFeatures ON BedToRent.id = RentalFeatures.bedToRentId WHERE BedToRent.id = " + rs1.getInt("bedToRentId");
 
                     rs5 = stmt.executeQuery(sql);
 
                     if (!rs5.first()) break;
 
                     this.updateAvaibility(conn, rs5.getInt("RentalFeatures.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
-                    this.refuseRequests(conn, "bedToRent", rs5.getInt("BedToRent.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
+                    this.refuseRequests(conn, "bedToRentId", rs5.getInt("BedToRent.id"), rs1.getDate("startDate").toLocalDate(), rs1.getDate("endDate").toLocalDate());
 
 
-                    sql = "SELECT RoomToRent.id, RentalFeatures.id FROM RoomToRent INNER JOIN RentalFeatures ON RoomToRent.id = Feature.roomToRentId  WHERE RoomToRent.id = " + rs5.getInt("roomId");
+                    sql = "SELECT RoomToRent.id, RentalFeatures.id FROM RoomToRent INNER JOIN RentalFeatures ON RoomToRent.id = RentalFeatures.roomToRentId  WHERE RoomToRent.id = " + rs5.getInt("roomId");
 
                     rs6 = stmt.executeQuery(sql);
 

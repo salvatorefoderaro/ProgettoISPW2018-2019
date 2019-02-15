@@ -4,20 +4,14 @@ import java.time.LocalDate;
 
 public class UserLoaderFAKE implements UserProfileInterface{
 
-    private String name = "nome";
-
-    private String surname = "cognome";
-
-    private String CF = "codiceFiscale";
-
-    private LocalDate dateOfBirth = LocalDate.now();
-
-    private String cityOfBirth = "Genzano";
-
-    private String address = "Via del Politecnico, 1 Roma (RM)";
 
     @Override
     public UserInfo getUserInfo(String nickname, UserInfoType userInfoType) throws NicknameNotFoundException {
-        return new UserInfo(nickname, this.name, this.surname, this.CF, this.dateOfBirth, this.cityOfBirth ,this.address);
+
+        UsersEnum user = UsersEnum.valueOf(nickname);
+
+        if (user == null) throw new NicknameNotFoundException();
+
+        return new UserInfo(nickname, user.getName(), user.getSurname(), user.getCF(), user.getDateOfBirth(), user.getCityOfBirth(), user.getAddress());
     }
 }

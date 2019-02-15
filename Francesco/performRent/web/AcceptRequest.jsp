@@ -3,7 +3,6 @@
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
 <%@ page import="it.uniroma2.ispw.fersa.userProfileAndServices.NicknameNotFoundException" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConflictException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.rentingManagement.bean.SessionBean"></jsp:useBean>

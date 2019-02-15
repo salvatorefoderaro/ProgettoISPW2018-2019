@@ -63,21 +63,21 @@ public class RenterRequestHandlerSession extends RequestHandlerSession{
                 "normative in materia.\nLa locazione è regolata da: ");
 
         contractTextBean.setDuration("Il contratto è stipulato per la durata di " + this.contract.getNumMonths() +
-                "mesi, a decorrere dal " + this.contract.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                " mesi, a decorrere dal " + this.contract.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                 + " e fino al " + this.contract.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".");
 
         String transitory = null;
 
         if (this.contract.isTransitory()) {
             transitory = "Il contratto è stipulato per la durata di " + this.contract.getNumMonths() +
-                    "mesi, a decorrere dal " + this.contract.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    " mesi, a decorrere dal " + this.contract.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                     + " e fino al " + this.contract.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".";
         }
 
         contractTextBean.setTransitory(transitory);
 
-        contractTextBean.setPayment("Il canone di locazione è convenuto complessivamente in euro"
-                + this.contract.getNetPrice() + "che il conduttore si obbliga a corrispondere, rispettivamente, in "
+        contractTextBean.setPayment("Il canone di locazione è convenuto complessivamente in euro "
+                + this.contract.getNetPrice() + " che il conduttore si obbliga a corrispondere, rispettivamente, in "
                 + this.contract.getNumMonths() + " rate eguali mensili entro i primi di ogni mese, ciascuna di euro "
                 + (int) this.contract.getNetPrice() / this.contract.getNumMonths() + ".");
 

@@ -30,8 +30,17 @@ public class LoginPageController {
     }
 
     public void login() {
-        if (this.nickname.getText().equals("") | this.password.getText().equals("")) {
+        if (this.nickname.getText().equals("") || this.password.getText().equals("")) {
             PopUp.getInstance().showPopUp(this.window, "Errore: dati mancanti");
+            this.nickname.clear();
+            this.password.clear();
+            return;
+        }
+
+        if (!this.nickname.getText().equals("carlo") && !this.nickname.getText().equals("roberto") && !this.nickname.getText().equals("gianfranco")) {
+            PopUp.getInstance().showPopUp(this.window, "Errore: dati errati");
+            this.nickname.clear();
+            this.password.clear();
             return;
         }
 

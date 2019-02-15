@@ -43,7 +43,18 @@ public class TenantPageController {
             Parent root = loader.load();
             this.stage.setTitle("Contract Request Form");
 
-            PerformContractRequestSession model = new PerformContractRequestSession(this.tenantNickname, 1, 1);
+            PerformContractRequestSession model = null;
+            switch (this.tenantNickname) {
+                case "carlo":
+                    model = new PerformContractRequestSession(this.tenantNickname, 1, 1);
+                    break;
+                case "gianfranco":
+                    model = new PerformContractRequestSession(this.tenantNickname, 4, 1);
+                    break;
+                case "roberto":
+                    model = new PerformContractRequestSession(this.tenantNickname, 5, 1);
+                    break;
+            }
 
             PerformContractRequestBoundary controller = loader.getController();
             controller.setStage(this.stage);
@@ -111,5 +122,24 @@ public class TenantPageController {
             return;
         }
 
+    }
+
+    public void logout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+            Parent root = loader.load();
+            this.stage.setTitle("FERSA - Login");
+
+            LoginPageController controller = loader.getController();
+            controller.setStage(stage);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+            return;
+        }
     }
 }

@@ -11,25 +11,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    /*
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/contractRequestForm.fxml"));
-        Parent root = loader.load();
-        primaryStage.setTitle("Contract Request Form");
-
-        PerformContractRequestSession control = new PerformContractRequestSession("carlo", 1, 1 );
-
-        PerformContractRequestBoundary boundary = loader.getController();
-        boundary.setModel(control);
-
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-
-    }*/
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("boundary/LoginPage.fxml"));
