@@ -139,6 +139,6 @@ public class RenterRequestHandlerSession extends RequestHandlerSession{
 
     public void signContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, ConflictException {
         ContractBean contractBean = new ContractBean(this.contractRequest.getContractRequestId(), this.contract.getTenantName(), this.contract.getTenantSurname(), this.contract.getTenantCF(), this.contract.getTenantDateOfBirth(), this.contract.getTenantCityOfBirth(), this.contract.getTenantAddress(), this.contract.getRenterName(), this.contract.getRenterSurname(), this.contract.getRenterCF(), this.contract.getRenterAddress(), this.contract.getGrossPrice(), this.contract.getNetPrice(), 1);
-        ContractDAO.getInstance().createContract(contractBean);
+        ContractDAO.getInstance().generateContract(contractBean);
     }
 }

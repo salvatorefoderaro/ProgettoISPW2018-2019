@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContractDAO {
-    private static ContractDAO ourInstance = new ContractDAO();
+    protected static ContractDAO contractDAO = new ContractDAO();
 
     public static ContractDAO getInstance() {
-        return ourInstance;
+        return contractDAO;
     }
 
-    private ContractDAO() {
+    protected ContractDAO() {
     }
 
-    public void createContract(ContractBean contractBean) throws SQLException, ClassNotFoundException,
+    public void generateContract(ContractBean contractBean) throws SQLException, ClassNotFoundException,
             ConfigFileException, ConfigException, ConflictException{
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
@@ -318,7 +318,7 @@ public class ContractDAO {
         return contracts;
     }
 
-    public List<ContractId> getContractsId(String sql) throws SQLException, ClassNotFoundException,
+    private List<ContractId> getContractsId(String sql) throws SQLException, ClassNotFoundException,
             ConfigFileException, ConfigException {
 
         List<ContractId> contracts = new ArrayList<>();
@@ -380,7 +380,7 @@ public class ContractDAO {
             if (!rs.first()) return contract;
 
 
-            contract = createContract(rs);
+            contract = generateContract(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -397,7 +397,7 @@ public class ContractDAO {
         return contract;
     }
 
-    private Contract createContract(ResultSet rs) throws SQLException {
+    private Contract generateContract(ResultSet rs) throws SQLException {
         String column = null;
 
         switch (PropertyTypeEnum.valueOf(rs.getString("type"))) {
