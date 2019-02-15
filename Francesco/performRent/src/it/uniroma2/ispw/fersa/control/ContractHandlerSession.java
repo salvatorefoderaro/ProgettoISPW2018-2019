@@ -10,6 +10,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.entity.EquippedApt;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.Property;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,9 +23,9 @@ public abstract class ContractHandlerSession {
 
     public void selectContract(ContractId contractId) throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException {
-        ContractsAndRequestLoader contractsAndRequestLoader =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(contractId)));
-        this.contract = contractsAndRequestLoader.retriveContract();
+        ContractLoader contractLoader =
+                new ContractTypeDecorator(new ContractServiceDecorator(new ContractSimpleLoader(contractId)));
+        this.contract = contractLoader.loadContract();
     }
 
     public ContractTextBean getContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {

@@ -103,7 +103,7 @@ public class PerformContractRequestSession {
 
 
         for (ServiceBean serviceBean : serviceBeans) {
-            services.add(ServiceDAO.getInstance().getServiceByContractRequestId(serviceBean.getServiceId()));
+            services.add(ServiceDAO.getInstance().getServicesByContractRequestId(serviceBean.getServiceId()));
         }
 
         this.contractRequest.setServices(services);
@@ -123,7 +123,7 @@ public class PerformContractRequestSession {
 
         return new ContractRequestInfoBean(this.contractRequest.getContractName(),
                 this.contractRequest.getStartDate(), this.contractRequest.getEndDate(),
-                this.contractRequest.getRentablePrice(),
+                this.contractRequest.getPropertyPrice(),
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal());
     }
 
@@ -141,7 +141,7 @@ public class PerformContractRequestSession {
         ContractRequestBean contractRequestBean = new ContractRequestBean(this.contractRequest.getRenterNickname(),
                 this.contractRequest.getTenantNickname(), this.apartmentId,this.rentalFeaturesId,
                 this.contractRequest.getContractTypeId(), this.contractRequest.getStartDate(),
-                this.contractRequest.getEndDate(), this.contractRequest.getRentablePrice(),
+                this.contractRequest.getEndDate(), this.contractRequest.getPropertyPrice(),
                 this.contractRequest.getDeposit(), serviceIds);
 
         ContractRequestDAO.getInstance().insertNewRequest(contractRequestBean);

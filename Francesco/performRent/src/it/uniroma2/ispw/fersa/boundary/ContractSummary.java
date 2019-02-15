@@ -15,7 +15,7 @@ public class ContractSummary {
 
     private Stage stage;
 
-    private PerformContractRequestBoundary performContractRequestBoundary;
+    private PerformContractRequestBoundary boundary;
 
     public void initialize(){
         this.contractSummary.setWrapText(true);
@@ -39,8 +39,8 @@ public class ContractSummary {
         this.contractSummary.appendText("Totale: " + contractRequestInfoBean.getTotal() + '€');
     }
 
-    public void setPerformContractRequestBoundary (PerformContractRequestBoundary performContractRequestBoundary) {
-        this.performContractRequestBoundary = performContractRequestBoundary;
+    public void setBoundary(PerformContractRequestBoundary boundary) {
+        this.boundary = boundary;
     }
 
     public void setStage(Stage stage) {
@@ -52,7 +52,7 @@ public class ContractSummary {
     }
 
     public void sendRequest(){
-        this.performContractRequestBoundary.sendRequest();
+        this.boundary.sendRequest();
         this.stage.close();
     }
 

@@ -19,9 +19,9 @@ public abstract class RequestHandlerSession {
 
     public void selectRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigException,
             ConfigFileException, ContractPeriodException {
-        ContractsAndRequestLoader contractsAndRequestLoader =
-                new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
-        this.contractRequest = contractsAndRequestLoader.retriveContractRequest();
+        RequestLoader requestLoader =
+                new RequestContractTypeDecorator(new RequestServiceDecorator(new RequestSimpleLoader(requestId)));
+        this.contractRequest = requestLoader.loadContractRequest();
     }
 
     public ContractRequestInfoBean getRequestInfo() {
@@ -34,7 +34,7 @@ public abstract class RequestHandlerSession {
 
         return new ContractRequestInfoBean(this.contractRequest.getContractName(),
                 this.contractRequest.getStartDate(), this.contractRequest.getEndDate(),
-                this.contractRequest.getRentablePrice(),
+                this.contractRequest.getPropertyPrice(),
                 this.contractRequest.getDeposit(),serviceBeans, this.contractRequest.getTotal(), this.contractRequest.getState(), this.contractRequest.getDeclineMotivation());
     }
 

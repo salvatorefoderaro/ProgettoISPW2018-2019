@@ -11,32 +11,32 @@ public class ContractRequest {
     private ContractRequestId requestId;
     private String renterNickname;
     private String tenantNickname;
-    private int rentableId;
+    private int propertyId;
     private ContractType contractType;
     private RequestStateEnum state;
     private LocalDate creationDate;
     private DateRange dateRange;
-    private int rentablePrice;
+    private int propertyPrice;
     private int deposit;
     private List<Service> services = new ArrayList<>();
     private String declineMotivation;
 
-    public ContractRequest (String renterNickname, String tenantNickname, int rentableId, int rentablePrice, int deposit) {
+    public ContractRequest (String renterNickname, String tenantNickname, int propertyId, int propertyPrice, int deposit) {
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
-        this.rentableId = rentableId;
-        this.rentablePrice = rentablePrice;
+        this.propertyId = propertyId;
+        this.propertyPrice = propertyPrice;
         this.deposit = deposit;
     }
 
-    public ContractRequest (ContractRequestId requestId, String renterNickname, String tenantNickname, RequestStateEnum state, LocalDate creationDate, LocalDate beginDate, LocalDate endDate, int rentablePrice, int deposit, String declineMotivation) {
+    public ContractRequest (ContractRequestId requestId, String renterNickname, String tenantNickname, RequestStateEnum state, LocalDate creationDate, LocalDate beginDate, LocalDate endDate, int propertyPrice, int deposit, String declineMotivation) {
         this.requestId = requestId;
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
         this.state = state;
         this.creationDate = creationDate;
         this.dateRange = new DateRange(beginDate, endDate);
-        this.rentablePrice = rentablePrice;
+        this.propertyPrice = propertyPrice;
         this.deposit=deposit;
         this.declineMotivation = declineMotivation;
     }
@@ -77,8 +77,8 @@ public class ContractRequest {
         return tenantNickname;
     }
 
-    public int getRentableId() {
-        return this.rentableId;
+    public int getPropertyId() {
+        return this.propertyId;
     }
 
     public LocalDate getCreationDate(){
@@ -93,8 +93,8 @@ public class ContractRequest {
         return this.dateRange.getEndDate();
     }
 
-    public int getRentablePrice() {
-        return rentablePrice;
+    public int getPropertyPrice() {
+        return propertyPrice;
     }
 
     public int getDeposit() {
@@ -116,7 +116,7 @@ public class ContractRequest {
     public int getTotal() {
         int total = 0;
 
-        total += (int) ((this.dateRange.getNumMonths() * this.rentablePrice));
+        total += (int) ((this.dateRange.getNumMonths() * this.propertyPrice));
 
         for (int i = 0; i < this.services.size(); i++) {
             total += (int) ((this.dateRange.getNumMonths() * this.services.get(i).getPrice()));

@@ -9,7 +9,6 @@ import it.uniroma2.ispw.fersa.rentingManagement.exception.ConflictException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 import it.uniroma2.ispw.fersa.userProfileAndServices.*;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -31,9 +30,9 @@ public class RenterRequestHandlerSession extends RequestHandlerSession{
                 ContractRequestDAO.getInstance().findContractRequestIdsByRenterNickname(this.renterNickname);
         for (ContractRequestId requestId : contractRequestIds) {
             try {
-                ContractsAndRequestLoader contractsAndRequestLoader =
-                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
-                ContractRequest contractRequest = contractsAndRequestLoader.retriveContractRequest();
+                RequestLoader requestLoader =
+                        new RequestContractTypeDecorator(new RequestServiceDecorator(new RequestSimpleLoader(requestId)));
+                ContractRequest contractRequest = requestLoader.loadContractRequest();
                 requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(),
                         contractRequest.getTenantNickname(), contractRequest.getCreationDate(),
                         contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(),
@@ -122,11 +121,11 @@ public class RenterRequestHandlerSession extends RequestHandlerSession{
 
 
 
-        this.contract = new Contract(this.contractRequest.getRentableId(), this.renterNickname,tenantInfo.getNickname(),
+        this.contract = new Contract(this.contractRequest.getPropertyId(), this.renterNickname,tenantInfo.getNickname(),
                 this.contractRequest.getStartDate(), this.contractRequest.getEndDate(), tenantInfo.getName(),
                 tenantInfo.getSurname(), tenantInfo.getCF(), tenantInfo.getDateOfBirth(), tenantInfo.getCityOfBirth(),
                 tenantInfo.getAddress(), renterInfo.getName(), renterInfo.getSurname(), renterInfo.getCF(),
-                renterInfo.getAddress(), this.contractRequest.getRentablePrice(), this.contractRequest.getDeposit(),
+                renterInfo.getAddress(), this.contractRequest.getPropertyPrice(), this.contractRequest.getDeposit(),
                 contractType, this.contractRequest.getServices());
     }
 

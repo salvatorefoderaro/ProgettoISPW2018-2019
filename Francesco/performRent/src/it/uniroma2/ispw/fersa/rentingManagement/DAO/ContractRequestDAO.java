@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContractRequestDAO {
-    private static ContractRequestDAO ourInstance = new ContractRequestDAO();
+    private static ContractRequestDAO contractRequestDAO = new ContractRequestDAO();
 
     public static ContractRequestDAO getInstance() {
-        return ourInstance;
+        return contractRequestDAO;
     }
 
     private ContractRequestDAO() {

@@ -5,6 +5,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ public class RenterContractHandlerSession extends ContractHandlerSession{
         }
 
         for (ContractId contractId : contractIds) {
-            ContractsAndRequestLoader contractsAndRequestLoader = new ServiceDecorator(new ContractsAndRequestSimpleLoader(contractId));
+            ContractLoader contractLoader = new ContractServiceDecorator(new ContractSimpleLoader(contractId));
 
-            Contract contract = contractsAndRequestLoader.retriveContract();
+            Contract contract = contractLoader.loadContract();
 
             contractLabelBeans.add(new ContractLabelBean(contract.getContractId().getContractId(),
                     contract.getTenantNickname(), contract.getCreationDate(), contract.getStipulationDate(),

@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDAO {
-    private static ServiceDAO istance = new ServiceDAO();
+    protected static ServiceDAO serviceDAO = new ServiceDAO();
 
     protected ServiceDAO() {
 
     }
 
     public static ServiceDAO getInstance() {
-        return istance;
+        return serviceDAO;
     }
 
-    public Service getServiceByContractRequestId(int serviceId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
+    public Service getServicesByContractRequestId(int serviceId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
         Service service = null;
         Connection connection = ConnectionFactory.getInstance().openConnection();
         Statement statement = null;
@@ -56,11 +56,11 @@ public class ServiceDAO {
         return getServices("SELECT id, name, description, price FROM Service WHERE aptID = " + aptId);
     }
 
-    public List<Service> getServiceByContractRequestId(ContractRequestId requestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
+    public List<Service> getServicesByContractRequestId(ContractRequestId requestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
         return getServices("SELECT id, name, description, price FROM Service INNER JOIN ContractRequest_has_Service ON id = serviceId WHERE contractRequestId = " + requestId.getId());
     }
 
-    public List<Service> getServiceByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
+    public List<Service> getServicesByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException {
         return getServices("SELECT id, name, description, price FROM Service INNER JOIN Contract_has_Service ON id = serviceId WHERE contractId = " + contractId.getContractId());
     }
 
