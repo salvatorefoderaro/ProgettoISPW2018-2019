@@ -26,9 +26,9 @@ public class TenantRequestHandlerSession extends RequestHandlerSession{
                 ContractRequestDAO.getInstance().findContractRequestIdsByTenantNickname(this.tenantNickname);
         for (ContractRequestId requestId : contractRequestIds) {
             try {
-                ContractsAndRequestLoader contractsAndRequestLoader =
-                        new ContractTypeDecorator(new ServiceDecorator(new ContractsAndRequestSimpleLoader(requestId)));
-                ContractRequest contractRequest = contractsAndRequestLoader.retriveContractRequest();
+                RequestLoader requestLoader =
+                        new RequestContractTypeDecorator(new RequestServiceDecorator(new RequestSimpleLoader(requestId)));
+                ContractRequest contractRequest = requestLoader.loadContractRequest();
                 requestLabelBeans.add(new RequestLabelBean(contractRequest.getRequestId().getId(),
                         contractRequest.getRenterNickname(), contractRequest.getCreationDate(),
                         contractRequest.getStartDate(), contractRequest.getEndDate(), contractRequest.getTotal(),

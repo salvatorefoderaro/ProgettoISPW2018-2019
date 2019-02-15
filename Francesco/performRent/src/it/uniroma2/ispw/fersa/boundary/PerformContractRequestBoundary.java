@@ -26,7 +26,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PerformContractRequestBoundary {
@@ -35,13 +34,13 @@ public class PerformContractRequestBoundary {
     private BorderPane window;
 
     @FXML
-    private ImageView rentableImage;
+    private ImageView propertyImage;
 
     @FXML
-    private Label rentableTitle;
+    private Label propertyTitle;
 
     @FXML
-    private TextArea rentableDescription;
+    private TextArea propertyDescription;
 
     @FXML
     private ComboBox contractSelector;
@@ -85,7 +84,7 @@ public class PerformContractRequestBoundary {
     }
 
     public void initialize () {
-        this.rentableDescription.setWrapText(true);
+        this.propertyDescription.setWrapText(true);
         this.contractDescription.setWrapText(true);
         this.setDatePickerFormat(this.startDate);
         this.setDatePickerFormat(this.endDate);
@@ -139,15 +138,15 @@ public class PerformContractRequestBoundary {
             PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         }
-        this.rentableTitle.setText(rentableInfoBean.getTitle());
+        this.propertyTitle.setText(rentableInfoBean.getTitle());
 
-        this.rentableImage.setImage(SwingFXUtils.toFXImage( rentableInfoBean.getImage(), null));
+        this.propertyImage.setImage(SwingFXUtils.toFXImage( rentableInfoBean.getImage(), null));
 
-        this.rentableDescription.setText("Tipologia: " + rentableInfoBean.getType().toString() + "\n" + rentableInfoBean.getRentableDescription() + '\n' + rentableInfoBean.getRentalDescription() + '\n' + "Prezzo mensile: " + rentableInfoBean.getPrice() + " €\n" + "Deposito cauzionale: " + rentableInfoBean.getDeposit() + " €");
+        this.propertyDescription.setText("Tipologia: " + rentableInfoBean.getType().toString() + "\n" + rentableInfoBean.getRentableDescription() + '\n' + rentableInfoBean.getRentalDescription() + '\n' + "Prezzo mensile: " + rentableInfoBean.getPrice() + " €\n" + "Deposito cauzionale: " + rentableInfoBean.getDeposit() + " €");
 
-        this.rentableDescription.appendText("\nDisponibilità: ");
+        this.propertyDescription.appendText("\nDisponibilità: ");
 
-        rentableInfoBean.getAvaiblePeriods().forEach(period -> this.rentableDescription.appendText(period + " "));
+        rentableInfoBean.getAvaiblePeriods().forEach(period -> this.propertyDescription.appendText(period + " "));
     }
 
 
@@ -383,7 +382,7 @@ public class PerformContractRequestBoundary {
 
             contractSummary.initializeText(contractRequestInfoBean);
             contractSummary.setStage(stage);
-            contractSummary.setPerformContractRequestBoundary(this);
+            contractSummary.setBoundary(this);
 
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setScene(new Scene(root));

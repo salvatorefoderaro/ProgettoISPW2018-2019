@@ -28,9 +28,9 @@ public class TenantContractHandlerSession extends ContractHandlerSession {
         }
 
         for (ContractId contractId : contractIds) {
-            ContractsAndRequestLoader contractsAndRequestLoader = new ServiceDecorator(new ContractsAndRequestSimpleLoader(contractId));
+            ContractLoader contractLoader = new ContractServiceDecorator(new ContractSimpleLoader(contractId));
 
-            Contract contract = contractsAndRequestLoader.retriveContract();
+            Contract contract = contractLoader.loadContract();
 
             contractLabelBeans.add(new ContractLabelBean(contract.getContractId().getContractId(),
                     contract.getRenterNickname(), contract.getCreationDate(), contract.getStipulationDate(),

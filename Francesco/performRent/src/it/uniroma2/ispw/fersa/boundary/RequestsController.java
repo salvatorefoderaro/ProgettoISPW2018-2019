@@ -31,7 +31,7 @@ public class RequestsController {
     private GridPane requestsTable;
 
 
-    private TenantRequestHandlerSession control;
+    private TenantRequestHandlerSession model;
 
     private String tenantNickname;
 
@@ -43,8 +43,8 @@ public class RequestsController {
         this.requestsTable.setVgap(15);
     }
 
-    public void setModel(TenantRequestHandlerSession control) {
-        this.control = control;
+    public void setModel(TenantRequestHandlerSession model) {
+        this.model = model;
     }
 
 
@@ -61,7 +61,7 @@ public class RequestsController {
         List<RequestLabelBean> requestLabelBeans = new ArrayList<>();
         try {
 
-            requestLabelBeans = control.getAllContractRequest();
+            requestLabelBeans = model.getAllContractRequest();
 
         } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException e) {
             PopUp.getInstance().showPopUp(this.window, e.toString());
@@ -90,7 +90,7 @@ public class RequestsController {
     public void viewRequest(Label requestId) {
         ContractRequestId contractRequestId = new ContractRequestId(Integer.parseInt(requestId.getText()));
         try {
-            this.control.selectRequest(contractRequestId);
+            this.model.selectRequest(contractRequestId);
         } catch (SQLException | ConfigException | ConfigFileException | ClassNotFoundException | ContractPeriodException e) {
             PopUp.getInstance().showPopUp(this.window, e.toString());
             return;
@@ -104,7 +104,7 @@ public class RequestsController {
             ContractRequestController controller = loader.getController();
             controller.setStage(this.stage);
             controller.setTenantNickname(this.tenantNickname);
-            controller.setModel(this.control);
+            controller.setModel(this.model);
             controller.setPropertyInfo();
             controller.setRequestInfo();
 

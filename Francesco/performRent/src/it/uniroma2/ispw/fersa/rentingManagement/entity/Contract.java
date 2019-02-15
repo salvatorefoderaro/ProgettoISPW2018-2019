@@ -6,7 +6,7 @@ import java.util.List;
 public class Contract {
 
     private ContractId contractId;
-    private int rentableId;
+    private int propertyId;
     private ContractStateEnum state;
     private String renterNickname;
     private String tenantNickname;
@@ -29,12 +29,12 @@ public class Contract {
     private List<Service> services;
 
 
-    public Contract(int rentableId, String renterNickname,String tenantNickname, LocalDate startDate, LocalDate endDate,
+    public Contract(int propertyId, String renterNickname, String tenantNickname, LocalDate startDate, LocalDate endDate,
                     String tenantName, String tenantSurname, String tenantCF, LocalDate tenantDateOfBirth,
                     String tenantCityOfBirth, String tenantAddress, String renterName,
                     String renterSurname, String renterCF, String renterAddress, int propertyPrice, int deposit,
                     ContractType contractType, List<Service> services){
-        this.rentableId = rentableId;
+        this.propertyId = propertyId;
         this.renterNickname = renterNickname;
         this.tenantNickname = tenantNickname;
         this.dateRange = new DateRange(startDate, endDate);
@@ -54,12 +54,12 @@ public class Contract {
         this.services = services;
     }
 
-    public Contract(ContractId contractId, int rentableId, ContractStateEnum state, String renterNickname, String tenantNickname, LocalDate creationDate, LocalDate stipulationDate,LocalDate startDate, LocalDate endDate,
+    public Contract(ContractId contractId, int propertyId, ContractStateEnum state, String renterNickname, String tenantNickname, LocalDate creationDate, LocalDate stipulationDate, LocalDate startDate, LocalDate endDate,
                     String tenantName, String tenantSurname, String tenantCF, LocalDate tenantDateOfBirth,
                     String tenantCityOfBirth, String tenantAddress, String renterName,
                     String renterSurname, String renterCF, String renterAddress, int propertyPrice, int deposit,
                     ContractType contractType, List<Service> services) {
-        this(rentableId, renterNickname, tenantNickname, startDate, endDate, tenantName, tenantSurname, tenantCF, tenantDateOfBirth,
+        this(propertyId, renterNickname, tenantNickname, startDate, endDate, tenantName, tenantSurname, tenantCF, tenantDateOfBirth,
                 tenantCityOfBirth, tenantAddress, renterName, renterSurname, renterCF, renterAddress, propertyPrice, deposit,
                 contractType, services);
         this.contractId = contractId;
@@ -74,8 +74,8 @@ public class Contract {
         return contractId;
     }
 
-    public int getRentableId() {
-        return rentableId;
+    public int getPropertyId() {
+        return propertyId;
     }
 
     public ContractStateEnum getState() {
