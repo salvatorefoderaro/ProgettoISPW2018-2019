@@ -7,6 +7,6 @@ public class CanceledRequestException extends Exception {
 
     @Override
     public String toString() {
-        return this.getMessage() + ": la richiesta è ststa accettata";
+        return this.getMessage() + ": il llocatore ha risposto alla richiesta";
     }
 }
