@@ -3,7 +3,7 @@ package it.uniroma2.ispw.fersa.control;
 import it.uniroma2.ispw.fersa.rentingManagement.DAO.*;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.*;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledRequestException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.AnsweredRequestException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
@@ -40,7 +40,7 @@ public class TenantRequestHandlerSession extends RequestHandlerSession{
         return requestLabelBeans;
     }
 
-    public void cancelRequest() throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException, CanceledRequestException {
+    public void cancelRequest() throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException, AnsweredRequestException {
         ContractRequestDAO.getInstance().cancelRequest(this.contractRequest.getContractRequestId());
 
     }

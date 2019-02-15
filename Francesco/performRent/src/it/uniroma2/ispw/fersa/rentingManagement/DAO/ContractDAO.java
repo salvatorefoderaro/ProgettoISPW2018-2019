@@ -20,7 +20,7 @@ public class ContractDAO {
     }
 
     public void generateContract(ContractBean contractBean) throws SQLException, ClassNotFoundException,
-            ConfigFileException, ConfigException, ConflictException{
+            ConfigFileException, ConfigException, ConflictException, CanceledRequestException{
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
@@ -45,12 +45,14 @@ public class ContractDAO {
 
 
             String sql = "SELECT aptId, renterNickname, tenantNickname, aptToRentId, roomToRentId, bedToRentId, type, "
-                    + "contractTypeId, startDate, endDate, price, deposit FROM ContractRequest WHERE id = "
+                    + "contractTypeId, state,startDate, endDate, price, deposit FROM ContractRequest WHERE id = "
                     + contractBean.getContractRequestId().getId();
 
             rs1 = stmt.executeQuery(sql);
 
-            if(!rs1.first()) throw new ConflictException();
+            if(!rs1.first()) throw new SQLException("Errore imprevisto: impossibile recuperare la richiesta dal database");
+
+            if(RequestStateEnum.valueOf(rs1.getString("state")) != RequestStateEnum.INSERTED) throw new CanceledRequestException();
 
 
             //Controllo dei contratti dell'appartamento
