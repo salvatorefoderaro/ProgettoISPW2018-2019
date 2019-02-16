@@ -30,7 +30,7 @@ public class CheckOldContracts implements Runnable {
             }
             try {
                 System.out.println("Going to sleep...");
-                TimeUnit.DAYS.sleep(7);
+                TimeUnit.DAYS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
