@@ -2,6 +2,7 @@ package it.uniroma2.ispw.fersa;
 
 import it.uniroma2.ispw.fersa.boundary.LoginPageController;
 import it.uniroma2.ispw.fersa.boundary.PerformContractRequestBoundary;
+import it.uniroma2.ispw.fersa.control.CheckOldContracts;
 import it.uniroma2.ispw.fersa.control.PerformContractRequestSession;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        (new Thread(new CheckOldContracts())).start();
         launch(args);
     }
 }

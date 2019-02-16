@@ -60,4 +60,8 @@ public class TenantContractHandlerSession extends ContractHandlerSession {
         ContractDAO.getInstance().signContract(this.contract.getContractId());
 
     }
+
+    public void cancelContract() throws SQLException, ClassNotFoundException, ConfigException, ConfigFileException{
+        ContractDAO.getInstance().cancelContract(this.contract.getContractId());
+    }
 }
