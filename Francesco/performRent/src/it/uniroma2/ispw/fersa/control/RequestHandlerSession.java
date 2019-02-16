@@ -42,7 +42,7 @@ public abstract class RequestHandlerSession {
             ConfigFileException, IOException {
         EquippedApt apt = EquippedAptDAO.getInstance().getEquippedAptByContractRequestId(this.contractRequest.getContractRequestId());
 
-        Property property = PropertyDAO.getInstance().getRentableByContractRequestId(
+        Property property = PropertyDAO.getInstance().getPropertyByContractRequestId(
                 this.contractRequest.getContractRequestId());
         return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
                 property.getDescription());

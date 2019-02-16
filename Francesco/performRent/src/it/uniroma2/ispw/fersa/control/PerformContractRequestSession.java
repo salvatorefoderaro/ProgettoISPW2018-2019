@@ -33,7 +33,7 @@ public class PerformContractRequestSession {
 
     }
 
-    public RentableInfoBean makeNewRequest() throws ClassNotFoundException, ConfigException, ConfigFileException,
+    public RentalInfoBean makeNewRequest() throws ClassNotFoundException, ConfigException, ConfigFileException,
             SQLException, NotFoundException, IOException {
         this.rentalFeatures = RentalFeaturesDAO.getInstance().getRentalFeatures(this.rentalFeaturesId);
 
@@ -41,11 +41,11 @@ public class PerformContractRequestSession {
 
         rentalFeatures.getAvailability().forEach(intervalDate -> intervalDates.add(intervalDate.toString()));
 
-        Property property = PropertyDAO.getInstance().getRentableByRentalFeaturesId(this.rentalFeaturesId);
+        Property property = PropertyDAO.getInstance().getPropertyByRentalFeaturesId(this.rentalFeaturesId);
 
         if (property == null) throw new NotFoundException("Errore: informazioni sull'immobile selezionato non trovate");
 
-        RentableInfoBean rentableInfoBean = new RentableInfoBean(property.getName(), property.getImage(),
+        RentalInfoBean rentalInfoBean = new RentalInfoBean(property.getName(), property.getImage(),
                 property.getType(), property.getDescription(), rentalFeatures.getDescription(),
                 rentalFeatures.getPrice(), rentalFeatures.getDeposit(), intervalDates);
 
@@ -54,7 +54,7 @@ public class PerformContractRequestSession {
         this.contractRequest = new ContractRequest(equippedApt.getRenterNickname(), this.tenantNickname,
                 property.getRentableId(), this.rentalFeatures.getPrice(), this.rentalFeatures.getDeposit());
 
-        return rentableInfoBean;
+        return rentalInfoBean;
     }
 
     public ContractTypeBean getContractType(String contractTypeName) throws ClassNotFoundException, SQLException,

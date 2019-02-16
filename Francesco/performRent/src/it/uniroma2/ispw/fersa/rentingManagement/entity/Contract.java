@@ -99,7 +99,7 @@ public class Contract {
     }
 
     public LocalDate getStartDate() {
-        return this.dateRange.getBeginDate();
+        return this.dateRange.getStartDate();
     }
 
     public LocalDate getEndDate() {

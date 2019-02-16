@@ -25,7 +25,7 @@ public class ContractServiceDecorator extends ContractLoaderDecorator {
     @Override
     public Contract loadContract() throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
         Contract preliminaryResult = super.loadContract();
-        setServices(preliminaryResult);
+        preliminaryResult = setServices(preliminaryResult);
         return preliminaryResult;
     }
 

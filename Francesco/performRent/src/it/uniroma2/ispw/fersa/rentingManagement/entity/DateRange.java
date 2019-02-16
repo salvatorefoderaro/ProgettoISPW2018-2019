@@ -5,17 +5,17 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class DateRange {
-    private LocalDate beginDate;
+    private LocalDate startDate;
 
     private LocalDate endDate;
 
-    public DateRange(LocalDate beginDate, LocalDate endDate) {
-        this.beginDate = beginDate;
+    public DateRange(LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public LocalDate getBeginDate() {
-        return beginDate;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
     public LocalDate getEndDate() {
@@ -23,11 +23,11 @@ public class DateRange {
     }
 
     public double getNumMonths() {
-        return  Period.between(this.beginDate, this.endDate.plusDays(1)).toTotalMonths(); //Period.between(begin(inclusive), end(exclusive))
+        return  Period.between(this.startDate, this.endDate.plusDays(1)).toTotalMonths(); //Period.between(begin(inclusive), end(exclusive))
     }
 
     @Override
     public String toString() {
-        return "[" + beginDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " - " + endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "]";
+        return "[" + startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " - " + endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "]";
     }
 }

@@ -44,7 +44,7 @@ public class RentalFeatures {
     public boolean checkPeriod(LocalDate start, LocalDate end) {
         for (int i = 0; i<this.availability.size(); i++) {
             DateRange dateRange = this.availability.get(i);
-            if ((dateRange.getBeginDate().isBefore(start) | dateRange.getBeginDate().isEqual(start)) &
+            if ((dateRange.getStartDate().isBefore(start) | dateRange.getStartDate().isEqual(start)) &
                     (dateRange.getEndDate().isAfter(end) | dateRange.getEndDate().isEqual(end))) return true;
         }
 
