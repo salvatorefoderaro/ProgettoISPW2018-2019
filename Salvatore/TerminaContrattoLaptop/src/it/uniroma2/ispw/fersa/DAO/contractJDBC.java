@@ -40,7 +40,7 @@ public class contractJDBC implements contractDAO {
         }
 
         List<contractBean> listBean = new LinkedList<>();
-        String query = "select contractID, tenantNickname, renterNickname, endDate from Contract where renterNickname = ? and claimReported = 0";
+        String query = "select contractID, tenantNickname, renterNickname, endDate from Contract where renterNickname = ? and claimReported = 0 and state='Active'";
         PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
         preparedStatement.setString(1, user.getNickname());
 
@@ -129,7 +129,7 @@ public class contractJDBC implements contractDAO {
         }
         dBConnection.setAutoCommit(false);
 
-        PreparedStatement preparedStatement = dBConnection.prepareStatement("INSERT INTO FiledContract (contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported) SELECT contractId,isExpired,initDate,terminationDate,paymentMethod,tenantNickname,renterNickname,tenantCF,renterCF,grossPrice,netPrice,frequencyOfPayment,service, reported FROM ActiveContract WHERE contractId = ?; DELETE FROM ActiveContract WHERE contractId = ?;");
+        PreparedStatement preparedStatement = dBConnection.prepareStatement("UPDATE Contract set state='Expired' WHERE contractID = ?");
         preparedStatement.setInt(1, bean.getContractId());
         preparedStatement.executeUpdate();
         preparedStatement.close();

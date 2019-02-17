@@ -25,7 +25,7 @@ public class Rentable {
     protected List<availabilityPeriod> rentableListAvailability;
 
 
-    public Rentable (int rentableID, String rentableName, String rentableDescription, String rentableImage, List<availabilityPeriod> rentableListAvailability) throws SQLException{
+    protected Rentable (int rentableID, String rentableName, String rentableDescription, String rentableImage, List<availabilityPeriod> rentableListAvailability) throws SQLException{
         this.rentableID = rentableID;
         this.rentableName = rentableName;
         this.rentableDescription = rentableDescription;

@@ -1,19 +1,21 @@
 package it.uniroma2.ispw.fersa.DAO;
 
 import it.uniroma2.ispw.fersa.Bean.contractBean;
+import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
+import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 
 public class contractJDBC implements contractDAO {
 
@@ -26,6 +28,54 @@ public class contractJDBC implements contractDAO {
     }
 
     private contractJDBC(){ }
+
+    @Override
+    public boolean hasBeenOnApt(String nickname, int aptID) throws SQLException, dbConfigMissing, emptyResult {
+
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (IOException e) {
+            throw new dbConfigMissing("");
+        }
+        String query =  "Select contractID from Contract  WHERE tenantNickname = ? and aptToRentId = ?";
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
+        preparedStatement.setString(1, nickname);
+        preparedStatement.setInt(2, aptID);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            resultSet.close();
+            preparedStatement.close();
+            throw new emptyResult("Nessuna risorsa associata al locatore!");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean hasActiveContracts(String nickname) throws SQLException, dbConfigMissing, emptyResult {
+
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (IOException e) {
+            throw new dbConfigMissing("");
+        }
+        String query =  "Select contractID from Contract WHERE tenantNickname = ? or renterNickname = ? and state='Active'";
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
+        preparedStatement.setString(1, nickname);
+        preparedStatement.setString(2, nickname);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            resultSet.close();
+            preparedStatement.close();
+            throw new emptyResult("Nessuna risorsa associata al locatore!");
+        }
+        return true;
+    }
 
 
     @Override

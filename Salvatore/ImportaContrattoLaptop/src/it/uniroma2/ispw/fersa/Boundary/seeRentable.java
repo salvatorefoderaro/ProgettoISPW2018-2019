@@ -127,7 +127,7 @@ public class seeRentable {
                 close.setId("aButton");
 
                 Scene stageScene = new Scene(comp, 500, 200);
-                stageScene.getStylesheets().add(getClass().getResource("makeLogin.css").toExternalForm());
+                stageScene.getStylesheets().add(getClass().getResource("Resource/test.css").toExternalForm());
 
                 newStage.setScene(stageScene);
                 comp.getChildren().addAll(nameField, close);

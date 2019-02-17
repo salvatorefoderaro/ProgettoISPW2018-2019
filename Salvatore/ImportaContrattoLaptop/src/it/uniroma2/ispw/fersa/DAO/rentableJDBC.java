@@ -32,6 +32,33 @@ public class rentableJDBC implements rentableDAO{
     private rentableJDBC(){ }
 
     @Override
+    public List<Integer> getEquippedApartments(String renterNickname) throws SQLException, dbConfigMissing, emptyResult {
+
+        Connection dBConnection = null;
+        try {
+            dBConnection = DriverManager.getConnection(readDBConf.getDBConf("user"));
+        } catch (IOException e) {
+            throw new dbConfigMissing("");
+        }
+        String query =  "Select DISTINCT aptId FROM RentalFeatures JOIN AptToRent on RentalFeatures.aptId = AptToRent.id WHERE AptToRent.renterNickname = ?";
+
+        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
+        preparedStatement.setString(1, renterNickname);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (!resultSet.isBeforeFirst()){
+            resultSet.close();
+            preparedStatement.close();
+            throw new emptyResult("Nessuna risorsa associata al locatore!");
+        }
+        List<Integer> listAvailability = new LinkedList<>();
+        while(resultSet.next()) {
+            listAvailability.add(resultSet.getInt("aptId"));
+        }
+        return listAvailability;
+    }
+
+    @Override
     public List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing {
 
         Connection dBConnection = null;

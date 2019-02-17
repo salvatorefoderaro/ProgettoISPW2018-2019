@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface rentableDAO {
+    List<Integer> getEquippedApartments(String renterNickname) throws SQLException, dbConfigMissing, emptyResult;
+
     List<availabilityPeriodBean> getAvailabilityDateBean(rentableBean bean) throws SQLException, emptyResult, dbConfigMissing;
 
     void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing;
