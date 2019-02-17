@@ -5,7 +5,7 @@ import it.uniroma2.ispw.fersa.rentingManagement.entity.PropertyTypeEnum;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class RentableInfoBean {
+public class RentalInfoBean {
     private String title;
     private BufferedImage image;
     private PropertyTypeEnum type;
@@ -16,7 +16,7 @@ public class RentableInfoBean {
     private List<String> avaiblePeriods;
 
 
-    public RentableInfoBean(String title, BufferedImage image, PropertyTypeEnum type, String rentableDescription, String rentalDescription, int price, int deposit, List<String> avaiblePeriods) {
+    public RentalInfoBean(String title, BufferedImage image, PropertyTypeEnum type, String rentableDescription, String rentalDescription, int price, int deposit, List<String> avaiblePeriods) {
         this.title = title;
         this.image = image;
         this.type = type;

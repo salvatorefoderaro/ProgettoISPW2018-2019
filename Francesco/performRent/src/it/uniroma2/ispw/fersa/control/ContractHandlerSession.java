@@ -10,7 +10,6 @@ import it.uniroma2.ispw.fersa.rentingManagement.entity.EquippedApt;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.Property;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -101,7 +100,7 @@ public abstract class ContractHandlerSession {
             ConfigFileException, IOException {
         EquippedApt apt = EquippedAptDAO.getInstance().getEquippedAptByContractId(this.contract.getContractId());
 
-        Property property = PropertyDAO.getInstance().getRentableByContractId(
+        Property property = PropertyDAO.getInstance().getPropertyByContractId(
                 this.contract.getContractId());
         return new PropertyBean(apt.getAddress(), property.getName(), property.getImage(), property.getType(),
                 property.getDescription());

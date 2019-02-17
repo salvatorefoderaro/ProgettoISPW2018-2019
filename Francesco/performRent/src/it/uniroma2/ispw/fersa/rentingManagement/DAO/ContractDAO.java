@@ -20,7 +20,7 @@ public class ContractDAO {
     }
 
     public void generateContract(ContractBean contractBean) throws SQLException, ClassNotFoundException,
-            ConfigFileException, ConfigException, ConflictException{
+            ConfigFileException, ConfigException, ConflictException, CanceledRequestException{
 
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
@@ -45,12 +45,14 @@ public class ContractDAO {
 
 
             String sql = "SELECT aptId, renterNickname, tenantNickname, aptToRentId, roomToRentId, bedToRentId, type, "
-                    + "contractTypeId, startDate, endDate, price, deposit FROM ContractRequest WHERE id = "
+                    + "contractTypeId, state,startDate, endDate, price, deposit FROM ContractRequest WHERE id = "
                     + contractBean.getContractRequestId().getId();
 
             rs1 = stmt.executeQuery(sql);
 
-            if(!rs1.first()) throw new ConflictException();
+            if(!rs1.first()) throw new SQLException("Errore imprevisto: impossibile recuperare la richiesta dal database");
+
+            if(RequestStateEnum.valueOf(rs1.getString("state")) != RequestStateEnum.INSERTED) throw new CanceledRequestException();
 
 
             //Controllo dei contratti dell'appartamento
@@ -687,13 +689,98 @@ public class ContractDAO {
                 preparedStatement.executeUpdate();
             } while (rs.next());
 
-        } catch (SQLException e) {
-            throw e;
         } finally {
             if (stmt != null) stmt.close();
             if (preparedStatement != null) preparedStatement.close();
             if (rs != null) rs.close();
         }
+    }
+
+    public void cancelContract(ContractId contractId) throws SQLException, ConfigException, ConfigFileException, ClassNotFoundException{
+
+        Connection conn = ConnectionFactory.getInstance().openConnection();
+        Statement stmt = null;
+        ResultSet rs1 = null;
+
+
+        try {
+
+            boolean autocommit = conn.getAutoCommit();
+            int isolation = conn.getTransactionIsolation();
+            conn.setAutoCommit(false);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+
+            String sql = "SELECT state FROM Contract WHERE contractId = " + contractId.getContractId();
+
+
+            rs1 = stmt.executeQuery(sql);
+
+            if(!rs1.first() | ContractStateEnum.valueOf(rs1.getString("state")) != ContractStateEnum.SIGNATURE) return;
+
+            sql = "UPDATE Contract SET state = '" + ContractStateEnum.CANCELED.toString() + "' WHERE contractId = " + contractId.getContractId();
+
+            stmt.executeUpdate(sql);
+
+            conn.commit();
+            conn.setAutoCommit(autocommit);
+            conn.setTransactionIsolation(isolation);
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }  finally {
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                    conn.close();
+                }
+                if (stmt != null) stmt.close();
+                if (rs1 != null) rs1.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public List<ContractId> findNotSignedContract(LocalDate limitDate) throws SQLException, ConfigException, ClassNotFoundException, ConfigFileException {
+
+        List<ContractId> contractIds = new ArrayList<>();
+
+        Connection conn = ConnectionFactory.getInstance().openConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            String sql = "SELECT contractId FROM Contract WHERE state = '" + ContractStateEnum.SIGNATURE + "' AND creationDate <= DATE('"+ limitDate.toString() + "')";
+
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+
+            rs = stmt.executeQuery(sql);
+
+            if (!rs.first()) return contractIds;
+
+            do {
+                contractIds.add(new ContractId(rs.getInt("contractId")));
+            } while (rs.next());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (conn != null) conn.close();
+            if (stmt != null) stmt.close();
+            if (rs != null) rs.close();
+        }
+
+        return contractIds;
     }
 
 

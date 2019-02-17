@@ -2,10 +2,7 @@ package it.uniroma2.ispw.fersa.rentingManagement.DAO;
 
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractRequestBean;
 import it.uniroma2.ispw.fersa.rentingManagement.entity.*;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledRequestException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.ContractPeriodException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -213,7 +210,7 @@ public class ContractRequestDAO {
         return contractRequest;
     }
 
-    public void refuseRequest(ContractRequestId contractRequestId, String declineMotivation) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException {
+    public void refuseRequest(ContractRequestId contractRequestId, String declineMotivation) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, CanceledRequestException {
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
         PreparedStatement preparedStatement = null;
@@ -232,10 +229,8 @@ public class ContractRequestDAO {
             ResultSet rs = stmt.executeQuery(sql);
 
 
-            if(!rs.first() | RequestStateEnum.valueOf(rs.getString("state")) != RequestStateEnum.INSERTED) {
-                conn.rollback();
-                throw new SQLException();
-            }
+            if(!rs.first() || RequestStateEnum.valueOf(rs.getString("state")) != RequestStateEnum.INSERTED) throw new CanceledRequestException();
+
 
             preparedStatement = conn.prepareStatement("UPDATE ContractRequest SET state = ?, declineMotivation = ? WHERE id = " + contractRequestId.getId());
             preparedStatement.setString(1, RequestStateEnum.REFUSUED.toString());
@@ -256,7 +251,10 @@ public class ContractRequestDAO {
             throw e;
         }  finally {
             try {
-                if (conn != null) conn.rollback();
+                if (conn != null) {
+                    conn.rollback();
+                    conn.close();
+                }
                 if (stmt != null) stmt.close();
                 if (preparedStatement != null) preparedStatement.close();
             } catch (SQLException e) {
@@ -265,7 +263,7 @@ public class ContractRequestDAO {
         }
     }
     
-    public void cancelRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, CanceledRequestException {
+    public void cancelRequest(ContractRequestId requestId) throws SQLException, ClassNotFoundException, ConfigFileException, ConfigException, AnsweredRequestException {
         Connection conn = ConnectionFactory.getInstance().openConnection();
         Statement stmt = null;
 
@@ -286,7 +284,7 @@ public class ContractRequestDAO {
 
             if (!rs.first() | RequestStateEnum.valueOf(rs.getString("state")) != RequestStateEnum.INSERTED) {
                 conn.rollback();
-                throw new CanceledRequestException();
+                throw new AnsweredRequestException();
             }
 
             sql = "UPDATE ContractRequest SET state = '" + RequestStateEnum.CANCELED.toString() + "' WHERE id = " + requestId.getId();

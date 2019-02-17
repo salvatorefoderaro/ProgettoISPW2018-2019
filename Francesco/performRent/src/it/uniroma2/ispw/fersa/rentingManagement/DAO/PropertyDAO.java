@@ -21,21 +21,21 @@ public class PropertyDAO {
     private PropertyDAO() {
     }
 
-    public Property getRentableByRentalFeaturesId(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
-      return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM RentalFeatures WHERE id = " + rentalFeaturesId);
+    public Property getPropertyByRentalFeaturesId(int rentalFeaturesId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+      return this.getProperty("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM RentalFeatures WHERE id = " + rentalFeaturesId);
     }
 
-    public Property getRentableByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
-        return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM ContractRequest WHERE id = " + contractRequestId.getId());
-    }
-
-
-    public Property getRentableByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
-        return this.getRentable("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM Contract WHERE contractId = " + contractId.getContractId());
+    public Property getPropertyByContractRequestId(ContractRequestId contractRequestId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+        return this.getProperty("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM ContractRequest WHERE id = " + contractRequestId.getId());
     }
 
 
-    private Property getRentable(String sql) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+    public Property getPropertyByContractId(ContractId contractId) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
+        return this.getProperty("SELECT aptToRentId, roomToRentId, bedToRentId, type FROM Contract WHERE contractId = " + contractId.getContractId());
+    }
+
+
+    private Property getProperty(String sql) throws ConfigFileException, ConfigException, ClassNotFoundException, SQLException, IOException {
         Property property = null;
 
         Connection conn = ConnectionFactory.getInstance().openConnection();

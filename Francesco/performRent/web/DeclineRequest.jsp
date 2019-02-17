@@ -1,7 +1,8 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException" %>
 <%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException" %>
-
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.AnsweredRequestException" %>
+<%@ page import="it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledRequestException" %>
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,7 +18,7 @@
         session.setAttribute("warningMessage", "Non sei loggato");
         response.sendRedirect(response.encodeRedirectURL("index.jsp"));
         return;
-    } else if (sessionRequest.getRenterRequestHandlerSession() == null | !sessionRequest.getRenterRequestHandlerSession().isRequestSelected()) {
+    } else if (sessionRequest.getRenterRequestHandlerSession() == null || !sessionRequest.getRenterRequestHandlerSession().isRequestSelected()) {
 %>
     <jsp:forward page="ContractRequests.jsp"></jsp:forward>
 <%
@@ -33,9 +34,10 @@
         } else {
             try {
                 sessionRequest.getRenterRequestHandlerSession().declineRequest(request.getParameter("declineMotivation"));
-            } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException e) {
+            } catch (SQLException | ClassNotFoundException | ConfigException | ConfigFileException | CanceledRequestException e) {
                 session.setAttribute("warningMessage", e.toString());
                 response.sendRedirect(response.encodeRedirectURL("ContractRequests.jsp"));
+                return;
             }
 
             session.setAttribute("warningMessage", "Operazione completata con successo");

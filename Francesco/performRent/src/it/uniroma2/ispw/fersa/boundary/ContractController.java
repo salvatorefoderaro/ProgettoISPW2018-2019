@@ -119,9 +119,10 @@ public class ContractController {
             case SIGNATURE:
                 Button sign = new Button("Firma");
                 sign.setOnAction(event -> signContract());
-                this.buttons.getChildren().add(sign);
+                Button cancel = new Button("Annulla");
+                cancel.setOnAction(event -> cancelContract());
+                this.buttons.getChildren().addAll(sign, cancel);
                 break;
-            case CANCELED:
             case ACTIVE:
             case EXPIRED:
                 Button seeContract = new Button("Visualizza contratto");
@@ -170,6 +171,17 @@ public class ContractController {
             PopUp.getInstance().showPopUp(this.window, e.toString());
             return;
         }
+    }
+
+    public void cancelContract() {
+        try {
+            this.model.cancelContract();
+            PopUp.getInstance().showPopUp(this.window, "Contratto annullato");
+        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException e) {
+            PopUp.getInstance().showPopUp(this.window, e.toString());
+        }
+        undo();
+
     }
 
     public void seeContract() {

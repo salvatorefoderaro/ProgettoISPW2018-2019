@@ -4,7 +4,7 @@ import it.uniroma2.ispw.fersa.control.TenantRequestHandlerSession;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ContractRequestInfoBean;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.PropertyBean;
 import it.uniroma2.ispw.fersa.rentingManagement.bean.ServiceBean;
-import it.uniroma2.ispw.fersa.rentingManagement.exception.CanceledRequestException;
+import it.uniroma2.ispw.fersa.rentingManagement.exception.AnsweredRequestException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigException;
 import it.uniroma2.ispw.fersa.rentingManagement.exception.ConfigFileException;
 import javafx.embed.swing.SwingFXUtils;
@@ -132,7 +132,7 @@ public class ContractRequestController {
     public void cancelRequest() {
         try {
             this.model.cancelRequest();
-        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException | CanceledRequestException e) {
+        } catch (SQLException | ClassNotFoundException | ConfigFileException | ConfigException | AnsweredRequestException e) {
             PopUp.getInstance().showPopUp(this.window, e.toString());
             undo();
             return;

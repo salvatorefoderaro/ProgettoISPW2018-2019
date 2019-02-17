@@ -125,10 +125,10 @@ public class PerformContractRequestBoundary {
 
     private void setInfo(){
 
-        RentableInfoBean rentableInfoBean = null;
+        RentalInfoBean rentalInfoBean = null;
 
         try {
-            rentableInfoBean = this.control.makeNewRequest();
+            rentalInfoBean = this.control.makeNewRequest();
         } catch (SQLException | ConfigFileException | ConfigException | NotFoundException e) {
             PopUp.getInstance().showPopUp(this.window,e.toString());
             System.exit(1);
@@ -138,15 +138,15 @@ public class PerformContractRequestBoundary {
             PopUp.getInstance().showPopUp(this.window,"Assenza dei driver necessari per accedere al database!");
             System.exit(1);
         }
-        this.propertyTitle.setText(rentableInfoBean.getTitle());
+        this.propertyTitle.setText(rentalInfoBean.getTitle());
 
-        this.propertyImage.setImage(SwingFXUtils.toFXImage( rentableInfoBean.getImage(), null));
+        this.propertyImage.setImage(SwingFXUtils.toFXImage( rentalInfoBean.getImage(), null));
 
-        this.propertyDescription.setText("Tipologia: " + rentableInfoBean.getType().toString() + "\n" + rentableInfoBean.getRentableDescription() + '\n' + rentableInfoBean.getRentalDescription() + '\n' + "Prezzo mensile: " + rentableInfoBean.getPrice() + " €\n" + "Deposito cauzionale: " + rentableInfoBean.getDeposit() + " €");
+        this.propertyDescription.setText("Tipologia: " + rentalInfoBean.getType().toString() + "\n" + rentalInfoBean.getRentableDescription() + '\n' + rentalInfoBean.getRentalDescription() + '\n' + "Prezzo mensile: " + rentalInfoBean.getPrice() + " €\n" + "Deposito cauzionale: " + rentalInfoBean.getDeposit() + " €");
 
         this.propertyDescription.appendText("\nDisponibilità: ");
 
-        rentableInfoBean.getAvaiblePeriods().forEach(period -> this.propertyDescription.appendText(period + " "));
+        rentalInfoBean.getAvaiblePeriods().forEach(period -> this.propertyDescription.appendText(period + " "));
     }
 
 
