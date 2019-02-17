@@ -73,7 +73,13 @@ public class importContract {
         tenant.setTypeUSer(TypeOfUser.TENANT);
 
 
+        if (this.contractType.getValue() == null){
+            popup("Seleziona una tipologia di contratto valida per continuare!", false);
+        }
+
         TypeOfContract selectedContractType = TypeOfContract.typeFromString((String) this.contractType.getValue());
+
+
 
         if (dataInizio.getValue() == null){
             popup("Inserire un valore valido per la data di inizio del contratto!", false);
@@ -145,12 +151,12 @@ public class importContract {
             return;
         }
 
-        contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
-                loggedUser.getNickname(), locatoreNome.getText(), locatarioNome.getText(),
-                locatarioCF.getText(), locatoreCF.getText(), locatoreIndirizzo.getText(),
-                locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false,
-                null, theBean.getType(), Integer.parseInt(contractDeposito.getText()), selectedContractType);
-
+        try {
+            contractBean contract = new contractBean(0, theBean.getID(), false, dataInizio.getValue(), dataFine.getValue(), null, locatarioNickname.getText(),
+                    loggedUser.getNickname(), locatoreNome.getText(), locatarioNome.getText(),
+                    locatarioCF.getText(), locatoreCF.getText(), locatoreIndirizzo.getText(),
+                    locatarioIndirizzo.getText(), locatoreCognome.getText(), locatarioCognome.getText(), 0, Integer.parseInt(contractPrezzo.getText()), 0, false,
+                    null, theBean.getType(), Integer.parseInt(contractDeposito.getText()), selectedContractType);
         try {
             parentController.createContract(contract);
         } catch (SQLException e) {
@@ -162,6 +168,10 @@ public class importContract {
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
             popup(TypeOfMessage.DBCONFIGERROR.getString(), true);
+            return;
+        }
+        } catch(NumberFormatException ex){
+            popup("Inserire un valore numerico corretto per Prezzo e Deposito!", false);
             return;
         }
 
@@ -247,7 +257,7 @@ public class importContract {
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 800, 400);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.LOGIN.getString());
         st.show();

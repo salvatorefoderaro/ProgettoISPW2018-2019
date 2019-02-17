@@ -111,10 +111,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
+              <a class="nav-item nav-link" href="index.jsp">Login</a>
               <a class="nav-item nav-link " href="pannelloUtente.jsp">Pannello utente</a>
               <a class="nav-item nav-link active" href="visualizzaSegnalazioni.jsp">Visualizza segnalazioni  <span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link " href="inoltraSegnalazione.jsp">Inoltra segnalazione</a>
-              <a class="nav-item nav-link" href="index.jsp">Login</a>
           </div>
       </div>
   </nav>

@@ -20,11 +20,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-class JUnity {
-    @Test
-    @DisplayName("it.uniroma2.ispw.fersa.Test Login")
-    void testLogin() throws SQLException, emptyResult {
-        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+class clearDB {
+
+    public void clear_table() throws SQLException, IOException {
+        Connection connection = DriverManager.getConnection(readDBConf.getDBConf("admin"));
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM AvailabilityCalendar");
+        preparedStatement.executeUpdate();
     }
 
     public void insertTable(int type) throws SQLException, IOException {
@@ -36,33 +37,14 @@ class JUnity {
     }
 
     @Test
-    @DisplayName("Populate DB")
-    void populateDB() throws IOException, SQLException {
+    @DisplayName("Clear Database and insert Renting Availability")
+    void clearDatabase() throws SQLException, dbConfigMissing, IOException {
+
+        clear_table();
+
         insertTable(1);
         insertTable(5);
         insertTable(6);
-    }
-
-    @Test
-    @DisplayName("it.uniroma2.ispw.fersa.Test Date")
-    void testDate() throws SQLException, dbConfigMissing, IOException {
-
-        // Codice mezzo funziona
-
-        File fBlob = new File ("src/it/uniroma2/ispw/fersa/DAO/Configuration/test.pdf");
-        byte[] pdfData = new byte[(int) fBlob.length()];
-        DataInputStream dis = new DataInputStream(new FileInputStream(fBlob));
-        dis.readFully(pdfData);  // read from file into byte[] array
-
-
-        Connection   dBConnection = DriverManager.getConnection(readDBConf.getDBConf("admin"));
-
-        String query = "INSERT INTO testFile(name, file) VALUES ('test', ?)";
-
-        PreparedStatement preparedStatement = dBConnection.prepareStatement(query);
-        preparedStatement.setBytes(1, pdfData);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
 
 
     }

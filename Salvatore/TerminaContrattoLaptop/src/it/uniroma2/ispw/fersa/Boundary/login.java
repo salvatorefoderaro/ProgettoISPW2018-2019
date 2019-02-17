@@ -78,6 +78,9 @@ public class login {
             Thread checkPaymentclaimDate = new Thread(new checkPaymentclaimDate());
             checkPaymentclaimDate.start();
 
+            controllerThread.setDaemon(false);
+            checkPaymentclaimDate.setDaemon(false);
+
             this.controller.setTypeOfUSer(user.getUserType());
             if (user.getUserType() == TypeOfUser.RENTER){
                 isRenter();

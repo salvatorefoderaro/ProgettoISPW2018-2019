@@ -238,7 +238,7 @@
         } %>
 
 
-<form ENCTYPE='multipart/form-data' action='importContract.jsp' method='POST'>
+<form action='importContract.jsp' method='POST'>
 
     <div class="row">
         <div class="col-5 .text-center">
@@ -309,7 +309,7 @@
             <input type="number" class="form-control" name="contractDeposito" placeholder="Deposito" required>
         </div>
         <div class="col .text-center" >
-            <select name="contractType">
+            <select name="contractType" required>
                 <option value="Contratto ordinario a canone libero" selected disabled hidden>Seleziona una tipologia di contratto...</option>
                 <option value="Contratto ordinario a canone libero">Contratto ordinario a canone libero</option>
                 <option value="Contratto transitorio">Contratto transitorio</option>

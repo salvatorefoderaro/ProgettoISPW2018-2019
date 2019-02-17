@@ -74,16 +74,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/importContract.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="338" selection-start-line="338" selection-end-line="342" />
+            <state relative-caret-position="89">
+              <caret line="311" column="48" selection-start-line="311" selection-start-column="48" selection-end-line="311" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="297">
@@ -298,6 +298,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -375,7 +376,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -624,6 +624,7 @@
       <workItem from="1550150591503" duration="70000" />
       <workItem from="1550152304768" duration="676000" />
       <workItem from="1550156093225" duration="935000" />
+      <workItem from="1550408446760" duration="854000" />
     </task>
     <servers />
   </component>
@@ -660,12 +661,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137487000" />
+    <option name="totallyTimeSpent" value="138341000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1283" height="741" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20452708" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2077607" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -922,13 +923,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Exceptions/testLogin.java" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Resource/test.css" />
-    <entry file="file://$PROJECT_DIR$/web/importContract.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="338" selection-start-line="338" selection-end-line="342" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -1001,6 +995,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="134" selection-start-line="134" selection-end-line="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/importContract.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="311" column="48" selection-start-line="311" selection-start-column="48" selection-end-line="311" selection-end-column="48" />
         </state>
       </provider>
     </entry>

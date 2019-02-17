@@ -19,11 +19,11 @@ public class checkPaymentclaimDate {
            TimerTask dbTask = new TimerTask() {
                 @Override
                 public void run() {
-                    System.out.println(isActive);
                     try {
+                        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Checking Payment Claim date...");
                         controller.checkPaymentClaimDateScadenza();
                     } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-                        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Comunicazione con il DB assente");
+                        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella lettura dei file di configurazione del Db");
                     } catch (SQLException e) {
                         e.printStackTrace();
                         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella comunicazione con il database");

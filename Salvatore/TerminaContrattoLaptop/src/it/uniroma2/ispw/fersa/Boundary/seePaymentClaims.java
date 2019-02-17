@@ -101,6 +101,7 @@ public void interactWithPaymentClaim(Controller parentController, userSessionBea
                             public void handle(ActionEvent event) {
                                 paymentClaimBean bean = new paymentClaimBean();
                                 bean.setClaimId(paymentClaimBean.getClaimId());
+                                bean.setContractId(paymentClaimBean.getContractId());
                                 try {
                                     claimDeadline.setPaymentClaimPayed(bean);
                                 } catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
@@ -259,7 +260,7 @@ public void interactWithPaymentClaim(Controller parentController, userSessionBea
 
             Scene stageScene = new Scene(comp, 500, 200);
             newStage.setScene(stageScene);
-            stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stageScene.getStylesheets().add(getClass().getResource("Resource/style.css").toExternalForm());
             comp.getChildren().addAll(nameField, close, exit);
             newStage.show();
 

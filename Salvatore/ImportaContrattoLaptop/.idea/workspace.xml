@@ -115,39 +115,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/contractBean.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/Contract">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/test.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="59" column="46" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/testSuite.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
@@ -157,10 +124,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Control/controller.java">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Rentable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
+            <state relative-caret-position="525">
+              <caret line="45" selection-start-line="45" selection-end-line="53" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,10 +136,42 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/afterTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/beforeTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="23" selection-start-line="23" selection-end-line="28" selection-end-column="34" />
+            <state relative-caret-position="345">
+              <caret line="33" selection-start-line="33" selection-end-line="38" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/clearDB.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="39" column="64" selection-start-line="39" selection-end-line="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/importContract.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="536">
+              <caret line="233" column="31" selection-start-line="233" selection-start-column="31" selection-end-line="233" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#9192#9193#0" expanded="true" />
+                <element signature="e#9254#9255#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -180,7 +179,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="135">
               <caret line="14" column="62" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -192,7 +191,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
+            <state relative-caret-position="750">
               <caret line="69" column="46" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -204,7 +203,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/seeRentable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2505">
+            <state relative-caret-position="2085">
               <caret line="185" column="46" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -273,7 +272,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Boundary/loginController.fxml" />
         <option value="$PROJECT_DIR$/src/Boundary/login.fxml" />
         <option value="$PROJECT_DIR$/src/DAO/connectionAdmin.prop" />
         <option value="$PROJECT_DIR$/src/Entity/roomToRent.java" />
@@ -311,7 +309,6 @@
         <option value="$PROJECT_DIR$/src/Test/testUpdateavailability/updateAvailabilityTestSuite.java" />
         <option value="$PROJECT_DIR$/src/Control/controller.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Enum/TypeOfRentable.java" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/JUnity.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/main.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/Configuration/readDBConf.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/test.css" />
@@ -319,11 +316,13 @@
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/seeRentable.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/Resource/importContract.fxml" />
-        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/importContract.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/contractBean.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/beforeTest.java" />
         <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/test.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/JUnity.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/clearDB.java" />
+        <option value="$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/importContract.java" />
       </list>
     </option>
   </component>
@@ -348,7 +347,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -446,6 +444,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -464,10 +463,10 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550174951901" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550409367104" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TerminaContrattoWeb" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -515,7 +514,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.testSuite">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -555,45 +554,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JUnity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ImportaContrattoLaptop" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test" />
-      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.JUnity" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JUnity.populateDB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ImportaContrattoLaptop" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test" />
-      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.JUnity" />
-      <option name="METHOD_NAME" value="populateDB" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -615,6 +575,45 @@
       <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test.testUpdateavailability" />
       <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.testUpdateavailability.beforeTest" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clearDB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImportaContrattoLaptop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.clearDB" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clearDB.populateDB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImportaContrattoLaptop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.uniroma2.ispw.fersa.Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.uniroma2.ispw.fersa.Test" />
+      <option name="MAIN_CLASS_NAME" value="it.uniroma2.ispw.fersa.Test.clearDB" />
+      <option name="METHOD_NAME" value="populateDB" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -684,10 +683,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.clearDB" />
         <item itemvalue="JUnit.testSuite" />
         <item itemvalue="JUnit.beforeTest" />
-        <item itemvalue="JUnit.JUnity.populateDB" />
-        <item itemvalue="JUnit.JUnity" />
+        <item itemvalue="JUnit.clearDB.populateDB" />
         <item itemvalue="JUnit.test.getContract" />
       </list>
     </recent_temporary>
@@ -778,16 +777,14 @@
       <workItem from="1550150319237" duration="2842000" />
       <workItem from="1550165140166" duration="1923000" />
       <workItem from="1550169328609" duration="1295000" />
+      <workItem from="1550247604557" duration="254000" />
+      <workItem from="1550332021731" duration="716000" />
+      <workItem from="1550408328826" duration="1028000" />
+      <workItem from="1550410169541" duration="19000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="JUnity - 2019.02.14 at 10h 55m 11s.xml">
-      <configuration name="JUnity" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JUnity - 2019.02.14 at 10h 57m 47s.xml">
-      <configuration name="JUnity" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="JUnity - 2019.02.14 at 10h 58m 24s.xml">
       <configuration name="JUnity" configurationId="JUnit" />
     </history-entry>
@@ -812,9 +809,15 @@
     <history-entry file="updateAvailabilityTestSuite - 2019.02.14 at 18h 27m 09s.xml">
       <configuration name="updateAvailabilityTestSuite" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="clearDB - 2019.02.16 at 16h 48m 26s.xml">
+      <configuration name="clearDB" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="clearDB - 2019.02.17 at 13h 59m 21s.xml">
+      <configuration name="clearDB" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="167783000" />
+    <option name="totallyTimeSpent" value="169800000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -829,7 +832,7 @@
     <frame x="0" y="27" width="1283" height="741" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7432099" visible="true" weight="0.1196443" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7432099" visible="true" weight="0.22392885" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -974,55 +977,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/FERSA/table/roomToRent">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/BedToRent">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/RoomToRent">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/RentalFeatures">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/AptToRent">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/FERSA/table/avaiabilityCalendar">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/afterTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/FERSA/table/roomToRent" />
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/BedToRent" />
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/RoomToRent" />
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/RentalFeatures" />
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/AptToRent" />
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/FERSA/table/avaiabilityCalendar" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/aptToRent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1075,16 +1035,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Rentable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="45" selection-start-line="45" selection-end-line="53" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/availabilityPeriod.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1126,13 +1076,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/testFile">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/testFile" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/rentableJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="531">
@@ -1140,13 +1084,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/JUnity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="62" column="35" selection-start-line="62" selection-end-line="63" />
         </state>
       </provider>
     </entry>
@@ -1171,16 +1108,6 @@
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/importContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/DAO/contractJDBC.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1220,7 +1147,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Bean/contractBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
+        <state relative-caret-position="465">
           <caret line="37" selection-start-line="37" selection-end-line="37" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1228,16 +1155,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/Contract">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://6aee49d5-ca5b-4ac6-b24d-d32418683fb1/schema/RentingManagement/table/Contract" />
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Control/controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
+        <state relative-caret-position="390">
           <caret line="41" selection-start-line="41" selection-end-line="41" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1245,16 +1166,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="59" column="46" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/testSuite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Entity/Rentable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="45" selection-start-line="45" selection-end-line="53" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/afterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/beforeTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="23" selection-start-line="23" selection-end-line="28" selection-end-column="34" />
+        <state relative-caret-position="345">
+          <caret line="33" selection-start-line="33" selection-end-line="38" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/clearDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="39" column="64" selection-start-line="39" selection-end-line="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="135">
           <caret line="14" column="62" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1264,7 +1226,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
+        <state relative-caret-position="750">
           <caret line="69" column="46" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1274,7 +1236,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/seeRentable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2505">
+        <state relative-caret-position="2085">
           <caret line="185" column="46" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1289,19 +1251,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/testSuite.java">
+    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Boundary/importContract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/uniroma2/ispw/fersa/Test/testUpdateavailability/test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="59" column="46" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="46" />
+        <state relative-caret-position="536">
+          <caret line="233" column="31" selection-start-line="233" selection-start-column="31" selection-end-line="233" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#9192#9193#0" expanded="true" />
+            <element signature="e#9254#9255#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -16,15 +16,16 @@ public class checkPaymentclaimDate implements Runnable {
         while(true){
 
             try {
+                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Checking Payment Claim date...");
                 paymentClaimJDBC.getInstance().checkPaymentClaimDate();
             } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
                 System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella lettura dei file di configurazione del Db");
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Comunicazione con il DB assente");
+                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella comunicazione con il database");
             }
             try {
-                Thread.sleep(60000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

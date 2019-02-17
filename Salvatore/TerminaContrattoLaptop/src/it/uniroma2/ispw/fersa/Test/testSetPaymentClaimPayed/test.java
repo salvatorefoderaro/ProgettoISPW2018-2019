@@ -61,7 +61,7 @@ public class test {
     }
 
     @Test
-    public void getContract() throws IOException, SQLException, transactionError, dbConfigMissing, emptyResult {
+    public void getContract() throws SQLException, transactionError, dbConfigMissing, emptyResult {
 
         paymentClaimBean test = new paymentClaimBean();
         test.setContractId(8);

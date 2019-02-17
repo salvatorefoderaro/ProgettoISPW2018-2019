@@ -12,6 +12,8 @@ import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,8 @@ public class Controller extends Observable implements Runnable {
     public List<paymentClaimBean> getPaymentClaims(userSessionBean bean) throws emptyResult, SQLException, dbConfigMissing {
         List<paymentClaimBean> Result = paymentClaimJDBC.getInstance().getPaymentClaims(bean);
         for (paymentClaimBean temp : Result) {
+            System.out.println("AA" + temp.getContractId());
+
             if (dictionarySegnalazionePagamento.get(temp.getClaimId()) == null){
                 Contract trueContract = null;
                 if (dictionaryContratto.get(temp.getContractId()) == null){
@@ -88,6 +92,8 @@ public class Controller extends Observable implements Runnable {
         paymentClaimBean operationBean = dictionarySegnalazionePagamento.get(bean.getClaimId()).makeBean();
         operationBean.setJDBCcommit(false);
         paymentClaimJDBC.getInstance().setPaymentClaimPayed(operationBean);
+
+        System.out.println(bean.getContractId());
 
         contractBean contractOperation = dictionaryContratto.get(bean.getContractId()).makeBean();
         contractOperation.setJDBCcommit(true);
@@ -148,17 +154,20 @@ public class Controller extends Observable implements Runnable {
     public void run() {
 
         while(true){
+
             try {
+                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Checking notifications...");
                 checkNotifications();
             } catch (SQLException e) {
                 e.printStackTrace();
+                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Errore nella comunicazione con il DB");
             } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
             } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-                dbConfigMissing.printStackTrace();
+                System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " | Configurazione per il DB assente");
             }
 
             try {
-                Thread.sleep(60000);
+                Thread.sleep(12000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

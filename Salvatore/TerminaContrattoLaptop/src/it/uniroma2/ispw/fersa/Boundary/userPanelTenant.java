@@ -48,7 +48,7 @@ private userSessionBean userSession;
         seePaymentClaims controllerGraphic = loader.<seePaymentClaims>getController();
         controllerGraphic.interactWithPaymentClaim(this.controller, this.userSession);
 
-        Scene scene = new Scene(root, 900, 400);
+        Scene scene = new Scene(root, 1000, 400);
         st.setResizable(false);
         st.setScene(scene);
         st.setTitle(TitleOfWindows.SEEPAYMENTCLAIM.getString());

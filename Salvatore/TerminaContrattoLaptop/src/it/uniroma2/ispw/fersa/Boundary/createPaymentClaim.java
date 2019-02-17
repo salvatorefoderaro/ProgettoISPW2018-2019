@@ -162,7 +162,7 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
         close.setId("aButton");
         
         Scene stageScene = new Scene(comp, 500, 200);
-        stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stageScene.getStylesheets().add(getClass().getResource("Resource/style.css").toExternalForm());
         newStage.setScene(stageScene);
         comp.getChildren().addAll(claimDeadlineDate, nameField, close);
         newStage.show();
@@ -250,7 +250,7 @@ public void createPaymentClaim(Controller parentController, userSessionBean bean
       exit.setId("anotherButton");
         
         Scene stageScene = new Scene(comp, 500, 200);
-      stageScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+      stageScene.getStylesheets().add(getClass().getResource("Resource/style.css").toExternalForm());
       newStage.setScene(stageScene);
         comp.getChildren().addAll(nameField, close, exit);
         newStage.show();

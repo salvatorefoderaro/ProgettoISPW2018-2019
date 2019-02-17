@@ -39,7 +39,7 @@
         if (request.getParameter("0") != null) {
 
             bean.setClaimId(Integer.parseInt(request.getParameter("id")));
-
+            bean.setContractId(Integer.parseInt(request.getParameter("contractID")));
 
             try {
                 parentController.setPaymentClaimPayed(bean);
@@ -220,10 +220,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
+        <a class="nav-item nav-link" href="index.jsp">Login</a>
         <a class="nav-item nav-link" href="pannelloUtente.jsp">Pannello utente</a>
         <a class="nav-item nav-link active" href="#">Visualizza segnalazioni  <span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" href="inoltraSegnalazione.jsp">Inoltra segnalazione</a>
-        <a class="nav-item nav-link" href="index.jsp">Login</a>
     </div>
   </div>
 </nav>
@@ -291,6 +291,7 @@
             <% } else { %> 
                     <button name ="0" type="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
                              <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+                            <input type="hidden" name="contractID" value="<%= temp.getContractId() %>">
    
                     <% 
                         }

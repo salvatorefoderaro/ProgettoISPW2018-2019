@@ -14,6 +14,7 @@
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
 <%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Exceptions.alreadyClaimed" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
@@ -83,8 +84,12 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
-            missingConfig.printStackTrace();
             session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            String destination ="index.jsp";
+            response.sendRedirect(response.encodeRedirectURL(destination));
+            return;
+        } catch (it.uniroma2.ispw.fersa.Exceptions.alreadyClaimed alreadyClaimed) {
+            session.setAttribute("warningMessage", "Per il contratto è già presente una segnalazione di pagamento in sospeso!");
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;

@@ -24,33 +24,13 @@
     TypeOfContract selectedContractType = TypeOfContract.typeFromString(request.getParameter("contractType"));
 
     if (request.getParameter("trueImportContract") != null){
-    System.out.println("Ma lo prendo almeno?");
+
     toRent.setTenantnNickname(request.getParameter("tenantNickname"));
     toRent.setEndDateRequest(request.getParameter("endDateRequest"));
     toRent.setStartDateRequest(request.getParameter("startDateRequest"));
 
     LocalDate localStartDate = LocalDate.parse ( request.getParameter("startDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
     LocalDate localEndDate = LocalDate.parse ( request.getParameter("endDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
-
-    // obtains the upload file part in this multipart request
-    Part filePart = request.getPart("contractFile");
-        System.out.println("Ci arrivo?1");
-    InputStream inputStream = filePart.getInputStream();
-        System.out.println("Ci arrivo?2");
-    byte[] buffer = new byte[inputStream.available()];
-        System.out.println("Ci arrivo?3");
-    inputStream.read(buffer);
-        System.out.println("Ci arrivo?4");
-
-    File contractFile = File.createTempFile("prefix-", "-suffix");
-        System.out.println("Ci arrivo?5");
-    OutputStream outStream = new FileOutputStream(contractFile);
-        System.out.println("Ci arrivo?6");
-    outStream.write(buffer);
-        System.out.println("Ci arrivo?7");
-    contractFile.deleteOnExit();
-
-    System.out.println("Ci arrivo?");
 
     if (localEndDate.isBefore(localStartDate)){
         session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
@@ -148,8 +128,7 @@
                 null,
                 toRent.getType(),
                 Integer.parseInt(request.getParameter("contractDeposito")),
-                selectedContractType,
-                contractFile
+                selectedContractType
         );
         }
 
@@ -259,7 +238,7 @@
         } %>
 
 
-<form ENCTYPE='multipart/form-data' action='importContract.jsp' method='POST'>
+<form action='importContract.jsp' method='POST'>
 
     <div class="row">
         <div class="col-5 .text-center">
@@ -337,9 +316,6 @@
                 <option value="Contratto di locazione convenzionato o a canone concordato">Contratto di locazione convenzionato o a canone concordato</option>
                 <option value="Contratto transitorio per studenti">Contratto transitorio per studenti</option>
             </select>
-        </div>
-        <div class="col .text-center" >
-            <input type="file" class="form-control-file" name="contractFile" accept=".pdf" required>
         </div>
     </div>
 

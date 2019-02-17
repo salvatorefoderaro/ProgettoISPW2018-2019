@@ -39,7 +39,7 @@
         if (request.getParameter("0") != null) {
 
             bean.setClaimId(Integer.parseInt(request.getParameter("id")));
-
+            bean.setContractId(Integer.parseInt(request.getParameter("contractID")));
 
             try {
                 parentController.setPaymentClaimPayed(bean);
@@ -291,6 +291,7 @@
             <% } else { %> 
                     <button name ="0" type="submit" class="btn btn-outline-secondary">Conferma pagamento</button>
                              <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
+                            <input type="hidden" name="contractID" value="<%= temp.getContractId() %>">
    
                     <% 
                         }
