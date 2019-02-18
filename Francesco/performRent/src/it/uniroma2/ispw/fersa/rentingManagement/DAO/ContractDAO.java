@@ -615,45 +615,99 @@ public class ContractDAO {
             rs = preparedStatement1.executeQuery();
 
 
-            if (!rs.first()) throw new SQLException("Errore nell'aggiornamento dei periodi di disponibilità: periodo non più disponibile");
+            if (rs.first()) {
 
-            sql = "INSERT INTO AvailabilityCalendar (rentalFeaturesId, startDate, endDate) VALUES (?, ?, ?)";
-            preparedStatement2 = conn.prepareStatement(sql);
+                sql = "INSERT INTO AvailabilityCalendar (rentalFeaturesId, startDate, endDate) VALUES (?, ?, ?)";
+                preparedStatement2 = conn.prepareStatement(sql);
 
-            DateRange dateRange1 = new DateRange(rs.getDate("startDate").toLocalDate(), startDate);
+                DateRange dateRange1 = new DateRange(rs.getDate("startDate").toLocalDate(), startDate);
 
-            if (((int) dateRange1.getNumMonths()) != 0) {
+                if (((int) dateRange1.getNumMonths()) != 0) {
 
-                preparedStatement2.setInt(1, rentalFeaturesId);
-                preparedStatement2.setDate(2, rs.getDate("startDate"));
-                preparedStatement2.setDate(3, Date.valueOf(startDate.minusDays(1)));
+                    preparedStatement2.setInt(1, rentalFeaturesId);
+                    preparedStatement2.setDate(2, rs.getDate("startDate"));
+                    preparedStatement2.setDate(3, Date.valueOf(startDate.minusDays(1)));
 
+                    preparedStatement2.executeUpdate();
+
+                }
+
+                DateRange dateRange2 = new DateRange(endDate, rs.getDate("endDate").toLocalDate());
+
+                if (((int) dateRange2.getNumMonths()) != 0) {
+
+                    preparedStatement2.setInt(1, rentalFeaturesId);
+                    preparedStatement2.setDate(2, Date.valueOf(endDate.plusDays(1)));
+                    preparedStatement2.setDate(3, rs.getDate("endDate"));
+
+                    preparedStatement2.executeUpdate();
+
+                }
+
+
+                sql = "DELETE FROM AvailabilityCalendar WHERE id = " + rs.getInt("id");
+
+                preparedStatement2 = conn.prepareStatement(sql);
                 preparedStatement2.executeUpdate();
 
+                return;
             }
 
-            DateRange dateRange2 = new DateRange(endDate, rs.getDate("endDate").toLocalDate());
+            sql = "SELECT id, startDate, endDate FROM  AvailabilityCalendar WHERE  startDate <= DATE(?) AND endDate >= DATE(?) AND rentalFeaturesId = ?";
+            preparedStatement1 = conn.prepareStatement(sql);
+            preparedStatement1.setString(1, startDate.toString());
+            preparedStatement1.setString(2, startDate.toString());
+            preparedStatement1.setInt(3, rentalFeaturesId);
+            rs = preparedStatement1.executeQuery();
 
-            if (((int) dateRange2.getNumMonths()) != 0) {
+            if (rs.first()) {
+                sql = "INSERT INTO AvailabilityCalendar (rentalFeaturesId, startDate, endDate) VALUES (?, ?, ?)";
+                preparedStatement2 = conn.prepareStatement(sql);
+                DateRange dateRange = new DateRange(rs.getDate("startDate").toLocalDate(), startDate);
 
-                preparedStatement2.setInt(1, rentalFeaturesId);
-                preparedStatement2.setDate(2, Date.valueOf(endDate.plusDays(1)));
-                preparedStatement2.setDate(3, rs.getDate("endDate"));
+                if (((int) dateRange.getNumMonths()) != 0) {
+                    preparedStatement2.setInt(1, rentalFeaturesId);
+                    preparedStatement2.setDate(2, rs.getDate("startDate"));
+                    preparedStatement2.setDate(3, Date.valueOf(startDate.minusDays(1)));
 
+                    preparedStatement2.executeUpdate();
+
+                }
+
+                sql = "DELETE FROM AvailabilityCalendar WHERE id = " + rs.getInt("id");
+
+                preparedStatement2 = conn.prepareStatement(sql);
                 preparedStatement2.executeUpdate();
+                return;
+            }
 
+            sql = "SELECT id, startDate, endDate FROM  AvailabilityCalendar WHERE  startDate <= DATE(?) AND endDate >= DATE(?) AND rentalFeaturesId = ?";
+            preparedStatement1 = conn.prepareStatement(sql);
+            preparedStatement1.setString(1, endDate.toString());
+            preparedStatement1.setString(2, endDate.toString());
+            preparedStatement1.setInt(3, rentalFeaturesId);
+            rs = preparedStatement1.executeQuery();
+
+            if (rs.first()) {
+                sql = "INSERT INTO AvailabilityCalendar (rentalFeaturesId, startDate, endDate) VALUES (?, ?, ?)";
+                preparedStatement2 = conn.prepareStatement(sql);
+                DateRange dateRange = new DateRange(endDate, rs.getDate("endDate").toLocalDate());
+
+                if (((int) dateRange.getNumMonths()) != 0) {
+                    preparedStatement2.setInt(1, rentalFeaturesId);
+                    preparedStatement2.setDate(2, Date.valueOf(endDate.plusDays(1)));
+                    preparedStatement2.setDate(3, rs.getDate("endDate"));
+
+                    preparedStatement2.executeUpdate();
+                }
+
+                sql = "DELETE FROM AvailabilityCalendar WHERE id = " + rs.getInt("id");
+
+                preparedStatement2 = conn.prepareStatement(sql);
+                preparedStatement2.executeUpdate();
             }
 
 
-            sql = "DELETE FROM AvailabilityCalendar WHERE id = " + rs.getInt("id");
-
-            preparedStatement2 = conn.prepareStatement(sql);
-            preparedStatement2.executeUpdate();
-
-            rs.close();
-
-        }catch (SQLException e) {
-            throw e;
         } finally {
             if (stmt != null) stmt.close();
             if (preparedStatement1 != null) preparedStatement1.close();
