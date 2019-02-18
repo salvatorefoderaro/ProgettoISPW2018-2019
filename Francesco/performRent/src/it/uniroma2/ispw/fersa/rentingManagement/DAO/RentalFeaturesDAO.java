@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RentalFeaturesDAO {
 
-    protected static RentalFeaturesDAO rentalFeaturesDAO = new RentalFeaturesDAO();
+    private static RentalFeaturesDAO rentalFeaturesDAO = new RentalFeaturesDAO();
 
 
     protected RentalFeaturesDAO(){

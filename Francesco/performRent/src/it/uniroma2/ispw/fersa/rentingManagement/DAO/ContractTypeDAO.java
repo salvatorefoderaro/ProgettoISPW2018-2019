@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ContractTypeDAO {
 
-    protected static ContractTypeDAO contractTypeDAO = new ContractTypeDAO();
+    private static ContractTypeDAO contractTypeDAO = new ContractTypeDAO();
 
 
     protected ContractTypeDAO() {

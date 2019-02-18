@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDAO {
-    protected static ServiceDAO serviceDAO = new ServiceDAO();
+    private static ServiceDAO serviceDAO = new ServiceDAO();
 
     protected ServiceDAO() {
 

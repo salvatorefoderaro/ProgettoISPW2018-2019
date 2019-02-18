@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContractDAO {
-    protected static ContractDAO contractDAO = new ContractDAO();
+    private static ContractDAO contractDAO = new ContractDAO();
 
     public static ContractDAO getInstance() {
         return contractDAO;
