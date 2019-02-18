@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author root
  */
-public class Rentable {
+public class rentable {
     protected int rentableID;
     protected String rentableName;
     protected String rentableDescription;
@@ -25,7 +25,7 @@ public class Rentable {
     protected List<availabilityPeriod> rentableListAvailability;
 
 
-    protected Rentable (int rentableID, String rentableName, String rentableDescription, String rentableImage, List<availabilityPeriod> rentableListAvailability) throws SQLException{
+    protected rentable(int rentableID, String rentableName, String rentableDescription, String rentableImage, List<availabilityPeriod> rentableListAvailability) throws SQLException{
         this.rentableID = rentableID;
         this.rentableName = rentableName;
         this.rentableDescription = rentableDescription;

@@ -6,16 +6,16 @@
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
 <%@ page import="it.uniroma2.ispw.fersa.Control.controller" %>
 <%@ page import="it.uniroma2.ispw.fersa.Bean.rentableBean" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
 <jsp:useBean id="toRent" scope="session" class="it.uniroma2.ispw.fersa.Bean.rentableBean" />
 
 <%
     if (sessionBean.getNickname() == null){
-        session.setAttribute("warningMessage", TypeOfMessage.NOTLOGGED.getString());
+        session.setAttribute("warningMessage", typeOfMessage.NOTLOGGED.getString());
         String destination ="index.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -27,7 +27,7 @@ if (request.getParameter("importContract") != null) {
     toRent.setName(request.getParameter("rentableName"));
     toRent.setDescription(request.getParameter("rentableDescription"));
     toRent.setImage(request.getParameter("rentableImage"));
-    toRent.setType(TypeOfRentable.fromString(request.getParameter("rentableType")));
+    toRent.setType(typeOfRentable.fromString(request.getParameter("rentableType")));
     toRent.setAptID(Integer.parseInt(request.getParameter("aptID")));
     toRent.setRoomID(Integer.parseInt(request.getParameter("roomID")));
     toRent.setBedID(Integer.parseInt(request.getParameter("bedID")));
@@ -43,7 +43,7 @@ if (request.getParameter("importContract") != null) {
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap-datepicker3.min.css'>
     <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/bootstrap-datepicker.min.js'></script>
-    <title><%=TitleOfWindows.SEERENTABLE.getString() %></title>
+    <title><%=titleOfWindows.SEERENTABLE.getString() %></title>
 </head>
 <body>
 
@@ -115,14 +115,13 @@ if (request.getParameter("importContract") != null) {
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
 
         for (rentableBean temp : test) {
-            System.out.println(temp.getID());
     %>
     <form action="seeRentable.jsp" name="myform" method="POST"><div class="row justify-content-md-center ">
         <div class="col-md">

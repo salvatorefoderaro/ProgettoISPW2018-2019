@@ -5,7 +5,7 @@
  */
 package it.uniroma2.ispw.fersa.Bean;
 
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable;
 
 import java.awt.*;
 import java.util.List;
@@ -22,7 +22,7 @@ public class rentableBean {
     private int ID;
     private String startDateRequest;
     private String endDateRequest;
-    private TypeOfRentable type;
+    private typeOfRentable type;
     private String tenantNickname;
     private int roomID;
     private int aptID;
@@ -53,7 +53,7 @@ public class rentableBean {
     public int getBedID(){ return this.bedID; }
     public String getStartDateAvaliable(){ return this.startDateAvaliable; }
     public String getEndDateAvaliable(){ return this.endDateAvaliable; }
-    public TypeOfRentable getType(){ return this.type; }
+    public typeOfRentable getType(){ return this.type; }
     public String getTenantNickname(){ return this.tenantNickname; }
     public Image getImage1(){ return this.image1; }
     public List<availabilityPeriodBean> getListAvailability(){ return this.listAvailability; }
@@ -70,7 +70,7 @@ public class rentableBean {
     public void setBedID(int bedID){ this.bedID = bedID; }
     public void setStartDateAvaliable(String startDateAvaliable){ this.startDateAvaliable = startDateAvaliable; }
     public void setEndDateAvaliable(String endDateAvaliable){ this.endDateAvaliable = endDateAvaliable; }
-    public void setType(TypeOfRentable type){ this.type = type; }
+    public void setType(typeOfRentable type){ this.type = type; }
     public void setTenantnNickname(String tenantNickname){ this.tenantNickname = tenantNickname; }
     public void setImage1(Image image){ this.image1 = image; }
 }

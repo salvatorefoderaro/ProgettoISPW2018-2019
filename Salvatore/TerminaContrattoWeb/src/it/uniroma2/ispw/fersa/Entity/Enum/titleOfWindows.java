@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TitleOfWindows {
+public enum titleOfWindows {
     CREATEPAYMENTCLAIM ("Crea segnalazione pagamento - Termina contratto - FERSA"),
     LOGIN ("Login - Termina contratto - FERSA"),
     USERPANEL("Pannello utente - Termina contratto - FERSA"),
@@ -9,7 +9,7 @@ public enum TitleOfWindows {
 
     private final String toString;
 
-    TitleOfWindows(String string) {
+    titleOfWindows(String string) {
         this.toString = string;
     }
 

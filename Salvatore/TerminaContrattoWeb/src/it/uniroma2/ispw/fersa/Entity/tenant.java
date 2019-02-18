@@ -6,12 +6,12 @@
 package it.uniroma2.ispw.fersa.Entity;
 
 
-public class Tenant {
+public class tenant {
     private int IDLocatario;
     private String nickname;
     private int SollecitiPagamento;
 
-    public Tenant(int IDLocatario, String nickname, int SollecitiPagamento){
+    public tenant(int IDLocatario, String nickname, int SollecitiPagamento){
         this.IDLocatario = IDLocatario;
         this.nickname = nickname;
         this.SollecitiPagamento = SollecitiPagamento;

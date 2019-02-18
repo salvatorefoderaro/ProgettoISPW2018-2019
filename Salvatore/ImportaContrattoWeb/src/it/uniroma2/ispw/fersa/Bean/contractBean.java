@@ -1,11 +1,10 @@
 package it.uniroma2.ispw.fersa.Bean;
 
-import it.uniroma2.ispw.fersa.Entity.OptionalService;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfContract;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfPayment;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
+import it.uniroma2.ispw.fersa.Entity.optionalService;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfContract;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfPayment;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class contractBean {
     private int rentableId;
     private LocalDate initDate; // importante!
     private LocalDate terminationDate; // importante!
-    private TypeOfPayment paymentMethod; // importante!
+    private typeOfPayment paymentMethod; // importante!
     private String tenantNickname; // importante!
     private String renterNickname;// importante!
     private String tenantCF;
@@ -31,16 +30,16 @@ public class contractBean {
     private int netPrice; // prezzo netto per l'affitto
     private int frequencyOfPayment; // Mesi
     private boolean reported; // Serve per il Termina contratto, se c'è già una segnalazione pendente
-    private List<OptionalService> serviceList; // importante!
-    private TypeOfRentable rentableType;
+    private List<optionalService> serviceList; // importante!
+    private typeOfRentable rentableType;
     private boolean JDBCcommit;
-    private TypeOfContract contractType;
+    private typeOfContract contractType;
 
     public contractBean(int contractId, int rentableId, boolean isExpired, LocalDate initDate, LocalDate terminationDate,
-                        TypeOfPayment paymentMethod, String tenantNickname, String renterNickname, String renterName,
+                        typeOfPayment paymentMethod, String tenantNickname, String renterNickname, String renterName,
                         String tenantName, String tenantCF,
                         String renterCF, String renterAddress, String tenantnAddress, String renterSurname, String tenantSurname, int grossPrice, int netPrice, int frequencyOfPayment, boolean reported,
-                        List<OptionalService> serviceList, TypeOfRentable rentableType, int deposito, TypeOfContract contractType) {
+                        List<optionalService> serviceList, typeOfRentable rentableType, int deposito, typeOfContract contractType) {
 
         this.contractId = contractId;
         this.initDate = initDate;
@@ -90,7 +89,7 @@ public class contractBean {
     public LocalDate getTerminationDate() {
         return terminationDate;
     }
-    public TypeOfPayment getPaymentMethod() {
+    public typeOfPayment getPaymentMethod() {
         return paymentMethod;
     }
     public String getTenantNickname() {
@@ -117,7 +116,7 @@ public class contractBean {
     public boolean isReported() {
         return reported;
     }
-    public TypeOfRentable getRentableType(){ return rentableType; }
-    public TypeOfContract getContractType(){ return contractType; }
+    public typeOfRentable getRentableType(){ return rentableType; }
+    public typeOfContract getContractType(){ return contractType; }
 
 }

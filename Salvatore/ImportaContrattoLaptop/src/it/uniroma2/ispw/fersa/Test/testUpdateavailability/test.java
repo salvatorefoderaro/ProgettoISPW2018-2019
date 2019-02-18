@@ -3,7 +3,7 @@ package it.uniroma2.ispw.fersa.Test.testUpdateavailability;
 import it.uniroma2.ispw.fersa.Bean.rentableBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
@@ -43,7 +43,7 @@ public class test {
 
         testBean.setStartDateRequest("2019-02-01");
         testBean.setEndDateRequest("2019-02-28");
-        testBean.setType(TypeOfRentable.ROOM);
+        testBean.setType(typeOfRentable.ROOM);
         testBean.setID(1);
         testBean.setAptID(1);
 

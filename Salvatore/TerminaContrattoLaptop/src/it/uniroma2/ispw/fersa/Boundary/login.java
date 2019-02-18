@@ -8,7 +8,7 @@ package it.uniroma2.ispw.fersa.Boundary;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TypeOfMessage;
-import it.uniroma2.ispw.fersa.Controller.Controller;
+import it.uniroma2.ispw.fersa.Controller.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -37,7 +37,7 @@ public class login {
     @FXML private TextField nickname;
     @FXML private Button login;
     @FXML private PasswordField password;
-    private Controller controller;
+    private it.uniroma2.ispw.fersa.Controller.controller controller;
     userSessionBean user;
 
 
@@ -56,7 +56,7 @@ public class login {
 
             user = new userSessionBean(nickname.getText(),0, TypeOfUser.NOTLOGGED, 0, password.getText());
 
-            this.controller = new Controller(user);
+            this.controller = new controller(user);
 
 
             try {

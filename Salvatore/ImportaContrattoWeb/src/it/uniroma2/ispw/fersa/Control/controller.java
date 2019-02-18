@@ -2,7 +2,7 @@ package it.uniroma2.ispw.fersa.Control;
 
 import it.uniroma2.ispw.fersa.Bean.*;
 import it.uniroma2.ispw.fersa.Entity.*;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
@@ -44,56 +44,56 @@ public class controller {
                 break;
         }
 
-        // Codic che va eseguito per qualsiasi tipo di Rentable
+        // Codic che va eseguito per qualsiasi tipo di rentable
         bean.setStartDateAvaliable(newAvailability.getStartDate().toString());
         bean.setEndDateAvaliable(newAvailability.getEndDate().toString());
         bean.setStartDateRequest(LocalDate.parse(bean.getStartDateRequest()).minusDays(1).toString());
         bean.setEndDateRequest(LocalDate.parse(bean.getEndDateRequest()).plusDays(1).toString());
 
-        bean.setType(TypeOfRentable.APARTMENT);
+        bean.setType(typeOfRentable.APARTMENT);
         bean.setID(bean.getAptID());
         bean.setJDBCcommit(false);
         rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
         dictionaryAptToRent.get(bean.getAptID()).updateAvailability(bean);
 
         // Codice che va eseguito solamente se ho un Appartamento
-        if (bean.getType() == TypeOfRentable.APARTMENT){
+        if (bean.getType() == typeOfRentable.APARTMENT){
             for(rentableBean tempRoom : rentableJDBC.getInstance().roomListByApartment(bean)){
                 bean.setRoomID(tempRoom.getID());
                 for (rentableBean tempBed: rentableJDBC.getInstance().bedListByRoom(bean)){
                     bean.setID(tempBed.getID());
-                    bean.setType(TypeOfRentable.BED);
+                    bean.setType(typeOfRentable.BED);
                     bean.setJDBCcommit(false);
                     rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                     dictionaryBedToRent.get(bean.getID()).updateAvailability(bean);
                 }
 
                 bean.setID(tempRoom.getRoomID());
-                bean.setType(TypeOfRentable.ROOM);
+                bean.setType(typeOfRentable.ROOM);
                 bean.setJDBCcommit(false);
                 rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                 dictionaryRoomToRent.get(bean.getRoomID()).updateAvailability(bean);
             }
 
         // Codice che va eseguito solamente se ho una Stanza
-        } else if (bean.getType() == TypeOfRentable.ROOM){
+        } else if (bean.getType() == typeOfRentable.ROOM){
             for (rentableBean tempBed : rentableJDBC.getInstance().bedListByRoom(bean)) {
                 bean.setID(tempBed.getID());
-                bean.setType(TypeOfRentable.BED);
+                bean.setType(typeOfRentable.BED);
                 bean.setJDBCcommit(false);
                 rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
                 dictionaryBedToRent.get(bean.getID()).updateAvailability(bean);
             }
 
         // Codice che va eseguito solamente se ho un Letto
-        } else if (bean.getType() == TypeOfRentable.BED){
+        } else if (bean.getType() == typeOfRentable.BED){
             bean.setID(bean.getBedID());
-            bean.setType(TypeOfRentable.BED);
+            bean.setType(typeOfRentable.BED);
             bean.setJDBCcommit(false);
             rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
             dictionaryBedToRent.get(bean.getID()).updateAvailability(bean);
 
-            bean.setType(TypeOfRentable.ROOM);
+            bean.setType(typeOfRentable.ROOM);
             bean.setID(bean.getRoomID());
             bean.setJDBCcommit(false);
             rentableJDBC.getInstance().setNewAvaiabilityDate(bean);
@@ -112,12 +112,12 @@ public class controller {
 
     public List<rentableBean> getRentableFromUser(userBean renterNickname) throws SQLException, emptyResult, dbConfigMissing {
 
-        // Ottengo la lista dei Rentable per ogni singolo utente, non facendo distinzioni in quanto sono tutti quanti dei Rentable it.uniroma2.ispw.fersa.Bean
-        renterNickname.setTypeRequest(TypeOfRentable.ROOM);
+        // Ottengo la lista dei rentable per ogni singolo utente, non facendo distinzioni in quanto sono tutti quanti dei rentable it.uniroma2.ispw.fersa.Bean
+        renterNickname.setTypeRequest(typeOfRentable.ROOM);
         List<rentableBean> rentableList = new ArrayList<>(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
-        renterNickname.setTypeRequest(TypeOfRentable.APARTMENT);
+        renterNickname.setTypeRequest(typeOfRentable.APARTMENT);
         rentableList.addAll(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
-        renterNickname.setTypeRequest(TypeOfRentable.BED);
+        renterNickname.setTypeRequest(typeOfRentable.BED);
         rentableList.addAll(rentableJDBC.getInstance().rentableListByRenter(renterNickname));
 
         if (rentableList.isEmpty()) {
@@ -131,16 +131,16 @@ public class controller {
                 listAvailability.add(new availabilityPeriod(tempPeriod.getStartDate(), tempPeriod.getEndDate()));
             }
 
-            if (TypeOfRentable.BED == temp.getType()) {
+            if (typeOfRentable.BED == temp.getType()) {
                 if (dictionaryBedToRent.get(temp.getID()) == null) {
 
                     bedToRent bed = new bedToRent(temp.getRoomID(), temp.getBedID(), temp.getName(), temp.getDescription(), temp.getImage(), listAvailability);
                     dictionaryBedToRent.put(temp.getID(), bed);
                 }
-            } else if (TypeOfRentable.ROOM == temp.getType()) {
+            } else if (typeOfRentable.ROOM == temp.getType()) {
                 if (dictionaryRoomToRent.get(temp.getID()) == null) {
 
-                    temp.setType(TypeOfRentable.BED);
+                    temp.setType(typeOfRentable.BED);
                     List<rentableBean> bedInRoom = rentableJDBC.getInstance().bedListByRoom(temp);
                     List<bedToRent> trueBedInRoom = new LinkedList<>();
 
@@ -149,12 +149,11 @@ public class controller {
                     }
                     roomToRent room = new roomToRent(temp.getAptID(), temp.getRoomID(), temp.getName(), temp.getDescription(), temp.getImage(), trueBedInRoom, listAvailability);
                     dictionaryRoomToRent.put(temp.getID(), room);
-                    System.out.println(temp.getID());
                 }
             } else {
                 if (dictionaryAptToRent.get(temp.getID()) == null) {
 
-                    temp.setType(TypeOfRentable.ROOM);
+                    temp.setType(typeOfRentable.ROOM);
                     List<rentableBean> roomInApt = rentableJDBC.getInstance().roomListByApartment(temp);
                     List<roomToRent> trueRoomInApt = new LinkedList<>();
 

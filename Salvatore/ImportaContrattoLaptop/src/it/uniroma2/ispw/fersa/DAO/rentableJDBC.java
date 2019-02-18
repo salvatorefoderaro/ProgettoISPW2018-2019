@@ -5,7 +5,7 @@ import it.uniroma2.ispw.fersa.Bean.rentableBean;
 import it.uniroma2.ispw.fersa.Bean.userBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 
@@ -270,7 +270,7 @@ public class rentableJDBC implements rentableDAO{
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));
-            rentable.setType(TypeOfRentable.BED);
+            rentable.setType(typeOfRentable.BED);
             bedListRoom.add(rentable);
         }
         resultSet.close();
@@ -305,7 +305,7 @@ public class rentableJDBC implements rentableDAO{
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));
-            rentable.setType(TypeOfRentable.ROOM);
+            rentable.setType(typeOfRentable.ROOM);
             roomListApartment.add(rentable);
         }
         resultSet.close();

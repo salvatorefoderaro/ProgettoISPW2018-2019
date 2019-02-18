@@ -3,7 +3,7 @@ package it.uniroma2.ispw.fersa.DAO;
 import it.uniroma2.ispw.fersa.Bean.rentableBean;
 import it.uniroma2.ispw.fersa.Bean.userBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 
@@ -45,7 +45,7 @@ public class userJDBC implements userDAO {
             userBean user = new userBean();
             user.setID(resultSet.getInt("id"));
             user.setNickname(resultSet.getString("nickname"));
-            user.setTypeUSer(TypeOfUser.RENTER);
+            user.setTypeUSer(typeOfUser.RENTER);
             resultSet.close();
             preparedStatement.close();
             dBConnection.close();
@@ -78,7 +78,7 @@ public class userJDBC implements userDAO {
             tenant.setID(resultSet.getInt("id"));
             tenant.setNickname(resultSet.getString("nickname"));
             tenant.setClaimNumber(resultSet.getInt("paymentClaim"));
-            tenant.setTypeUSer(TypeOfUser.TENANT);
+            tenant.setTypeUSer(typeOfUser.TENANT);
             resultSet.close();
             preparedStatement.close();
             dBConnection.close();

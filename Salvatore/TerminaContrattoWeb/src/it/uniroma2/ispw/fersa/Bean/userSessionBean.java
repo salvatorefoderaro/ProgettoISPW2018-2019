@@ -1,8 +1,7 @@
 
 package it.uniroma2.ispw.fersa.Bean;
 
-import it.uniroma2.ispw.fersa.Controller.Controller;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser;
 /**
  *
  * @author root
@@ -12,16 +11,16 @@ public class userSessionBean
     // static variable single_instance of userType Singleton
     private String nickname;
     private int id;
-    private TypeOfUser userType;
+    private typeOfUser userType;
     private int paymentClaim;
     private String password;
-    private Controller controller;
+    private it.uniroma2.ispw.fersa.Controller.controller controller;
     private boolean JDBCcommit;
 
     // private constructor restricted to this class itself
     public userSessionBean() {    }
 
-    public userSessionBean(String nickname, int id, TypeOfUser userType, int paymentClaim, String password, Controller controller)
+    public userSessionBean(String nickname, int id, typeOfUser userType, int paymentClaim, String password, it.uniroma2.ispw.fersa.Controller.controller controller)
     {
         this.nickname = nickname;
         this.id = id;
@@ -39,11 +38,11 @@ public class userSessionBean
 
     public void setNickname(String nickname){ this.nickname = nickname; }
 
-    public void setUserType(TypeOfUser userType){ this.userType = userType; }
+    public void setUserType(typeOfUser userType){ this.userType = userType; }
 
-    public Controller getController(){ return this.controller; }
+    public it.uniroma2.ispw.fersa.Controller.controller getController(){ return this.controller; }
 
-    public void setController(Controller controller){ this.controller = controller; }
+    public void setController(it.uniroma2.ispw.fersa.Controller.controller controller){ this.controller = controller; }
     
     public String getNickname(){
         return this.nickname;
@@ -53,7 +52,7 @@ public class userSessionBean
         return this.id;
     }
     
-    public TypeOfUser getUserType(){
+    public typeOfUser getUserType(){
         return this.userType;
     }
 

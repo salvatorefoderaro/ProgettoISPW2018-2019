@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import= "it.uniroma2.ispw.fersa.Controller.Controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Controller.controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser" %>
 <%@ page import="it.uniroma2.ispw.fersa.projectThread.checkPaymentclaimDate" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
@@ -20,9 +20,9 @@
 
 
     if (request.getParameter("login") != null) {
-        userSessionBean login = new userSessionBean(request.getParameter("nickname"), 1, TypeOfUser.NOTLOGGED, 0, request.getParameter("password"), null);
+        userSessionBean login = new userSessionBean(request.getParameter("nickname"), 1, typeOfUser.NOTLOGGED, 0, request.getParameter("password"), null);
         try {
-            Controller controller = new Controller();
+            controller controller = new controller();
             login = controller.login(login);
             sessionBean.setId(login.getId());
             sessionBean.setController(controller);
@@ -40,13 +40,13 @@
             return;
         } catch (SQLException e) {
             e.printStackTrace();
-            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
             missingConfig.printStackTrace();
-            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
@@ -62,7 +62,7 @@
 
 
 
-    <title><%= TitleOfWindows.LOGIN.getString() %></title>
+    <title><%= titleOfWindows.LOGIN.getString() %></title>
              
   </head>
     

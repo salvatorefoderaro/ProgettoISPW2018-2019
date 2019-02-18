@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.projectThread;
 
-import it.uniroma2.ispw.fersa.Controller.Controller;
+import it.uniroma2.ispw.fersa.Controller.controller;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -10,11 +10,11 @@ import java.util.TimerTask;
 
 public class checkPaymentclaimDate {
     private static boolean isActive = false;
-    private static Controller controller;
+    private static it.uniroma2.ispw.fersa.Controller.controller controller;
 
     static public synchronized  void startTask() {
        if( !isActive){
-           controller = new Controller();
+           controller = new controller();
 
            TimerTask dbTask = new TimerTask() {
                 @Override

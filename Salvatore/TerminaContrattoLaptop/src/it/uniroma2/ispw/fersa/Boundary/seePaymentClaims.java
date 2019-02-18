@@ -6,13 +6,10 @@
 package it.uniroma2.ispw.fersa.Boundary;
 
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
-import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.paymentClaimBean;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TypeOfMessage;
-import it.uniroma2.ispw.fersa.Controller.Controller;
-import java.util.Observable;
-import java.util.Observer;
+import it.uniroma2.ispw.fersa.Controller.controller;
 import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,11 +35,11 @@ public class seePaymentClaims {
 @FXML private GridPane gridPane;
 @FXML private ScrollPane scrollPane;
 @FXML private Button userPanelButton;
-private Controller claimDeadline; 
+private controller claimDeadline;
 private userSessionBean userSession = null;
 
 
-public void interactWithPaymentClaim(Controller parentController, userSessionBean session){
+public void interactWithPaymentClaim(controller parentController, userSessionBean session){
 
     this.claimDeadline = parentController;
     userSession = session;
@@ -69,7 +66,7 @@ public void interactWithPaymentClaim(Controller parentController, userSessionBea
             paymentClaimBean paymentClaimBean = paymentClaimList.get(i);
 
             Label element0 = new Label();
-            element0.setText("ID Contract: " + paymentClaimBean.getContractId());
+            element0.setText("ID contract: " + paymentClaimBean.getContractId());
             gridPane.add(element0, 0, i);
 
             Label element1 = new Label();

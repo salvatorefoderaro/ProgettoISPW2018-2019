@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfContract {
+public enum typeOfContract {
     CONTRACT1 ("Contratto ordinario a canone libero", 1, 48, 96),
     CONTRACT2 ("Contratto transitorio", 2, 1, 18),
     CONTRACT3 ("Contratto di locazione convenzionato o a canone concordato", 3, 36,72),
@@ -12,7 +12,7 @@ public enum TypeOfContract {
     public final int minDuration;
     public final int maxDuration;
 
-    TypeOfContract(String type, int ID, int minDuration, int maxDuration) {
+    typeOfContract(String type, int ID, int minDuration, int maxDuration) {
         this.type = type;
         this.ID = ID;
         this.minDuration = minDuration;
@@ -20,7 +20,7 @@ public enum TypeOfContract {
     }
 
     public static int idFromString(String text) {
-        for (TypeOfContract b : TypeOfContract.values()) {
+        for (typeOfContract b : typeOfContract.values()) {
             if (b.type.equalsIgnoreCase(text)) {
                 return b.ID;
             }
@@ -28,8 +28,8 @@ public enum TypeOfContract {
         return 0;
     }
 
-    public static TypeOfContract typeFromString(String text) {
-        for (TypeOfContract b : TypeOfContract.values()) {
+    public static typeOfContract typeFromString(String text) {
+        for (typeOfContract b : typeOfContract.values()) {
             if (b.type.equalsIgnoreCase(text)) {
                 return b;
             }

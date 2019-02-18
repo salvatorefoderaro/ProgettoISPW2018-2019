@@ -3,7 +3,7 @@ package it.uniroma2.ispw.fersa.DAO;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
@@ -43,7 +43,7 @@ public class userJDBC implements userDAO {
         } else {
             userSessionBean loggedUser = null;
             while(resultSet.next()){
-                loggedUser = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), TypeOfUser.getType(resultSet.getString("type")), resultSet.getInt("paymentClaim"), "", null);
+                loggedUser = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), typeOfUser.getType(resultSet.getString("type")), resultSet.getInt("paymentClaim"), "", null);
             }
             resultSet.close();
             preparedStatement.close();
@@ -90,7 +90,7 @@ public class userJDBC implements userDAO {
         ResultSet resultSet = preparedStatement.executeQuery();
         userSessionBean tenant = null;
         while(resultSet.next()){
-            tenant = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), TypeOfUser.TENANT, resultSet.getInt("paymentClaim"), "", null);
+            tenant = new userSessionBean(resultSet.getString("nickname"), resultSet.getInt("id"), typeOfUser.TENANT, resultSet.getInt("paymentClaim"), "", null);
         }
         resultSet.close();
         preparedStatement.close();

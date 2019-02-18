@@ -5,13 +5,12 @@ import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TypeOfMessage;
 import it.uniroma2.ispw.fersa.Control.controller;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfContract;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfContract;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -23,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class importContract {
@@ -70,14 +68,14 @@ public class importContract {
     public void makeImportContract(){
 
         tenant = new userBean();
-        tenant.setTypeUSer(TypeOfUser.TENANT);
+        tenant.setTypeUSer(typeOfUser.TENANT);
 
 
         if (this.contractType.getValue() == null){
             popup("Seleziona una tipologia di contratto valida per continuare!", false);
         }
 
-        TypeOfContract selectedContractType = TypeOfContract.typeFromString((String) this.contractType.getValue());
+        typeOfContract selectedContractType = typeOfContract.typeFromString((String) this.contractType.getValue());
 
 
 

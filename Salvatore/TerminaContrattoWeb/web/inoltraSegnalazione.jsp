@@ -5,22 +5,22 @@
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import= "it.uniroma2.ispw.fersa.Controller.Controller, it.uniroma2.ispw.fersa.Bean.paymentClaimBean" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Controller.controller, it.uniroma2.ispw.fersa.Bean.paymentClaimBean" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.transactionError" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.DateFormat" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.alreadyClaimed" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
 <%
     if (sessionBean.getId() == 0){
-        session.setAttribute("infoMessage", TypeOfMessage.NOTLOGGED.getString());
+        session.setAttribute("infoMessage", typeOfMessage.NOTLOGGED.getString());
         String destination ="index.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -48,11 +48,11 @@
         });
         });
     </script>
-    <title><%= TitleOfWindows.CREATEPAYMENTCLAIM.getString() %></title>
+    <title><%= titleOfWindows.CREATEPAYMENTCLAIM.getString() %></title>
   </head>
 
   <%
-    Controller controllerProva = sessionBean.getController();
+    controller controllerProva = sessionBean.getController();
 
     if (request.getParameter("date") != null) {
             paymentClaimBean bean = new paymentClaimBean();
@@ -64,7 +64,7 @@
         LocalDate localDate = LocalDate.parse (request.getParameter("dataScadenza") , formatter );
 
         if (localDate.isAfter(LocalDate.now().plusWeeks(2)) ){
-            session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
+            session.setAttribute("infoMessage", typeOfMessage.WRONGDATEINTERVAL.getString());
             String destination ="inoltraSegnalazione.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
@@ -74,17 +74,17 @@
             controllerProva.insertNewPaymentClaim(bean);
         } catch (SQLException e) {
             e.printStackTrace();
-            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+            session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+            session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
             String destination ="inoltraSegnalazione.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
-            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
@@ -95,7 +95,7 @@
             return;
         }
 
-        session.setAttribute("successMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        session.setAttribute("successMessage", typeOfMessage.SUCCESSOPERATION.getString());
         String destination ="pannelloUtente.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -123,7 +123,7 @@
               try {
                   listaResult = sessionBean.getController().getContracts(sessionBean);
               } catch (SQLException e) {
-                  session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                  session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
                   String destination ="index.jsp";
                   response.sendRedirect(response.encodeRedirectURL(destination));
                   return;
@@ -134,7 +134,7 @@
                   return;
               } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                   missingConfig.printStackTrace();
-                  session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                  session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
                   String destination ="index.jsp";
                   response.sendRedirect(response.encodeRedirectURL(destination));
                   return;

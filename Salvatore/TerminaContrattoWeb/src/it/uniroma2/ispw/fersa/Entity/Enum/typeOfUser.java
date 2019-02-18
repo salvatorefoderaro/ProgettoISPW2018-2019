@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfUser {
+public enum typeOfUser {
     RENTER ("RENTER"),
     TENANT ("TENANT"),
     NOTLOGGED("")
@@ -8,7 +8,7 @@ public enum TypeOfUser {
 
     private final String shortCode;
 
-    TypeOfUser(String string) {
+    typeOfUser(String string) {
         this.shortCode = string;
     }
 
@@ -16,8 +16,8 @@ public enum TypeOfUser {
         return this.shortCode;
     }
 
-    public static TypeOfUser getType(String value) {
-        for (TypeOfUser type : TypeOfUser.values()) {
+    public static typeOfUser getType(String value) {
+        for (typeOfUser type : typeOfUser.values()) {
             if (type.getString().equals(value)){
                 return type;
             }

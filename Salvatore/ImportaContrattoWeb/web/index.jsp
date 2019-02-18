@@ -5,9 +5,9 @@
 <%@ page import="it.uniroma2.ispw.fersa.Bean.userBean" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.util.TimerTask" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
 <%@ page import="it.uniroma2.ispw.fersa.Control.loginController" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
 
@@ -31,7 +31,7 @@
             e.printStackTrace();
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
-            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBERROR.getString());
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult emptyResult) {
             String destination ="index.jsp";
@@ -39,7 +39,7 @@
             session.setAttribute("infoMessage", "Controllare nome utente e/o password, nessun utente associato!");
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
@@ -57,7 +57,7 @@ return; } %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
-    <title><%= TitleOfWindows.LOGIN.getString() %></title>
+    <title><%= titleOfWindows.LOGIN.getString() %></title>
              
   </head>
   

@@ -11,17 +11,17 @@ import java.sql.SQLException;
  *
  * @author root
  */
-public class PaymentClaim {
+public class paymentClaim {
     private int claimId;
-    private Contract contractId;
+    private contract contractId;
     private String renterNickname;
-    private Tenant tenantNickname;
+    private tenant tenantNickname;
     private int claimNumber;
     private String claimDeadline;
     private int claimState;
     private int claimNotified;
 
-    public PaymentClaim(int claimId, Contract contractId, String renterNickname, Tenant tenantNickname, int claimNumber, String claimDeadline, int claimState, int claimNotified) throws SQLException{
+    public paymentClaim(int claimId, contract contractId, String renterNickname, tenant tenantNickname, int claimNumber, String claimDeadline, int claimState, int claimNotified) throws SQLException{
         this.claimId = claimId;
         this.contractId= contractId;
         this.renterNickname = renterNickname;
@@ -31,15 +31,8 @@ public class PaymentClaim {
         this.claimState = claimState;
         this.claimNotified = claimNotified;
     }
-    
-    public int getClaimId(){ return this.claimId; }
-    public Contract getContract(){ return this.contractId; }
-    public String getRenterNickname(){ return this.renterNickname;}
-    public Tenant getTenantNickname(){ return this.tenantNickname;}
-    public int getClaimNumber(){ return this.claimNumber; }
-    public String getClaimDeadline(){ return this.claimDeadline; }
-    public int getClaimState(){ return this.claimState; }
-    public int getClaimNotified(){ return this.claimNotified; }
+
+    public contract getContract(){ return this.contractId; }
 
     public paymentClaimBean makeBean(){
         paymentClaimBean bean = new paymentClaimBean();
@@ -52,10 +45,4 @@ public class PaymentClaim {
         bean.setClaimNotified(this.claimNotified);
         return bean;
     }
-    
-    public Contract getContratto(){
-        return this.contractId;
-    }
-
-    
 }

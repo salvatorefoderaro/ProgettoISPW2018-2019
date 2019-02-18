@@ -11,12 +11,12 @@ import java.sql.SQLException;
  *
  * @author root
  */
-public class Renter {
+public class renter {
     
     private int IDLocatore;
     private String nickname;
 
-    public Renter(int IDLocatario, String nickname) throws SQLException{
+    public renter(int IDLocatario, String nickname) throws SQLException{
         this.IDLocatore = IDLocatario;
         this.nickname = nickname;
     }

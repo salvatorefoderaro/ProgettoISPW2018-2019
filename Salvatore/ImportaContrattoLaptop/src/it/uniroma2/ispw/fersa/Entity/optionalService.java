@@ -2,12 +2,12 @@ package it.uniroma2.ispw.fersa.Entity;
 
 import java.util.Objects;
 
-public class OptionalService {
+public class optionalService {
     private  String serviceName;
     private String serviceDescription;
     private int servicePrice;
 
-    public OptionalService(String serviceName, String serviceDescription, int servicePrice) {
+    public optionalService(String serviceName, String serviceDescription, int servicePrice) {
         this.serviceName = serviceName;
         this.serviceDescription = serviceDescription;
         this.servicePrice = servicePrice;
@@ -27,7 +27,7 @@ public class OptionalService {
 
     @Override
     public String toString() {
-        return "OptionalService{" +
+        return "optionalService{" +
                 "serviceName='" + serviceName + '\'' +
                 ", serviceDescription='" + serviceDescription + '\'' +
                 ", servicePrice=" + servicePrice +
@@ -38,7 +38,8 @@ public class OptionalService {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        OptionalService service = (OptionalService) object;
+        optionalService service = (optionalService) object;
         return Objects.equals(serviceName, service.serviceName);
     }
+
 }

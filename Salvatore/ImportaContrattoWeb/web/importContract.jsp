@@ -4,9 +4,9 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="it.uniroma2.ispw.fersa.Bean.userBean" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfContract" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfContract" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 <%@ page import="java.io.*" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userBean"/>
@@ -21,7 +21,7 @@
         return;
     }
 
-    TypeOfContract selectedContractType = TypeOfContract.typeFromString(request.getParameter("contractType"));
+    typeOfContract selectedContractType = typeOfContract.typeFromString(request.getParameter("contractType"));
 
     if (request.getParameter("trueImportContract") != null){
 
@@ -33,7 +33,7 @@
     LocalDate localEndDate = LocalDate.parse ( request.getParameter("endDateRequest") , DateTimeFormatter.ofPattern ("yyyy-MM-dd" ) );
 
     if (localEndDate.isBefore(localStartDate)){
-        session.setAttribute("infoMessage", TypeOfMessage.WRONGDATEINTERVAL.getString());
+        session.setAttribute("infoMessage", typeOfMessage.WRONGDATEINTERVAL.getString());
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -57,7 +57,7 @@
         tenant = sessionBean.getController().checkTenantNickname(toRent);
     } catch (SQLException e) {
         e.printStackTrace();
-        session.setAttribute("waningMessage", TypeOfMessage.DBERROR.getString());
+        session.setAttribute("waningMessage", typeOfMessage.DBERROR.getString());
         String destination ="importContract.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -76,13 +76,13 @@
         try {
             sessionBean.getController().setNewAvailabilityCalendar(toRent);
         } catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+            session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (SQLException e) {
             e.printStackTrace();
-            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
@@ -92,7 +92,7 @@
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
@@ -136,24 +136,24 @@
             sessionBean.getController().createContract(contract);
         } catch (SQLException e) {
             e.printStackTrace();
-            session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
         catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-            session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+            session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
             String destination ="importContract.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-            session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+            session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
             String destination ="index.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
             return;
         }
 
-        session.setAttribute("successMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        session.setAttribute("successMessage", typeOfMessage.SUCCESSOPERATION.getString());
         String destination ="seeRentable.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -164,7 +164,7 @@
 
 <html>
 <head>
-    <title><%=TitleOfWindows.IMPORTCONTRACT.getString() %></title>
+    <title><%=titleOfWindows.IMPORTCONTRACT.getString() %></title>
 
     <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/jquery-1.8.3.min.js'></script>
     <link rel='stylesheet' href='${pageContext.request.contextPath}/Resource/bootstrap.min.css'>

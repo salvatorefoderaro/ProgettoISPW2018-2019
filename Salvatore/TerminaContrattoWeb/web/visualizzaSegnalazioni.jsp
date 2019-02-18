@@ -3,19 +3,19 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import= "it.uniroma2.ispw.fersa.Controller.Controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Controller.controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
 <%@ page import="it.uniroma2.ispw.fersa.Bean.paymentClaimBean" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.transactionError" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 
 <jsp:useBean id="sessionBean" scope="session" class="it.uniroma2.ispw.fersa.Bean.userSessionBean"/>
 
 <%
     if (sessionBean.getId() == 0){
-    session.setAttribute("infoMessage", TypeOfMessage.NOTLOGGED.getString());
+    session.setAttribute("infoMessage", typeOfMessage.NOTLOGGED.getString());
     String destination ="index.jsp";
     response.sendRedirect(response.encodeRedirectURL(destination));
     return;
@@ -30,10 +30,10 @@
 
 
 
-      <title><%= TitleOfWindows.SEEPAYMENTCLAIM.getString() %></title>
+      <title><%= titleOfWindows.SEEPAYMENTCLAIM.getString() %></title>
              
   </head>
-  <% Controller parentController = sessionBean.getController();
+  <% controller parentController = sessionBean.getController();
         paymentClaimBean bean = new paymentClaimBean();
         
         if (request.getParameter("0") != null) {
@@ -45,25 +45,25 @@
                 parentController.setPaymentClaimPayed(bean);
             } catch (SQLException e) {
                 e.printStackTrace();
-                session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
                 String destination = "index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             } catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-                session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
                 String destination = "index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                 missingConfig.printStackTrace();
-                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
             String destination = "visualizzaSegnalazioni.jsp";
             response.sendRedirect(response.encodeRedirectURL(destination));
-            session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+            session.setAttribute("infoMessage", typeOfMessage.SUCCESSOPERATION.getString());
             return;
         }
         
@@ -75,26 +75,26 @@
                 parentController.incrementPaymentClaim(bean);
             } catch (SQLException e) {
                 e.printStackTrace();
-                session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
             catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-                session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                 missingConfig.printStackTrace();
-                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
         String destination ="visualizzaSegnalazioni.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
-        session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        session.setAttribute("infoMessage", typeOfMessage.SUCCESSOPERATION.getString());
         return;
     }
 
@@ -106,26 +106,26 @@
                 parentController.setContractAchieved(bean);
             } catch (SQLException e) {
                 e.printStackTrace();
-                session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
             catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-                session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                 missingConfig.printStackTrace();
-                session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
                 String destination ="index.jsp";
                 response.sendRedirect(response.encodeRedirectURL(destination));
                 return;
             }
         String destination ="visualizzaSegnalazioni.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
-        session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+        session.setAttribute("infoMessage", typeOfMessage.SUCCESSOPERATION.getString());
         return;
     }
     
@@ -136,26 +136,26 @@
                parentController.setPaymentClaimNotified(bean);
           } catch (SQLException e) {
               e.printStackTrace();
-              session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+              session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
               String destination ="index.jsp";
               response.sendRedirect(response.encodeRedirectURL(destination));
               return;
           }
           catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-              session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+              session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
               String destination ="index.jsp";
               response.sendRedirect(response.encodeRedirectURL(destination));
               return;
           } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
               missingConfig.printStackTrace();
-              session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+              session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
               String destination ="index.jsp";
               response.sendRedirect(response.encodeRedirectURL(destination));
               return;
           }
        String destination ="visualizzaSegnalazioni.jsp";
        response.sendRedirect(response.encodeRedirectURL(destination));
-       session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+       session.setAttribute("infoMessage", typeOfMessage.SUCCESSOPERATION.getString());
        return;
    }
         
@@ -165,31 +165,30 @@
                    parentController.setPaymentClaimPayed(bean);
                } catch (SQLException e) {
                    e.printStackTrace();
-                   session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+                   session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
                    String destination ="index.jsp";
                    response.sendRedirect(response.encodeRedirectURL(destination));
                    return;
                }
                catch (it.uniroma2.ispw.fersa.Exceptions.transactionError transactionError) {
-                   session.setAttribute("infoMessage", TypeOfMessage.TRANSATIONERROR.getString());
+                   session.setAttribute("infoMessage", typeOfMessage.TRANSATIONERROR.getString());
                    String destination ="index.jsp";
                    response.sendRedirect(response.encodeRedirectURL(destination));
                    return;
                } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
                    missingConfig.printStackTrace();
-                   session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                   session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
                    String destination ="index.jsp";
                    response.sendRedirect(response.encodeRedirectURL(destination));
                    return;
                }
            String destination ="visualizzaSegnalazioni.jsp";
            response.sendRedirect(response.encodeRedirectURL(destination));
-           session.setAttribute("infoMessage", TypeOfMessage.SUCCESSOPERATION.getString());
+           session.setAttribute("infoMessage", typeOfMessage.SUCCESSOPERATION.getString());
            return;
        }
 
     List<paymentClaimBean> listaResult = null;
-    List<Integer> IDSegnalazioni = new LinkedList<>();
 
       try {
           listaResult = parentController.getPaymentClaims(sessionBean);
@@ -199,12 +198,12 @@
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
       } catch (SQLException e) {
-          session.setAttribute("infoMessage", TypeOfMessage.DBERROR.getString());
+          session.setAttribute("infoMessage", typeOfMessage.DBERROR.getString());
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
       } catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing missingConfig) {
-          session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+          session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
           String destination ="index.jsp";
           response.sendRedirect(response.encodeRedirectURL(destination));
           return;
@@ -285,7 +284,7 @@
         <%
             switch(temp.getClaimState()){
                 case 0: 
-                    if(sessionBean.getUserType() == TypeOfUser.RENTER){
+                    if(sessionBean.getUserType() == typeOfUser.RENTER){
 %>
                     <button type="button" class="btn btn-outline-secondary" disabled>In attesa del locatario</button>
             <% } else { %> 
@@ -298,7 +297,7 @@
                     break;
                 
                 case 1:
-                if(sessionBean.getUserType() == TypeOfUser.RENTER){
+                if(sessionBean.getUserType() == typeOfUser.RENTER){
                 %>
         <input name = "1" type="submit" class="btn btn-info" value="Reinoltra segnalazione">
         <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
@@ -311,7 +310,7 @@
                     break;
                     
                 case 2:                        
-                if(sessionBean.getUserType() == TypeOfUser.RENTER){
+                if(sessionBean.getUserType() == typeOfUser.RENTER){
                     %> 
         <input name = "2" type="submit" class="btn btn-info" value="Archivia contratto">
         <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
@@ -323,7 +322,7 @@
                     
                 case 3:
 
-                   if(sessionBean.getUserType() == TypeOfUser.RENTER){
+                   if(sessionBean.getUserType() == typeOfUser.RENTER){
 
 
 
@@ -338,7 +337,7 @@
             
         case 4:
 
-        if(sessionBean.getUserType() == TypeOfUser.RENTER){ %>
+        if(sessionBean.getUserType() == typeOfUser.RENTER){ %>
                             <button type="submit" name="4" class="btn btn-outline-secondary">Archivia notifica</button>
                              <input type="hidden" id="custId" name="id" value="<%= temp.getClaimId() %>">
 

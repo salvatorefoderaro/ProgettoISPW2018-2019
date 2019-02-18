@@ -1,13 +1,13 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfUser {
+public enum typeOfUser {
     RENTER ("renter"),
     TENANT ("tenant"),
     ;
 
     private final String type;
 
-    TypeOfUser(String type) {
+    typeOfUser(String type) {
         this.type = type;
     }
 

@@ -1,14 +1,13 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfRentable {
-    APARTMENT ("APTTORENT"),
-    BED ("BEDTORENT"),
-    ROOM ("ROOMTORENT")
+public enum typeOfUser {
+    RENTER ("RENTER"),
+    TENANT ("TENANT"),
     ;
 
     private final String shortCode;
 
-    TypeOfRentable(String code) {
+    typeOfUser(String code) {
         this.shortCode = code;
     }
 

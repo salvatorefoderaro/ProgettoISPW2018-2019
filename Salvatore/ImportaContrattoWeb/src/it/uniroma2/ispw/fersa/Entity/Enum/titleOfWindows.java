@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TitleOfWindows {
+public enum titleOfWindows {
     IMPORTCONTRACT ("Importa contratto - Importa contratto - FERSA"),
     LOGIN ("Login - Importa contratto - FERSA"),
     SEERENTABLE("Visualizza risorse affittabili - Importa contratto - FERSA")
@@ -8,7 +8,7 @@ public enum TitleOfWindows {
 
     private final String toString;
 
-    TitleOfWindows(String string) {
+    titleOfWindows(String string) {
         this.toString = string;
     }
 

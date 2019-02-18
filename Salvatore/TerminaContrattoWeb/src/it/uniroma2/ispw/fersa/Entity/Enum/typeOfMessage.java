@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfMessage {
+public enum typeOfMessage {
     DBERROR ("Errore nella comunicazione con il database!"),
     TRANSATIONERROR ("Errore nell'esecuzione della richiesta!"),
     NOTLOGGED("Effettua l'accesso prima di continuare!"),
@@ -11,7 +11,7 @@ public enum TypeOfMessage {
 
     private final String toString;
 
-    TypeOfMessage(String string) {
+    typeOfMessage(String string) {
         this.toString = string;
     }
 
@@ -19,8 +19,8 @@ public enum TypeOfMessage {
         return this.toString;
     }
 
-    public static TypeOfMessage getType(String value) {
-        for (TypeOfMessage type : values()) {
+    public static typeOfMessage getType(String value) {
+        for (typeOfMessage type : typeOfMessage.values()) {
             if (type.getString().equals(value)){
                 return type;
             }

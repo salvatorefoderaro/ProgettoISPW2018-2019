@@ -1,15 +1,15 @@
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import= "it.uniroma2.ispw.fersa.Controller.Controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser" %>
+<%@ page import= "it.uniroma2.ispw.fersa.Controller.controller, it.uniroma2.ispw.fersa.Bean.userSessionBean" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser" %>
 <%@ page import="java.util.TimerTask" %>
 <%@ page import="java.util.Timer" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TypeOfMessage" %>
-<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.TitleOfWindows" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.typeOfMessage" %>
+<%@ page import="it.uniroma2.ispw.fersa.Entity.Enum.titleOfWindows" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing" %>
 <%@ page import="it.uniroma2.ispw.fersa.Exceptions.emptyResult" %>
 
@@ -23,7 +23,7 @@
     TimerTask task = new TimerTask() {
         public void run() {
             try {
-                it.uniroma2.ispw.fersa.Controller controller = new it.uniroma2.ispw.fersa.Controller();
+                it.uniroma2.ispw.fersa.controller controller = new it.uniroma2.ispw.fersa.controller();
                 controller.checkPaymentClaimDateScadenza();
             } catch (SQLException e) {
                 System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " - Errore nella connessione al database");
@@ -33,7 +33,7 @@
     timer.scheduleAtFixedRate(task, initialDelay, period);
 */
     if (sessionBean.getId() == 0){
-        session.setAttribute("infoMessage", TypeOfMessage.NOTLOGGED.getString());
+        session.setAttribute("infoMessage", typeOfMessage.NOTLOGGED.getString());
         String destination ="index.jsp";
         response.sendRedirect(response.encodeRedirectURL(destination));
         return;
@@ -51,7 +51,7 @@
       <script type='text/javascript' src='${pageContext.request.contextPath}/Resource/bootstrap-datepicker.min.js'></script>
 
 
-      <title><%= TitleOfWindows.USERPANEL.getString() %></title>
+      <title><%= titleOfWindows.USERPANEL.getString() %></title>
              
   </head>
   <body>
@@ -118,7 +118,7 @@
 
     <h4>Bentornato <%= sessionBean.getNickname() %></h4>
 
-        <% if(sessionBean.getUserType() == TypeOfUser.RENTER){  %>
+        <% if(sessionBean.getUserType() == typeOfUser.RENTER){  %>
         <a href="inoltraSegnalazione.jsp"><button type="sumbit" name="Locatore" class="btn btn-primary btn-lg">Inoltra segnalazione</button></a>
         <% } %>
 
@@ -130,20 +130,18 @@
                     counter = sessionBean.getController().getPaymentClaimNumber(sessionBean).getNotificationNumber();
                     %><span class="badge badge-light"><%= counter%></span><%
                 }catch (it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing dbConfigMissing) {
-                    System.out.println("Entro in errore1?");
-                    session.setAttribute("warningMessage", TypeOfMessage.DBCONFIGERROR.getString());
+                    session.setAttribute("warningMessage", typeOfMessage.DBCONFIGERROR.getString());
                     String destination ="index.jsp";
                     response.sendRedirect(response.encodeRedirectURL(destination));
                     return;
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    System.out.println("Entro in errore?2");
-                    session.setAttribute("warningMessage", TypeOfMessage.DBERROR.getString());
+                    session.setAttribute("warningMessage", typeOfMessage.DBERROR.getString());
                     String destination ="index.jsp";
                     response.sendRedirect(response.encodeRedirectURL(destination));
                     return;
                 } catch (it.uniroma2.ispw.fersa.Exceptions.emptyResult ignored) {
-                    System.out.println("Entro in errore?3");
+
                 }                   %>
             </button>
         </a>

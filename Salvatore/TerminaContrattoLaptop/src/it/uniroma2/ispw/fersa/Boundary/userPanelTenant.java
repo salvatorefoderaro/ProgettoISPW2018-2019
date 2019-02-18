@@ -8,7 +8,6 @@ package it.uniroma2.ispw.fersa.Boundary;
 import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
-import it.uniroma2.ispw.fersa.Controller.Controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +24,12 @@ import java.util.Observer;
 
 public class userPanelTenant implements Observer {
     
-private Controller controller;
+private it.uniroma2.ispw.fersa.Controller.controller controller;
 @FXML private Button seePaymentClaimButton;
 @FXML private Label welcomeText;
 private userSessionBean userSession;
 
-    public void initialize(Controller parentController, userSessionBean session){
+    public void initialize(it.uniroma2.ispw.fersa.Controller.controller parentController, userSessionBean session){
         userSession = session;
         this.controller = parentController;
         this.controller.addObserver(this);

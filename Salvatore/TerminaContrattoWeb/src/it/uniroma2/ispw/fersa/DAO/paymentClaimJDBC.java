@@ -8,7 +8,7 @@ import java.util.List;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.DAO.Configuration.readDBConf;
 import it.uniroma2.ispw.fersa.DAO.Configuration.transactionConnection;
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfUser;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfUser;
 import it.uniroma2.ispw.fersa.Exceptions.dbConfigMissing;
 import it.uniroma2.ispw.fersa.Exceptions.emptyResult;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
@@ -37,7 +37,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
 
         String query;
 
-        if (TypeOfUser.TENANT == bean.getUserType()){
+        if (typeOfUser.TENANT == bean.getUserType()){
             query = "SELECT COUNT(*) as Number FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Claim.claimNotified = 0 and (Claim.claimState = 0 or Claim.claimState = 3)";
         } else {
             query = "SELECT COUNT(*) as Number FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Claim.claimNotified = 0 and (Claim.claimState = 1 or Claim.claimState = 2 or Claim.claimState = 4)";
@@ -74,7 +74,7 @@ public class paymentClaimJDBC implements paymentClaimDAO {
         List<paymentClaimBean> claimsList = new LinkedList<>();
         String query;
 
-        if (TypeOfUser.TENANT == bean.getUserType()){
+        if (typeOfUser.TENANT == bean.getUserType()){
             query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and tenantNickname= ?  and Claim.claimNotified = 0";
         } else {
             query = "SELECT Claim.id, Claim.contractID, Claim.claimNumber, Claim.claimDeadline, Claim.claimState, Claim.claimNotified, Contract.tenantNickname, Contract.renterNickname FROM PaymentClaim as Claim JOIN Contract ON Claim.contractID = Contract.contractID and renterNickname= ?  and Claim.claimNotified = 0";

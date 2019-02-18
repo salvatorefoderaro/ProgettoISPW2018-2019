@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author root
  */
-public class bedToRent extends Rentable {
+public class bedToRent extends rentable {
     
     private int roomID;
 

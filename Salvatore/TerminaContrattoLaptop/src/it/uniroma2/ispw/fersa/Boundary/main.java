@@ -2,7 +2,7 @@ package it.uniroma2.ispw.fersa.Boundary;
 
 
 import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
-import it.uniroma2.ispw.fersa.Controller.Controller;
+import it.uniroma2.ispw.fersa.Controller.controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class main extends Application {
     
-    Controller controllerProva;
+    controller controllerProva;
     
     @Override
     public void start(Stage primaryStage) throws Exception{

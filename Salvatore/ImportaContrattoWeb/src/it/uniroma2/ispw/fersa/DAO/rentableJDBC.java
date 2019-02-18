@@ -14,7 +14,7 @@ import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.uniroma2.ispw.fersa.Entity.Enum.TypeOfRentable;
+import it.uniroma2.ispw.fersa.Entity.Enum.typeOfRentable;
 import it.uniroma2.ispw.fersa.Exceptions.transactionError;
 
 public class rentableJDBC implements  rentableDAO{
@@ -81,8 +81,7 @@ public class rentableJDBC implements  rentableDAO{
     public void setNewAvaiabilityDate(rentableBean bean) throws SQLException, transactionError, dbConfigMissing {
 
         Connection connection = transactionConnection.getConnection();
-        System.out.println("L'ID nel dAO è: " + bean.getID());
-        
+
         String query1 = null;
         String query2 = null;
         String query3 = null;
@@ -238,7 +237,7 @@ public class rentableJDBC implements  rentableDAO{
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));
-            rentable.setType(TypeOfRentable.BED);
+            rentable.setType(typeOfRentable.BED);
             bedListRoom.add(rentable);
         }
         resultSet.close();
@@ -273,7 +272,7 @@ public class rentableJDBC implements  rentableDAO{
             rentable.setName(resultSet.getString("name"));
             rentable.setDescription(resultSet.getString("description"));
             rentable.setImage(resultSet.getString("image"));
-            rentable.setType(TypeOfRentable.ROOM);
+            rentable.setType(typeOfRentable.ROOM);
             roomListApartment.add(rentable);
         }
         resultSet.close();

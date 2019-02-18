@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfRentable {
+public enum typeOfRentable {
     APARTMENT ("APTTORENT"),
     BED ("BEDTORENT"),
     ROOM ("ROOMTORENT")
@@ -8,12 +8,12 @@ public enum TypeOfRentable {
 
     private final String type;
 
-    TypeOfRentable(String type) {
+    typeOfRentable(String type) {
         this.type = type;
     }
 
-    public static TypeOfRentable fromString(String text) {
-        for (TypeOfRentable b : values()) {
+    public static typeOfRentable fromString(String text) {
+        for (typeOfRentable b : values()) {
             if (b.type.equalsIgnoreCase(text)) {
                 return b;
             }

@@ -8,9 +8,6 @@ package it.uniroma2.ispw.fersa.Boundary;
 import it.uniroma2.ispw.fersa.Bean.notificationBean;
 import it.uniroma2.ispw.fersa.Bean.userSessionBean;
 import it.uniroma2.ispw.fersa.Boundary.Enum.TitleOfWindows;
-import it.uniroma2.ispw.fersa.Controller.Controller;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.application.Platform;
@@ -19,8 +16,6 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,12 +24,12 @@ import javafx.scene.layout.Pane;
 
 public class userPanelRenter implements Observer {
     
-private Controller controller;
+private it.uniroma2.ispw.fersa.Controller.controller controller;
 @FXML private Button seePaymentClaimButton;
 @FXML private Label welcomeText;
 private userSessionBean userSession;
 
-    public void initialize(Controller parentController, userSessionBean session){
+    public void initialize(it.uniroma2.ispw.fersa.Controller.controller parentController, userSessionBean session){
         userSession = session;
         this.controller = parentController;    
         welcomeText.setText("Bentornato " + this.userSession.getNickname());

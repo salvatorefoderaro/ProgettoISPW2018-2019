@@ -1,18 +1,18 @@
 package it.uniroma2.ispw.fersa.Entity.Enum;
 
-public enum TypeOfPayment {
+public enum typeOfPayment {
     CREDIT_CARD(0),
     VISA(1),
     PAYPAL(2),
     WIRE_TRANSFER(3);
 
     private int value;
-    TypeOfPayment(int value){
+    typeOfPayment(int value){
         this.value = value;
     }
 
-    public static TypeOfPayment valueOf(int inVal){
-        for (TypeOfPayment type : values())
+    public static typeOfPayment valueOf(int inVal){
+        for (typeOfPayment type : values())
             if (type.getValue() == inVal )
                 return type;
         return null;
