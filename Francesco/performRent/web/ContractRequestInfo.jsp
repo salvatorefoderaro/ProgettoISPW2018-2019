@@ -106,7 +106,6 @@
         <%
             switch(contractRequestInfoBean.getState()) {
                 case INSERTED:
-                    System.out.println("Prova");
         %>
             <div class="col-sm">
                 <form action="ContractRequests.jsp" method="get" style="display: inline">
