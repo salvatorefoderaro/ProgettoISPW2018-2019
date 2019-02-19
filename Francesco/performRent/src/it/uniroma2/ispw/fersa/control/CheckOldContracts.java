@@ -12,8 +12,20 @@ import java.util.concurrent.TimeUnit;
 
 public class CheckOldContracts implements Runnable {
 
+    private int period = 1;
+
+    public CheckOldContracts() { }
+
+    public CheckOldContracts(int period) {
+        this.period = period;
+    }
+
+
+
     @Override
     public void run() {
+
+        System.out.println("Numero di giorni: " + this.period);
         while (true) {
             System.out.println("Start checking...");
             try {
@@ -30,7 +42,7 @@ public class CheckOldContracts implements Runnable {
             }
             try {
                 System.out.println("Going to sleep...");
-                TimeUnit.DAYS.sleep(1);
+                TimeUnit.DAYS.sleep(this.period);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

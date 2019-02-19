@@ -10,6 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 public class Main extends Application {
 
     @Override
@@ -27,7 +32,23 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        (new Thread(new CheckOldContracts())).start();
+
+
+        try {
+            BufferedReader config = new BufferedReader(new FileReader("./config/thread.config"));
+
+            Properties properties = new Properties();
+            properties.load(config);
+
+            int period = Integer.parseInt(properties.getProperty("period"));
+
+            (new Thread(new CheckOldContracts(period))).start();
+
+        } catch (IOException | NumberFormatException e) {
+            (new Thread(new CheckOldContracts())).start();
+            e.printStackTrace();
+        }
+
         launch(args);
     }
 }
